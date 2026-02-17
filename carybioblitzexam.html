@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<!-- saved from url=(0224)file:///Users/mrawson/Library/Application%20Support/Claude/local-agent-mode-sessions/7029e3d7-df77-4295-9b01-539a0892cbe8/38d95be7-eda6-416d-a370-9bdcd898aa60/local_3da16795-0738-46e6-bd7f-f067308c83ec/outputs/study-app.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧬 BioBlitz - Exam Cram!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --primary: #6C5CE7;
+    --primary-light: #A29BFE;
+    --secondary: #00CEC9;
+    --accent: #FD79A8;
+    --warning: #FDCB6E;
+    --success: #00B894;
+    --danger: #E17055;
+    --dark: #2D3436;
+    --bg: #0F0F1A;
+    --card: #1A1A2E;
+    --card2: #16213E;
+    --text: #F0F0F0;
+    --text-dim: #A0A0B0;
+    --glow: rgba(108, 92, 231, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(108,92,231,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0,206,201,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(253,121,168,0.05) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(26,26,46,0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(108,92,231,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 1.3em;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  .stat-icon { font-size: 1.1em; }
+
+  .streak-fire { color: #FF6B6B; animation: firePulse 0.5s ease-in-out infinite alternate; }
+  @keyframes firePulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+
+  .xp-count { color: var(--warning); }
+  .level-badge {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+
+  .lang-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 6px 14px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8em;
+    transition: all 0.3s;
+  }
+
+  .lang-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* XP Progress bar */
+  .xp-bar-container {
+    width: 100%;
+    padding: 0 20px 8px;
+    background: rgba(26,26,46,0.9);
+  }
+
+  .xp-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px var(--primary);
+  }
+
+  /* Main container */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Nav tabs */
+  .nav-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .nav-tab {
+    padding: 10px 18px;
+    border: 2px solid rgba(108,92,231,0.3);
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85em;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .nav-tab:hover { border-color: var(--primary); color: var(--text); }
+  .nav-tab.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(108,92,231,0.4);
+  }
+
+  /* Section styling */
+  .section { display: none; animation: fadeIn 0.4s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Flashcard */
+  .flashcard-container {
+    perspective: 1000px;
+    margin: 20px 0;
+    cursor: pointer;
+  }
+
+  .flashcard {
+    width: 100%;
+    min-height: 250px;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    min-height: 250px;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-front {
+    background: linear-gradient(135deg, var(--card2), var(--card));
+    border: 2px solid rgba(108,92,231,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card-back {
+    background: linear-gradient(135deg, #1a3a2a, #162e1e);
+    border: 2px solid rgba(0,184,148,0.4);
+    transform: rotateY(180deg);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card-label {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .card-text {
+    font-size: 1.15em;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .card-mnemonic {
+    margin-top: 15px;
+    padding: 10px 16px;
+    background: rgba(253,203,110,0.15);
+    border: 1px solid rgba(253,203,110,0.3);
+    border-radius: 10px;
+    font-size: 0.85em;
+    color: var(--warning);
+  }
+
+  .card-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .card-nav-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+  }
+
+  .btn-knew {
+    background: var(--success);
+    color: white;
+  }
+
+  .btn-didnt {
+    background: var(--danger);
+    color: white;
+  }
+
+  .btn-flip {
+    background: var(--primary);
+    color: white;
+  }
+
+  .btn-neutral {
+    background: rgba(255,255,255,0.1);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .card-nav-btn:hover { transform: scale(1.05); }
+
+  .card-counter {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-dim);
+    font-size: 0.85em;
+  }
+
+  /* Quiz */
+  .quiz-question {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 16px;
+    border: 2px solid rgba(108,92,231,0.2);
+  }
+
+  .quiz-q-text {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quiz-option {
+    padding: 14px 18px;
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.95em;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .quiz-option:hover {
+    border-color: var(--primary);
+    background: rgba(108,92,231,0.1);
+  }
+
+  .quiz-option.correct {
+    border-color: var(--success);
+    background: rgba(0,184,148,0.15);
+    animation: correctPop 0.5s ease;
+  }
+
+  .quiz-option.wrong {
+    border-color: var(--danger);
+    background: rgba(225,112,85,0.15);
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes correctPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  .quiz-feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+
+  .quiz-feedback.correct-fb {
+    background: rgba(0,184,148,0.15);
+    border: 1px solid rgba(0,184,148,0.3);
+    color: var(--success);
+  }
+
+  .quiz-feedback.wrong-fb {
+    background: rgba(225,112,85,0.15);
+    border: 1px solid rgba(225,112,85,0.3);
+    color: var(--danger);
+  }
+
+  .quiz-score {
+    text-align: center;
+    padding: 30px;
+    background: var(--card);
+    border-radius: 20px;
+    border: 2px solid rgba(108,92,231,0.3);
+  }
+
+  .quiz-score h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .quiz-next-btn {
+    margin-top: 18px;
+    padding: 12px 30px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .quiz-next-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(108,92,231,0.4); }
+
+  /* Mnemonics section */
+  .mnemonic-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 14px;
+    border-left: 4px solid var(--warning);
+    transition: all 0.3s;
+  }
+
+  .mnemonic-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .mnemonic-title {
+    font-weight: 800;
+    color: var(--warning);
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+
+  .mnemonic-text {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .mnemonic-explain {
+    margin-top: 8px;
+    font-size: 0.82em;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Speed round */
+  .speed-container {
+    text-align: center;
+  }
+
+  .speed-timer {
+    font-size: 3em;
+    font-weight: 900;
+    color: var(--accent);
+    margin: 10px 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .speed-timer.urgent { color: var(--danger); animation: timerPulse 0.5s ease infinite; }
+  @keyframes timerPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  .speed-question {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px;
+    margin: 16px 0;
+    border: 2px solid rgba(253,121,168,0.3);
+  }
+
+  .speed-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 14px 18px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    font-size: 1em;
+    text-align: center;
+    outline: none;
+    margin-top: 14px;
+    transition: border-color 0.3s;
+  }
+
+  .speed-input:focus { border-color: var(--primary); }
+
+  .speed-result {
+    margin-top: 16px;
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+
+  .speed-start-btn {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 16px 0;
+  }
+
+  .speed-start-btn:hover { transform: scale(1.05); }
+
+  /* Cheat sheet */
+  .cheat-topic {
+    margin-bottom: 20px;
+  }
+
+  .cheat-topic-title {
+    font-weight: 800;
+    font-size: 1.1em;
+    color: var(--secondary);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid rgba(0,206,201,0.3);
+  }
+
+  .cheat-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    line-height: 1.6;
+    border-left: 3px solid var(--primary-light);
+  }
+
+  .cheat-item strong {
+    color: var(--primary-light);
+  }
+
+  .cheat-binas {
+    display: inline-block;
+    background: rgba(253,203,110,0.15);
+    color: var(--warning);
+    padding: 1px 8px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+
+  /* Floating XP popup */
+  .xp-popup {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background: var(--success);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9em;
+    animation: xpFloat 1.5s ease forwards;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  @keyframes xpFloat {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-40px); }
+  }
+
+  /* Level up animation */
+  .level-up-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .level-up-box {
+    text-align: center;
+    animation: levelPop 0.5s ease;
+  }
+
+  .level-up-box h1 {
+    font-size: 3em;
+    background: linear-gradient(135deg, var(--warning), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .level-up-box p { font-size: 1.2em; margin-top: 10px; color: var(--text-dim); }
+
+  @keyframes levelPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .topbar { padding: 10px 12px; }
+    .stats-bar { gap: 10px; }
+    .container { padding: 12px; }
+    .card-face { padding: 20px; min-height: 200px; }
+    .card-text { font-size: 1em; }
+    .quiz-question { padding: 18px; }
+    .speed-timer { font-size: 2.5em; }
+  }
+
+  /* Confetti */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 400;
+    pointer-events: none;
+  }
+
+  /* Focus mode indicator */
+  .focus-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.7em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .badge-easy { background: rgba(0,184,148,0.2); color: var(--success); }
+  .badge-medium { background: rgba(253,203,110,0.2); color: var(--warning); }
+  .badge-hard { background: rgba(225,112,85,0.2); color: var(--danger); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">🧬 BioBlitz</div>
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-icon streak-fire">🔥</span>
+      <span id="streak">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat-icon xp-count">⚡</span>
+      <span id="xp">0</span> XP
+    </div>
+    <span class="level-badge" id="level-badge">Level 1</span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang(&#39;en&#39;)">EN</button>
+      <button class="lang-btn" onclick="setLang(&#39;nl&#39;)">NL</button>
+    </div>
+  </div>
+</div>
+<div class="xp-bar-container">
+  <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width: 0%"></div></div>
+</div>
+
+<div class="container">
+  <div class="nav-tabs" id="nav-tabs"><button class="nav-tab active">📇 Flashcards</button><button class="nav-tab">🧠 Quiz</button><button class="nav-tab">💡 Mnemonics</button><button class="nav-tab">⚡ Speed Round</button><button class="nav-tab">📋 Cheat Sheet</button></div>
+
+  <!-- FLASHCARDS -->
+  <div class="section active" id="sec-flashcards">
+    <div class="flashcard-container" onclick="flipCard()">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <div class="card-label" id="fc-front-label">QUESTION</div>
+          <div class="card-text" id="fc-front-text">What do FSH, LH, and testosterone do in males?</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-label" id="fc-back-label">ANSWER</div>
+          <div class="card-text" id="fc-back-text">FSH → sperm cell production. LH → testosterone production. Testosterone → sperm cells + secondary sex chars. Testosterone inhibits FSH and LH (negative feedback).</div>
+          <div class="card-mnemonic" id="fc-mnemonic">💡 Memory tip: 🔄 "F makes Sperm, L makes T, T makes everything" — FSH=Sperm, LH=Testosterone, T=both!</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button class="card-nav-btn btn-didnt" onclick="cardRate(false)" id="btn-didnt">✗ Didn't know</button>
+      <button class="card-nav-btn btn-flip" onclick="flipCard()" id="btn-flip">↻ Flip</button>
+      <button class="card-nav-btn btn-knew" onclick="cardRate(true)" id="btn-knew">✓ Knew it!</button>
+    </div>
+    <div class="card-counter" id="card-counter">1 of 20</div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="section" id="sec-quiz">
+    <div id="quiz-area"><div class="quiz-question">
+    <div class="quiz-q-text">1/8: The three phases of birth in order are:</div>
+    <div class="quiz-options"><div class="quiz-option" data-idx="0" data-correct="false" onclick="answerQuiz(this, false)">Afterbirth, Dilation, Expulsion</div><div class="quiz-option" data-idx="1" data-correct="false" onclick="answerQuiz(this, false)">Expulsion, Dilation, Afterbirth</div><div class="quiz-option" data-idx="2" data-correct="true" onclick="answerQuiz(this, true)">Dilation, Expulsion, Afterbirth</div><div class="quiz-option" data-idx="3" data-correct="false" onclick="answerQuiz(this, false)">Dilation, Afterbirth, Expulsion</div></div>
+    <div class="quiz-feedback" id="quiz-fb"></div>
+    <div style="text-align:center;margin-top:14px;display:none" id="quiz-next-wrap">
+      <button class="quiz-next-btn" onclick="nextQuizQ()">Next Question →</button>
+    </div>
+  </div></div>
+  </div>
+
+  <!-- MNEMONICS -->
+  <div class="section" id="sec-mnemonics">
+    <div id="mnemonics-area">
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🔢 Umbilical Cord: "AAV" / "2-1 Rule"</div>
+      <div class="mnemonic-text">2 Arteries + 1 Vein = AAV. Think of it as a road: 2 lanes going TO the placenta (arteries), 1 lane coming BACK (vein).</div>
+      <div class="mnemonic-explain">The navelstreng has two slagaders carrying waste TO the placenta, one ader bringing nutrients BACK.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🔢 1-2-3: Born-Body-Brain</div>
+      <div class="mnemonic-text">Primary (1°) = Born with it. Secondary (2°) = Body changes in puberty. Tertiary (3°) = Brain/mental changes.</div>
+      <div class="mnemonic-explain">Sex characteristics come in 3 levels, easy to remember with the 3 B's.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">📢 Hormone Chain: "FELiPro"</div>
+      <div class="mnemonic-text">FSH → Estrogen → LH → Progesterone. Say "FE-Li-Pro" like a superhero name! FSH starts follicles, Estrogen grows things, LH triggers ovulation, Progesterone protects the lining.</div>
+      <div class="mnemonic-explain">This is the female menstrual cycle hormone cascade in order.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🟡 Yellow Light = Corpus Luteum</div>
+      <div class="mnemonic-text">Yellow body = yellow traffic light = CAUTION, keep things stable! Progesterone holds the lining. When it dies → RED light = menstruation (bleeding). HCG = green light to KEEP the yellow light on during pregnancy.</div>
+      <div class="mnemonic-explain">Traffic light metaphor: Yellow=stable, Red=menstruation, Green(HCG)=pregnancy continues.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🤰 HCG = Help Corpus Going!</div>
+      <div class="mnemonic-text">HCG is made by the developing placenta. Its job: SAVE the corpus luteum so progesterone stays high → no menstruation → pregnancy continues!</div>
+      <div class="mnemonic-explain">This is why pregnancy tests detect HCG — it's only there during pregnancy!</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">✂️ Meiosis = ME dividing TWICE</div>
+      <div class="mnemonic-text">1 diploid (2n) → divide → divide → 4 haploid (n). Two cuts! Diploid = Double (pairs). Haploid = Half (singles).</div>
+      <div class="mnemonic-explain">Key: diploid (2n) has chromosome PAIRS, haploid (n) has SINGLES.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🔋 ATP vs ADP = Battery Charge</div>
+      <div class="mnemonic-text">ATP = 3 phosphates = FULL battery 🔋🔋🔋. ADP = 2 phosphates = DRAINED battery 🔋🔋. Breaking off 1 phosphate releases energy!</div>
+      <div class="mnemonic-explain">Tri=3, Di=2. Energy is stored in the bond of the 3rd phosphate group.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">💨 AERO = AIR, AN-aero = NO AIR</div>
+      <div class="mnemonic-text">Aerobic dissimilation = WITH oxygen → lots of ATP (full breakdown). Anaerobic = WITHOUT oxygen → little ATP. Alcoholic fermentation (anaerobic): glucose → ethanol + CO₂ → only 2 ATP!</div>
+      <div class="mnemonic-explain">Think of an aerobics class: you breathe hard (use O₂). Without air = fermentation.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🌳 Phloem DOWN, Xylem UP</div>
+      <div class="mnemonic-text">Phloem = Food from leaves going DOWN. Xylem = X-tra water from roots going UP. Mnemonic: "Phloem = Phlow down" and "Xylem = X-cend (ascend)"</div>
+      <div class="mnemonic-explain">Two transport systems in plants: one for sugar (down), one for water+minerals (up).</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">🎬 Birth Phases: D.E.A. / O.U.N.</div>
+      <div class="mnemonic-text">Dilation → Expulsion → Afterbirth. Or in Dutch: Ontsluiting → Uitdrijving → Nageboorte. Oxytocin is the hormone that drives contractions.</div>
+      <div class="mnemonic-explain">3 clear steps. The afterbirth (placenta) comes last!</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">⛓️ Limiting Factor = Weakest Link</div>
+      <div class="mnemonic-text">A chain breaks at its weakest link. In biology: the factor FURTHEST from its optimum controls the reaction speed. Fix the worst factor first!</div>
+      <div class="mnemonic-explain">Example: if light is abundant but CO₂ is low, CO₂ is the limiting factor for photosynthesis.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">📸 Photosynthesis = Photo + Synthesis</div>
+      <div class="mnemonic-text">PHOTO = light, SYNTHESIS = building. Plants BUILD glucose USING light. Ingredients: CO₂ + H₂O + light → glucose + O₂. Stomata (huidmondjes) let CO₂ in.</div>
+      <div class="mnemonic-explain">The reverse of dissimilation! Plants capture light energy and store it as glucose.</div>
+    </div>
+  
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">📋 Important BINAS Tables</div>
+      <div class="mnemonic-text">76B, 77C, 84B, 86 (A, B, C, E), 89A, 89C. Write these on your hand (just kidding). Know them by heart!</div>
+      <div class="mnemonic-explain">These BINAS references keep coming back in exam questions. Know WHERE to find info fast.</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- SPEED ROUND -->
+  <div class="section" id="sec-speed">
+    <div class="speed-container">
+      <div class="speed-timer" id="speed-timer">5</div>
+      <div class="speed-question" id="speed-q-area">
+        <div id="speed-q-text" style="font-size:1.1em;font-weight:700;margin-bottom:12px;">What does the corpus luteum produce?</div>
+        <input class="speed-input" id="speed-input" placeholder="Type your answer..." autocomplete="off">
+        <div class="speed-result" id="speed-result"></div>
+      </div>
+      <button class="speed-start-btn" id="speed-start" onclick="startSpeedRound()" style="display: none;">⚡ Start Speed Round</button>
+      <div class="card-counter" id="speed-score"></div>
+    </div>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="section" id="sec-cheat">
+    <div id="cheat-area">
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">🧬 Embryonic Development</div>
+      <div class="cheat-item"><strong>Fertilization</strong> happens in the <strong>oviduct</strong>: sperm nucleus + egg nucleus → zygote <span class="cheat-binas">Binas 86E</span></div><div class="cheat-item"><strong>Zygote</strong> divides via <strong>cleavage divisions</strong> → cilia transport it to uterine lining <span class="cheat-binas">Binas 86E</span></div><div class="cheat-item"><strong>Blastula</strong> = hollow ball of cells (early embryo stage)</div><div class="cheat-item"><strong>Umbilical cord</strong>: 2 arteries + 1 vein → <strong>placenta</strong> exchanges substances <span class="cheat-binas">Binas 84B, 86E</span></div><div class="cheat-item"><strong>Amniotic fluid + membranes</strong> protect the fetus <span class="cheat-binas">Binas 86E</span></div><div class="cheat-item">Sex characteristics: <strong>Primary</strong> (birth) → <strong>Secondary</strong> (puberty, physical) → <strong>Tertiary</strong> (mental) <span class="cheat-binas">Binas 86A, B</span></div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">🔬 Gamete Formation</div>
+      <div class="cheat-item"><strong>Meiosis</strong>: 1 diploid (2n) cell → 4 haploid (n) cells (two divisions) <span class="cheat-binas">Binas 86</span></div><div class="cheat-item"><strong>Semen</strong> = sperm cells + fluid from seminal vesicles + prostate <span class="cheat-binas">Binas 86A2</span></div><div class="cheat-item"><strong>Dizygotic twins</strong>: 2 eggs × 2 sperm. <strong>Monozygotic</strong>: 1 egg × 1 sperm → splits</div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">⚗️ Hormonal Regulation (Female)</div>
+      <div class="cheat-item"><strong>Pituitary</strong> starts puberty with <strong>FSH + LH</strong> <span class="cheat-binas">Binas 86C, 89A/C</span></div><div class="cheat-item"><strong>FSH</strong> → stimulates follicle ripening → follicles produce <strong>estrogens</strong></div><div class="cheat-item"><strong>Estrogens</strong> → secondary sex chars + uterine lining growth + inhibit FSH + stimulate LH → <strong>ovulation</strong></div><div class="cheat-item"><strong>Corpus luteum</strong> → <strong>progesterone</strong> → lining growth + inhibits FSH/LH</div><div class="cheat-item">No fertilization → corpus luteum dies → progesterone ↓ → <strong>menstruation</strong></div><div class="cheat-item">Pregnancy: <strong>HCG</strong> saves corpus luteum → progesterone stays high → lining stays <span class="cheat-binas">Binas 86E, 89A</span></div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">⚗️ Hormonal Regulation (Male)</div>
+      <div class="cheat-item"><strong>FSH</strong> → sperm cell formation. <strong>LH</strong> → testosterone production <span class="cheat-binas">Binas 89A/C</span></div><div class="cheat-item"><strong>Testosterone</strong> → sperm cells + secondary sex chars. Inhibits FSH and LH (negative feedback)</div><div class="cheat-item"><strong>Leydig cells</strong> (interstitial cells between seminiferous tubules) produce testosterone</div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">👶 Birth &amp; Medical Help</div>
+      <div class="cheat-item">3 phases: <strong>Dilation → Expulsion → Afterbirth</strong>. Hormone: <strong>oxytocin</strong> <span class="cheat-binas">Binas 89A</span></div><div class="cheat-item"><strong>KI</strong>: sperm placed near/in uterus. <strong>IVF</strong>: fertilization outside body (in vitro)</div><div class="cheat-item">Prenatal diagnostics or heel prick (hielprik) after birth to detect abnormalities</div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">🛡️ STIs &amp; Contraception</div>
+      <div class="cheat-item">HIV medication suppresses the virus. Antibiotics treat bacterial STIs</div><div class="cheat-item"><strong>Contraception</strong> or <strong>sterilization</strong> prevents pregnancy</div><div class="cheat-item">Overtijdbehandeling/abortion terminates pregnancy (raises ethical/religious questions)</div>
+    </div>
+  
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">⚡ Metabolism (Stofwisseling)</div>
+      <div class="cheat-item"><strong>ATP</strong> (3 phosphates) = energy currency. <strong>ADP</strong> (2 phosphates) = spent form</div><div class="cheat-item"><strong>Dissimilation</strong> = breakdown of organic molecules → energy. Aerobic (with O₂) vs Anaerobic (without O₂)</div><div class="cheat-item"><strong>Alcoholic fermentation</strong>: glucose → ethanol + CO₂ (only 2 ATP)</div><div class="cheat-item"><strong>Photosynthesis</strong>: CO₂ + H₂O + light → glucose + O₂ (in chloroplasts)</div><div class="cheat-item"><strong>Stomata</strong> (huidmondjes) = ventilation openings surrounded by guard cells</div><div class="cheat-item"><strong>Phloem</strong> (bast) = sugars DOWN from leaves. <strong>Xylem</strong> (hout) = water+minerals UP from roots</div><div class="cheat-item"><strong>Root pressure</strong> (worteldruk) = osmotic force pushing water up through xylem</div><div class="cheat-item"><strong>Limiting factor</strong> = factor furthest from optimum, controls reaction speed</div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+// ====== STATE ======
+let lang = 'en';
+let xp = 0;
+let streak = 0;
+let level = 1;
+let currentCard = 0;
+let quizIndex = 0;
+let quizScore = 0;
+let speedTimer = null;
+let speedTimeLeft = 10;
+let speedCorrect = 0;
+let speedTotal = 0;
+let speedActive = false;
+let flashcardDeck = [];
+
+// ====== TEXT DATA ======
+const T = {
+  tabs: {
+    en: ['📇 Flashcards', '🧠 Quiz', '💡 Mnemonics', '⚡ Speed Round', '📋 Cheat Sheet'],
+    nl: ['📇 Flashcards', '🧠 Quiz', '💡 Ezelsbruggetjes', '⚡ Snelronde', '📋 Spiekbrief']
+  },
+  fcFrontLabel: { en: 'QUESTION', nl: 'VRAAG' },
+  fcBackLabel: { en: 'ANSWER', nl: 'ANTWOORD' },
+  knew: { en: '✓ Knew it!', nl: '✓ Wist ik!' },
+  didnt: { en: '✗ Didn\'t know', nl: '✗ Wist ik niet' },
+  flip: { en: '↻ Flip', nl: '↻ Omdraaien' },
+  cardOf: { en: 'of', nl: 'van' },
+  startSpeed: { en: '⚡ Start Speed Round', nl: '⚡ Start Snelronde' },
+  speedPlaceholder: { en: 'Type your answer...', nl: 'Typ je antwoord...' },
+  nextQ: { en: 'Next Question →', nl: 'Volgende vraag →' },
+  newQuiz: { en: '🔄 New Quiz', nl: '🔄 Nieuwe Quiz' },
+  quizDone: { en: 'Quiz Complete!', nl: 'Quiz Klaar!' },
+  youScored: { en: 'You scored', nl: 'Je scoorde' },
+  mnemTip: { en: '💡 Memory tip:', nl: '💡 Geheugentip:' },
+  correct: { en: '✓ Correct!', nl: '✓ Goed!' },
+  wrongPre: { en: '✗ The answer was: ', nl: '✗ Het antwoord was: ' },
+  levelUp: { en: 'LEVEL UP!', nl: 'LEVEL OMHOOG!' },
+  youReached: { en: 'You reached', nl: 'Je hebt bereikt' },
+};
+
+// ====== FLASHCARD DATA ======
+const flashcards = [
+  {
+    q: { en: "Where does fertilization take place?", nl: "Waar vindt de bevruchting plaats?" },
+    a: { en: "In the oviduct (fallopian tube) — the nucleus of the sperm cell fuses with the nucleus of the egg cell.", nl: "In de eileider — de kern van de zaadcel versmelt met de kern van de eicel." },
+    m: { en: "🥚 \"Eggs travel the TUBE\" — Oviduct = fallopian TUBE", nl: "🥚 \"Eieren reizen door de BUIS\" — Eileider = de buis waar het gebeurt" },
+    cat: 'embryo'
+  },
+  {
+    q: { en: "What is a zygote?", nl: "Wat is een zygote?" },
+    a: { en: "A fertilized egg cell. It divides by cleavage divisions and is transported to the uterine lining by cilia.", nl: "Een bevruchte eicel. Deze deelt via klievingsdelingen en wordt door trilharen naar het baarmoederslijmvlies vervoerd." },
+    m: { en: "🅰️ A to Z: \"Zygote = Zip of gametes\" — two become one!", nl: "🅰️ \"Zygote = Samen-geZIPt\" — twee worden één!" },
+    cat: 'embryo'
+  },
+  {
+    q: { en: "What does the umbilical cord contain and what does the placenta do?", nl: "Wat bevat de navelstreng en wat doet de placenta?" },
+    a: { en: "The umbilical cord has 2 arteries + 1 vein. The placenta exchanges substances between mother and fetus.", nl: "De navelstreng heeft 2 slagaders + 1 ader. De placenta wisselt stoffen uit tussen moeder en foetus." },
+    m: { en: "🔢 \"2-A-1\" = 2 Arteries, 1 vein. Think: \"AAV\" — A-A-Vein!", nl: "🔢 \"2-S-1\" = 2 Slagaders, 1 ader. Onthoud: \"SSA\"!" },
+    cat: 'embryo'
+  },
+  {
+    q: { en: "What are primary, secondary, and tertiary sex characteristics?", nl: "Wat zijn primaire, secundaire en tertiaire geslachtskenmerken?" },
+    a: { en: "Primary = present at birth. Secondary = develop during puberty (physical). Tertiary = mental/psychological changes.", nl: "Primair = aanwezig bij geboorte. Secundair = ontstaan in puberteit (lichamelijk). Tertiair = geestelijke veranderingen." },
+    m: { en: "🔢 \"1-2-3: Born-Body-Brain\" — Primary=Born with, Secondary=Body changes, Tertiary=Brain changes", nl: "🔢 \"1-2-3: Geboren-Groei-Geest\" — Primair=Geboren, Secundair=Groei, Tertiair=Geest" },
+    cat: 'embryo'
+  },
+  {
+    q: { en: "What does FSH do in females?", nl: "Wat doet FSH bij vrouwen?" },
+    a: { en: "FSH stimulates the monthly ripening of follicles. One follicle fully develops. The follicles produce estrogen.", nl: "FSH stimuleert de maandelijkse rijping van follikels. Eén follikel ontwikkelt zich volledig. De follikels produceren oestrogenen." },
+    m: { en: "📢 \"FSH = Follicle Starter Hormone\" — it starts the follicles growing!", nl: "📢 \"FSH = Follikel Start Hormoon\" — het start de groei van follikels!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What do estrogens do? (2 things + feedback)", nl: "Wat doen oestrogenen? (2 dingen + terugkoppeling)" },
+    a: { en: "1) Stimulate secondary sex characteristics. 2) Grow new uterine lining after menstruation. Feedback: inhibit FSH, stimulate LH → causes ovulation.", nl: "1) Stimuleren secundaire geslachtskenmerken. 2) Groei van nieuw baarmoederslijmvlies na menstruatie. Terugkoppeling: remmen FSH, stimuleren LH → ovulatie." },
+    m: { en: "📝 \"Estrogen = E for Everything grows\" — sex chars grow, lining grows, LH grows!", nl: "📝 \"Oestrogeen = O van Opbouw\" — kenmerken, slijmvlies, LH: alles wordt opgebouwd!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What does the corpus luteum (yellow body) do?", nl: "Wat doet het gele lichaam?" },
+    a: { en: "Produces progesterone → stimulates uterine lining growth + inhibits FSH and LH. Without fertilization, it shrivels → progesterone drops → menstruation.", nl: "Maakt progesteron → stimuleert groei baarmoederslijmvlies + remt FSH en LH. Zonder bevruchting verschrompelt het → progesteron daalt → menstruatie." },
+    m: { en: "🟡 \"Yellow body = Yellow light\" — CAUTION: keeps everything stable (progesterone). When it dies → red light (menstruation)!", nl: "🟡 \"Geel lichaam = Geel stoplicht\" — PAS OP: houdt alles stabiel. Als het sterft → rood licht (menstruatie)!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What does HCG do during pregnancy?", nl: "Wat doet HCG tijdens de zwangerschap?" },
+    a: { en: "HCG prevents the corpus luteum from shriveling, keeping progesterone high so the uterine lining stays intact.", nl: "HCG voorkomt dat het gele lichaam verschrompelt, houdt progesteron hoog zodat het baarmoederslijmvlies in stand blijft." },
+    m: { en: "🤰 \"HCG = Help Corpus Going!\" — keeps the corpus luteum alive!", nl: "🤰 \"HCG = Houd Corpus Gaande!\" — houdt het gele lichaam in leven!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What do FSH, LH, and testosterone do in males?", nl: "Wat doen FSH, LH en testosteron bij mannen?" },
+    a: { en: "FSH → sperm cell production. LH → testosterone production. Testosterone → sperm cells + secondary sex chars. Testosterone inhibits FSH and LH (negative feedback).", nl: "FSH → zaadcelvorming. LH → testosteronvorming. Testosteron → zaadcellen + secundaire kenmerken. Testosteron remt FSH en LH (negatieve terugkoppeling)." },
+    m: { en: "🔄 \"F makes Sperm, L makes T, T makes everything\" — FSH=Sperm, LH=Testosterone, T=both!", nl: "🔄 \"F maakt Zaad, L maakt T, T maakt alles\" — FSH=Zaad, LH=Testosteron, T=beide!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What are the 3 phases of birth?", nl: "Wat zijn de 3 fasen van de bevalling?" },
+    a: { en: "1) Dilation (ontsluiting), 2) Expulsion (uitdrijving), 3) Afterbirth (nageboorte). Hormone: oxytocin.", nl: "1) Ontsluiting, 2) Uitdrijving, 3) Nageboorte. Hormoon: oxytocine." },
+    m: { en: "🎬 \"D.E.A.\" — Dilation, Expulsion, Afterbirth. + OXYtocin gives OXYgen to the process!", nl: "🎬 \"O.U.N.\" — Ontsluiting, Uitdrijving, Nageboorte. + OXYtocine geeft OXYgeen aan het proces!" },
+    cat: 'hormones'
+  },
+  {
+    q: { en: "What is meiosis?", nl: "Wat is meiose?" },
+    a: { en: "A two-step division where 1 diploid (2n) cell produces 4 haploid (n) cells. Used to make gametes (sex cells).", nl: "Een deling in twee stappen, waarbij uit 1 diploïde (2n) cel 4 haploïde (n) cellen ontstaan. Voor geslachtscellen." },
+    m: { en: "✂️ \"MEiosis = ME dividing TWICE\" — 1 cell → 4 cells, each half the chromosomes!", nl: "✂️ \"MEiose = ME deelt TWEE keer\" — 1 cel → 4 cellen, elk de helft van de chromosomen!" },
+    cat: 'cells'
+  },
+  {
+    q: { en: "Dizygotic vs monozygotic twins?", nl: "Twee-eiig vs eeneiig tweeling?" },
+    a: { en: "Dizygotic: 2 eggs + 2 sperm (fraternal). Monozygotic: 1 egg + 1 sperm, then splits (identical).", nl: "Twee-eiig: 2 eicellen + 2 zaadcellen (niet identiek). Eeneiig: 1 eicel + 1 zaadcel, splitst daarna (identiek)." },
+    m: { en: "👯 \"DI = Double Input (2 eggs). MONO = One Origin\"", nl: "👯 \"TWEE-eiig = TWEE eicellen. EEN-eiig = EEN eicel\"" },
+    cat: 'cells'
+  },
+  {
+    q: { en: "What is the blastula?", nl: "Wat is een blastula?" },
+    a: { en: "An early embryonic stage: a hollow ball (vesicle) made of a layer of cells surrounding a cavity.", nl: "Een vroeg embryonaal stadium: een blaasje dat bestaat uit een holte omgeven door een laag cellen." },
+    m: { en: "🫧 \"BLASTula = a BLAST-ed bubble\" — hollow ball of cells!", nl: "🫧 \"BLASTula = een opgeblazen BUBBEL\" — hol balletje cellen!" },
+    cat: 'cells'
+  },
+  {
+    q: { en: "KI vs IVF?", nl: "KI vs IVF?" },
+    a: { en: "KI (artificial insemination): sperm is placed near/in the uterus. IVF: fertilization happens outside the body (in vitro = in glass).", nl: "KI (kunstmatige inseminatie): sperma wordt bij/in de baarmoeder gebracht. IVF: bevruchting buiten het lichaam (in vitro = in glas)." },
+    m: { en: "🏥 \"KI = Keep It Inside. IVF = In Vitro (glass) Fertilization = outside first, then inside.\"", nl: "🏥 \"KI = Kunstmatig naar bInnen. IVF = In Vitro = eerst buiten, dan binnen.\"" },
+    cat: 'medical'
+  },
+  {
+    q: { en: "What is ATP and ADP?", nl: "Wat zijn ATP en ADP?" },
+    a: { en: "ATP = adenosine triphosphate (3 phosphate groups, energy-rich). ADP = adenosine diphosphate (2 phosphate groups). ATP ↔ ADP + P + energy.", nl: "ATP = adenosinetrifosfaat (3 fosfaatgroepen, energierijk). ADP = adenosinedifosfaat (2 fosfaatgroepen). ATP ↔ ADP + P + energie." },
+    m: { en: "🔋 \"ATP = A Tiny Powerpack (3 batteries). ADP = A Drained Powerpack (2 batteries)\"", nl: "🔋 \"ATP = Altijd Tri Power (3 batterijen). ADP = Altijd Duo Power (2 batterijen)\"" },
+    cat: 'metabolism'
+  },
+  {
+    q: { en: "Aerobic vs anaerobic dissimilation?", nl: "Aerobe vs anaerobe dissimilatie?" },
+    a: { en: "Aerobic = with O₂ (full glucose breakdown, lots of ATP). Anaerobic = without O₂ (incomplete, less ATP). Alcoholic fermentation: glucose → ethanol + CO₂ (2 ATP).", nl: "Aeroob = met O₂ (volledige afbraak glucose, veel ATP). Anaeroob = zonder O₂ (onvolledig, minder ATP). Alcoholische gisting: glucose → ethanol + CO₂ (2 ATP)." },
+    m: { en: "💨 \"AERO = AIR = with oxygen. AN-aero = NO AIR = without oxygen.\"", nl: "💨 \"AERO = ADEM = met zuurstof. AN-aero = GEEN ADEM = zonder zuurstof.\"" },
+    cat: 'metabolism'
+  },
+  {
+    q: { en: "Phloem (bast) vs Xylem (wood vessels)?", nl: "Bastvaten vs Houtvaten?" },
+    a: { en: "Phloem: transports water + sugars FROM leaves to rest of plant (down). Xylem: transports water + minerals FROM roots upward.", nl: "Bastvaten: vervoeren water + suikers VAN bladeren naar de rest (omlaag). Houtvaten: vervoeren water + mineralen VAN wortels omhoog." },
+    m: { en: "🌳 \"Phloem = Food flows down. Xylem = X marks the spot (roots) going UP.\"", nl: "🌳 \"Bast = Bladsuiker naar Beneden. Hout = H₂O Omhoog vanUiT de wortels.\"" },
+    cat: 'metabolism'
+  },
+  {
+    q: { en: "What is photosynthesis?", nl: "Wat is fotosynthese?" },
+    a: { en: "Plants use light to make glucose from CO₂ and H₂O. Takes place in chloroplasts. Stomata (huidmondjes) are the gas exchange openings.", nl: "Planten gebruiken licht om glucose te maken uit CO₂ en H₂O. Vindt plaats in chloroplasten. Huidmondjes zijn de ventilatieopeningen." },
+    m: { en: "📸 \"PHOTO = light, SYNTHESIS = building\" — building sugar with light!", nl: "📸 \"FOTO = licht, SYNTHESE = opbouwen\" — suiker bouwen met licht!" },
+    cat: 'metabolism'
+  },
+  {
+    q: { en: "What is a limiting factor (beperkende factor)?", nl: "Wat is een beperkende factor?" },
+    a: { en: "The factor that is furthest from its optimum value, limiting the reaction speed.", nl: "De factor die het verst van zijn optimumwaarde af is en de reactiesnelheid beperkt." },
+    m: { en: "⛓️ \"A chain is only as strong as its weakest link\" — the worst factor controls the speed!", nl: "⛓️ \"Een ketting is zo sterk als de zwakste schakel\" — de slechtste factor bepaalt de snelheid!" },
+    cat: 'metabolism'
+  },
+  {
+    q: { en: "What is root pressure (worteldruk)?", nl: "Wat is worteldruk?" },
+    a: { en: "Transport force created by increased osmotic value in the xylem (wood vessels) of roots.", nl: "Transportkracht door verhoogde osmotische waarde in de houtvaten van de wortels." },
+    m: { en: "🌱 \"Roots PUSH water up like a pump\" — osmosis creates pressure!", nl: "🌱 \"Wortels DUWEN water omhoog als een pomp\" — osmose creëert druk!" },
+    cat: 'metabolism'
+  }
+];
+
+// ====== QUIZ DATA ======
+const quizQuestions = [
+  {
+    q: { en: "Where does the sperm cell fuse with the egg cell?", nl: "Waar versmelt de zaadcel met de eicel?" },
+    opts: {
+      en: ["Oviduct (fallopian tube)", "Uterus", "Ovary", "Vagina"],
+      nl: ["Eileider", "Baarmoeder", "Eierstok", "Vagina"]
+    },
+    correct: 0,
+    explain: { en: "Fertilization occurs in the oviduct (Binas 86E).", nl: "De bevruchting vindt plaats in de eileider (Binas 86E)." }
+  },
+  {
+    q: { en: "How many arteries and veins are in the umbilical cord?", nl: "Hoeveel slagaders en aders zitten er in de navelstreng?" },
+    opts: {
+      en: ["2 arteries, 1 vein", "1 artery, 2 veins", "2 arteries, 2 veins", "1 artery, 1 vein"],
+      nl: ["2 slagaders, 1 ader", "1 slagader, 2 aders", "2 slagaders, 2 aders", "1 slagader, 1 ader"]
+    },
+    correct: 0,
+    explain: { en: "Remember \"AAV\" — 2 Arteries + 1 Vein (Binas 84B).", nl: "Onthoud \"SSA\" — 2 Slagaders + 1 Ader (Binas 84B)." }
+  },
+  {
+    q: { en: "What does FSH stand for and what does it stimulate in females?", nl: "Waar staat FSH voor en wat stimuleert het bij vrouwen?" },
+    opts: {
+      en: ["Follicle-stimulating hormone → follicle ripening", "Fast sperm hormone → sperm speed", "Female sex hormone → estrogen directly", "Fetal support hormone → placenta growth"],
+      nl: ["Follikelstimulerend hormoon → follikelrijping", "Snel zaadcelhormoon → zaadcelsnelheid", "Vrouwelijk geslachtshormoon → oestrogeen direct", "Foetaal steunhormoon → placentagroei"]
+    },
+    correct: 0,
+    explain: { en: "FSH = Follicle Stimulating Hormone. It stimulates follicle development (Binas 89A/C).", nl: "FSH = Follikelstimulerend Hormoon. Het stimuleert follikelontwikkeling (Binas 89A/C)." }
+  },
+  {
+    q: { en: "Estrogens inhibit ___ and stimulate ___.", nl: "Oestrogenen remmen ___ en stimuleren ___." },
+    opts: {
+      en: ["FSH; LH", "LH; FSH", "Progesterone; HCG", "Testosterone; FSH"],
+      nl: ["FSH; LH", "LH; FSH", "Progesteron; HCG", "Testosteron; FSH"]
+    },
+    correct: 0,
+    explain: { en: "Estrogens inhibit FSH and stimulate LH → leading to ovulation!", nl: "Oestrogenen remmen FSH en stimuleren LH → leidt tot ovulatie!" }
+  },
+  {
+    q: { en: "What happens when the corpus luteum shrivels (no fertilization)?", nl: "Wat gebeurt er als het gele lichaam verschrompelt (geen bevruchting)?" },
+    opts: {
+      en: ["Progesterone drops → menstruation", "Estrogen rises → ovulation", "HCG increases → pregnancy", "FSH drops → follicle stops"],
+      nl: ["Progesteron daalt → menstruatie", "Oestrogeen stijgt → ovulatie", "HCG stijgt → zwangerschap", "FSH daalt → follikel stopt"]
+    },
+    correct: 0,
+    explain: { en: "No fertilization → corpus luteum dies → progesterone drops → uterine lining sheds (menstruation).", nl: "Geen bevruchting → geel lichaam sterft → progesteron daalt → baarmoederslijmvlies afgestoten (menstruatie)." }
+  },
+  {
+    q: { en: "HCG prevents...", nl: "HCG voorkomt..." },
+    opts: {
+      en: ["The corpus luteum from shriveling", "Ovulation from occurring", "Sperm from reaching the egg", "The uterine lining from growing"],
+      nl: ["Het verschrompelen van het gele lichaam", "Dat ovulatie plaatsvindt", "Dat zaadcellen de eicel bereiken", "De groei van het baarmoederslijmvlies"]
+    },
+    correct: 0,
+    explain: { en: "HCG = Help Corpus Going! It keeps the corpus luteum alive during pregnancy.", nl: "HCG = Houd Corpus Gaande! Het houdt het gele lichaam in leven tijdens de zwangerschap." }
+  },
+  {
+    q: { en: "In meiosis, 1 diploid cell produces:", nl: "Bij meiose produceert 1 diploïde cel:" },
+    opts: {
+      en: ["4 haploid cells", "2 diploid cells", "4 diploid cells", "2 haploid cells"],
+      nl: ["4 haploïde cellen", "2 diploïde cellen", "4 diploïde cellen", "2 haploïde cellen"]
+    },
+    correct: 0,
+    explain: { en: "Meiosis = 2 divisions → 1 cell becomes 4 haploid cells.", nl: "Meiose = 2 delingen → 1 cel wordt 4 haploïde cellen." }
+  },
+  {
+    q: { en: "Monozygotic (identical) twins come from:", nl: "Een eeneiige tweeling ontstaat uit:" },
+    opts: {
+      en: ["1 egg + 1 sperm, then splits", "2 eggs + 2 sperm", "1 egg + 2 sperm", "2 eggs + 1 sperm"],
+      nl: ["1 eicel + 1 zaadcel, splitst daarna", "2 eicellen + 2 zaadcellen", "1 eicel + 2 zaadcellen", "2 eicellen + 1 zaadcel"]
+    },
+    correct: 0,
+    explain: { en: "MONO = one origin. One fertilized egg splits into two embryos.", nl: "EEN-eiig = één oorsprong. Eén bevruchte eicel splitst in twee embryo's." }
+  },
+  {
+    q: { en: "What does the phloem (bast) transport?", nl: "Wat vervoeren de bastvaten?" },
+    opts: {
+      en: ["Water + sugars from leaves downward", "Water + minerals from roots upward", "Only CO₂ from leaves", "Blood to the roots"],
+      nl: ["Water + suikers van bladeren omlaag", "Water + mineralen van wortels omhoog", "Alleen CO₂ van bladeren", "Bloed naar de wortels"]
+    },
+    correct: 0,
+    explain: { en: "Phloem = Food flows down (from leaves). Xylem = water/minerals go up (from roots).", nl: "Bast = Bladsuiker naar Beneden. Hout = H₂O Omhoog uit wortels." }
+  },
+  {
+    q: { en: "ATP has ___ phosphate groups, ADP has ___.", nl: "ATP heeft ___ fosfaatgroepen, ADP heeft ___." },
+    opts: {
+      en: ["3; 2", "2; 3", "3; 1", "2; 1"],
+      nl: ["3; 2", "2; 3", "3; 1", "2; 1"]
+    },
+    correct: 0,
+    explain: { en: "ATP = Tri (3) phosphate. ADP = Di (2) phosphate. ATP is the charged battery!", nl: "ATP = Tri (3) fosfaat. ADP = Di (2) fosfaat. ATP is de volle batterij!" }
+  },
+  {
+    q: { en: "Aerobic dissimilation uses:", nl: "Aerobe dissimilatie gebruikt:" },
+    opts: {
+      en: ["Oxygen (O₂)", "Carbon dioxide (CO₂)", "Ethanol", "No gases"],
+      nl: ["Zuurstof (O₂)", "Koolstofdioxide (CO₂)", "Ethanol", "Geen gassen"]
+    },
+    correct: 0,
+    explain: { en: "AERO = AIR = with oxygen. Full glucose breakdown, maximum ATP.", nl: "AERO = ADEM = met zuurstof. Volledige glucoseafbraak, maximaal ATP." }
+  },
+  {
+    q: { en: "Alcoholic fermentation produces:", nl: "Alcoholische gisting produceert:" },
+    opts: {
+      en: ["Ethanol + CO₂ + 2 ATP", "Lactic acid + 36 ATP", "Ethanol + O₂ + 38 ATP", "Glucose + CO₂"],
+      nl: ["Ethanol + CO₂ + 2 ATP", "Melkzuur + 36 ATP", "Ethanol + O₂ + 38 ATP", "Glucose + CO₂"]
+    },
+    correct: 0,
+    explain: { en: "Alcoholic fermentation: glucose → ethanol + CO₂, yielding only 2 ATP.", nl: "Alcoholische gisting: glucose → ethanol + CO₂, levert slechts 2 ATP op." }
+  },
+  {
+    q: { en: "The three phases of birth in order are:", nl: "De drie fasen van de bevalling op volgorde zijn:" },
+    opts: {
+      en: ["Dilation, Expulsion, Afterbirth", "Expulsion, Dilation, Afterbirth", "Afterbirth, Dilation, Expulsion", "Dilation, Afterbirth, Expulsion"],
+      nl: ["Ontsluiting, Uitdrijving, Nageboorte", "Uitdrijving, Ontsluiting, Nageboorte", "Nageboorte, Ontsluiting, Uitdrijving", "Ontsluiting, Nageboorte, Uitdrijving"]
+    },
+    correct: 0,
+    explain: { en: "D.E.A. = Dilation, Expulsion, Afterbirth. Oxytocin drives the process.", nl: "O.U.N. = Ontsluiting, Uitdrijving, Nageboorte. Oxytocine drijft het proces." }
+  },
+  {
+    q: { en: "IVF stands for:", nl: "IVF staat voor:" },
+    opts: {
+      en: ["In vitro fertilization (outside the body)", "Internal vital fertilization", "In vivo formation", "Intra-vaginal fertilization"],
+      nl: ["In-vitrofertilisatie (buiten het lichaam)", "Interne vitale fertilisatie", "In-vivoformatie", "Intravaginale fertilisatie"]
+    },
+    correct: 0,
+    explain: { en: "In vitro = in glass. Fertilization happens outside the body in a lab.", nl: "In vitro = in glas. Bevruchting vindt plaats buiten het lichaam in een lab." }
+  },
+  {
+    q: { en: "What is a limiting factor?", nl: "Wat is een beperkende factor?" },
+    opts: {
+      en: ["The factor furthest from its optimum, limiting the rate", "The fastest factor in a reaction", "The factor closest to its optimum", "A factor that stops all reactions"],
+      nl: ["De factor die het verst van zijn optimum af is en de snelheid beperkt", "De snelste factor in een reactie", "De factor die het dichtst bij zijn optimum is", "Een factor die alle reacties stopt"]
+    },
+    correct: 0,
+    explain: { en: "Like a chain's weakest link — the worst factor controls the speed.", nl: "Zoals de zwakste schakel van een ketting — de slechtste factor bepaalt de snelheid." }
+  }
+];
+
+// ====== MNEMONICS DATA ======
+const mnemonics = [
+  {
+    title: { en: "🔢 Umbilical Cord: \"AAV\" / \"2-1 Rule\"", nl: "🔢 Navelstreng: \"SSA\" / \"2-1 Regel\"" },
+    text: { en: "2 Arteries + 1 Vein = AAV. Think of it as a road: 2 lanes going TO the placenta (arteries), 1 lane coming BACK (vein).", nl: "2 Slagaders + 1 Ader = SSA. Denk aan een weg: 2 rijstroken NAAR de placenta (slagaders), 1 rijstrook TERUG (ader)." },
+    explain: { en: "The navelstreng has two slagaders carrying waste TO the placenta, one ader bringing nutrients BACK.", nl: "De navelstreng heeft twee slagaders die afval NAAR de placenta brengen, één ader die voedingsstoffen TERUG brengt." }
+  },
+  {
+    title: { en: "🔢 1-2-3: Born-Body-Brain", nl: "🔢 1-2-3: Geboren-Groei-Geest" },
+    text: { en: "Primary (1°) = Born with it. Secondary (2°) = Body changes in puberty. Tertiary (3°) = Brain/mental changes.", nl: "Primair (1°) = Geboren mee. Secundair (2°) = Groei in puberteit. Tertiair (3°) = Geestelijke veranderingen." },
+    explain: { en: "Sex characteristics come in 3 levels, easy to remember with the 3 B's.", nl: "Geslachtskenmerken in 3 niveaus, makkelijk te onthouden met de 3 G's." }
+  },
+  {
+    title: { en: "📢 Hormone Chain: \"FELiPro\"", nl: "📢 Hormonenketen: \"FOLiPro\"" },
+    text: { en: "FSH → Estrogen → LH → Progesterone. Say \"FE-Li-Pro\" like a superhero name! FSH starts follicles, Estrogen grows things, LH triggers ovulation, Progesterone protects the lining.", nl: "FSH → Oestrogeen → LH → Progesteron. Zeg \"FO-Li-Pro\" als een superheldennaam! FSH start follikels, Oestrogeen bouwt op, LH triggert ovulatie, Progesteron beschermt het slijmvlies." },
+    explain: { en: "This is the female menstrual cycle hormone cascade in order.", nl: "Dit is de hormooncascade van de vrouwelijke menstruatiecyclus op volgorde." }
+  },
+  {
+    title: { en: "🟡 Yellow Light = Corpus Luteum", nl: "🟡 Geel Stoplicht = Gele Lichaam" },
+    text: { en: "Yellow body = yellow traffic light = CAUTION, keep things stable! Progesterone holds the lining. When it dies → RED light = menstruation (bleeding). HCG = green light to KEEP the yellow light on during pregnancy.", nl: "Geel lichaam = geel stoplicht = PAS OP, houd alles stabiel! Progesteron houdt het slijmvlies vast. Als het sterft → ROOD licht = menstruatie. HCG = groen licht om het gele licht AAN te houden bij zwangerschap." },
+    explain: { en: "Traffic light metaphor: Yellow=stable, Red=menstruation, Green(HCG)=pregnancy continues.", nl: "Stoplicht-metafoor: Geel=stabiel, Rood=menstruatie, Groen(HCG)=zwangerschap gaat door." }
+  },
+  {
+    title: { en: "🤰 HCG = Help Corpus Going!", nl: "🤰 HCG = Houd Corpus Gaande!" },
+    text: { en: "HCG is made by the developing placenta. Its job: SAVE the corpus luteum so progesterone stays high → no menstruation → pregnancy continues!", nl: "HCG wordt gemaakt door de ontwikkelende placenta. De taak: RED het gele lichaam zodat progesteron hoog blijft → geen menstruatie → zwangerschap gaat door!" },
+    explain: { en: "This is why pregnancy tests detect HCG — it's only there during pregnancy!", nl: "Daarom detecteren zwangerschapstests HCG — het is er alleen bij zwangerschap!" }
+  },
+  {
+    title: { en: "✂️ Meiosis = ME dividing TWICE", nl: "✂️ Meiose = MEI deelt TWEE keer" },
+    text: { en: "1 diploid (2n) → divide → divide → 4 haploid (n). Two cuts! Diploid = Double (pairs). Haploid = Half (singles).", nl: "1 diploïd (2n) → deel → deel → 4 haploïd (n). Twee keer knippen! Diploïd = Dubbel (paren). Haploïd = Half (enkel)." },
+    explain: { en: "Key: diploid (2n) has chromosome PAIRS, haploid (n) has SINGLES.", nl: "Key: diploïd (2n) heeft chromosoom-PAREN, haploïd (n) heeft ENKELEN." }
+  },
+  {
+    title: { en: "🔋 ATP vs ADP = Battery Charge", nl: "🔋 ATP vs ADP = Batterijniveau" },
+    text: { en: "ATP = 3 phosphates = FULL battery 🔋🔋🔋. ADP = 2 phosphates = DRAINED battery 🔋🔋. Breaking off 1 phosphate releases energy!", nl: "ATP = 3 fosfaten = VOLLE batterij 🔋🔋🔋. ADP = 2 fosfaten = LEGE batterij 🔋🔋. Het afbreken van 1 fosfaat geeft energie vrij!" },
+    explain: { en: "Tri=3, Di=2. Energy is stored in the bond of the 3rd phosphate group.", nl: "Tri=3, Di=2. Energie zit opgeslagen in de binding van de 3e fosfaatgroep." }
+  },
+  {
+    title: { en: "💨 AERO = AIR, AN-aero = NO AIR", nl: "💨 AERO = ADEM, AN-aero = GEEN ADEM" },
+    text: { en: "Aerobic dissimilation = WITH oxygen → lots of ATP (full breakdown). Anaerobic = WITHOUT oxygen → little ATP. Alcoholic fermentation (anaerobic): glucose → ethanol + CO₂ → only 2 ATP!", nl: "Aerobe dissimilatie = MET zuurstof → veel ATP (volledige afbraak). Anaeroob = ZONDER zuurstof → weinig ATP. Alcoholische gisting (anaeroob): glucose → ethanol + CO₂ → slechts 2 ATP!" },
+    explain: { en: "Think of an aerobics class: you breathe hard (use O₂). Without air = fermentation.", nl: "Denk aan een aerobicsles: je ademt hard (gebruikt O₂). Zonder lucht = gisting." }
+  },
+  {
+    title: { en: "🌳 Phloem DOWN, Xylem UP", nl: "🌳 Bast naar Beneden, Hout naar Hoog" },
+    text: { en: "Phloem = Food from leaves going DOWN. Xylem = X-tra water from roots going UP. Mnemonic: \"Phloem = Phlow down\" and \"Xylem = X-cend (ascend)\"", nl: "Bastvaten = Blad-suiker naar Beneden. Houtvaten = H₂O van wortels Omhoog. Ezelsbruggetje: \"Bast = Beneden\" en \"Hout = Hoog\"" },
+    explain: { en: "Two transport systems in plants: one for sugar (down), one for water+minerals (up).", nl: "Twee transportsystemen in planten: één voor suiker (omlaag), één voor water+mineralen (omhoog)." }
+  },
+  {
+    title: { en: "🎬 Birth Phases: D.E.A. / O.U.N.", nl: "🎬 Bevallingsfasen: O.U.N." },
+    text: { en: "Dilation → Expulsion → Afterbirth. Or in Dutch: Ontsluiting → Uitdrijving → Nageboorte. Oxytocin is the hormone that drives contractions.", nl: "Ontsluiting → Uitdrijving → Nageboorte. Oxytocine is het hormoon dat de weeën aandrijft." },
+    explain: { en: "3 clear steps. The afterbirth (placenta) comes last!", nl: "3 duidelijke stappen. De nageboorte (placenta) komt als laatste!" }
+  },
+  {
+    title: { en: "⛓️ Limiting Factor = Weakest Link", nl: "⛓️ Beperkende Factor = Zwakste Schakel" },
+    text: { en: "A chain breaks at its weakest link. In biology: the factor FURTHEST from its optimum controls the reaction speed. Fix the worst factor first!", nl: "Een ketting breekt bij de zwakste schakel. In de biologie: de factor die het VERST van zijn optimum af is, bepaalt de reactiesnelheid. Los de slechtste factor eerst op!" },
+    explain: { en: "Example: if light is abundant but CO₂ is low, CO₂ is the limiting factor for photosynthesis.", nl: "Voorbeeld: als er genoeg licht is maar weinig CO₂, dan is CO₂ de beperkende factor voor fotosynthese." }
+  },
+  {
+    title: { en: "📸 Photosynthesis = Photo + Synthesis", nl: "📸 Fotosynthese = Foto + Synthese" },
+    text: { en: "PHOTO = light, SYNTHESIS = building. Plants BUILD glucose USING light. Ingredients: CO₂ + H₂O + light → glucose + O₂. Stomata (huidmondjes) let CO₂ in.", nl: "FOTO = licht, SYNTHESE = opbouwen. Planten BOUWEN glucose MET licht. Ingrediënten: CO₂ + H₂O + licht → glucose + O₂. Huidmondjes laten CO₂ binnen." },
+    explain: { en: "The reverse of dissimilation! Plants capture light energy and store it as glucose.", nl: "Het omgekeerde van dissimilatie! Planten vangen lichtenergie en slaan het op als glucose." }
+  },
+  {
+    title: { en: "📋 Important BINAS Tables", nl: "📋 Belangrijke BINAS-tabellen" },
+    text: { en: "76B, 77C, 84B, 86 (A, B, C, E), 89A, 89C. Write these on your hand (just kidding). Know them by heart!", nl: "76B, 77C, 84B, 86 (A, B, C, E), 89A, 89C. Schrijf ze op je hand (grapje). Ken ze uit je hoofd!" },
+    explain: { en: "These BINAS references keep coming back in exam questions. Know WHERE to find info fast.", nl: "Deze BINAS-verwijzingen komen steeds terug in examenvragen. Weet WAAR je snel info vindt." }
+  }
+];
+
+// ====== SPEED ROUND DATA ======
+const speedQuestions = [
+  { q: { en: "Where does fertilization happen?", nl: "Waar vindt bevruchting plaats?" }, a: { en: "oviduct", nl: "eileider" } },
+  { q: { en: "What is a fertilized egg called?", nl: "Hoe noem je een bevruchte eicel?" }, a: { en: "zygote", nl: "zygote" } },
+  { q: { en: "How many arteries in the umbilical cord?", nl: "Hoeveel slagaders in de navelstreng?" }, a: { en: "2", nl: "2" } },
+  { q: { en: "FSH stands for? (short)", nl: "Waar staat FSH voor? (kort)" }, a: { en: "follicle stimulating hormone", nl: "follikelstimulerend hormoon" } },
+  { q: { en: "What does the corpus luteum produce?", nl: "Wat produceert het gele lichaam?" }, a: { en: "progesterone", nl: "progesteron" } },
+  { q: { en: "HCG prevents the ___ from shriveling.", nl: "HCG voorkomt verschrompeling van het ___." }, a: { en: "corpus luteum", nl: "gele lichaam" } },
+  { q: { en: "ATP has how many phosphate groups?", nl: "ATP heeft hoeveel fosfaatgroepen?" }, a: { en: "3", nl: "3" } },
+  { q: { en: "Aerobic = with or without O₂?", nl: "Aeroob = met of zonder O₂?" }, a: { en: "with", nl: "met" } },
+  { q: { en: "Phloem transports sugars up or down?", nl: "Bastvaten vervoeren suikers omhoog of omlaag?" }, a: { en: "down", nl: "omlaag" } },
+  { q: { en: "Meiosis: 1 cell → how many cells?", nl: "Meiose: 1 cel → hoeveel cellen?" }, a: { en: "4", nl: "4" } },
+  { q: { en: "Birth hormone for contractions?", nl: "Bevallingshormon voor weeën?" }, a: { en: "oxytocin", nl: "oxytocine" } },
+  { q: { en: "IVF = fertilization inside or outside body?", nl: "IVF = bevruchting binnen of buiten het lichaam?" }, a: { en: "outside", nl: "buiten" } },
+  { q: { en: "Xylem transports water up or down?", nl: "Houtvaten vervoeren water omhoog of omlaag?" }, a: { en: "up", nl: "omhoog" } },
+  { q: { en: "Diploid = 2n or n?", nl: "Diploïd = 2n of n?" }, a: { en: "2n", nl: "2n" } },
+  { q: { en: "Alcoholic fermentation yields how many ATP?", nl: "Alcoholische gisting levert hoeveel ATP op?" }, a: { en: "2", nl: "2" } },
+];
+
+// ====== CHEAT SHEET DATA ======
+const cheatSheet = [
+  {
+    topic: { en: "🧬 Embryonic Development", nl: "🧬 Embryonale Ontwikkeling" },
+    items: [
+      { en: "<strong>Fertilization</strong> happens in the <strong>oviduct</strong>: sperm nucleus + egg nucleus → zygote <span class='cheat-binas'>Binas 86E</span>", nl: "<strong>Bevruchting</strong> vindt plaats in de <strong>eileider</strong>: kern zaadcel + kern eicel → zygote <span class='cheat-binas'>Binas 86E</span>" },
+      { en: "<strong>Zygote</strong> divides via <strong>cleavage divisions</strong> → cilia transport it to uterine lining <span class='cheat-binas'>Binas 86E</span>", nl: "<strong>Zygote</strong> deelt via <strong>klievingsdelingen</strong> → trilharen vervoeren naar baarmoederslijmvlies <span class='cheat-binas'>Binas 86E</span>" },
+      { en: "<strong>Blastula</strong> = hollow ball of cells (early embryo stage)", nl: "<strong>Blastula</strong> = hol blaasje van cellen (vroeg embryonaal stadium)" },
+      { en: "<strong>Umbilical cord</strong>: 2 arteries + 1 vein → <strong>placenta</strong> exchanges substances <span class='cheat-binas'>Binas 84B, 86E</span>", nl: "<strong>Navelstreng</strong>: 2 slagaders + 1 ader → <strong>placenta</strong> wisselt stoffen uit <span class='cheat-binas'>Binas 84B, 86E</span>" },
+      { en: "<strong>Amniotic fluid + membranes</strong> protect the fetus <span class='cheat-binas'>Binas 86E</span>", nl: "<strong>Vruchtwater + vruchtvliezen</strong> beschermen de foetus <span class='cheat-binas'>Binas 86E</span>" },
+      { en: "Sex characteristics: <strong>Primary</strong> (birth) → <strong>Secondary</strong> (puberty, physical) → <strong>Tertiary</strong> (mental) <span class='cheat-binas'>Binas 86A, B</span>", nl: "Geslachtskenmerken: <strong>Primair</strong> (geboorte) → <strong>Secundair</strong> (puberteit, lichamelijk) → <strong>Tertiair</strong> (geestelijk) <span class='cheat-binas'>Binas 86A, B</span>" }
+    ]
+  },
+  {
+    topic: { en: "🔬 Gamete Formation", nl: "🔬 Vorming Geslachtscellen" },
+    items: [
+      { en: "<strong>Meiosis</strong>: 1 diploid (2n) cell → 4 haploid (n) cells (two divisions) <span class='cheat-binas'>Binas 86</span>", nl: "<strong>Meiose</strong>: 1 diploïde (2n) cel → 4 haploïde (n) cellen (twee delingen) <span class='cheat-binas'>Binas 86</span>" },
+      { en: "<strong>Semen</strong> = sperm cells + fluid from seminal vesicles + prostate <span class='cheat-binas'>Binas 86A2</span>", nl: "<strong>Sperma</strong> = zaadcellen + vocht uit zaadblaasjes + prostaat <span class='cheat-binas'>Binas 86A2</span>" },
+      { en: "<strong>Dizygotic twins</strong>: 2 eggs × 2 sperm. <strong>Monozygotic</strong>: 1 egg × 1 sperm → splits", nl: "<strong>Twee-eiige tweeling</strong>: 2 eicellen × 2 zaadcellen. <strong>Eeneiig</strong>: 1 eicel × 1 zaadcel → splitst" }
+    ]
+  },
+  {
+    topic: { en: "⚗️ Hormonal Regulation (Female)", nl: "⚗️ Hormonale Regeling (Vrouw)" },
+    items: [
+      { en: "<strong>Pituitary</strong> starts puberty with <strong>FSH + LH</strong> <span class='cheat-binas'>Binas 86C, 89A/C</span>", nl: "<strong>Hypofyse</strong> start puberteit met <strong>FSH + LH</strong> <span class='cheat-binas'>Binas 86C, 89A/C</span>" },
+      { en: "<strong>FSH</strong> → stimulates follicle ripening → follicles produce <strong>estrogens</strong>", nl: "<strong>FSH</strong> → stimuleert follikelrijping → follikels produceren <strong>oestrogenen</strong>" },
+      { en: "<strong>Estrogens</strong> → secondary sex chars + uterine lining growth + inhibit FSH + stimulate LH → <strong>ovulation</strong>", nl: "<strong>Oestrogenen</strong> → secundaire kenmerken + groei slijmvlies + remmen FSH + stimuleren LH → <strong>ovulatie</strong>" },
+      { en: "<strong>Corpus luteum</strong> → <strong>progesterone</strong> → lining growth + inhibits FSH/LH", nl: "<strong>Gele lichaam</strong> → <strong>progesteron</strong> → groei slijmvlies + remt FSH/LH" },
+      { en: "No fertilization → corpus luteum dies → progesterone ↓ → <strong>menstruation</strong>", nl: "Geen bevruchting → geel lichaam sterft → progesteron ↓ → <strong>menstruatie</strong>" },
+      { en: "Pregnancy: <strong>HCG</strong> saves corpus luteum → progesterone stays high → lining stays <span class='cheat-binas'>Binas 86E, 89A</span>", nl: "Zwangerschap: <strong>HCG</strong> redt gele lichaam → progesteron blijft hoog → slijmvlies blijft <span class='cheat-binas'>Binas 86E, 89A</span>" }
+    ]
+  },
+  {
+    topic: { en: "⚗️ Hormonal Regulation (Male)", nl: "⚗️ Hormonale Regeling (Man)" },
+    items: [
+      { en: "<strong>FSH</strong> → sperm cell formation. <strong>LH</strong> → testosterone production <span class='cheat-binas'>Binas 89A/C</span>", nl: "<strong>FSH</strong> → zaadcelvorming. <strong>LH</strong> → testosteronproductie <span class='cheat-binas'>Binas 89A/C</span>" },
+      { en: "<strong>Testosterone</strong> → sperm cells + secondary sex chars. Inhibits FSH and LH (negative feedback)", nl: "<strong>Testosteron</strong> → zaadcellen + secundaire kenmerken. Remt FSH en LH (negatieve terugkoppeling)" },
+      { en: "<strong>Leydig cells</strong> (interstitial cells between seminiferous tubules) produce testosterone", nl: "<strong>Cellen van Leydig</strong> (interstitiële cellen tussen zaadbuisjes) produceren testosteron" }
+    ]
+  },
+  {
+    topic: { en: "👶 Birth & Medical Help", nl: "👶 Geboorte & Medische Hulp" },
+    items: [
+      { en: "3 phases: <strong>Dilation → Expulsion → Afterbirth</strong>. Hormone: <strong>oxytocin</strong> <span class='cheat-binas'>Binas 89A</span>", nl: "3 fasen: <strong>Ontsluiting → Uitdrijving → Nageboorte</strong>. Hormoon: <strong>oxytocine</strong> <span class='cheat-binas'>Binas 89A</span>" },
+      { en: "<strong>KI</strong>: sperm placed near/in uterus. <strong>IVF</strong>: fertilization outside body (in vitro)", nl: "<strong>KI</strong>: sperma bij/in baarmoeder. <strong>IVF</strong>: bevruchting buiten lichaam (in vitro)" },
+      { en: "Prenatal diagnostics or heel prick (hielprik) after birth to detect abnormalities", nl: "Prenatale diagnostiek of hielprik na geboorte om afwijkingen op te sporen" }
+    ]
+  },
+  {
+    topic: { en: "🛡️ STIs & Contraception", nl: "🛡️ SOA's & Anticonceptie" },
+    items: [
+      { en: "HIV medication suppresses the virus. Antibiotics treat bacterial STIs", nl: "HIV-medicijnen remmen het virus. Antibiotica pakken bacteriële SOA's aan" },
+      { en: "<strong>Contraception</strong> or <strong>sterilization</strong> prevents pregnancy", nl: "<strong>Anticonceptie</strong> of <strong>sterilisatie</strong> voorkomt zwangerschap" },
+      { en: "Overtijdbehandeling/abortion terminates pregnancy (raises ethical/religious questions)", nl: "Overtijdbehandeling/abortus breekt zwangerschap af (ethische/religieuze vragen)" }
+    ]
+  },
+  {
+    topic: { en: "⚡ Metabolism (Stofwisseling)", nl: "⚡ Stofwisseling" },
+    items: [
+      { en: "<strong>ATP</strong> (3 phosphates) = energy currency. <strong>ADP</strong> (2 phosphates) = spent form", nl: "<strong>ATP</strong> (3 fosfaten) = energiemunt. <strong>ADP</strong> (2 fosfaten) = gebruikte vorm" },
+      { en: "<strong>Dissimilation</strong> = breakdown of organic molecules → energy. Aerobic (with O₂) vs Anaerobic (without O₂)", nl: "<strong>Dissimilatie</strong> = afbraak organische stoffen → energie. Aeroob (met O₂) vs Anaeroob (zonder O₂)" },
+      { en: "<strong>Alcoholic fermentation</strong>: glucose → ethanol + CO₂ (only 2 ATP)", nl: "<strong>Alcoholische gisting</strong>: glucose → ethanol + CO₂ (slechts 2 ATP)" },
+      { en: "<strong>Photosynthesis</strong>: CO₂ + H₂O + light → glucose + O₂ (in chloroplasts)", nl: "<strong>Fotosynthese</strong>: CO₂ + H₂O + licht → glucose + O₂ (in chloroplasten)" },
+      { en: "<strong>Stomata</strong> (huidmondjes) = ventilation openings surrounded by guard cells", nl: "<strong>Huidmondjes</strong> = ventilatieopeningen omgeven door sluitcellen" },
+      { en: "<strong>Phloem</strong> (bast) = sugars DOWN from leaves. <strong>Xylem</strong> (hout) = water+minerals UP from roots", nl: "<strong>Bastvaten</strong> = suikers OMLAAG van bladeren. <strong>Houtvaten</strong> = water+mineralen OMHOOG van wortels" },
+      { en: "<strong>Root pressure</strong> (worteldruk) = osmotic force pushing water up through xylem", nl: "<strong>Worteldruk</strong> = osmotische kracht die water omhoog duwt door houtvaten" },
+      { en: "<strong>Limiting factor</strong> = factor furthest from optimum, controls reaction speed", nl: "<strong>Beperkende factor</strong> = factor verst van optimum, bepaalt reactiesnelheid" }
+    ]
+  }
+];
+
+// ====== INIT ======
+function init() {
+  renderTabs();
+  shuffleDeck();
+  showSection('flashcards');
+  renderMnemonics();
+  renderCheatSheet();
+  updateStats();
+}
+
+// ====== LANGUAGE ======
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b => { if(b.textContent === l.toUpperCase()) b.classList.add('active'); });
+  renderTabs();
+  renderCurrentCard();
+  renderMnemonics();
+  renderCheatSheet();
+  document.getElementById('btn-knew').textContent = T.knew[lang];
+  document.getElementById('btn-didnt').textContent = T.didnt[lang];
+  document.getElementById('btn-flip').textContent = T.flip[lang];
+  document.getElementById('speed-start').textContent = T.startSpeed[lang];
+  document.getElementById('speed-input').placeholder = T.speedPlaceholder[lang];
+  // Re-render quiz if active
+  if (document.getElementById('sec-quiz').classList.contains('active')) {
+    quizIndex = 0; quizScore = 0; renderQuiz();
+  }
+}
+
+// ====== TABS ======
+let activeTab = 'flashcards';
+const tabKeys = ['flashcards', 'quiz', 'mnemonics', 'speed', 'cheat'];
+
+function renderTabs() {
+  const container = document.getElementById('nav-tabs');
+  container.innerHTML = '';
+  T.tabs[lang].forEach((name, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-tab' + (tabKeys[i] === activeTab ? ' active' : '');
+    btn.textContent = name;
+    btn.onclick = () => showSection(tabKeys[i]);
+    container.appendChild(btn);
+  });
+}
+
+function showSection(key) {
+  activeTab = key;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + key).classList.add('active');
+  renderTabs();
+  if (key === 'flashcards') renderCurrentCard();
+  if (key === 'quiz') { quizIndex = 0; quizScore = 0; renderQuiz(); }
+}
+
+// ====== XP / GAMIFICATION ======
+function addXP(amount) {
+  xp += amount;
+  const newLevel = Math.floor(xp / 100) + 1;
+  if (newLevel > level) {
+    level = newLevel;
+    showLevelUp();
+  }
+  updateStats();
+  showXPPopup(amount);
+}
+
+function updateStats() {
+  document.getElementById('xp').textContent = xp;
+  document.getElementById('streak').textContent = streak;
+  document.getElementById('level-badge').textContent = 'Level ' + level;
+  const progress = (xp % 100);
+  document.getElementById('xp-fill').style.width = progress + '%';
+}
+
+function showXPPopup(amount) {
+  const pop = document.createElement('div');
+  pop.className = 'xp-popup';
+  pop.textContent = '+' + amount + ' XP';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1500);
+}
+
+function showLevelUp() {
+  const overlay = document.createElement('div');
+  overlay.className = 'level-up-overlay';
+  overlay.innerHTML = `<div class="level-up-box"><h1>${T.levelUp[lang]}</h1><p>${T.youReached[lang]} Level ${level}! 🎉</p></div>`;
+  overlay.onclick = () => overlay.remove();
+  document.body.appendChild(overlay);
+  spawnConfetti();
+  setTimeout(() => overlay.remove(), 2500);
+}
+
+function spawnConfetti() {
+  const colors = ['#6C5CE7', '#00CEC9', '#FD79A8', '#FDCB6E', '#00B894', '#E17055'];
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = '-10px';
+    c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    c.style.width = (6 + Math.random() * 8) + 'px';
+    c.style.height = (6 + Math.random() * 8) + 'px';
+    document.body.appendChild(c);
+    const dur = 1 + Math.random() * 2;
+    c.style.transition = `top ${dur}s ease-in, left ${dur}s ease, transform ${dur}s`;
+    setTimeout(() => {
+      c.style.top = '110vh';
+      c.style.left = (parseFloat(c.style.left) + (Math.random() - 0.5) * 20) + 'vw';
+      c.style.transform = `rotate(${Math.random() * 720}deg)`;
+    }, 50);
+    setTimeout(() => c.remove(), dur * 1000 + 200);
+  }
+}
+
+// ====== FLASHCARDS ======
+function shuffleDeck() {
+  flashcardDeck = [...flashcards].sort(() => Math.random() - 0.5);
+  currentCard = 0;
+}
+
+function renderCurrentCard() {
+  if (currentCard >= flashcardDeck.length) {
+    shuffleDeck();
+  }
+  const card = flashcardDeck[currentCard];
+  document.getElementById('fc-front-label').textContent = T.fcFrontLabel[lang];
+  document.getElementById('fc-back-label').textContent = T.fcBackLabel[lang];
+  document.getElementById('fc-front-text').textContent = card.q[lang];
+  document.getElementById('fc-back-text').textContent = card.a[lang];
+  document.getElementById('fc-mnemonic').innerHTML = T.mnemTip[lang] + ' ' + card.m[lang];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('card-counter').textContent = (currentCard + 1) + ' ' + T.cardOf[lang] + ' ' + flashcardDeck.length;
+}
+
+function flipCard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function cardRate(knew) {
+  if (knew) {
+    streak++;
+    addXP(10 + Math.min(streak * 2, 20));
+  } else {
+    streak = 0;
+    updateStats();
+    // Put card back in deck later
+    const card = flashcardDeck[currentCard];
+    flashcardDeck.push(card);
+  }
+  currentCard++;
+  renderCurrentCard();
+}
+
+// ====== QUIZ ======
+let shuffledQuiz = [];
+
+function renderQuiz() {
+  shuffledQuiz = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 8);
+  quizIndex = 0;
+  quizScore = 0;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const area = document.getElementById('quiz-area');
+  if (quizIndex >= shuffledQuiz.length) {
+    const pct = Math.round((quizScore / shuffledQuiz.length) * 100);
+    area.innerHTML = `
+      <div class="quiz-score">
+        <h2>${T.quizDone[lang]}</h2>
+        <p style="font-size:2em;margin:10px 0">${quizScore}/${shuffledQuiz.length} (${pct}%)</p>
+        <p style="color:var(--text-dim)">${T.youScored[lang]} ${quizScore} ${lang === 'en' ? 'out of' : 'van de'} ${shuffledQuiz.length}</p>
+        <button class="quiz-next-btn" onclick="renderQuiz()">${T.newQuiz[lang]}</button>
+      </div>
+    `;
+    addXP(quizScore * 15);
+    return;
+  }
+  const q = shuffledQuiz[quizIndex];
+  // Shuffle options but track correct
+  const indices = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+  const correctIdx = indices.indexOf(q.correct);
+
+  let html = `<div class="quiz-question">
+    <div class="quiz-q-text">${quizIndex + 1}/${shuffledQuiz.length}: ${q.q[lang]}</div>
+    <div class="quiz-options">`;
+
+  indices.forEach((origIdx, displayIdx) => {
+    html += `<div class="quiz-option" data-idx="${displayIdx}" data-correct="${displayIdx === correctIdx}" onclick="answerQuiz(this, ${displayIdx === correctIdx})">${q.opts[lang][origIdx]}</div>`;
+  });
+
+  html += `</div>
+    <div class="quiz-feedback" id="quiz-fb"></div>
+    <div style="text-align:center;margin-top:14px;display:none" id="quiz-next-wrap">
+      <button class="quiz-next-btn" onclick="nextQuizQ()">${T.nextQ[lang]}</button>
+    </div>
+  </div>`;
+
+  area.innerHTML = html;
+}
+
+function answerQuiz(el, isCorrect) {
+  // Prevent double click
+  document.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+
+  const fb = document.getElementById('quiz-fb');
+  const q = shuffledQuiz[quizIndex];
+
+  if (isCorrect) {
+    el.classList.add('correct');
+    fb.className = 'quiz-feedback show correct-fb';
+    fb.textContent = T.correct[lang] + ' ' + q.explain[lang];
+    quizScore++;
+    streak++;
+    addXP(15 + Math.min(streak * 2, 20));
+  } else {
+    el.classList.add('wrong');
+    // Highlight correct
+    document.querySelectorAll('.quiz-option').forEach(o => {
+      if (o.dataset.correct === 'true') o.classList.add('correct');
+    });
+    fb.className = 'quiz-feedback show wrong-fb';
+    fb.textContent = T.wrongPre[lang] + q.opts[lang][q.correct] + '. ' + q.explain[lang];
+    streak = 0;
+    updateStats();
+  }
+
+  document.getElementById('quiz-next-wrap').style.display = 'block';
+}
+
+function nextQuizQ() {
+  quizIndex++;
+  renderQuizQuestion();
+}
+
+// ====== MNEMONICS ======
+function renderMnemonics() {
+  const area = document.getElementById('mnemonics-area');
+  area.innerHTML = mnemonics.map(m => `
+    <div class="mnemonic-card">
+      <div class="mnemonic-title">${m.title[lang]}</div>
+      <div class="mnemonic-text">${m.text[lang]}</div>
+      <div class="mnemonic-explain">${m.explain[lang]}</div>
+    </div>
+  `).join('');
+}
+
+// ====== SPEED ROUND ======
+let speedQIndex = 0;
+let shuffledSpeed = [];
+
+function startSpeedRound() {
+  shuffledSpeed = [...speedQuestions].sort(() => Math.random() - 0.5);
+  speedQIndex = 0;
+  speedCorrect = 0;
+  speedTotal = 0;
+  speedActive = true;
+  document.getElementById('speed-start').style.display = 'none';
+  document.getElementById('speed-score').textContent = '';
+  nextSpeedQ();
+}
+
+function nextSpeedQ() {
+  if (speedQIndex >= shuffledSpeed.length || !speedActive) {
+    endSpeedRound();
+    return;
+  }
+  const q = shuffledSpeed[speedQIndex];
+  document.getElementById('speed-q-text').textContent = q.q[lang];
+  document.getElementById('speed-input').value = '';
+  document.getElementById('speed-result').textContent = '';
+  document.getElementById('speed-input').focus();
+  speedTimeLeft = 10;
+  updateSpeedTimer();
+  if (speedTimer) clearInterval(speedTimer);
+  speedTimer = setInterval(() => {
+    speedTimeLeft--;
+    updateSpeedTimer();
+    if (speedTimeLeft <= 0) {
+      clearInterval(speedTimer);
+      speedTotal++;
+      document.getElementById('speed-result').innerHTML = `<span style="color:var(--danger)">⏰ Time's up! ${T.wrongPre[lang]}${shuffledSpeed[speedQIndex].a[lang]}</span>`;
+      streak = 0;
+      updateStats();
+      speedQIndex++;
+      setTimeout(nextSpeedQ, 2000);
+    }
+  }, 1000);
+}
+
+function updateSpeedTimer() {
+  const el = document.getElementById('speed-timer');
+  el.textContent = speedTimeLeft;
+  el.className = 'speed-timer' + (speedTimeLeft <= 3 ? ' urgent' : '');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!speedActive) return;
+  if (e.key === 'Enter') {
+    const input = document.getElementById('speed-input').value.trim().toLowerCase();
+    const answer = shuffledSpeed[speedQIndex].a[lang].toLowerCase();
+    speedTotal++;
+    clearInterval(speedTimer);
+
+    if (input === answer || answer.includes(input) && input.length > 1) {
+      document.getElementById('speed-result').innerHTML = `<span style="color:var(--success)">${T.correct[lang]}</span>`;
+      speedCorrect++;
+      streak++;
+      addXP(20 + Math.min(streak * 3, 30));
+    } else {
+      document.getElementById('speed-result').innerHTML = `<span style="color:var(--danger)">${T.wrongPre[lang]}${shuffledSpeed[speedQIndex].a[lang]}</span>`;
+      streak = 0;
+      updateStats();
+    }
+    speedQIndex++;
+    setTimeout(nextSpeedQ, 1500);
+  }
+});
+
+function endSpeedRound() {
+  speedActive = false;
+  if (speedTimer) clearInterval(speedTimer);
+  document.getElementById('speed-timer').textContent = '✓';
+  document.getElementById('speed-timer').className = 'speed-timer';
+  document.getElementById('speed-q-text').textContent = lang === 'en' ? 'Speed Round Complete!' : 'Snelronde Klaar!';
+  document.getElementById('speed-input').style.display = 'none';
+  document.getElementById('speed-result').innerHTML = `<span style="color:var(--success)">${speedCorrect}/${speedTotal}</span>`;
+  document.getElementById('speed-start').style.display = 'inline-block';
+  document.getElementById('speed-start').textContent = T.startSpeed[lang];
+  document.getElementById('speed-input').style.display = 'block';
+  document.getElementById('speed-score').textContent = `${lang === 'en' ? 'Final score' : 'Eindscore'}: ${speedCorrect}/${speedTotal}`;
+}
+
+// ====== CHEAT SHEET ======
+function renderCheatSheet() {
+  const area = document.getElementById('cheat-area');
+  area.innerHTML = cheatSheet.map(section => `
+    <div class="cheat-topic">
+      <div class="cheat-topic-title">${section.topic[lang]}</div>
+      ${section.items.map(item => `<div class="cheat-item">${item[lang]}</div>`).join('')}
+    </div>
+  `).join('');
+}
+
+// ====== START ======
+init();
+</script>
+
+</body></html>
