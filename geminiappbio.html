@@ -21,11 +21,15 @@
             70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
-        .glow-text { text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-        canvas { border-radius: 1.5rem; background: #020617; }
+        .glow-text { text-shadow: 0 0 15px rgba(16, 185, 129, 0.6); }
+        canvas { border-radius: 1.5rem; background: #020617; cursor: pointer; }
+        .no-select { user-select: none; -webkit-tap-highlight-color: transparent; }
+        .invincible { opacity: 0.5; animation: blink 0.2s infinite; }
+        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 0.8; } 100% { opacity: 0.2; } }
+        img { border-radius: 1rem; max-height: 250px; width: auto; margin: 0 auto; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-slate-950 text-slate-100 no-select">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -45,7 +49,8 @@
                 play: <path d="M5 3l14 9-14 9V3z" />,
                 star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />,
                 run: <path d="M13 4v16M17 4l-4 4-4-4M9 20l4-4 4 4M5 12h14" />,
-                keyboard: <path d="M10 8h4M8 12h8M4 16h16M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+                flask: <path d="M9 3h6M10 9h4M10 3v6l-4 8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l-4-8V3" />,
+                eye: <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
             };
             return (
                 <svg className={className} viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -56,305 +61,332 @@
 
         const DATA = {
             reproduction: [
-                { nl: "Aanranding", en: "Sexual assault", def_nl: "Gedwongen ondergaan of plegen van ontuchtige handelingen.", def_en: "Forced acts.", mn_nl: "Over de RAND van je grens.", mn_en: "Over the edge." },
-                { nl: "Abortus", en: "Abortion", def_nl: "Het afbreken van een zwangerschap.", def_en: "Termination.", mn_nl: "AB-rupt stoppen.", mn_en: "Abort = Stop." },
-                { nl: "Aids", en: "AIDS", def_nl: "Ziekte door hiv waarbij afweer niet werkt.", def_en: "Immune failure.", mn_nl: "Afweer Is Defect Systeem.", mn_en: "AIDS: Deficient." },
-                { nl: "Anticonceptie", en: "Contraception", def_nl: "Voorkomen van bevruchting.", def_en: "Prevention.", mn_nl: "ANTI (tegen) + CONCEPTIE.", mn_en: "Anti + Concept." },
-                { nl: "Anticonceptiemiddel", en: "Contraceptive", def_nl: "Hulpmiddel tegen zwangerschap.", def_en: "Pregnancy prevention tool.", mn_nl: "GEREEDSCHAP tegen baby's.", mn_en: "Tool for NO." },
-                { nl: "Anticonceptiepil", en: "The Pill", def_nl: "Hormonen die ovulatie remmen.", def_en: "Hormones stopping ovulation.", mn_nl: "FOPT de eierstok.", mn_en: "Fake cycle." },
-                { nl: "Baarmoederslijmvlies", en: "Endometrium", def_nl: "Binnenlaag baarmoeder voor innesteling.", def_en: "Uterine lining.", mn_nl: "Zachte BEDJE.", mn_en: "Uterine bed." },
-                { nl: "Bevruchting", en: "Fertilization", def_nl: "Kern zaadcel + kern eicel.", def_en: "Sperm meets egg.", mn_nl: "SAMENSMELTING.", mn_en: "The union." },
+                { nl: "Aanranding", en: "Sexual assault", def_nl: "Gedwongen ondergaan of plegen van ontuchtige handelingen.", def_en: "Forced participation in or performance of indecent acts.", mn_nl: "Aan de RAND van je grens.", mn_en: "Assault: Over the edge." },
+                { nl: "Abortus", en: "Abortion", def_nl: "Het afbreken van een zwangerschap.", def_en: "Termination of pregnancy.", mn_nl: "AB-rupt stoppen van groei.", mn_en: "Abort = Cancel." },
+                { nl: "Aids", en: "AIDS", def_nl: "Ziekte door hiv waarbij afweer niet werkt.", def_en: "Immune failure via HIV.", mn_nl: "Afweer Is Defect Systeem.", mn_en: "AIDS: Acquired Immune Deficiency." },
+                { nl: "Anticonceptie", en: "Contraception", def_nl: "Voorkomen van bevruchting.", def_en: "Prevention of fertilization.", mn_nl: "ANTI (tegen) + CONCEPTIE (baby).", mn_en: "Contra (Against) + Ception." },
+                { nl: "Anticonceptiemiddel", en: "Contraceptive", def_nl: "Hulpmiddel tegen zwangerschap.", def_en: "Pregnancy prevention tool.", mn_nl: "HET DING dat baby's stopt.", mn_en: "The tool for NO." },
+                { nl: "Anticonceptiepil", en: "The Pill", def_nl: "Hormonen die ovulatie remmen.", def_en: "Hormones stopping ovulation.", mn_nl: "Hormonen FOPPEN de eierstok.", mn_en: "Fake cycle hormones." },
+                { nl: "Baarmoederslijmvlies", en: "Endometrium", def_nl: "Binnenlaag baarmoeder voor innesteling.", def_en: "Uterine lining.", mn_nl: "Het zachte BEDJE.", mn_en: "The uterine bed." },
+                { nl: "Bevruchting", en: "Fertilization", def_nl: "Kern zaadcel + kern eicel.", def_en: "Sperm meets egg.", mn_nl: "De grote SAMENSMELTING.", mn_en: "The union." },
                 { nl: "Biseksueel", en: "Bisexual", def_nl: "Aangetrokken tot beide geslachten.", def_en: "Attracted to both.", mn_nl: "BI = Twee.", mn_en: "Bi = Two." },
-                { nl: "Blastula", en: "Blastula", def_nl: "Blaasje met holte (embryo stadium).", def_en: "Hollow ball of cells.", mn_nl: "BLAASJE.", mn_en: "Blast = Balloon." },
-                { nl: "Cellen van Leydig", en: "Leydig cells", def_nl: "Maken testosteron.", def_en: "Testosterone makers.", mn_nl: "Leydig = Lul (hormoon).", mn_en: "Leydig = Libido." },
-                { nl: "Coming-out", en: "Coming out", def_nl: "Vertellen over geaardheid.", def_en: "Revealing identity.", mn_nl: "UIT DE KAST.", mn_en: "Step out." },
+                { nl: "Blastula", en: "Blastula", def_nl: "Blaasje met holte (embryo stadium).", def_en: "Hollow ball of cells.", mn_nl: "Blastula = BLAASJE.", mn_en: "Blast = Balloon of cells." },
+                { nl: "Cellen van Leydig", en: "Leydig cells", def_nl: "Maken testosteron.", def_en: "Testosterone makers.", mn_nl: "L van Leydig = L van Lul.", mn_en: "Leydig = Libido." },
+                { nl: "Coming-out", en: "Coming out", def_nl: "Vertellen over geaardheid.", def_en: "Revealing identity.", mn_nl: "UIT DE KAST komen.", mn_en: "Step into light." },
                 { nl: "Diploïd (2n)", en: "Diploid (2n)", def_nl: "Chromosomen in paren.", def_en: "Paired chromosomes.", mn_nl: "DI = DUBBEL.", mn_en: "Di = Double." },
                 { nl: "Eicel", en: "Egg cell", def_nl: "Vrouwelijke voortplantingscel.", def_en: "Female gamete.", mn_nl: "De MOEDERcel.", mn_en: "The Ovum." },
                 { nl: "Eisprong", en: "Ovulation", def_nl: "Eicel verlaat eierstok.", def_en: "Egg release.", mn_nl: "SPRONG naar eileider.", mn_en: "The Jump." },
                 { nl: "Embryo", en: "Embryo", def_nl: "Vroege groei (tot 8 wk).", def_en: "Early development.", mn_nl: "EERSTE fase.", mn_en: "Early start." },
-                { nl: "Foetus", en: "Fetus", def_nl: "Na 8 weken, organen zijn er.", def_en: "After 8 weeks.", mn_nl: "FOETUS = FINISHED.", mn_en: "Fetus = Finished." },
-                { nl: "Follikel", en: "Follicle", def_nl: "Zakje met eicel.", def_en: "Egg sac.", mn_nl: "FOEDSELZAKJE.", mn_en: "F for Food." },
+                { nl: "Foetus", en: "Fetus", def_nl: "Na 8 weken, organen zijn er.", def_en: "After 8 weeks.", mn_nl: "FOETUS = FINISHED.", mn_en: "Fetus = Finished setup." },
+                { nl: "Follikel", en: "Follicle", def_nl: "Zakje met eicel.", def_en: "Egg sac.", mn_nl: "F van FOLLIKEL en FSH.", mn_en: "F for Follicle." },
                 { nl: "FSH", en: "FSH", def_nl: "Stimuleert eicelrijping.", def_en: "Egg stimulator.", mn_nl: "Follikel START Hier.", mn_en: "Follicle Starts Here." },
-                { nl: "Gele lichaam", en: "Corpus Luteum", def_nl: "Maakt progesteron.", def_en: "Remnant.", mn_nl: "G van GROEI wand.", mn_en: "Yellow Support." },
+                { nl: "Gele lichaam", en: "Corpus Luteum", def_nl: "Maakt progesteron na ovulatie.", def_en: "Remnant after egg.", mn_nl: "GEEL = G van GROEI wand.", mn_en: "Yellow Support." },
                 { nl: "Geslachtschromosomen", en: "Sex chromosomes", def_nl: "X en Y.", def_en: "X and Y.", mn_nl: "Sexe-LETTERS.", mn_en: "Sex ID." },
-                { nl: "Haploïd (n)", en: "Haploid (n)", def_nl: "Enkele set.", def_en: "Single set.", mn_nl: "HAPLOÏD = HALF.", mn_en: "Haploid = Half." },
-                { nl: "HCG", en: "hCG", def_nl: "Houdt CL in stand.", def_en: "Maintains CL.", mn_nl: "HOUDT CORPUS GEEL.", mn_en: "hCG = Help Corpus Grow." },
-                { nl: "Heteroseksueel", en: "Heterosexual", def_nl: "M+V.", def_en: "Opposite.", mn_nl: "Hetero = ANDERS.", mn_en: "Hetero = Diff." },
-                { nl: "Homoseksueel", en: "Homosexual", def_nl: "Gelijk.", def_en: "Same.", mn_nl: "Homo = GELIJK.", mn_en: "Homo = Same." },
-                { nl: "Hypofyse", en: "Pituitary", def_nl: "FSH/LH bron.", def_en: "Master gland.", mn_nl: "De DIRIGENT.", mn_en: "The Boss." },
-                { nl: "Incest", en: "Incest", def_nl: "Seks familie.", def_en: "Relative sex.", mn_nl: "In het NEST.", mn_en: "Inner nest." },
-                { nl: "Ingedaald", en: "Engaged", def_nl: "In bekken.", def_en: "Head down.", mn_nl: "STARTBLOKKEN.", mn_en: "Locked." },
+                { nl: "Haploïd (n)", en: "Haploid (n)", def_nl: "Enkele set chromosomen.", def_en: "Single set.", mn_nl: "HAPLOÏD = HALF.", mn_en: "Haploid = Half." },
+                { nl: "HCG", en: "hCG", def_nl: "Houdt gele lichaam in stand.", def_en: "Maintains CL.", mn_nl: "HOUDT CORPUS GEEL.", mn_en: "hCG = Help Corpus Grow." },
+                { nl: "Heteroseksueel", en: "Heterosexual", def_nl: "M+V.", def_en: "Attracted opposite.", mn_nl: "Hetero = ANDERS.", mn_en: "Hetero = Different." },
+                { nl: "Homoseksueel", en: "Homosexual", def_nl: "Zelfde geslacht.", def_en: "Attracted same.", mn_nl: "Homo = GELIJK.", mn_en: "Homo = Same." },
+                { nl: "Hypofyse", en: "Pituitary", def_nl: "Produceert FSH en LH.", def_en: "Master gland.", mn_nl: "De DIRIGENT van hormonen.", mn_en: "The Boss." },
+                { nl: "Incest", en: "Incest", def_nl: "Seks met familie.", def_en: "Relative sex.", mn_nl: "Seks in het NEST (gezin).", mn_en: "In-family." },
+                { nl: "Ingedaald", en: "Engaged", def_nl: "Hoofdje in bekken.", def_en: "Head down.", mn_nl: "In de STARTBLOKKEN.", mn_en: "Locked in." },
                 { nl: "Innesteling", en: "Implantation", def_nl: "Embryo in wand.", def_en: "Embedding.", mn_nl: "NESTJE bouwen.", mn_en: "Home base." },
-                { nl: "Intersekse", en: "Intersex", def_nl: "M+V kenmerken.", def_en: "Both.", mn_nl: "INTER = TUSSEN.", mn_en: "Inter = Between." },
-                { nl: "IVF", en: "IVF", def_nl: "Glas bevruchting.", def_en: "In glass.", mn_nl: "VITRO = GLAS.", mn_en: "In Glass." },
-                { nl: "Klievingsdeling", en: "Cleavage", def_nl: "Zonder groei.", def_en: "Growthless.", mn_nl: "KLIEVEN = SPLITSEN.", mn_en: "Cleave = Split." },
-                { nl: "Kunstmatige inseminatie", en: "AI", def_nl: "Sperma via spuit.", def_en: "Sperm tube.", mn_nl: "KUNSTMATIG inbrengen.", mn_en: "Artificial Input." },
-                { nl: "Lesbisch", en: "Lesbian", def_nl: "V+V.", def_en: "W+W.", mn_nl: "Vrouw voor Vrouw.", mn_en: "W + W." },
-                { nl: "LH", en: "LH", def_nl: "Ovulatie.", def_en: "Ovulation.", mn_nl: "LAAT HEITJE LOS.", mn_en: "Let it Happen." },
-                { nl: "Masturberen", en: "Masturbation", def_nl: "Zelfseks.", def_en: "Self joy.", mn_nl: "SOLO-seks.", mn_en: "Self joy." },
-                { nl: "Meiose", en: "Meiosis", def_nl: "Geslachtscellen.", def_en: "Gametes.", mn_nl: "Maakt MIJ (n).", mn_en: "Making Me." },
-                { nl: "Meiose I", en: "Meiosis I", def_nl: "Paren los.", def_en: "Pairs split.", mn_nl: "PAREN los.", mn_en: "One split." },
-                { nl: "Meiose II", en: "Meiosis II", def_nl: "Strips los.", def_en: "Chromatids split.", mn_nl: "STRIPS los.", mn_en: "Two strands." },
-                { nl: "Menstruatie", en: "Period", def_nl: "Slijmvlies afstoot.", def_en: "Shedding.", mn_nl: "SCHOONMAAK.", mn_en: "Flush." },
-                { nl: "Morning-afterpil", en: "Morning-after", def_nl: "SOS na seks.", def_en: "Emergency.", mn_nl: "HULP volgende dag.", mn_en: "Next day." },
-                { nl: "Nageboorte", en: "Afterbirth", def_nl: "Placenta uit.", def_en: "Placenta.", mn_nl: "NA de baby.", mn_en: "After child." },
-                { nl: "Navelstreng", en: "Cord", def_nl: "De lijn.", def_en: "Lifeline.", mn_nl: "2 SLAG, 1 ADER.", mn_en: "Life tube." },
-                { nl: "Naweeën", en: "Afterpains", def_nl: "Post-pijn.", def_en: "Post-birth.", mn_nl: "WEG-pijn na baby.", mn_en: "Extra pains." },
-                { nl: "Norm", en: "Norm", def_nl: "Regel.", def_en: "Rule.", mn_nl: "NORMAAL doen.", mn_en: "Normalcy." },
-                { nl: "Oestrogenen", en: "Estrogens", def_nl: "Vrouw hormoon.", def_en: "Female.", mn_nl: "OESTRO = VROUW.", mn_en: "Estro = Female." },
-                { nl: "Ontsluiting", en: "Dilation", def_nl: "Deur open.", def_en: "Cervix.", mn_nl: "OPEN gaan.", mn_en: "Opening." },
-                { nl: "Ontsluitingsweeën", en: "Dilation pains", def_nl: "Start.", def_en: "Early labor.", mn_nl: "EERSTE weeën.", mn_en: "The start." },
-                { nl: "Orgasme", en: "Orgasm", def_nl: "Apex.", def_en: "Peak.", mn_nl: "HOOGTEPUNT.", mn_en: "The peak." },
-                { nl: "Overtijdbehandeling", en: "Late cure", def_nl: "Vroege abortus.", def_en: "Early fix.", mn_nl: "OVER tijd.", mn_en: "Late fix." },
+                { nl: "Intersekse", en: "Intersex", def_nl: "M en V kenmerken.", def_en: "Both traits.", mn_nl: "INTER = TUSSEN.", mn_en: "Inter = Between." },
+                { nl: "IVF", en: "IVF", def_nl: "Reageerbuisbevruchting.", def_en: "Test tube baby.", mn_nl: "VITRO = GLAS.", mn_en: "Glass birth." },
+                { nl: "Klievingsdeling", en: "Cleavage", def_nl: "Deling zonder groei.", def_en: "Growthless division.", mn_nl: "KLIEVEN = SPLITSEN.", mn_en: "Cleave = Split." },
+                { nl: "Kunstmatige inseminatie", en: "Artificial Insemination", def_nl: "Sperma via spuitje.", def_en: "Sperm via tube.", mn_nl: "KI = KUNSTMATIG INBRENGEN.", mn_en: "AI = Artificial Input." },
+                { nl: "Lesbisch", en: "Lesbian", def_nl: "Vrouw voor vrouw.", def_en: "Woman to woman.", mn_nl: "Vrouw + Vrouw.", mn_en: "W + W." },
+                { nl: "LH", en: "LH", def_nl: "Stimuleert ovulatie.", def_en: "Triggers ovulation.", mn_nl: "LH = LAAT HEITJE LOS.", mn_en: "Let it Happen." },
+                { nl: "Masturberen", en: "Masturbation", def_nl: "Zelfbevrediging.", def_en: "Self pleasure.", mn_nl: "SOLO-seks.", mn_en: "Self joy." },
+                { nl: "Meiose", en: "Meiosis", def_nl: "Vorming geslachtscellen.", def_en: "Gamete maker.", mn_nl: "Makt MIJ (n).", mn_en: "Making a Me." },
+                { nl: "Meiose I", en: "Meiosis I", def_nl: "Paren uit elkaar.", def_en: "Pairs separate.", mn_nl: "I = de PAREN gaan los.", mn_en: "I = Pairs split." },
+                { nl: "Meiose II", en: "Meiosis II", def_nl: "Chromatiden uit elkaar.", def_en: "Chromatids separate.", mn_nl: "II = de LOSSE STRIPS gaan los.", mn_en: "II = Two strands." },
+                { nl: "Menstruatie", en: "Period", def_nl: "Afstoten baarmoederslijmvlies.", def_en: "Lining shed.", mn_nl: "Maandelijkse SCHOONMAAK.", mn_en: "Monthly flush." },
+                { nl: "Morning-afterpil", en: "Morning-after pill", def_nl: "Pil na onbeschermde seks.", def_en: "Emergency prevention.", mn_nl: "HULP de volgende ochtend.", mn_en: "Next day help." },
+                { nl: "Nageboorte", en: "Afterbirth", def_nl: "Placenta uitdrijving.", def_en: "Placental exit.", mn_nl: "Wat er NA de baby komt.", mn_en: "After the birth." },
+                { nl: "Navelstreng", en: "Umbilical cord", def_nl: "Verbinding tussen foetus en placenta.", def_en: "Baby-placenta link.", mn_nl: "2 SLAGADERS, 1 ADER.", mn_en: "Lifeline." },
+                { nl: "Naweeën", en: "Afterpains", def_nl: "Weeën na geboorte.", def_en: "Post-birth pains.", mn_nl: "WEEËN die NA de baby komen.", mn_en: "Extra pains after." },
+                { nl: "Norm", en: "Norm", def_nl: "Gedragsregel.", def_en: "Behavior rule.", mn_nl: "Wat we NORMAAL vinden.", mn_en: "The standard." },
+                { nl: "Oestrogenen", en: "Estrogens", def_nl: "Vrouwelijke hormonen.", def_en: "Female hormones.", mn_nl: "OESTRO = VROUW.", mn_en: "Estro = Female." },
+                { nl: "Ontsluiting", en: "Dilation", def_nl: "Openen baarmoedermond.", def_en: "Cervix opening.", mn_nl: "DEUR gaat OPEN.", mn_en: "Opening up." },
+                { nl: "Ontsluitingsweeën", en: "Dilation pains", def_nl: "Start bevalling.", def_en: "Early labor.", mn_nl: "EERSTE weeën.", mn_en: "The start." },
+                { nl: "Orgasme", en: "Orgasm", def_nl: "Hoogtepunt.", def_en: "Apex.", mn_nl: "HET HOOGTEPUNT.", mn_en: "The apex." },
+                { nl: "Overtijdbehandeling", en: "Late cure", def_nl: "Vroege abortus.", def_en: "Early abortion.", mn_nl: "Als je OVER tijd bent.", mn_en: "Late fix." },
                 { nl: "Ovulatie", en: "Ovulation", def_nl: "Eisprong.", def_en: "Egg exit.", mn_nl: "OVUM = EICEL.", mn_en: "O for Ovum." },
-                { nl: "Oxytocine", en: "Oxytocin", def_nl: "Weeën.", def_en: "Labor.", mn_nl: "OXY = OPEN.", mn_en: "Oxy = Out." },
-                { nl: "Periodieke onthouding", en: "Abstinence", def_nl: "SOMS stoppen.", def_en: "Safe dates.", mn_nl: "SOMS stoppen.", mn_en: "Safe days." },
-                { nl: "Persweeën", en: "Pushing", def_nl: "Baby eruit.", def_en: "Expulsion.", mn_nl: "PERSEN is duwen.", mn_en: "Push hard." },
-                { nl: "Pessarium", en: "Diaphragm", def_nl: "Kapje.", def_en: "Cap.", mn_nl: "HET KAPJE.", mn_en: "Barrier." },
-                { nl: "Placenta", en: "Placenta", def_nl: "Moederkoek.", def_en: "Hub.", mn_nl: "VOEDINGSFABRIEK.", mn_en: "Port." },
-                { nl: "Prenatale diagnostiek", en: "Tests", def_nl: "Geboorte test.", def_en: "Pre-birth.", mn_nl: "PRE = VOOR.", mn_en: "Pre = Before." },
-                { nl: "Primaire geslachtskenmerken", en: "Primary", def_nl: "Bij geboorte.", def_en: "Birth.", mn_nl: "PRIMAIR = EERST.", mn_en: "First set." },
-                { nl: "Progesteron", en: "Progesterone", def_nl: "Wand houden.", def_en: "Pregnancy.", mn_nl: "PRO = VOOR.", mn_en: "Pro-Preg." },
-                { nl: "Recombinatie", en: "Recombination", def_nl: "Mix genen.", def_en: "Shuffle.", mn_nl: "COMBI maken.", mn_en: "Mix up." },
+                { nl: "Oxytocine", en: "Oxytocin", def_nl: "Stimuleert weeën.", def_en: "Labor hormone.", mn_nl: "OXY = OPEN.", mn_en: "Oxy = Out." },
+                { nl: "Periodieke onthouding", en: "Abstinence", def_nl: "Geen seks op vruchtbare dagen.", def_en: "Safe dates.", mn_nl: "SOMS stoppen.", mn_en: "Calendar method." },
+                { nl: "Persweeën", en: "Pushing", def_nl: "Baby eruit duwen.", def_en: "Expulsion.", mn_nl: "PERSEN is duwen.", mn_en: "Push phase." },
+                { nl: "Pessarium", en: "Diaphragm", def_nl: "Kapje over mond.", def_en: "Cap.", mn_nl: "HET KAPJE.", mn_en: "Cover cap." },
+                { nl: "Placenta", en: "Placenta", def_nl: "Moederkoek.", def_en: "Exchange hub.", mn_nl: "VOEDINGSFABRIEK.", mn_en: "Port." },
+                { nl: "Prenatale diagnostiek", en: "Prenatal tests", def_nl: "Voor geboorte testen.", def_en: "Pre-birth tests.", mn_nl: "PRE = VOOR.", mn_en: "Pre = Before." },
+                { nl: "Primaire geslachtskenmerken", en: "Primary traits", def_nl: "Bij geboorte.", def_en: "At birth.", mn_nl: "PRIMAIR = EERST.", mn_en: "First set." },
+                { nl: "Progesteron", en: "Progesterone", def_nl: "Behoudt wand.", def_en: "Support pregnancy.", mn_nl: "PRO = VOOR de zwangerschap.", mn_en: "Pro-Preg." },
+                { nl: "Recombinatie", en: "Recombination", def_nl: "Mix van genen.", def_en: "Gene shuffle.", mn_nl: "Nieuwe COMBI maken.", mn_en: "Mix up." },
                 { nl: "Reductiedeling", en: "Reduction", def_nl: "Meiose.", def_en: "Meiosis.", mn_nl: "REDUCEREN (minder).", mn_en: "Divide." },
-                { nl: "Secundaire geslachtskenmerken", en: "Secondary", def_nl: "In puberteit.", def_en: "Puberty.", mn_nl: "SECUNDAIR = LATER.", mn_en: "Second." },
-                { nl: "Seropositief", en: "Seropositive", def_nl: "Hiv ja.", def_en: "HIV yes.", mn_nl: "POSITIEF test.", mn_en: "Tested YES." },
-                { nl: "Sperma", en: "Semen", def_nl: "Mix.", def_en: "Seed.", mn_nl: "WITTE MIX.", mn_en: "Seed mix." },
-                { nl: "Spiraaltje", en: "IUD", def_nl: "Anker.", def_en: "Spiral.", mn_nl: "ANKERTJE.", mn_en: "Womb tool." },
-                { nl: "Steriliseren", en: "Sterilize", def_nl: "Stop.", def_en: "Tying.", mn_nl: "DEFINITIEF STOP.", mn_en: "End." },
-                { nl: "Tertiaire geslachtskenmerken", en: "Tertiary", def_nl: "Geest.", def_en: "Mind.", mn_nl: "TERTIAIR = GEEST.", mn_en: "Third." },
-                { nl: "Testosteron", en: "Testosterone", def_nl: "Man.", def_en: "Male.", mn_nl: "T van TEELBAL.", mn_en: "T for Testes." },
-                { nl: "Transgender", en: "Transgender", def_nl: "Andere ID.", def_en: "Diff ID.", mn_nl: "TRANS = OVER.", mn_en: "Trans = Across." },
-                { nl: "Trilhaarcellen", en: "Cilia", def_nl: "Vervoer.", def_en: "Waving.", mn_nl: "Haren GOLVEN.", mn_en: "Waving." },
-                { nl: "Uitdrijving", en: "Expulsion", def_nl: "Eruit.", def_en: "Exit.", mn_nl: "DE BABY ERUIT.", mn_en: "Exiting." },
-                { nl: "Uitwendige geslachtsorganen", en: "Outer", def_nl: "Buiten.", def_en: "External.", mn_nl: "BUITENKANT.", mn_en: "The view." },
-                { nl: "Verkrachting", en: "Rape", def_nl: "Dwang.", def_en: "Crime.", mn_nl: "DWANG.", mn_en: "Crime." },
-                { nl: "Vlokken", en: "Villi", def_nl: "Vingers.", def_en: "Fingers.", mn_nl: "VINGERS in wand.", mn_en: "Fingers." },
-                { nl: "Voorbehoedmiddel", en: "Contraceptive", def_nl: "Tegen baby.", def_en: "Shield.", mn_nl: "BEHOED voor baby.", mn_en: "Shield." },
-                { nl: "Vruchtvliezen", en: "Membranes", def_nl: "Zak.", def_en: "Sacs.", mn_nl: "HET ZAKJE.", mn_en: "Safe bag." },
-                { nl: "Vruchtwater", en: "Amniotic", def_nl: "Water.", def_en: "Pool.", mn_nl: "WATERBED.", mn_en: "Amniotic pool." },
-                { nl: "Waarde", en: "Value", def_nl: "Geloof.", def_en: "Worth.", mn_nl: "HET IS WAARD.", mn_en: "Worth." },
-                { nl: "X-chromosoom", en: "X", def_nl: "Vrouw.", def_en: "X.", mn_nl: "VROUW = XX.", mn_en: "Base X." },
-                { nl: "Y-chromosoom", en: "Y", def_nl: "Man.", def_en: "Y.", mn_nl: "Y MAAKT DE MAN.", mn_en: "Y for Guy." },
-                { nl: "Zaadbal", en: "Testes", def_nl: "Fabriek.", def_en: "Factory.", mn_nl: "FABRIEK in zak.", mn_en: "Testes." },
-                { nl: "Zaadcel", en: "Sperm", def_nl: "Zwemmer.", def_en: "Swimmer.", mn_nl: "DE ZWEMMER.", mn_en: "Seeker." },
-                { nl: "Zaadlozing", en: "Semen out", def_nl: "Shot.", def_en: "Exit.", mn_nl: "HET SCHOT.", mn_en: "Launch." },
-                { nl: "Zygote", en: "Zygote", def_nl: "1e cel.", def_en: "Start.", mn_nl: "ZAMEN = Zygote.", mn_en: "Joined." },
-                { nl: "Hielprik", en: "Heel prick", def_nl: "Test.", def_en: "Test.", mn_nl: "PRIKJE IN HIEL.", mn_en: "Baby test." },
-                { nl: "Eeneiige tweeling", en: "Identical", def_nl: "1 ei.", def_en: "1 egg.", mn_nl: "1 EI = 1 START.", mn_en: "Mono." },
-                { nl: "Twee-eiige tweeling", en: "Fraternal", def_nl: "2 ei.", def_en: "2 egg.", mn_nl: "2 EITJES.", mn_en: "Duo." }
+                { nl: "Secundaire geslachtskenmerken", en: "Secondary traits", def_nl: "In puberteit.", def_en: "In puberty.", mn_nl: "SECUNDAIR = TWEEDE.", mn_en: "Second set." },
+                { nl: "Seropositief", en: "Seropositive", def_nl: "Hiv aanwezig.", def_en: "HIV detected.", mn_nl: "POSITIEVE test.", mn_en: "Tested YES." },
+                { nl: "Sperma", en: "Semen", def_nl: "Vocht + zaad.", def_en: "Fluid + seed.", mn_nl: "WITTE MIX.", mn_en: "Seed mix." },
+                { nl: "Spiraaltje", en: "IUD", def_nl: "Stopt innesteling.", def_en: "Womb spiral.", mn_nl: "HET ANKERTJE.", mn_en: "Womb tool." },
+                { nl: "Steriliseren", en: "Sterilize", def_nl: "Eileiders dicht.", def_en: "Closing tubes.", mn_nl: "DEFINITIEF STOP.", mn_en: "Tying stop." },
+                { nl: "Tertiaire geslachtskenmerken", en: "Tertiary traits", def_nl: "Geestelijke groei.", def_en: "Mind growth.", mn_nl: "TERTIAIR = DERDE (geest).", mn_en: "Third layer." },
+                { nl: "Testosteron", en: "Testosterone", def_nl: "Mannelijk hormoon.", def_en: "Male signal.", mn_nl: "T van TEELBAL.", mn_en: "T for Testes." },
+                { nl: "Transgender", en: "Transgender", def_nl: "Andere identiteit.", def_en: "Diff ID.", mn_nl: "TRANS = OVERstappen.", mn_en: "Trans = Across." },
+                { nl: "Trilhaarcellen", en: "Cilia", def_nl: "Vervoeren zygote.", def_en: "Waving cells.", mn_nl: "Haren die GOLVEN.", mn_en: "Waving hairs." },
+                { nl: "Uitdrijving", en: "Expulsion", def_nl: "Baby komt ter wereld.", def_en: "Birth exit.", mn_nl: "DE BABY ERUIT.", mn_en: "Exiting." },
+                { nl: "Uitwendige geslachtsorganen", en: "Outer organs", def_nl: "Zichtbaar.", def_en: "Visible.", mn_nl: "BUITENKANT.", mn_en: "External view." },
+                { nl: "Verkrachting", en: "Rape", def_nl: "Seksuele dwang.", def_en: "Violated sex.", mn_nl: "Seksuele DWANG.", mn_en: "Violation crime." },
+                { nl: "Vlokken", en: "Villi", def_nl: "Placenta vingers.", def_en: "Placental villi.", mn_nl: "VINGERS in wand.", mn_en: "Villi fingers." },
+                { nl: "Voorbehoedmiddel", en: "Contraceptive", def_nl: "Tegen baby.", def_en: "Prevention.", mn_nl: "VOOR-BEHOED: behoed je VOOR baby.", mn_en: "Shield." },
+                { nl: "Vruchtvliezen", en: "Membranes", def_nl: "Zak om embryo.", def_en: "Sacs.", mn_nl: "HET ZAKJE.", mn_en: "Safe bags." },
+                { nl: "Vruchtwater", en: "Amniotic", def_nl: "Schokdemper.", def_en: "Pool.", mn_nl: "WATERBED.", mn_en: "Amniotic pool." },
+                { nl: "Waarde", en: "Value", def_nl: "Geloof.", def_en: "Worth.", mn_nl: "HET IS WAARD.", mn_en: "Moral worth." },
+                { nl: "X-chromosoom", en: "X", def_nl: "Vrouw basis.", def_en: "Female X.", mn_nl: "VROUW = XX.", mn_en: "Female X." },
+                { nl: "Y-chromosoom", en: "Y", def_nl: "Man maker.", def_en: "Man signal.", mn_nl: "Y MAAKT DE MAN.", mn_en: "Y for Guy." },
+                { nl: "Zaadbal", en: "Testicle", def_nl: "Maakt zaad.", def_en: "Sperm organ.", mn_nl: "FABRIEK in de zak.", mn_en: "Testes." },
+                { nl: "Zaadcel", en: "Sperm", def_nl: "Man voortplantingscel.", def_en: "Male gamete.", mn_nl: "De ZWEMMER.", mn_en: "The swimmer." },
+                { nl: "Zaadlozing", en: "Ejaculation", def_nl: "Vrijkomen sperma.", def_en: "Semen release.", mn_nl: "Lanceren van zaad.", mn_en: "Semen launch." },
+                { nl: "Zygote", en: "Zygote", def_nl: "Bevruchte eicel.", def_en: "Fertilized egg.", mn_nl: "Zygote = ZAMEN (versmelting).", mn_en: "Joined together." },
+                { nl: "Hielprik", en: "Heel prick", def_nl: "Bloedtest na geboorte.", def_en: "Newborn test.", mn_nl: "Prikje in de HIEL.", mn_en: "Heel test." },
+                { nl: "Eeneiige tweeling", en: "Identical twins", def_nl: "1 ei + 1 zaadcel; splitst.", def_en: "1 egg origin.", mn_nl: "1 ei = 1 begin.", mn_en: "One egg start." },
+                { nl: "Twee-eiige tweeling", en: "Fraternal twins", def_nl: "2 eicellen + 2 zaadcellen.", def_en: "2 egg origin.", mn_nl: "2 eitjes.", mn_en: "Two egg start." }
             ],
             metabolism: [
-                { nl: "Abiotische factoren", en: "Abiotic", def_nl: "Niet-levend.", def_en: "Non-living.", mn_nl: "A = NIET.", mn_en: "A = Non." },
-                { nl: "ADP", en: "ADP", def_nl: "2 fosfaat.", def_en: "2 phos.", mn_nl: "D = DUO.", mn_en: "D = Di." },
-                { nl: "Aerobe dissimilatie", en: "Aerobic", def_nl: "Met O2.", def_en: "With O2.", mn_nl: "AERO = LUCHT.", mn_en: "Air." },
-                { nl: "Alcoholische gisting", en: "Fermentation", def_nl: "Ethanol.", def_en: "Alcohol.", mn_nl: "BIER.", mn_en: "Beer." },
-                { nl: "Aminozuren", en: "Amino acids", def_nl: "Bouw eiwit.", def_en: "Build protein.", mn_nl: "STENEN.", mn_en: "Blocks." },
-                { nl: "Anaerobe dissimilatie", en: "Anaerobic", def_nl: "Zonder O2.", def_en: "No O2.", mn_nl: "AN-aero = ZONDER.", mn_en: "No air." },
-                { nl: "ATP", en: "ATP", def_nl: "3 fosfaat.", def_en: "3 phos.", mn_nl: "T = TRI.", mn_en: "T = Tri." },
-                { nl: "Bastvaten", en: "Phloem", def_nl: "Suiker omlaag.", def_en: "Sugar flow.", mn_nl: "BENEDEN.", mn_en: "Flow." },
-                { nl: "Beperkende factor", en: "Limiting factor", def_nl: "De rem.", def_en: "The brake.", mn_nl: "DE REM.", mn_en: "Brake." },
-                { nl: "Bladgroen", en: "Chlorophyll", def_nl: "Lichtvanger.", def_en: "Light catcher.", mn_nl: "ZONNEPANEEL.", mn_en: "Panel." },
-                { nl: "Bouwstof", en: "Material", def_nl: "Opbouw.", def_en: "Building.", mn_nl: "LEGO.", mn_en: "Blocks." },
-                { nl: "Brandstof", en: "Fuel", def_nl: "Energie.", def_en: "Energy.", mn_nl: "BENZINE.", mn_en: "Gas." },
-                { nl: "Brutoproductie", en: "Gross", def_nl: "Totaal suiker.", def_en: "Total sugar.", mn_nl: "BRUTO IS ALLES.", mn_en: "All in." },
-                { nl: "Chemische energie", en: "Chemical energy", def_nl: "Batterij.", def_en: "Bond energy.", mn_nl: "BATTERIJ.", mn_en: "Battery." },
-                { nl: "Compensatiepunt", en: "Compensation", def_nl: "Balance.", def_en: "Zero state.", mn_nl: "EVENWICHT.", mn_en: "Zero sum." },
-                { nl: "Creatinefosfaat", en: "Creatine", def_nl: "Sprint power.", def_en: "Turbo.", mn_nl: "TURBO.", mn_en: "Turbo." },
-                { nl: "Dissimilatie", en: "Respiration", def_nl: "Energie vrij.", def_en: "Power.", mn_nl: "VERBRANDEN.", mn_en: "Burning." },
-                { nl: "Drooggewicht", en: "Dry weight", def_nl: "Geen water.", def_en: "Mass.", mn_nl: "KURKDROOG.", mn_en: "Dried." },
-                { nl: "Eencellige gisten", en: "Yeasts", def_nl: "Gist.", def_en: "Yeast.", mn_nl: "BROOD.", mn_en: "Rise." },
-                { nl: "Endodermis", en: "Endodermis", def_nl: "Douane.", def_en: "Customs.", mn_nl: "DOUANE.", mn_en: "Border." },
-                { nl: "Essentiële aminozuren", en: "Essential", def_nl: "Eten.", def_en: "Must eat.", mn_nl: "ETEN.", mn_en: "Food." },
-                { nl: "Fosfaataccu", en: "Battery", def_nl: "ATP stock.", def_en: "Storage.", mn_nl: "ACCU.", mn_en: "Tank." },
-                { nl: "Fotosynthese", en: "Photosynthesis", def_nl: "Licht bouw.", def_en: "Sun-build.", mn_nl: "LICHT-BOUW.", mn_en: "Sun-build." },
-                { nl: "Gaswisseling", en: "Gas exchange", def_nl: "Handel.", def_en: "Swap air.", mn_nl: "LUCHTHANDEL.", mn_en: "Swap." },
-                { nl: "Glycerol", en: "Glycerol", def_nl: "Vet haak.", def_en: "Fat spine.", mn_nl: "HAAK.", mn_en: "Hook." },
-                { nl: "Glycogeen", en: "Glycogen", def_nl: "Voorraad.", def_en: "Starch.", mn_nl: "VOORRAAD.", mn_en: "Store." },
-                { nl: "Houtvaten", en: "Xylem", def_nl: "Water omhoog.", def_en: "Water high.", mn_nl: "HOOG.", mn_en: "High." },
-                { nl: "Huidmondjes", en: "Stomata", def_nl: "Mondje.", def_en: "Leaf mouth.", mn_nl: "MONDJES.", mn_en: "Lips." },
-                { nl: "Kinetische energie", en: "Kinetic", def_nl: "Beweging.", def_en: "Motion.", mn_nl: "RENNEN.", mn_en: "Move." },
-                { nl: "Koolstofassimilatie", en: "Assimilation", def_nl: "Vangen.", def_en: "Catching.", mn_nl: "VANGEN.", mn_en: "Catch." },
-                { nl: "Melkzuurbacteriën", en: "Lactic bacteria", def_nl: "Zuur.", def_en: "Acid bugs.", mn_nl: "YOGHURT.", mn_en: "Sour." },
-                { nl: "Melkzuurgisting", en: "Lactic acid", def_nl: "Spierpijn.", def_en: "Ache.", mn_nl: "SPIERPIJN.", mn_en: "Ache." },
-                { nl: "Metabolisme", en: "Metabolism", def_nl: "Stofwisseling.", def_en: "Chemistry.", mn_nl: "FABRIEK.", mn_en: "System." },
-                { nl: "Nettoproductie", en: "Net", def_nl: "Winst.", def_en: "Profit.", mn_nl: "DE WINST.", mn_en: "Profit." },
-                { nl: "Niet-essentiële aminozuren", en: "Non-essential", def_nl: "Zelf.", def_en: "Self made.", mn_nl: "ZELFBOUW.", mn_en: "Self." },
-                { nl: "Plasmastroming", en: "Streaming", def_nl: "Rivier.", def_en: "Flow.", mn_nl: "STROOM.", mn_en: "River." },
-                { nl: "Pyrodruivenzuur", en: "Pyruvic", def_nl: "Glucose stap.", def_en: "Step.", mn_nl: "TUSSENSTAP.", mn_en: "Step." },
-                { nl: "Ureum", en: "Urea", def_nl: "Plas.", def_en: "Urine.", mn_nl: "PLAS.", mn_en: "Pee." },
-                { nl: "Verdamping", en: "Evaporation", def_nl: "Zweet.", def_en: "Sweat.", mn_nl: "ZWETEN.", mn_en: "Steam." },
-                { nl: "Vetzuur", en: "Fatty acid", def_nl: "Staart.", def_en: "Tail.", mn_nl: "STAART.", mn_en: "Tail." },
-                { nl: "Voortgezette assimilatie", en: "Continued", def_nl: "Door.", def_en: "Beyond.", mn_nl: "DOORBOUW.", mn_en: "Beyond." },
-                { nl: "Worteldruk", en: "Root pressure", def_nl: "Pomp.", def_en: "Push.", mn_nl: "DRUK.", mn_en: "Pump." },
-                { nl: "Wortelharen", en: "Root hairs", def_nl: "Drink.", def_en: "Drink.", mn_nl: "DURSTIG.", mn_en: "Drink." }
+                { nl: "Abiotische factoren", en: "Abiotic factors", def_nl: "Niet-levende factoren (licht, lucht).", def_en: "Non-living factors.", mn_nl: "A = NIET (zoals asociaal).", mn_en: "A = Non." },
+                { nl: "ADP", en: "ADP", def_nl: "Adenosinedifosfaat; 2 fosfaat.", def_en: "2 phosphates.", mn_nl: "D = DUO (twee).", mn_en: "D = Di (Two)." },
+                { nl: "Aerobe dissimilatie", en: "Aerobic respiration", def_nl: "Met zuurstof.", def_en: "With oxygen.", mn_nl: "AERO = LUCHT (zuurstof).", mn_en: "Aero = Air." },
+                { nl: "Alcoholische gisting", en: "Alcoholic fermentation", def_nl: "Glucose naar ethanol.", def_en: "Sugar to alcohol.", mn_nl: "Gist maakt BIER.", mn_en: "Yeast makes beer." },
+                { nl: "Aminozuren", en: "Amino acids", def_nl: "Bouwstenen eiwit.", def_en: "Protein blocks.", mn_nl: "EIWIT-STENEN.", mn_en: "Building blocks." },
+                { nl: "Anaerobe dissimilatie", en: "Anaerobic respiration", def_nl: "Zonder zuurstof.", def_en: "Without oxygen.", mn_nl: "AN-aero = ZONDER lucht.", mn_en: "An = Without." },
+                { nl: "ATP", en: "ATP", def_nl: "3 fosfaat; energiedrager.", def_en: "3 phosphates.", mn_nl: "T = TRI (drie).", mn_en: "T = Tri (Three)." },
+                { nl: "Bastvaten", en: "Phloem", def_nl: "Suikers omlaag.", def_en: "Sugar transport.", mn_nl: "Bast = BUITEN & BENEDEN.", mn_en: "Phloem = Flow." },
+                { nl: "Beperkende factor", en: "Limiting factor", def_nl: "Bepaalt de snelheid.", def_en: "Slowest factor.", mn_nl: "De REM op het proces.", mn_en: "The bottleneck." },
+                { nl: "Bladgroen", en: "Chlorophyll", def_nl: "Lichtopvang.", def_en: "Light capture.", mn_nl: "Groene ZONNEPANELEN.", mn_en: "Green solar cells." },
+                { nl: "Bouwstof", en: "Structural material", def_nl: "Voor opbouw organen.", def_en: "Building matter.", mn_nl: "LEGO voor je lichaam.", mn_en: "Body blocks." },
+                { nl: "Brandstof", en: "Fuel", def_nl: "Energiebron.", def_en: "Energy source.", mn_nl: "De BENZINE.", mn_en: "The gas." },
+                { nl: "Brutoproductie", en: "Gross production", def_nl: "Totale glucose productie.", def_en: "Total production.", mn_nl: "BRUTO is alles.", mn_en: "Gross is total." },
+                { nl: "Chemische energie", en: "Chemical energy", def_nl: "Energie in moleculen.", def_en: "Bond energy.", mn_nl: "BATTERIJ-energie.", mn_en: "Stored energy." },
+                { nl: "Compensatiepunt", en: "Compensation point", def_nl: "Productie = Verbruik.", def_en: "Prod = Cons.", mn_nl: "HET EVENWICHT.", mn_en: "Zero balance." },
+                { nl: "Creatinefosfaat", en: "Creatine phosphate", def_nl: "Snelle energie spier.", def_en: "Fast muscle energy.", mn_nl: "De SPRINT-energie.", mn_en: "The turbo boost." },
+                { nl: "Dissimilatie", en: "Respiration", def_nl: "Afbraak voor energie.", def_en: "Breakdown for energy.", mn_nl: "VERBRANDEN voor kracht.", mn_en: "Burn for energy." },
+                { nl: "Drooggewicht", en: "Dry weight", def_nl: "Zonder water.", def_en: "No water mass.", mn_nl: "KURKDROOG gewicht.", mn_en: "Waterless weight." },
+                { nl: "Eencellige gisten", en: "Single-cell yeast", def_nl: "Schimmels die dissimileren naar CO2/alcohol.", def_en: "Yeast fungi.", mn_nl: "Brood-GIST.", mn_en: "Baking yeast." },
+                { nl: "Endodermis", en: "Endodermis", def_nl: "Minerale selectie wortel.", def_en: "Root filter.", mn_nl: "De DOUANE van de wortel.", mn_en: "Root customs." },
+                { nl: "Essentiële aminozuren", en: "Essential amino acids", def_nl: "Moet uit voedsel.", def_en: "Must eat.", mn_nl: "ONMISBAAR eten.", mn_en: "Essential intake." },
+                { nl: "Fosfaataccu", en: "Phosphate battery", def_nl: "Voorraad ATP.", def_en: "ATP store.", mn_nl: "De CEL-BATTERIJ.", mn_en: "Cell power bank." },
+                { nl: "Fotosynthese", en: "Photosynthesis", def_nl: "Licht naar suiker.", def_en: "Solar sugar.", mn_nl: "LICHT-BOUW.", mn_en: "Light synthesis." },
+                { nl: "Gaswisseling", en: "Gas exchange", def_nl: "O2 en CO2 wisselen.", def_en: "Gas swap.", mn_nl: "Lucht-HANDEL.", mn_en: "Trading air." },
+                { nl: "Glycerol", en: "Glycerol", def_nl: "Vet onderdeel.", def_en: "Fat part.", mn_nl: "HAAKJE van het vet.", mn_en: "Fat spine." },
+                { nl: "Glycogeen", en: "Glycogen", def_nl: "Suiker-opslag.", def_en: "Animal starch.", mn_nl: "MENSELIJK zetmeel.", mn_en: "Body sugar store." },
+                { nl: "Houtvaten", en: "Xylem", def_nl: "Water omhoog.", def_en: "Water up.", mn_nl: "Hout = HARD & HOOG.", mn_en: "Xylem High." },
+                { nl: "Huidmondjes", en: "Stomata", def_nl: "Openingen blad.", def_en: "Leaf holes.", mn_nl: "BLAD-MONDJES.", mn_en: "Leaf mouths." },
+                { nl: "Kinetische energie", en: "Kinetic energy", def_nl: "Beweging.", def_en: "Motion.", mn_nl: "KINETISCH = RENNEN.", mn_en: "Kinetic = Motion." },
+                { nl: "Koolstofassimilatie", en: "Carbon assimilation", def_nl: "Fotosynthese.", def_en: "CO2 capture.", mn_nl: "KOOLSTOF vangen.", mn_en: "CO2 catch." },
+                { nl: "Melkzuurbacteriën", en: "Lactic bacteria", def_nl: "Maken melkzuur.", def_en: "Acid makers.", mn_nl: "YOGHURT makers.", mn_en: "Sour bacteria." },
+                { nl: "Melkzuurgisting", en: "Lactic fermentation", def_nl: "Spier-verbranding (anaeroob).", def_en: "Muscle burn.", mn_nl: "SPIERPIJN-gisting.", mn_en: "Muscle fatigue." },
+                { nl: "Metabolisme", en: "Metabolism", def_nl: "Stofwisseling.", def_en: "Body processes.", mn_nl: "TOTAAL-fabriek.", mn_en: "All chemistry." },
+                { nl: "Nettoproductie", en: "Net production", def_nl: "Productie - verbruik.", def_en: "Final gain.", mn_nl: "De WINST.", mn_en: "The profit." },
+                { nl: "Niet-essentiële aminozuren", en: "Non-essential acids", def_nl: "Maakt lever zelf.", def_en: "Body makes.", mn_nl: "ZELF-BOUW.", mn_en: "Self-made." },
+                { nl: "Plasmastroming", en: "Cytoplasm flow", def_nl: "Transport in cel.", def_en: "Cell transport.", mn_nl: "CEL-STROOM.", mn_en: "Cell river." },
+                { nl: "Pyrodruivenzuur", en: "Pyruvic acid", def_nl: "Suiker afbraak tussenstap.", def_en: "Sugar intermediate.", mn_nl: "DRUIVEN-STAP.", mn_en: "Sugar step." },
+                { nl: "Ureum", en: "Urea", def_nl: "Eiwit afval product.", def_en: "Urine waste.", mn_nl: "EIWIT-AFVAL.", mn_en: "Urine waste." },
+                { nl: "Verdamping", en: "Evaporation", def_nl: "Waterverlies blad.", def_en: "Water loss.", mn_nl: "PLANTEN-ZWETEN.", mn_en: "Leaf sweat." },
+                { nl: "Vetzuur", en: "Fatty acid", def_nl: "Vet bouwsteen.", def_en: "Fat block.", mn_nl: "STAARTJE van het vet.", mn_en: "Fat tail." },
+                { nl: "Voortgezette assimilatie", en: "Continued assimilation", def_nl: "Opbouw uit glucose.", def_en: "Beyond glucose.", mn_nl: "DOOR-BOUWEN.", mn_en: "Growth path." },
+                { nl: "Worteldruk", en: "Root pressure", def_nl: "Stuwt water omhoog.", def_en: "Root push.", mn_nl: "DRUK van onder.", mn_en: "Bottom push." },
+                { nl: "Wortelharen", en: "Root hairs", def_nl: "Wateropname hupjes.", def_en: "Absorption hairs.", mn_nl: "DURSTIGE haartjes.", mn_en: "Sucking hairs." }
             ]
         };
+
+        const VISUALS = [
+            { 
+                title_nl: "Hormonale Cyclus", title_en: "Hormonal Cycle", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/MenstrualCycle2_en.svg/640px-MenstrualCycle2_en.svg.png",
+                desc_nl: "De FSH-piek laat de follikel rijpen. De LH-piek veroorzaakt de ovulatie (eisprong).",
+                desc_en: "FSH surge matures the follicle. LH surge triggers ovulation."
+            },
+            { 
+                title_nl: "Navelstreng Bloed", title_en: "Umbilical Flow", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Umbilical_cord_cross_section.svg/640px-Umbilical_cord_cross_section.svg.png",
+                desc_nl: "Slagader (Arm) gaat van baby AF. Ader (Rijk) gaat naar baby TOE.",
+                desc_en: "Arteries (Away) are deoxygenated. The Vein (Towards) is oxygenated."
+            },
+            { 
+                title_nl: "Fotosynthese Fabriek", title_en: "Photosynthesis", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Photosynthesis_equation.svg/640px-Photosynthesis_equation.svg.png",
+                desc_nl: "Input: CO2 + H2O + Licht. Output: Glucose + O2. Gebeurt in Bladgroenkorrels.",
+                desc_en: "Input: CO2 + Water + Light. Output: Glucose + O2. Occurs in chloroplasts."
+            },
+            { 
+                title_nl: "ATP Energie Cyclus", title_en: "ATP Energy Cycle", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/ATP-ADP_cycle.png/640px-ATP-ADP_cycle.png",
+                desc_nl: "ATP (vol) -> Energie afgeven -> ADP (leeg). Opladen via dissimilatie.",
+                desc_en: "ATP (full) -> release energy -> ADP (empty). Recharge via respiration."
+            },
+            { 
+                title_nl: "Plant Transport", title_en: "Plant Transport", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Xylem_and_phloem.svg/640px-Xylem_and_phloem.svg.png",
+                desc_nl: "Houtvaten (Xyleem) vervoeren water omhoog. Bastvaten (Floëem) suiker omlaag.",
+                desc_en: "Xylem (upwards) for water. Phloem (downwards) for sugars."
+            },
+            { 
+                title_nl: "Bevruchting", title_en: "Fertilization", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Sperm-egg.jpg/640px-Sperm-egg.jpg",
+                desc_nl: "Kern van zaadcel versmelt met kern van eicel in de eileider.",
+                desc_en: "Nucleus of sperm fuses with nucleus of egg in the fallopian tube."
+            },
+            { 
+                title_nl: "Embryonale Ontwikkeling", title_en: "Development", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Human_Embryogenesis.svg/640px-Human_Embryogenesis.svg.png",
+                desc_nl: "Zygote -> Klievingsdelingen -> Blastula -> Innesteling.",
+                desc_en: "Zygote -> Cleavage -> Blastula -> Implantation."
+            },
+            { 
+                title_nl: "Beperkende Factor", title_en: "Limiting Factor", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Limiting_factor_graph.svg/640px-Limiting_factor_graph.svg.png",
+                desc_nl: "De laagste factor bepaalt de max snelheid van de fotosynthese.",
+                desc_en: "The lowest supply factor limits the maximum rate of photosynthesis."
+            },
+            { 
+                title_nl: "Haploïd vs Diploïd", title_en: "Ploidy Levels", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Ploidy.svg/640px-Ploidy.svg.png",
+                desc_nl: "Diploïd (2n) = paren. Haploïd (n) = enkele set (geslachtscellen).",
+                desc_en: "Diploid (2n) = pairs. Haploid (n) = single set (gametes)."
+            },
+            { 
+                title_nl: "Wortel Selectie", title_en: "Root Customs", 
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Root_Structure.png/640px-Root_Structure.png",
+                desc_nl: "De Endodermis in de wortel selecteert welke mineralen binnen mogen.",
+                desc_en: "The Endodermis layer acts as a selective filter for minerals."
+            }
+        ];
 
         const QUESTS = [
             { id: 'rep', steps: ["Meiose", "Eisprong", "Bevruchting", "Zygote", "Klievingsdeling", "Blastula", "Innesteling", "Embryo", "Foetus", "Ontsluiting", "Uitdrijving", "Nageboorte"] },
             { id: 'met', steps: ["Abiotische factoren", "Wortelharen", "Houtvaten", "Huidmondjes", "Bladgroen", "Fotosynthese", "Brutoproductie", "Bastvaten", "Dissimilatie", "ATP"] }
         ];
 
+        const TRAPS = [
+            { q_nl: "In de navelstrengslagaders stroomt:", q_en: "The umbilical arteries carry:", opt: ["Zuurstofarm bloed / Deoxygenated", "Zuurstofrijk bloed / Oxygenated"], correct: 0, hint: "Slagader van baby AF = Arm (A-A)." },
+            { q_nl: "De navelstrengader stroomt:", q_en: "The umbilical vein carries:", opt: ["Zuurstofarm bloed / Deoxygenated", "Zuurstofrijk bloed / Oxygenated"], correct: 1, hint: "Ader naar baby TOE = Rijk (A-R)." },
+            { q_nl: "Hoeveel ATP levert aerobe dissimilatie?", q_en: "How many ATP from aerobic respiration?", opt: ["2 ATP", "32 ATP"], correct: 1, hint: "Aero = Veel lucht = Veel energie." },
+            { q_nl: "Bij anaerobe gisting krijg je slechts:", q_en: "Anaerobic fermentation only yields:", opt: ["2 ATP", "32 ATP"], correct: 0, hint: "Zonder lucht = weinig kracht." },
+            { q_nl: "Estrogenen hebben een remmend effect op:", q_en: "Estrogens inhibit:", opt: ["FSH", "LH"], correct: 0, hint: "Genoeg groei? Dan FSH op stop." },
+            { q_nl: "Welk vat vervoert suikers omlaag?", q_en: "Which vessel carries sugar down?", opt: ["Houtvat", "Bastvat"], correct: 1, hint: "Bast = Beneden." }
+        ];
+
         const TEXT = {
             nl: {
-                title: "BioMaster",
-                welcome: "Klaar voor de eindsprint?",
-                chooseModule: "Kies een modus om de volledige stof te beheersen",
-                ui: { master: "Mastery Mode", quest: "Synergy Quest", runner: "Bio-Runner (Arcade)", score: "Score", level: "Lvl", xp: "XP", next: "Volgende", finish: "Klaar!", correct: "Top!", wrong: "Helaas!", hint: "Mnemonic:", back: "Menu", term: "BEGRIP", unlock: "Start & Unlock Audio" }
+                title: "BioMaster", welcome: "Ready for the Finals?", chooseModule: "Verdien XP en word de biologie-expert",
+                ui: { visual: "Visual Mastery Guide", master: "Vocabulary Drills", quest: "Synergy Quest", runner: "Bio-Runner (Lofi Game)", lab: "Trap Buster (Lab)", score: "Score", level: "Lvl", xp: "XP", next: "Volgende", finish: "Klaar!", correct: "Top!", wrong: "Helaas!", hint: "Mnemonic:", back: "Menu", term: "BEGRIP", unlock: "Start & Unlock" }
             },
             en: {
-                title: "BioMaster",
-                welcome: "Ready for your finals?",
-                chooseModule: "Choose a mode to master the 127 terms",
-                ui: { master: "Mastery Mode", quest: "Synergy Quest", runner: "Bio-Runner (Arcade)", score: "Score", level: "Lvl", xp: "XP", next: "Next", finish: "Done!", correct: "Great!", wrong: "Wrong!", hint: "Mnemonic:", back: "Menu", term: "TERM", unlock: "Start & Unlock Audio" }
+                title: "BioMaster", welcome: "Dopamine Hub", chooseModule: "Earn XP and become the bio expert",
+                ui: { visual: "Visual Mastery Guide", master: "Vocabulary Drills", quest: "Synergy Quest", runner: "Bio-Runner (Lofi Game)", lab: "Trap Buster (Lab)", score: "Score", level: "Lvl", xp: "XP", next: "Next", finish: "Done!", correct: "Great!", wrong: "Wrong!", hint: "Mnemonic:", back: "Menu", term: "TERM", unlock: "Start & Unlock" }
             }
         };
 
-        // AUDIO HOOK
         const useAudio = () => {
             const [muted, setMuted] = useState(false);
             const musicRef = useRef(null);
             useEffect(() => {
                 musicRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3');
-                musicRef.current.loop = true; musicRef.current.volume = 0.1;
+                musicRef.current.loop = true; musicRef.current.volume = 0.12;
             }, []);
             const playSFX = (type) => {
                 if (muted) return;
-                const urls = {
-                    correct: 'https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3',
-                    wrong: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
-                    click: 'https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3',
-                    jump: 'https://assets.mixkit.co/active_storage/sfx/2007/2007-preview.mp3'
-                };
-                new Audio(urls[type]).play().catch(() => {});
+                const urls = { correct: 'https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3', wrong: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3', click: 'https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3', jump: 'https://assets.mixkit.co/active_storage/sfx/2007/2007-preview.mp3', level: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3' };
+                const a = new Audio(urls[type]); a.volume = 0.3; a.play().catch(()=>{});
             };
             const toggleMute = () => {
-                setMuted(!muted);
-                if (musicRef.current) { if (!muted) musicRef.current.pause(); else musicRef.current.play(); }
+                setMuted(!muted); if (musicRef.current) { if (!muted) musicRef.current.pause(); else musicRef.current.play(); }
             };
-            return { muted, toggleMute, playSFX, startMusic: () => musicRef.current?.play() };
+            const startMusic = () => { if (!muted) musicRef.current.play(); };
+            const stopMusic = () => musicRef.current.pause();
+            return { muted, toggleMute, playSFX, startMusic, stopMusic };
         };
 
-        // ARCADE RUNNER ENGINE
         const BioRunner = ({ lang, playSFX, onEnd }) => {
             const canvasRef = useRef(null);
-            const [gameState, setGameState] = useState('playing'); // playing, question, gameover
+            const [gameState, setGameState] = useState('playing'); 
             const [localScore, setLocalScore] = useState(0);
             const [currentQ, setCurrentQ] = useState(null);
-            
-            const player = useRef({ y: 150, dy: 0, jump: -8, ground: 150 });
+            const [isInvincible, setIsInvincible] = useState(false);
+            const player = useRef({ y: 150, dy: 0, jump: -8.5, ground: 150 });
             const obstacles = useRef([]);
             const items = useRef([]);
             const frame = useRef(0);
 
             const jumpAction = () => {
                 if (player.current.y === player.current.ground && gameState === 'playing') {
-                    player.current.dy = player.current.jump;
-                    playSFX('jump');
+                    player.current.dy = player.current.jump; playSFX('jump');
                 }
             };
-
             useEffect(() => {
                 const handleKey = (e) => { if (e.code === 'Space' || e.code === 'ArrowUp') jumpAction(); };
-                window.addEventListener('keydown', handleKey);
-                return () => window.removeEventListener('keydown', handleKey);
+                window.addEventListener('keydown', handleKey); return () => window.removeEventListener('keydown', handleKey);
             }, [gameState]);
-
             useEffect(() => {
-                const canvas = canvasRef.current;
-                const ctx = canvas.getContext('2d');
+                const canvas = canvasRef.current; const ctx = canvas.getContext('2d');
                 let animationId;
-
                 const loop = () => {
-                    if (gameState !== 'playing') return;
-                    
+                    if (gameState === 'question' || gameState === 'gameover') return;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     frame.current++;
-
-                    // Ground
-                    ctx.fillStyle = '#1e293b';
-                    ctx.fillRect(0, 180, canvas.width, 20);
-
-                    // Player
-                    player.current.dy += 0.4;
-                    player.current.y += player.current.dy;
-                    if (player.current.y > player.current.ground) {
-                        player.current.y = player.current.ground;
-                        player.current.dy = 0;
-                    }
-                    ctx.fillStyle = '#10b981';
+                    ctx.fillStyle = '#1e293b'; ctx.fillRect(0, 180, canvas.width, 20);
+                    player.current.dy += 0.45; player.current.y += player.current.dy;
+                    if (player.current.y > player.current.ground) { player.current.y = player.current.ground; player.current.dy = 0; }
+                    ctx.fillStyle = isInvincible ? '#6ee7b7' : '#10b981';
                     ctx.beginPath(); ctx.arc(50, player.current.y, 10, 0, Math.PI*2); ctx.fill();
-
-                    // Obstacles
-                    if (frame.current % 100 === 0) obstacles.current.push({ x: 400, y: 155, w: 20, h: 25 });
-                    obstacles.current.forEach((o, i) => {
-                        o.x -= 4;
-                        ctx.fillStyle = '#ef4444';
-                        ctx.fillRect(o.x, o.y, o.w, o.h);
-                        if (o.x < 60 && o.x > 30 && player.current.y > 140) {
-                            setGameState('gameover');
-                            playSFX('wrong');
-                        }
+                    if (frame.current % 110 === 0) obstacles.current.push({ x: 400, y: 155, w: 15, h: 25 });
+                    obstacles.current.forEach((o) => {
+                        o.x -= 3.5; ctx.fillStyle = '#ef4444'; ctx.fillRect(o.x, o.y, o.w, o.h);
+                        if (!isInvincible && o.x < 60 && o.x > 30 && player.current.y > 140) { setGameState('gameover'); playSFX('wrong'); }
                     });
-
-                    // Items
-                    if (frame.current % 150 === 0) items.current.push({ x: 400, y: 100 + Math.random()*50, collected: false });
-                    items.current.forEach((it, i) => {
+                    if (frame.current % 180 === 0) items.current.push({ x: 400, y: 110 + Math.random()*40, collected: false });
+                    items.current.forEach((it) => {
                         if (it.collected) return;
-                        it.x -= 4;
-                        ctx.fillStyle = '#fbbf24';
-                        ctx.beginPath(); ctx.arc(it.x, it.y, 8, 0, Math.PI*2); ctx.fill();
+                        it.x -= 3.5; ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(it.x, it.y, 8, 0, Math.PI*2); ctx.fill();
                         if (it.x < 65 && it.x > 35 && Math.abs(player.current.y - it.y) < 20) {
-                            it.collected = true;
-                            setGameState('question');
-                            playSFX('click');
+                            it.collected = true; setGameState('question'); playSFX('click');
                             const pool = [...DATA.reproduction, ...DATA.metabolism];
                             const target = pool[Math.floor(Math.random()*pool.length)];
                             const others = pool.filter(p => p.nl !== target.nl).sort(() => 0.5 - Math.random()).slice(0, 2);
                             setCurrentQ({ target, options: [target, ...others].sort(() => 0.5 - Math.random()) });
                         }
                     });
-
+                    obstacles.current = obstacles.current.filter(o => o.x > -50);
+                    items.current = items.current.filter(i => i.x > -50);
                     animationId = requestAnimationFrame(loop);
                 };
-
-                loop();
+                animationId = requestAnimationFrame(loop);
                 return () => cancelAnimationFrame(animationId);
-            }, [gameState]);
+            }, [gameState, isInvincible]);
+
+            const handleAnswer = (obj) => {
+                if (obj.nl === currentQ.target.nl) {
+                    playSFX('correct'); setLocalScore(s => s + 100);
+                    obstacles.current = []; setGameState('playing');
+                    setIsInvincible(true); setTimeout(() => setIsInvincible(false), 1200);
+                } else { playSFX('wrong'); setGameState('gameover'); }
+            };
 
             return (
                 <div className="relative w-full max-w-md mx-auto" onClick={jumpAction}>
-                    <canvas ref={canvasRef} width="400" height="200" className="w-full h-auto shadow-2xl border-4 border-slate-800" />
-                    
-                    <div className="absolute top-4 left-4 font-black text-emerald-400 bg-slate-900/80 px-4 py-2 rounded-full text-xs flex items-center gap-2 border border-emerald-500/30">
-                        <Icon name="zap" className="w-3 h-3" /> Score: {localScore}
-                    </div>
-
-                    <div className="absolute bottom-10 right-4 text-[10px] font-black text-slate-500 bg-slate-900/80 p-2 rounded-lg flex items-center gap-2 border border-slate-800">
-                        <Icon name="keyboard" className="w-3 h-3" /> Space / Tap to Jump
-                    </div>
-                    
+                    <canvas ref={canvasRef} width="400" height="200" className={`w-full h-auto shadow-2xl border-4 border-slate-800 ${isInvincible ? 'invincible' : ''}`} />
+                    <div className="absolute top-4 left-4 font-black text-emerald-400 bg-slate-900/80 px-4 py-2 rounded-full text-xs">Score: {localScore}</div>
                     {gameState === 'question' && currentQ && (
                         <div className="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center p-6 text-center rounded-3xl animate-in zoom-in-95 backdrop-blur-sm">
-                            <span className="text-amber-500 font-black text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2"><Icon name="star" className="w-3 h-3"/> Reflex Knowledge</span>
-                            <h4 className="text-2xl font-black mb-6 uppercase glow-text tracking-tighter italic">{lang === 'nl' ? currentQ.target.nl : currentQ.target.en}</h4>
+                            <h4 className="text-xl font-black mb-6 uppercase glow-text italic">{lang === 'nl' ? currentQ.target.nl : currentQ.target.en}</h4>
                             <div className="space-y-2 w-full">
                                 {currentQ.options.map((o, i) => (
-                                    <button key={i} onClick={(e) => { e.stopPropagation(); if(o.nl === currentQ.target.nl) { playSFX('correct'); setLocalScore(s => s + 100); setGameState('playing'); } else { playSFX('wrong'); setGameState('gameover'); } }} className="w-full bg-slate-800 p-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-all border border-slate-700 active:scale-95 shadow-lg">
-                                        {lang === 'nl' ? o.def_nl : o.def_en}
-                                    </button>
+                                    <button key={i} onClick={(e) => { e.stopPropagation(); handleAnswer(o); }} className="w-full bg-slate-800 p-4 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-600 border border-slate-700 active:scale-95">{lang === 'nl' ? o.def_nl : o.def_en}</button>
                                 ))}
                             </div>
                         </div>
                     )}
-
                     {gameState === 'gameover' && (
-                        <div className="absolute inset-0 bg-red-950/95 flex flex-col items-center justify-center p-6 text-center rounded-3xl animate-in fade-in backdrop-blur-sm">
-                            <Icon name="zap" className="w-12 h-12 text-white mb-4 animate-pulse" />
-                            <h4 className="text-4xl font-black mb-2 uppercase italic text-white tracking-tighter">GAME OVER</h4>
-                            <p className="text-red-200 text-[10px] mb-8 font-black uppercase tracking-widest">Logic or Reflex error detected.</p>
-                            <button onClick={(e) => { e.stopPropagation(); onEnd(); }} className="bg-white text-slate-950 px-10 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl active:scale-95">Main Menu</button>
+                        <div className="absolute inset-0 bg-red-950/95 flex flex-col items-center justify-center p-6 text-center rounded-3xl">
+                            <h4 className="text-4xl font-black mb-2 uppercase italic text-white">FAILED</h4>
+                            <button onClick={(e) => { e.stopPropagation(); onEnd(localScore); }} className="bg-white text-slate-950 px-10 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl active:scale-95">Return to Hub</button>
                         </div>
                     )}
                 </div>
@@ -368,16 +400,20 @@
             const [activeModule, setActiveModule] = useState(null);
             const [currentIndex, setCurrentIndex] = useState(0);
             const [score, setScore] = useState(0);
-            const [xp, setXp] = useState(0);
+            const [xp, setXp] = useState(() => parseInt(localStorage.getItem('biomaster_xp') || '0'));
+            const [highScores, setHighScores] = useState(() => JSON.parse(localStorage.getItem('biomaster_scores') || '{"runner":0, "lab":0}'));
             const [quizFinished, setQuizFinished] = useState(false);
             const [feedback, setFeedback] = useState(null); 
             const [mcqOptions, setMcqOptions] = useState([]);
             const [questStep, setQuestStep] = useState(0);
             const [activeQuest, setActiveQuest] = useState(null);
 
-            const { muted, toggleMute, playSFX, startMusic } = useAudio();
+            const { muted, toggleMute, playSFX, startMusic, stopMusic } = useAudio();
             const t = TEXT[lang];
             const level = Math.floor(xp / 1000) + 1;
+
+            useEffect(() => { localStorage.setItem('biomaster_xp', xp.toString()); }, [xp]);
+            useEffect(() => { localStorage.setItem('biomaster_scores', JSON.stringify(highScores)); }, [highScores]);
 
             const generateOptions = (mod, index) => {
                 const current = DATA[mod][index];
@@ -389,41 +425,13 @@
                 playSFX('click'); setActiveModule(mod); setCurrentIndex(0); setScore(0); setQuizFinished(false); setFeedback(null); setMcqOptions(generateOptions(mod, 0)); setView('master');
             };
 
-            const handleMasterAnswer = (selectedObj) => {
-                const current = DATA[activeModule][currentIndex];
-                if (selectedObj.nl === current.nl) {
-                    playSFX('correct'); setScore(score + 1); setXp(xp + 100); setFeedback({ correct: true, msg: t.ui.correct });
-                    setTimeout(() => {
-                        setFeedback(null);
-                        if (currentIndex < DATA[activeModule].length - 1) {
-                            const nxt = currentIndex + 1; setCurrentIndex(nxt); setMcqOptions(generateOptions(activeModule, nxt));
-                        } else setQuizFinished(true);
-                    }, 800);
-                } else {
-                    playSFX('wrong'); setFeedback({ correct: false, msg: t.ui.wrong, hint: lang === 'nl' ? current.mn_nl : current.mn_en });
-                }
-            };
-
-            const handleQuestStep = (choice) => {
-                const target = activeQuest.steps[questStep];
-                if (choice === target) {
-                    playSFX('correct'); setScore(score + 10); setQuestStep(questStep + 1);
-                    if (questStep === activeQuest.steps.length - 1) setQuizFinished(true);
-                } else {
-                    playSFX('wrong');
-                    const term = [...DATA.reproduction, ...DATA.metabolism].find(d => d.nl === target);
-                    setFeedback({ correct: false, msg: t.ui.wrong, hint: lang === 'nl' ? term.mn_nl : term.mn_en });
-                    setTimeout(() => setFeedback(null), 3000);
-                }
-            };
-
             if (!audioUnlocked) return (
-                <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8 text-center">
-                    <div className="bg-slate-900 p-12 rounded-[3.5rem] border border-slate-800 shadow-2xl max-w-md w-full">
+                <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8 text-center no-select">
+                    <div className="bg-slate-900 p-12 rounded-[3.5rem] border border-slate-800 shadow-2xl max-w-md w-full animate-in zoom-in-95">
                         <Icon name="grad" className="w-24 h-24 mx-auto text-emerald-500 mb-8 animate-pulse" />
-                        <h1 className="text-5xl font-black mb-4 tracking-tighter uppercase italic glow-text">BioMaster</h1>
-                        <p className="text-slate-500 font-bold mb-10 text-xs uppercase tracking-[0.2em]">127 Term Syllabus • Gaming Edition</p>
-                        <button onClick={() => { setAudioUnlocked(true); startMusic(); }} className="w-full bg-emerald-600 hover:bg-emerald-500 py-6 rounded-3xl font-black uppercase text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-4 pulse-emerald">
+                        <h1 className="text-5xl font-black mb-4 uppercase italic glow-text">BioMaster</h1>
+                        <p className="text-slate-500 font-bold mb-10 text-xs uppercase tracking-[0.2em]">Full Syllabus Mastery • v15.0</p>
+                        <button onClick={() => { setAudioUnlocked(true); }} className="w-full bg-emerald-600 hover:bg-emerald-500 py-6 rounded-3xl font-black uppercase text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-4 pulse-emerald">
                             <Icon name="play" /> {t.ui.unlock}
                         </button>
                     </div>
@@ -431,72 +439,87 @@
             );
 
             return (
-                <div className="min-h-screen bg-slate-950 text-slate-100 font-sans p-4 md:p-8 flex flex-col items-center">
-                    {/* Header */}
+                <div className="min-h-screen bg-slate-950 text-slate-100 font-sans p-4 md:p-8 flex flex-col items-center no-select">
                     <div className="w-full max-w-2xl flex justify-between items-center mb-8 bg-slate-900/50 p-4 rounded-3xl border border-slate-800 backdrop-blur-md shadow-2xl">
                         <div className="flex items-center gap-3">
                             <div className="bg-emerald-500 p-2 rounded-xl"><Icon name="grad" /></div>
-                            <div>
-                                <h1 className="text-xl font-black uppercase tracking-tighter glow-text leading-none">BIOMASTER</h1>
-                                <span className="text-[10px] text-slate-500 font-black uppercase">Lvl {level} • {xp} XP</span>
-                            </div>
+                            <div><h1 className="text-xl font-black uppercase tracking-tighter glow-text leading-none">BIOMASTER</h1><span className="text-[10px] text-slate-500 font-black uppercase">Lvl {level} • {xp} XP</span></div>
                         </div>
                         <div className="flex items-center gap-2">
-                            <button onClick={toggleMute} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-all border border-slate-700 active:scale-90">
-                                <Icon name={muted ? "mute" : "volume"} className={muted ? "text-red-400" : "text-emerald-400"} />
-                            </button>
-                            <button onClick={() => { playSFX('click'); setLang(lang === 'nl' ? 'en' : 'nl'); }} className="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl border border-slate-700 font-black text-xs uppercase tracking-widest active:scale-90">{lang}</button>
+                            <button onClick={toggleMute} className="p-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-all border border-slate-700 active:scale-90"><Icon name={muted ? "mute" : "volume"} className={muted ? "text-red-400" : "text-emerald-400"} /></button>
+                            <button onClick={() => { playSFX('click'); setLang(lang === 'nl' ? 'en' : 'nl'); }} className="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl border border-slate-700 font-black text-xs uppercase active:scale-90">{lang}</button>
                         </div>
                     </div>
 
                     <main className="w-full max-w-2xl flex-1 flex flex-col">
                         {view === 'menu' && (
-                            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                <div className="text-center mb-8 py-4"><h2 className="text-4xl font-black mb-3 tracking-tight italic uppercase glow-text leading-none">{t.welcome}</h2></div>
+                            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
+                                <div className="text-center mb-6 py-4"><h2 className="text-4xl font-black mb-3 italic uppercase glow-text leading-none">STUDY HUB</h2></div>
                                 <div className="grid grid-cols-1 gap-4">
+                                    <MenuCard icon="dna" title={lang === 'nl' ? "H4: Voortplanting" : "Ch4: Reproduction"} desc="84 Terms Mastery" onStart={() => startMasterMode('reproduction')} btnText={t.ui.master} primary />
+                                    <MenuCard icon="leaf" title={lang === 'nl' ? "H5: Stofwisseling" : "Ch5: Metabolism"} desc="43 Terms Mastery" onStart={() => startMasterMode('metabolism')} btnText={t.ui.master} primary />
+
+                                    <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 hover:border-emerald-500/30 transition-all flex flex-col gap-4 shadow-xl">
+                                        <div className="flex items-center gap-4">
+                                            <div className="bg-emerald-600/20 p-4 rounded-2xl text-emerald-400"><Icon name="eye" /></div>
+                                            <div><h3 className="text-xl font-black uppercase italic tracking-tighter">{t.ui.visual}</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Real Textbook Diagrams</p></div>
+                                        </div>
+                                        <button onClick={() => { playSFX('click'); setView('visual'); setCurrentIndex(0); }} className="bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:translate-y-1">Open Visual Guide</button>
+                                    </div>
+
                                     <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 hover:border-amber-500/30 transition-all flex flex-col gap-4 shadow-xl">
                                         <div className="flex items-center gap-4">
                                             <div className="bg-amber-600/20 p-4 rounded-2xl text-amber-400"><Icon name="run" /></div>
-                                            <div><h3 className="text-xl font-black uppercase italic tracking-tighter">BIO-RUNNER</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Speed & Reflex Challenge</p></div>
+                                            <div><h3 className="text-xl font-black uppercase italic tracking-tighter">{t.ui.runner}</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Only Mode With Music</p></div>
                                         </div>
-                                        <button onClick={() => { playSFX('click'); setView('runner'); }} className="bg-amber-600 hover:bg-amber-500 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:translate-y-1">Play Arcade</button>
+                                        <button onClick={() => { playSFX('click'); startMusic(); setView('runner'); }} className="bg-amber-600 hover:bg-amber-500 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:translate-y-1">Play Arcade</button>
                                     </div>
-                                    <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 hover:border-emerald-500/30 transition-all flex flex-col gap-4 shadow-xl">
+                                    
+                                    <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 hover:border-cyan-500/30 transition-all flex flex-col gap-4 shadow-xl">
                                         <div className="flex items-center gap-4">
-                                            <div className="bg-emerald-600/20 p-4 rounded-2xl text-emerald-400"><Icon name="star" /></div>
-                                            <div><h3 className="text-xl font-black uppercase italic tracking-tighter">{t.ui.quest}</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Logic Flow Quest</p></div>
+                                            <div className="bg-cyan-600/20 p-4 rounded-2xl text-cyan-400"><Icon name="flask" /></div>
+                                            <div><h3 className="text-xl font-black uppercase italic tracking-tighter">{t.ui.lab}</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Score: {highScores.lab}</p></div>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <button onClick={() => { setActiveQuest(QUESTS[0]); setQuestStep(0); setScore(0); setQuizFinished(false); setView('quest'); }} className="bg-emerald-600/80 hover:bg-emerald-600 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-md">Life Timeline</button>
-                                            <button onClick={() => { setActiveQuest(QUESTS[1]); setQuestStep(0); setScore(0); setQuizFinished(false); setView('quest'); }} className="bg-cyan-600/80 hover:bg-cyan-600 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all shadow-md">Energy Flow</button>
-                                        </div>
+                                        <button onClick={() => { playSFX('click'); setScore(0); setCurrentIndex(0); setQuizFinished(false); setView('lab'); }} className="bg-cyan-600 hover:bg-cyan-500 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg active:translate-y-1">Enter Lab</button>
                                     </div>
-                                    <MenuCard icon="dna" title={lang === 'nl' ? "H4: Reproduction" : "Ch4: Reproduction"} desc="Vocabulary Drills" onStart={() => startMasterMode('reproduction')} btnText={t.ui.master} />
-                                    <MenuCard icon="leaf" title={lang === 'nl' ? "H5: Metabolism" : "Ch5: Metabolism"} desc="Vocabulary Drills" onStart={() => startMasterMode('metabolism')} btnText={t.ui.master} />
                                 </div>
                             </div>
                         )}
 
-                        {view === 'runner' && <BioRunner lang={lang} playSFX={playSFX} onEnd={() => setView('menu')} />}
-
-                        {view === 'quest' && !quizFinished && (
-                            <div className="space-y-6 animate-in slide-in-from-right-4">
-                                <div className="flex justify-between items-center mb-2 px-2"><button onClick={() => setView('menu')} className="text-slate-400 hover:text-white flex items-center gap-2 font-black text-sm active:scale-95"><Icon name="home" className="w-4 h-4"/> {t.ui.back}</button><span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Score: {score}</span></div>
-                                <div className="bg-slate-900 border-2 border-emerald-500/50 rounded-[2.5rem] p-8 relative shadow-2xl">
-                                    <h3 className="text-2xl font-black mb-4 uppercase italic tracking-tighter text-emerald-400">Knowledge Chain</h3>
-                                    <div className="flex flex-wrap gap-2 mb-8 min-h-[120px] items-center justify-center p-6 bg-slate-950/80 rounded-[2rem] border border-slate-800 shadow-inner">
-                                        {activeQuest.steps.slice(0, questStep).map((s, i) => <span key={i} className="bg-emerald-600/40 text-emerald-300 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest animate-in zoom-in-50 border border-emerald-500/20">{s}</span>)}
-                                        <div className="w-10 h-10 border-2 border-dashed border-emerald-500 rounded-full flex items-center justify-center animate-pulse text-emerald-500 font-black">?</div>
+                        {view === 'visual' && (
+                            <div className="space-y-6 animate-in slide-in-from-bottom-10">
+                                <div className="flex justify-between items-center px-2">
+                                    <button onClick={() => setView('menu')} className="text-slate-400 hover:text-white flex items-center gap-2 font-bold text-sm"><Icon name="home" className="w-4 h-4"/> {t.ui.back}</button>
+                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{currentIndex + 1} / {VISUALS.length}</span>
+                                </div>
+                                <div className="bg-slate-900 border-4 border-emerald-500/50 rounded-[3rem] p-8 shadow-2xl">
+                                    <h3 className="text-3xl font-black text-center mb-8 uppercase italic glow-text tracking-tighter">{lang === 'nl' ? VISUALS[currentIndex].title_nl : VISUALS[currentIndex].title_en}</h3>
+                                    <div className="bg-white p-4 rounded-[2rem] border border-slate-800 mb-8 flex items-center justify-center min-h-[250px] overflow-hidden">
+                                        <img src={VISUALS[currentIndex].img} alt="diagram" className="max-w-full h-auto" />
                                     </div>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        {activeQuest.steps.filter(s => !activeQuest.steps.slice(0, questStep).includes(s)).sort(() => 0.5 - Math.random()).slice(0, 4).map((choice, i) => (
-                                            <button key={i} onClick={() => handleQuestStep(choice)} className="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all shadow-md active:scale-95">{choice}</button>
-                                        ))}
+                                    <p className="text-center font-bold text-sm leading-relaxed text-slate-200">{lang === 'nl' ? VISUALS[currentIndex].desc_nl : VISUALS[currentIndex].desc_en}</p>
+                                </div>
+                                <div className="flex gap-4">
+                                    <button disabled={currentIndex === 0} onClick={() => setCurrentIndex(currentIndex - 1)} className="flex-1 bg-slate-800 p-4 rounded-2xl border border-slate-700 disabled:opacity-30"><Icon name="home" className="rotate-[-90deg] mx-auto"/></button>
+                                    <button onClick={() => { if(currentIndex < VISUALS.length - 1) setCurrentIndex(currentIndex + 1); else setView('menu'); }} className="flex-[3] bg-emerald-600 p-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl">{currentIndex === VISUALS.length - 1 ? "Finish" : "Next Visual"}</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {view === 'runner' && <BioRunner lang={lang} playSFX={playSFX} onEnd={(finalScore) => { stopMusic(); if(finalScore > highScores.runner) setHighScores({...highScores, runner: finalScore}); setView('menu'); }} />}
+
+                        {view === 'lab' && !quizFinished && (
+                            <div className="space-y-6 animate-in slide-in-from-right-4">
+                                <div className="flex justify-between items-center mb-2 px-2"><button onClick={() => setView('menu')} className="text-slate-400 flex items-center gap-2 font-bold text-sm"><Icon name="home" className="w-4 h-4"/> {t.ui.back}</button><span className="text-xs font-black text-cyan-400 tracking-widest">TRAP {currentIndex + 1} / {TRAPS.length}</span></div>
+                                <div className="bg-slate-900 border-2 border-cyan-500/50 rounded-[2.5rem] p-10 relative shadow-2xl text-center">
+                                    <h3 className="text-2xl font-black mb-10 leading-tight glow-text text-cyan-300">{lang === 'nl' ? TRAPS[currentIndex].q_nl : TRAPS[currentIndex].q_en}</h3>
+                                    <div className="grid grid-cols-1 gap-3">
+                                        {TRAPS[currentIndex].opt.map((o, i) => <button key={i} onClick={() => { if(i === TRAPS[currentIndex].correct) { playSFX('correct'); setScore(s=>s+200); setXp(x=>x+200); if(currentIndex < TRAPS.length-1) setCurrentIndex(currentIndex+1); else setQuizFinished(true); } else { playSFX('wrong'); setFeedback({correct:false, msg:t.ui.wrong, hint:TRAPS[currentIndex].hint}); setTimeout(()=>setFeedback(null),3000); } }} className="bg-slate-800 hover:bg-cyan-600 border border-slate-700 p-6 rounded-2xl font-black text-xs uppercase tracking-widest active:scale-95">{o}</button>)}
                                     </div>
                                 </div>
                                 {feedback && (
-                                    <div className="p-6 rounded-3xl flex flex-col gap-2 shadow-2xl border-2 animate-in slide-in-from-bottom-10 bg-slate-900/95 border-red-500 backdrop-blur-md">
-                                        <div className="flex items-center gap-4"><Icon name="lightbulb" className="text-red-400 animate-pulse" /><p className="font-black text-lg uppercase tracking-tight">{feedback.msg}</p></div>
+                                    <div className="p-6 rounded-3xl flex flex-col gap-2 shadow-2xl border-2 animate-in slide-in-from-bottom-10 bg-slate-900/95 border-red-500">
+                                        <div className="flex items-center gap-4"><Icon name="lightbulb" className="text-red-400" /><p className="font-black text-lg uppercase">{feedback.msg}</p></div>
                                         <p className="mt-2 bg-slate-950/50 p-4 rounded-2xl border border-red-500/30 text-xs italic font-medium leading-relaxed">{t.ui.hint} "{feedback.hint}"</p>
                                     </div>
                                 )}
@@ -505,14 +528,13 @@
 
                         {view === 'master' && !quizFinished && (
                             <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
-                                <div className="flex justify-between items-center mb-2 px-2"><button onClick={() => setView('menu')} className="text-slate-400 hover:text-white flex items-center gap-2 font-black text-sm active:scale-95"><Icon name="home" className="w-4 h-4"/> {t.ui.back}</button><span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{currentIndex + 1} / {DATA[activeModule].length}</span></div>
+                                <div className="flex justify-between items-center mb-2 px-2"><button onClick={() => setView('menu')} className="text-slate-400 hover:text-white flex items-center gap-2 font-bold text-sm active:scale-95"><Icon name="home" className="w-4 h-4"/> {t.ui.back}</button><span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{currentIndex + 1} / {DATA[activeModule].length}</span></div>
                                 <div className="bg-slate-900 border border-slate-800 rounded-[2.5rem] p-10 relative overflow-hidden shadow-2xl text-center">
-                                    <div className="absolute top-0 left-0 w-full h-2 bg-slate-800"><div className="h-full bg-emerald-500 transition-all duration-500 shadow-[0_0_10px_#10b981]" style={{ width: `${((currentIndex) / DATA[activeModule].length) * 100}%` }}></div></div>
-                                    <span className="text-emerald-500 font-black uppercase text-[10px] tracking-[0.4em] mb-4 block opacity-60 underline decoration-emerald-500/20 underline-offset-8">{t.ui.term}</span>
-                                    <h3 className="text-4xl font-black leading-tight tracking-tighter uppercase italic glow-text mb-10">{lang === 'nl' ? DATA[activeModule][currentIndex].nl : DATA[activeModule][currentIndex].en}</h3>
+                                    <div className="absolute top-0 left-0 w-full h-2 bg-slate-800"><div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${((currentIndex) / DATA[activeModule].length) * 100}%` }}></div></div>
+                                    <h3 className="text-4xl font-black tracking-tighter uppercase italic glow-text mb-10">{lang === 'nl' ? DATA[activeModule][currentIndex].nl : DATA[activeModule][currentIndex].en}</h3>
                                     <div className="space-y-3">
                                         {mcqOptions.map((opt, idx) => (
-                                            <button key={idx} disabled={!!feedback && feedback.correct} onClick={() => handleMasterAnswer(opt)} className={`w-full text-left p-6 rounded-[1.5rem] border-2 transition-all font-black text-[11px] uppercase tracking-widest shadow-md ${!feedback ? 'border-slate-800 bg-slate-800/40 hover:border-emerald-500 active:scale-[0.98]' : opt.nl === DATA[activeModule][currentIndex].nl ? 'border-emerald-500 bg-emerald-500/20 shadow-emerald-500/20 pulse-emerald' : 'border-slate-800 opacity-40'}`}>
+                                            <button key={idx} disabled={!!feedback && feedback.correct} onClick={() => { if(opt.nl === DATA[activeModule][currentIndex].nl) { playSFX('correct'); setScore(s=>s+1); setXp(x=>x+100); setFeedback({correct:true, msg:t.ui.correct}); setTimeout(()=>{setFeedback(null); if(currentIndex < DATA[activeModule].length-1){const n=currentIndex+1;setCurrentIndex(n);setMcqOptions(generateOptions(activeModule,n));}else setQuizFinished(true);},800); } else { playSFX('wrong'); setFeedback({correct:false, msg:t.ui.wrong, hint: lang==='nl'?DATA[activeModule][currentIndex].mn_nl:DATA[activeModule][currentIndex].mn_en}); } }} className={`w-full text-left p-6 rounded-[1.5rem] border-2 transition-all font-black text-[11px] uppercase tracking-widest shadow-md ${!feedback ? 'border-slate-800 bg-slate-800/40 hover:border-emerald-500 active:scale-[0.98]' : opt.nl === DATA[activeModule][currentIndex].nl ? 'border-emerald-500 bg-emerald-500/20 shadow-emerald-500/20 pulse-emerald' : 'border-slate-800 opacity-40'}`}>
                                                 {lang === 'nl' ? opt.def_nl : opt.def_en}
                                             </button>
                                         ))}
@@ -529,25 +551,23 @@
 
                         {quizFinished && (
                             <div className="text-center bg-slate-900 border border-slate-800 rounded-[3.5rem] p-16 shadow-2xl animate-in zoom-in-95 backdrop-blur-sm">
-                                <Icon name="trophy" className="mx-auto w-24 h-24 text-yellow-500 mb-8 drop-shadow-2xl" />
-                                <h2 className="text-5xl font-black mb-4 uppercase italic glow-text tracking-tighter">SUCCESS!</h2>
-                                <p className="text-slate-500 font-black mb-12 text-xs uppercase tracking-[0.3em]">Module Beheerst • BioMaster Level Up</p>
-                                <button onClick={() => { playSFX('click'); setView('menu'); }} className="w-full bg-white text-slate-950 py-6 rounded-3xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">RESTART QUEST</button>
+                                <Icon name="trophy" className="mx-auto w-24 h-24 text-yellow-500 mb-8" />
+                                <h2 className="text-5xl font-black mb-12 uppercase italic glow-text tracking-tighter">SUCCESS!</h2>
+                                <button onClick={() => { playSFX('level'); if(view === 'lab' && score > highScores.lab) setHighScores({...highScores, lab: score}); setView('menu'); }} className="w-full bg-white text-slate-950 py-6 rounded-3xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">BACK TO HUB</button>
                             </div>
                         )}
                     </main>
-                    <footer className="mt-12 text-[10px] text-slate-800 font-black uppercase tracking-[0.5em] opacity-40 text-center w-full">Synthesis v12 • 127 terms • study hard</footer>
                 </div>
             );
         };
 
-        const MenuCard = ({ icon, title, desc, onStart, btnText }) => (
-            <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 hover:border-emerald-500/50 transition-all flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+        const MenuCard = ({ icon, title, desc, onStart, btnText, primary }) => (
+            <div className={`bg-slate-900 border ${primary ? 'border-emerald-500/50' : 'border-slate-800'} rounded-3xl p-6 hover:border-emerald-500 transition-all flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl`}>
                 <div className="flex items-center gap-4 text-center sm:text-left">
                     <div className="bg-slate-800 p-5 rounded-[1.5rem] text-emerald-400 shadow-inner"><Icon name={icon} className="w-6 h-6"/></div>
                     <div><h3 className="text-xl font-black uppercase italic tracking-tighter leading-none mb-1">{title}</h3><p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">{desc}</p></div>
                 </div>
-                <button onClick={onStart} className="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-8 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg active:translate-y-1">{btnText}</button>
+                <button onClick={onStart} className={`${primary ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-slate-800 hover:bg-slate-700'} border border-slate-700 px-8 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg active:translate-y-1`}>{btnText}</button>
             </div>
         );
 
