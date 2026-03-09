@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The America Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --paper: #faf7f2;
+    --ink: #1a1612;
+    --ink-light: #5a5048;
+    --ink-faint: #9a9088;
+    --accent: #c84b2f;
+    --accent-soft: #f0e0da;
+    --gold: #c9920a;
+    --gold-soft: #fdf3d8;
+    --green: #2d6a4f;
+    --green-soft: #d8eddf;
+    --blue: #1a4a6b;
+    --blue-soft: #d8eaf5;
+    --purple: #5c3a7a;
+    --purple-soft: #ede0f5;
+    --teal: #1e6b6b;
+    --teal-soft: #d8f0f0;
+    --rose: #8b2252;
+    --rose-soft: #f5d8e8;
+    --border: rgba(26,22,18,0.12);
+    --shadow: 0 2px 16px rgba(26,22,18,0.08);
+    --shadow-lg: 0 8px 40px rgba(26,22,18,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* Header */
+  .header {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 40px 32px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .header h1 span {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.55);
+    margin-top: 6px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .master-progress {
+    text-align: right;
+  }
+
+  .master-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .master-label {
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .progress-bar-master {
+    margin-top: 10px;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    width: 140px;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  /* Timeline strip */
+  .timeline-strip {
+    background: var(--ink-light);
+    padding: 12px 32px;
+  }
+
+  .timeline-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .timeline-inner::-webkit-scrollbar { display: none; }
+
+  .month-marker {
+    flex: 0 0 auto;
+    padding: 6px 20px 6px 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    font-family: 'DM Mono', monospace;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .month-marker.current {
+    color: var(--gold);
+  }
+
+  .month-marker::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .month-marker.current::before {
+    opacity: 1;
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  /* Main */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    background: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink-light);
+    letter-spacing: 0.02em;
+  }
+
+  .filter-btn:hover { border-color: var(--ink-light); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .filter-spacer { flex: 1; }
+
+  .add-category-btn {
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1.5px dashed var(--border);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink-faint);
+  }
+
+  .add-category-btn:hover { border-color: var(--ink-light); color: var(--ink); }
+
+  /* Category card */
+  .category {
+    background: var(--paper);
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+  }
+
+  .category:hover { box-shadow: var(--shadow-lg); }
+
+  .category-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .category.open .category-header {
+    border-bottom-color: var(--border);
+  }
+
+  .cat-emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .cat-title-group { flex: 1; min-width: 0; }
+
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .cat-timeline {
+    font-size: 0.73rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    font-weight: 400;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .cat-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .cat-progress-ring {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .cat-progress-ring svg {
+    transform: rotate(-90deg);
+  }
+
+  .ring-bg { fill: none; stroke: var(--border); stroke-width: 3; }
+  .ring-fill { fill: none; stroke-width: 3; stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+
+  .ring-count {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink-light);
+  }
+
+  .chevron {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    transition: transform 0.2s;
+  }
+
+  .category.open .chevron { transform: rotate(180deg); }
+
+  /* Priority badge */
+  .priority-urgent {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #fde8e4;
+    color: var(--accent);
+    border-radius: 100px;
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Task list */
+  .task-list {
+    display: none;
+  }
+
+  .category.open .task-list {
+    display: block;
+  }
+
+  /* ADHD breakdown section */
+  .adhd-tip {
+    padding: 14px 24px;
+    background: var(--gold-soft);
+    border-bottom: 1.5px solid rgba(201,146,10,0.15);
+    font-size: 0.8rem;
+    color: #7a5800;
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .adhd-tip-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  .task-group { border-bottom: 1px solid var(--border); }
+  .task-group:last-child { border-bottom: none; }
+
+  .task-group-label {
+    padding: 10px 24px 6px;
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .task-item {
+    padding: 10px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: background 0.1s;
+    position: relative;
+  }
+
+  .task-item:hover { background: rgba(26,22,18,0.025); }
+  .task-item.done { opacity: 0.5; }
+
+  .task-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .task-check:hover { border-color: var(--ink-light); }
+  .task-check.checked { border-color: transparent; }
+
+  .task-check .check-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 3px;
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .task-check.checked .check-fill { transform: scale(1); }
+
+  .task-check .checkmark {
+    position: relative;
+    z-index: 1;
+    font-size: 0.65rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.15s 0.05s;
+  }
+
+  .task-check.checked .checkmark { opacity: 1; }
+
+  .task-content { flex: 1; min-width: 0; }
+
+  .task-text {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .task-item.done .task-text {
+    text-decoration: line-through;
+    color: var(--ink-faint);
+  }
+
+  .task-note {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    margin-top: 3px;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .task-mynote-wrap {
+    margin-top: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .task-mynote-label {
+    font-size: 0.65rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 5px;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .task-mynote {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid transparent;
+    outline: none;
+    resize: none;
+    line-height: 1.45;
+    padding: 3px 4px;
+    border-radius: 4px 4px 0 0;
+    transition: border-color 0.15s, background 0.15s;
+    min-height: 24px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .task-mynote::placeholder {
+    color: rgba(154,144,136,0.45);
+    font-style: italic;
+  }
+
+  .task-mynote:focus {
+    border-bottom-color: var(--gold);
+    background: rgba(201,146,10,0.04);
+  }
+
+  .task-mynote.has-content {
+    color: var(--ink);
+    border-bottom-color: rgba(201,146,10,0.3);
+  }
+  .task-tags {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+
+  .task-tag {
+    padding: 1px 7px;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .tag-urgent { background: #fde8e4; color: var(--accent); }
+  .tag-deadline { background: var(--gold-soft); color: #7a5800; }
+  .tag-book { background: var(--blue-soft); color: var(--blue); }
+  .tag-call { background: var(--green-soft); color: var(--green); }
+  .tag-legal { background: var(--purple-soft); color: var(--purple); }
+  .tag-online { background: var(--teal-soft); color: var(--teal); }
+  .tag-paperwork { background: var(--rose-soft); color: var(--rose); }
+
+  .task-right {
+    flex-shrink: 0;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .task-edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.1s;
+  }
+
+  .task-item:hover .task-edit-btn { opacity: 1; }
+  .task-edit-btn:hover { background: var(--border); color: var(--ink); }
+
+  /* Add task row */
+  .add-task-row {
+    padding: 10px 24px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-top: 1px dashed var(--border);
+  }
+
+  .add-task-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+    outline: none;
+    padding: 4px 0;
+  }
+
+  .add-task-input::placeholder { color: var(--ink-faint); }
+
+  .add-task-btn {
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+
+  .add-task-btn:hover { opacity: 0.8; }
+
+  /* Completion overlay */
+  .confetti {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+  }
+
+  /* Edit modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,22,18,0.5);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--paper);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .modal-field {
+    margin-bottom: 16px;
+  }
+
+  .modal-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  .modal-input, .modal-textarea, .modal-select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+    resize: vertical;
+  }
+
+  .modal-input:focus, .modal-textarea:focus, .modal-select:focus {
+    border-color: var(--ink-light);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  .btn-cancel {
+    padding: 10px 20px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--ink-light);
+    transition: all 0.15s;
+  }
+
+  .btn-cancel:hover { border-color: var(--ink-light); color: var(--ink); }
+
+  .btn-save {
+    padding: 10px 24px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .btn-save:hover { opacity: 0.8; }
+
+  .btn-delete {
+    padding: 10px 20px;
+    background: #fde8e4;
+    color: var(--accent);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-right: auto;
+  }
+
+  /* Checklist intro */
+  .intro-banner {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .intro-text { font-size: 0.83rem; line-height: 1.6; opacity: 0.8; }
+  .intro-text strong { opacity: 1; color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .header { padding: 24px 16px 20px; }
+    .header h1 { font-size: 1.8rem; }
+    main { padding: 20px 12px; }
+    .category-header { padding: 16px; }
+    .task-item { padding: 10px 16px; }
+    .adhd-tip { padding: 12px 16px; }
+    .add-task-row { padding: 10px 16px; }
+  }
+
+  /* Save status */
+  .save-status {
+    font-size: 0.7rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+    color: rgba(245,240,232,0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .save-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(245,240,232,0.3);
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+
+  .save-dot.saving { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+  .save-dot.saved { background: #5cb87a; }
+  .save-dot.error { background: var(--accent); }
+
+  /* Mode toggle */
+  .mode-bar {
+    background: var(--ink-light);
+    padding: 8px 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mode-bar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mode-label {
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    color: rgba(245,240,232,0.5);
+    text-transform: uppercase;
+    flex: 1;
+  }
+
+  .mode-label span { color: var(--gold); }
+
+  .mode-toggle-btn {
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(245,240,232,0.2);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.6);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .mode-toggle-btn:hover {
+    border-color: rgba(245,240,232,0.5);
+    color: rgba(245,240,232,0.9);
+  }
+
+  /* Viewer mode — lock down editing */
+  body.viewer-mode .add-task-row { display: none; }
+  body.viewer-mode .task-edit-btn { display: none; }
+  body.viewer-mode .task-check { pointer-events: none; }
+  body.viewer-mode .task-mynote { pointer-events: none; color: var(--ink-faint); }
+  body.viewer-mode .filter-btn:last-of-type { display: none; }
+
+  .viewer-banner {
+    background: var(--blue-soft);
+    border: 1.5px solid rgba(26,74,107,0.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    transition: opacity 0.4s;
+  }
+
+  .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+  .loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading your project...</div>
+</div>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>The <span>America</span> Project</h1>
+      <div class="header-sub">Miranda's relocation master list — every moving piece, one place</div>
+      <div class="save-status" id="saveStatus">
+        <div class="save-dot" id="saveDot"></div>
+        <span id="saveText">loading...</span>
+      </div>
+    </div>
+    <div class="master-progress">
+      <div class="master-count" id="masterCount">0/0</div>
+      <div class="master-label">tasks done</div>
+      <div class="progress-bar-master">
+        <div class="progress-bar-fill" id="masterBar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mode-bar">
+  <div class="mode-bar-inner">
+    <div class="mode-label" id="modeLabel">mode: <span>editor</span></div>
+    <button class="mode-toggle-btn" onclick="openSetup()">⚙ Setup sync</button>
+    <button class="mode-toggle-btn" id="modeToggleBtn" onclick="toggleMode()">Switch to viewer mode</button>
+  </div>
+</div>
+
+<div class="timeline-strip">
+  <div class="timeline-inner" id="timelineStrip"></div>
+</div>
+
+<main>
+  <div id="viewerBanner" style="display:none">
+    <div class="viewer-banner">
+      <span style="font-size:1.2rem">👀</span>
+      <span>Viewing Miranda's America Project in <strong>read-only mode</strong>. This page shows her live progress — refresh any time to see the latest updates.</span>
+    </div>
+  </div>
+
+  <div class="intro-banner" id="introBanner">
+    <div style="font-size:1.8rem;">🗺️</div>
+    <div class="intro-text">
+      <strong>How to use this:</strong> Click any category to expand it. Check tasks as you go. Click ✏️ on any task to edit the description or tags. Use the "add task" row to capture anything new. <strong>Everything saves automatically</strong> and is visible to anyone with this link.
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterTasks('all')">All</button>
+    <button class="filter-btn" onclick="filterTasks('urgent')">🔴 Urgent</button>
+    <button class="filter-btn" onclick="filterTasks('undone')">Undone only</button>
+    <button class="filter-btn" onclick="filterTasks('done')">Done</button>
+    <div class="filter-spacer"></div>
+    <button class="add-category-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="add-category-btn" onclick="expandAll()">Expand all</button>
+  </div>
+
+  <div id="categories"></div>
+</main>
+
+<!-- Setup modal -->
+<div class="modal-backdrop" id="setupModal">
+  <div class="modal" style="max-width:560px">
+    <h3>⚙ Sync Setup</h3>
+    <p style="font-size:0.82rem;color:var(--ink-light);line-height:1.6;margin-bottom:20px">
+      Uses <strong>JSONBin.io</strong> (free) to store progress in the cloud — anyone with your URL sees live data.<br><br>
+      <strong>One-time setup:</strong><br>
+      1. <a href="https://jsonbin.io" target="_blank" style="color:var(--blue)">jsonbin.io</a> → sign up / log in<br>
+      2. Dashboard → <strong>API Keys</strong> → copy <strong>X-Master-Key</strong> (starts with <code style="font-family:monospace;background:var(--bg);padding:1px 4px;border-radius:3px">$2a$10$</code>)<br>
+      3. Paste it below → click <strong>Create Bin</strong> → Bin ID fills in automatically<br>
+      4. Click <strong>Save &amp; Connect</strong>
+    </p>
+    <div class="modal-field">
+      <div class="modal-label">X-Master-Key</div>
+      <input class="modal-input" id="setupKey" type="password" placeholder="$2a$10$...">
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">Bin ID (auto-filled)</div>
+      <input class="modal-input" id="setupId" type="text" placeholder="auto-filled after Create Bin">
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+      <button class="add-task-btn" id="createBinBtn" onclick="createNewBin()" style="background:var(--blue);font-size:0.82rem;padding:8px 16px;border-radius:8px;border:none">
+        Create Bin automatically
+      </button>
+      <span id="setupError" style="font-size:0.75rem;color:var(--accent);flex:1"></span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeSetup()">Cancel</button>
+      <button class="btn-save" onclick="saveSetup()">Save &amp; Connect</button>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop" id="editModal">
+  <div class="modal">
+    <h3>Edit Task</h3>
+    <div class="modal-field">
+      <div class="modal-label">Task</div>
+      <input class="modal-input" id="editText" type="text" placeholder="Task description...">
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">Note / detail</div>
+      <textarea class="modal-textarea" id="editNote" rows="2" placeholder="Extra context, links, phone numbers..."></textarea>
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">Tags</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="tagPicker"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-delete" onclick="deleteTask()">Delete</button>
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveTask()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const TAGS = ['urgent','deadline','call','book','online','paperwork','legal'];
+const TAG_LABELS = { urgent:'🔴 urgent', deadline:'📅 deadline', call:'📞 call', book:'✈️ book', online:'💻 online', paperwork:'📄 paperwork', legal:'⚖️ legal' };
+
+let data = {
+  categories: [
+    {
+      id: 'cat',
+      emoji: '🐱',
+      title: 'Getting the Cat Over',
+      color: '#c9920a',
+      colorSoft: '#fdf3d8',
+      timeline: '⚠️ Start NOW — 3+ months needed for vet paperwork',
+      adhdTip: 'PetRelocation is doing the heavy lifting but they need 3 things from you RIGHT NOW to build the timeline. Do those 3 tasks before anything else in this category. Everything else waits on their plan.',
+      open: true,
+      groups: [
+        {
+          label: '1. PetRelocation — Answer Their 3 Questions First',
+          tasks: [
+            { id: 't0a', text: 'Reply to PetRelocation: confirm departure date flexibility', note: 'Target is 6/1/2026. Do you have any flex? Even 1–2 weeks can matter for vet cert timing windows. Tell her now.', tags: ['urgent'], done: false },
+            { id: 't0b', text: 'Reply to PetRelocation: CDC import process status', note: 'For cats entering the US from the EU, CDC rules (as of 2024) are less burdensome than for dogs — no screwworm certificate needed. But confirm your current status: has anything been started, or is this from zero? Be honest — say zero if zero.', tags: ['urgent'], done: false },
+            { id: 't0c', text: 'Measure crate dimensions A, B, C, D and send to PetRelocation', note: 'Guide: petrelocation.com/learn/pet-travel-crates — Video: youtube.com/shorts/p5LW0UDEp1k\n\nA = length of cat nose to base of tail\nB = height of cat standing (top of head)\nC = width across shoulders\nD = width across chest/front legs\n\nDo this with a soft tape measure while cat is calm. Add a few cm to each — crate must be big enough to stand, turn, and lie down.', tags: ['urgent'], done: false },
+          ]
+        },
+        {
+          label: '2. Vet & Documentation (PetRelocation will build the timeline)',
+          tasks: [
+            { id: 't1', text: 'Verify microchip is ISO 11784/11785 compliant', note: 'US requires microchip. Must be scanned and recorded BEFORE any rabies vaccination to count. Check vet records.', tags: ['urgent'], done: false },
+            { id: 't2', text: 'Confirm rabies vaccination is current and post-microchip', note: 'Must be administered after microchip implantation. Check the dates on your vet record.', tags: ['urgent'], done: false },
+            { id: 't3', text: 'Confirm your vet is USDA-accredited (or find one in Amsterdam)', note: 'PetRelocation may recommend one. The health certificate MUST come from a USDA-accredited vet — not just any vet.', tags: ['call'], done: false },
+            { id: 't4', text: 'Get EU health certificate (Form 7001) — timed to travel', note: 'Must be issued within 10 days of travel. PetRelocation will tell you exactly when to book this appointment — do NOT do it early.', tags: ['paperwork'], done: false },
+            { id: 't5', text: 'NVWA endorsement of health certificate', note: 'Netherlands Food and Consumer Product Safety Authority must stamp/endorse the cert. PetRelocation usually coordinates this. Book ahead — this is the bottleneck.', tags: ['call'], done: false },
+          ]
+        },
+        {
+          label: '2. Travel Logistics',
+          tasks: [
+            { id: 't6', text: 'Research airline pet-in-cabin policies', note: 'Siberian cats are usually within cabin size limits. Delta, KLM, United all have different policies. Book early — pet spots are limited per flight.', tags: ['book'], done: false },
+            { id: 't7', text: 'Buy IATA-approved soft carrier if needed', note: 'Must fit under seat in front of you. Measure carefully. Get cat used to it ASAP.', tags: ['urgent'], done: false },
+            { id: 't8', text: 'Book flight that allows pet in cabin on all legs', note: 'Avoid codeshare flights — different airlines = different rules mid-journey. Nightmare.', tags: ['book'], done: false },
+            { id: 't9', text: 'Check US import regulations for cats from EU', note: 'As of 2024, cats entering US from EU are subject to CDC/USDA rules. No quarantine required if vaccinated.', tags: ['paperwork'], done: false },
+          ]
+        },
+        {
+          label: '3. Cat Prep',
+          tasks: [
+            { id: 't10', text: 'Start carrier training NOW', note: 'Leave carrier out, feed near it, put familiar blanket inside. 6+ weeks for comfort.', tags: ['urgent'], done: false },
+            { id: 't11', text: 'Find US vet in destination area before you arrive', note: 'Have the name before you land. First-vet anxiety is real.', tags: ['online'], done: false },
+            { id: 't12', text: 'Pack cat: food, litter, familiar toys/blanket, meds', note: 'Pack enough food for 2 weeks — sudden diet change + travel stress = GI disaster.', tags: [], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'uwv',
+      emoji: '🏛️',
+      title: 'UWV / Pausing WW',
+      color: '#c84b2f',
+      colorSoft: '#f0e0da',
+      timeline: '⚠️ Do this BEFORE you leave — has strict notification rules',
+      adhdTip: 'This is legally time-sensitive. Living abroad while claiming WW without notifying UWV is fraud. Do this one early and document everything.',
+      open: false,
+      groups: [
+        {
+          label: 'Understand your situation',
+          tasks: [
+            { id: 'u1', text: 'Find out current WW end date', note: 'Check mijn.uwv.nl or last decision letter. Helpful for calculating how long you can pause.', tags: ['online'], done: false },
+            { id: 'u2', text: 'Research "woonachtig buiten NL" rules for WW', note: 'In general WW requires you to live in NL. Temporary abroad MAY be allowed short-term. Contact UWV to confirm your specific situation.', tags: ['urgent'], done: false },
+          ]
+        },
+        {
+          label: 'Contact UWV',
+          tasks: [
+            { id: 'u3', text: 'Call UWV and ask about suspension/pause options', note: 'Ask specifically: "Ik ga tijdelijk in het buitenland wonen — wat zijn mijn opties?" Document date, time, name of person you speak to.', tags: ['urgent','call'], done: false },
+            { id: 'u4', text: 'Submit formal notification of departure abroad', note: 'You must notify them in writing. Do via mijn.uwv.nl or send certified letter.', tags: ['urgent','paperwork'], done: false },
+            { id: 'u5', text: 'Request written confirmation of your WW status', note: 'You want paper evidence of what will happen — suspension, termination, or continuation — before you leave.', tags: ['paperwork'], done: false },
+            { id: 'u6', text: 'Resolve the UWV settlement discrepancy first', note: 'The incorrect payroll processing issue — get that sorted before you muddy the waters with departure notification.', tags: ['urgent','legal'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'ing',
+      emoji: '🏦',
+      title: 'ING Mortgage / Rental Discussion',
+      color: '#1a4a6b',
+      colorSoft: '#d8eaf5',
+      timeline: 'Start 2–3 months before departure',
+      adhdTip: 'Three separate questions for ING: (1) Can you rent to someone else? (2) What about Airbnb short-stay? (3) Any impact on mortgage terms if you\'re not residing there? Get it in writing.',
+      open: false,
+      groups: [
+        {
+          label: 'ING mortgage',
+          tasks: [
+            { id: 'i1', text: 'Read your mortgage deed for rental/vacancy clauses', note: 'The deed (hypotheekakte) will say if owner-occupation is required. Check before calling.', tags: ['paperwork'], done: false },
+            { id: 'i2', text: 'Call ING mortgage department — ask about rental permission', note: 'Specifically ask about verhuurvergunning and whether your mortgage type allows it. Many NL mortgages require you to live there.', tags: ['call'], done: false },
+            { id: 'i3', text: 'Ask ING about temporary absence / not primary residence', note: 'What is their policy if you\'re abroad for 6–12 months? Do you need to notify them?', tags: ['call'], done: false },
+            { id: 'i4', text: 'Get any permissions from ING in writing', note: 'Email is fine. You need this if there is ever a dispute.', tags: ['paperwork'], done: false },
+          ]
+        },
+        {
+          label: 'Municipality / Legal',
+          tasks: [
+            { id: 'i5', text: 'Check Amsterdam rental permit (verhuurvergunning) requirements', note: 'For long-term rental you may need a permit from the gemeente. Amsterdam has strict rules. Check amsterdam.nl', tags: ['online','legal'], done: false },
+            { id: 'i6', text: 'Check VvE (homeowners assoc) rules if applicable', note: 'If your building has a VvE, they may restrict or require notice for subletting.', tags: ['legal'], done: false },
+            { id: 'i7', text: 'Understand box 3 tax implications of renting out', note: 'Rental income affects your Dutch taxes. May need a belastingadviseur.', tags: ['legal'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'airbnb',
+      emoji: '🏠',
+      title: 'Airbnb',
+      color: '#c84b2f',
+      colorSoft: '#f0e0da',
+      timeline: 'Set up 4–6 weeks before departure',
+      adhdTip: 'Amsterdam Airbnb rules are strict and changed recently. You need a permit and there\'s a 30-night annual cap per property. Confirm you\'re eligible before spending time setting it up.',
+      open: false,
+      groups: [
+        {
+          label: 'Legality first',
+          tasks: [
+            { id: 'a1', text: 'Check current Amsterdam short-stay rental rules', note: 'Rules change. As of 2024 there is a 30-night cap and a vergunning required. Verify at amsterdam.nl/wonen-leefomgeving/wonen/vakantieverhuur/', tags: ['urgent','online','legal'], done: false },
+            { id: 'a2', text: 'Apply for vakantieverhuurvergunning if needed', note: 'Done via Mijn Amsterdam portal with DigiD.', tags: ['online','paperwork'], done: false },
+            { id: 'a3', text: 'Check VvE permission for Airbnb specifically', note: 'Different from regular rental. Many VvEs explicitly forbid short-stay.', tags: ['legal'], done: false },
+          ]
+        },
+        {
+          label: 'Practical setup',
+          tasks: [
+            { id: 'a4', text: 'Set up or activate Airbnb listing', note: 'Photos, pricing, house rules, check-in instructions.', tags: [], done: false },
+            { id: 'a5', text: 'Arrange key handover / smart lock solution', note: 'You won\'t be there — lockbox or smart lock with code. Schlage or Yale compatible with Airbnb.', tags: [], done: false },
+            { id: 'a6', text: 'Arrange cleaning between guests', note: 'Find a reliable cleaner in Amsterdam who can turn around the apartment. Budget this into pricing.', tags: ['call'], done: false },
+            { id: 'a7', text: 'Lock away personal items and documents', note: 'Valuables, passport documents, personal paperwork — all in a lockable closet or storage.', tags: ['urgent'], done: false },
+            { id: 'a8', text: 'Set up Airbnb co-host or property manager', note: 'If you\'re in the US, you need a local person to handle emergencies. Even a trusted friend.', tags: [], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'exchange',
+      emoji: '🎓',
+      title: 'Exchange Student — Host Process',
+      color: '#2d6a4f',
+      colorSoft: '#d8eddf',
+      timeline: 'Clarify timeline with the organization — may be rigid',
+      adhdTip: 'Two separate tracks here: (1) your obligations as a host family and (2) the student\'s administrative registration. Work out which organization is coordinating before diving in.',
+      open: false,
+      groups: [
+        {
+          label: 'Your host obligations',
+          tasks: [
+            { id: 'e1', text: 'Confirm exchange organization and point of contact', note: 'Who is the official org? AFS, YFU, EF, something else? Get a single coordinator name and number.', tags: ['call'], done: false },
+            { id: 'e2', text: 'Clarify exact start/end dates of hosting commitment', note: 'This affects your departure timeline significantly.', tags: ['urgent'], done: false },
+            { id: 'e3', text: 'Understand what happens to hosting if you\'re in the US', note: 'Can you host and be abroad? Is there a co-host option? Or does this need to be transferred?', tags: ['urgent','call'], done: false },
+            { id: 'e4', text: 'Complete any required background checks / home study', note: 'If not already done, these take time.', tags: ['paperwork'], done: false },
+            { id: 'e5', text: 'Clarify insurance and liability while hosting', note: 'What does the org cover? What do you need separately?', tags: ['legal'], done: false },
+          ]
+        },
+        {
+          label: 'Exchange student registration',
+          tasks: [
+            { id: 'e6', text: 'Confirm student is registered at local school', note: 'Exchange students in NL must be enrolled. Organization usually handles but verify.', tags: [], done: false },
+            { id: 'e7', text: 'Confirm student has health insurance coverage', note: 'The org usually provides this but double check coverage scope.', tags: [], done: false },
+            { id: 'e8', text: 'Ensure student is registered with gemeente if required', note: 'Stays over 4 months require BRP registration. Org should coordinate.', tags: ['paperwork'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'kids-school-us',
+      emoji: '📚',
+      title: 'Registering Kids at US School',
+      color: '#5c3a7a',
+      colorSoft: '#ede0f5',
+      timeline: 'Research now, paperwork 6–8 weeks before start',
+      adhdTip: 'US school enrollment requires several documents you\'ll need to dig out. Immunization records are the #1 blocker — get certified copies from NL before you leave.',
+      open: false,
+      groups: [
+        {
+          label: 'Before you leave NL',
+          tasks: [
+            { id: 'k1', text: 'Get certified copies of kids\' immunization records in English', note: 'Ask huisarts for an official English-language vaccination overview. US schools are strict about this.', tags: ['urgent','paperwork'], done: false },
+            { id: 'k2', text: 'Get school records / transcripts from NL school', note: 'Official certified records. English translation may be needed.', tags: ['paperwork'], done: false },
+            { id: 'k3', text: 'Notify NL school of withdrawal date', note: 'Give proper notice and get official withdrawal documentation.', tags: ['call'], done: false },
+            { id: 'k4', text: 'Get child\'s birth certificate copy (apostille if needed)', note: 'US schools may ask for this. An apostille makes it internationally valid.', tags: ['paperwork'], done: false },
+          ]
+        },
+        {
+          label: 'US side',
+          tasks: [
+            { id: 'k5', text: 'Research school district for your US address', note: 'School zone depends on your exact address. Look this up before you sign a lease.', tags: ['online','urgent'], done: false },
+            { id: 'k6', text: 'Contact school district enrollment office', note: 'Ask for required documents list. Every district varies.', tags: ['call'], done: false },
+            { id: 'k7', text: 'Enroll kids at US school', note: 'Bring: proof of address, immunization records, school records, birth cert, passport/ID.', tags: ['paperwork'], done: false },
+            { id: 'k8', text: 'Arrange after-school care if needed', note: 'US school hours are typically 7:30am–3pm. Plan coverage.', tags: [], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'leerplicht',
+      emoji: '📋',
+      title: 'Leerplicht Notification (NL)',
+      color: '#1e6b6b',
+      colorSoft: '#d8f0f0',
+      timeline: 'Do this before the kids\' last day at NL school',
+      adhdTip: 'Leerplicht is the compulsory education authority. You must notify them when children leave a Dutch school, especially if moving abroad. Failure to do so can cause issues if you ever return.',
+      open: false,
+      groups: [
+        {
+          label: 'Leerplicht process',
+          tasks: [
+            { id: 'l1', text: 'Find your district\'s leerplichtambtenaar contact', note: 'Go through amsterdam.nl or your kids\' school — each borough has a different officer.', tags: ['online'], done: false },
+            { id: 'l2', text: 'Formally notify leerplicht of departure date and destination', note: 'Usually done by letter or email. Include: child name, BSN, current school, departure date, destination country.', tags: ['paperwork'], done: false },
+            { id: 'l3', text: 'Get confirmation from leerplicht in writing', note: 'Keep this. Useful if there are ever questions upon return.', tags: ['paperwork'], done: false },
+            { id: 'l4', text: 'Notify kids\' school directly as well', note: 'Official withdrawal — get a schriftelijke bevestiging from the school too.', tags: ['call'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'apartment-us',
+      emoji: '🗺️',
+      title: 'Finding US Apartment',
+      color: '#8b2252',
+      colorSoft: '#f5d8e8',
+      timeline: 'Start researching now, commit 4–6 weeks before arrival',
+      adhdTip: 'No US credit history = extra friction. Research cities/neighborhoods NOW so you\'re not deciding blind. Consider furnished short-term first, then find permanent after you\'re on the ground.',
+      open: false,
+      groups: [
+        {
+          label: 'Research phase',
+          tasks: [
+            { id: 'ap1', text: 'Confirm destination city/area', note: 'Atlanta area? Or somewhere else? School zone matters — decide neighborhood before apartment.', tags: ['urgent'], done: false },
+            { id: 'ap2', text: 'Research short-term furnished options as landing pad', note: 'Furnished Finder, Airbnb monthly, corporate housing. Buys you time to find a proper place on the ground.', tags: ['online'], done: false },
+            { id: 'ap3', text: 'Set monthly budget (include utilities — often not included in US)', note: 'US rentals often exclude water, electricity, gas, internet. Budget $150–300/month extra.', tags: [], done: false },
+          ]
+        },
+        {
+          label: 'Practical',
+          tasks: [
+            { id: 'ap4', text: 'Prepare rental documents package', note: 'Landlords want: passport, employment letter or proof of funds, reference letters, bank statements. Prepare this before searching.', tags: ['paperwork'], done: false },
+            { id: 'ap5', text: 'Research no-credit-check or Dutch expat rental options', note: 'Some landlords accept larger security deposits in lieu of credit history. Expat communities often have leads.', tags: ['online'], done: false },
+            { id: 'ap6', text: 'Set up a US phone number before arrival', note: 'Landlords won\'t call an international number. Google Voice is free and instant.', tags: ['online'], done: false },
+            { id: 'ap7', text: 'Get a US bank account set up (or confirm wire transfer plan)', note: 'First/last month + deposit often $3000–6000+ upfront. Plan the transfer.', tags: ['urgent'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'declutter',
+      emoji: '📦',
+      title: 'Emptying Amsterdam Apartment',
+      color: '#5c3a7a',
+      colorSoft: '#ede0f5',
+      timeline: 'Start 2 months before departure — do in phases',
+      adhdTip: 'Break this into three sessions: (1) obvious trash/donate, (2) storage vs. take, (3) final pack. Don\'t try to do it all at once. ADHD + big clear-outs = paralysis. Time-box each session to 2 hours.',
+      open: false,
+      groups: [
+        {
+          label: 'Phase 1: Triage (2 months out)',
+          tasks: [
+            { id: 'd1', text: 'Go room by room: trash / donate / sell / store / take', note: 'Do one room per weekend. Don\'t context-switch between rooms.', tags: [], done: false },
+            { id: 'd2', text: 'Book a marktplaats purge — list big items for sale', note: 'Furniture, electronics, etc. List 6 weeks before — gives time to sell without panic.', tags: ['online'], done: false },
+            { id: 'd3', text: 'Find a storage unit in Amsterdam if needed', note: 'Shurgard, Veiligstallen, or similar. Price and book ahead for summer months.', tags: ['call'], done: false },
+          ]
+        },
+        {
+          label: 'Phase 2: Admin (4–6 weeks out)',
+          tasks: [
+            { id: 'd4', text: 'Scan and digitize all important documents', note: 'Medical records, financial, property documents, warranties. Store in iCloud/Google Drive.', tags: [], done: false },
+            { id: 'd5', text: 'Organize what stays in the apartment for Airbnb/rental guests', note: 'Minimalist is best for guests. Box up all personal items.', tags: [], done: false },
+            { id: 'd6', text: 'Arrange mail forwarding or trusted person for mail', note: 'PostNL mail forwarding, or ask someone to collect. DigiD letters especially — these come physical.', tags: [], done: false },
+          ]
+        },
+        {
+          label: 'Phase 3: Final prep (1–2 weeks out)',
+          tasks: [
+            { id: 'd7', text: 'Deep clean or book a cleaning service', note: 'For Airbnb guests, the apartment needs to be guest-ready before you leave.', tags: ['call'], done: false },
+            { id: 'd8', text: 'Leave apartment guide / house manual for guests', note: 'Appliances, WiFi, emergency contacts, bin collection days, nearest supermarket.', tags: [], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'dutch-admin',
+      emoji: '🇳🇱',
+      title: 'Dutch Admin (Other)',
+      color: '#c9920a',
+      colorSoft: '#fdf3d8',
+      timeline: 'Most things 2–4 weeks before departure',
+      adhdTip: 'This is the "easy to forget" category. Make a list of every institution that has your address and needs updating. Health insurance is the big one.',
+      open: false,
+      groups: [
+        {
+          label: 'Key notifications',
+          tasks: [
+            { id: 'da1', text: 'Notify your Dutch health insurer (zorgverzekering)', note: 'If you\'re deregistering from NL, you must cancel Dutch health insurance. If staying registered, keep it. This depends on your whole plan.', tags: ['urgent','call'], done: false },
+            { id: 'da2', text: 'Decide: deregister from gemeente Amsterdam or not', note: 'Deregistering (emigreren) affects many things: toeslagen, zorgtoeslag, DigiD, etc. Only do if staying long-term. Research first.', tags: ['urgent','legal'], done: false },
+            { id: 'da3', text: 'Notify huisarts of departure and request medical summary', note: 'Get a medical history letter (medische overdracht) for yourself and the kids. In English if possible.', tags: ['call'], done: false },
+            { id: 'da4', text: 'Check toeslag situation (huurtoeslag etc)', note: 'If you receive any toeslagen and your situation changes, notify belastingdienst.', tags: ['online'], done: false },
+            { id: 'da5', text: 'Notify belastingdienst of address change', note: 'Important for tax purposes. You may still need to file a Dutch tax return for the year.', tags: ['online'], done: false },
+            { id: 'da6', text: 'Ensure DigiD stays accessible from abroad', note: 'Test that your DigiD works. SMS 2FA — make sure Dutch phone number stays active.', tags: ['online'], done: false },
+            { id: 'da7', text: 'Keep Dutch SIM active or forward number', note: 'Many Dutch services only do 2FA via Dutch mobile number. Don\'t cancel it.', tags: ['urgent'], done: false },
+            { id: 'da8', text: 'Notify Dutch bank (ING/other) of abroad address', note: 'Banks may freeze accounts if they detect foreign activity without notice.', tags: ['call'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'travel',
+      emoji: '✈️',
+      title: 'Travel & Timeline',
+      color: '#2d6a4f',
+      colorSoft: '#d8eddf',
+      timeline: 'Book 6–8 weeks out for better prices',
+      adhdTip: 'Work backwards from your target departure date and fill in every category\'s deadlines from there. The cat paperwork and UWV notification drive your "must do by" dates for everything else.',
+      open: false,
+      groups: [
+        {
+          label: 'Flights',
+          tasks: [
+            { id: 'tr1', text: 'Set target departure date', note: 'June/July was mentioned. The earlier you commit, the better prices and the cleaner the planning.', tags: ['urgent'], done: false },
+            { id: 'tr2', text: 'Book flights (all legs) allowing cat in cabin', note: 'Book early — pet spots fill up. Direct or single connection preferred for cat stress.', tags: ['urgent','book'], done: false },
+            { id: 'tr3', text: 'Book return flight (even flexible/open return)', note: 'For WW and practical purposes, have a return booked even if you might change it.', tags: ['book'], done: false },
+          ]
+        },
+        {
+          label: 'US arrival logistics',
+          tasks: [
+            { id: 'tr4', text: 'Arrange airport pickup or rental car', note: 'With cat and luggage, rideshare is complicated. Plan pickup logistics.', tags: [], done: false },
+            { id: 'tr5', text: 'Have somewhere to stay night 1 sorted well before departure', note: 'Not the time to wing it. Family, Airbnb, or hotel — have it confirmed.', tags: ['urgent'], done: false },
+            { id: 'tr6', text: 'Pack a "first 72 hours" bag at top of luggage', note: 'Everything you need immediately without unpacking everything: medications, chargers, cat essentials, key docs.', tags: [], done: false },
+          ]
+        },
+        {
+          label: 'Documents to carry',
+          tasks: [
+            { id: 'tr7', text: 'Both passports (NL + US) up to date', note: 'Check expiry dates NOW. Renewal takes 6+ weeks.', tags: ['urgent','paperwork'], done: false },
+            { id: 'tr8', text: 'Kids\' passports + travel consent if needed', note: 'If both parents not traveling together, some countries/airlines require consent letter from other parent.', tags: ['paperwork'], done: false },
+            { id: 'tr9', text: 'Cat health certificate + NVWA endorsement in carry-on', note: 'This document is time-sensitive and irreplaceable. NEVER check it.', tags: ['urgent','paperwork'], done: false },
+            { id: 'tr10', text: 'Insurance documents, medical records, school records', note: 'Physical copies plus digital backup in cloud.', tags: ['paperwork'], done: false },
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 'misc',
+      emoji: '🧠',
+      title: 'Stuff You\'re Forgetting',
+      color: '#1e6b6b',
+      colorSoft: '#d8f0f0',
+      timeline: 'Add to this as things occur to you',
+      adhdTip: 'This is your brain dump category. Add anything here the moment you think of it. Don\'t let it live rent-free in your head.',
+      open: false,
+      groups: [
+        {
+          label: 'Likely forgotten',
+          tasks: [
+            { id: 'm1', text: 'Set up US health insurance / confirm coverage', note: 'ACA marketplace, parent\'s plan, or employer plan if you\'re working. Sort before arrival.', tags: ['urgent'], done: false },
+            { id: 'm2', text: 'Notify US dentist / doctor if you have one', note: 'Or establish care early — US healthcare is appointment-heavy.', tags: [], done: false },
+            { id: 'm3', text: 'Coordinate with your parents on arrival / timing', note: 'Your dad\'s GI procedure and your mom\'s bandwidth. Build in some overlap with family before logistics crush you.', tags: ['urgent'], done: false },
+            { id: 'm4', text: 'Get your prescriptions sorted for travel', note: 'Get enough medication for 3 months. Check which medications need a US prescription vs can transfer.', tags: ['urgent','paperwork'], done: false },
+            { id: 'm5', text: 'Pack supplements in clearly labeled containers', note: 'The stack going through customs — label everything. Powder supplements especially.', tags: [], done: false },
+            { id: 'm6', text: 'Sort international phone plan', note: 'Check if your current NL plan has US roaming. If not, get a US SIM on arrival or buy eSIM (Airalo, etc).', tags: [], done: false },
+            { id: 'm7', text: 'Set up US credit card or confirm debit works', note: 'Many US places are card-only. Ensure your cards work without foreign transaction fees (Wise is good for this).', tags: [], done: false },
+            { id: 'm8', text: 'Let Phoebe know timeline', note: 'Loop her in so she knows what support the parents might need from her end while you\'re getting settled.', tags: [], done: false },
+            { id: 'm9', text: 'Backup all devices / export important data before travel', note: 'iCloud full backup, photos synced, important files in cloud. In case luggage is lost.', tags: [], done: false },
+            { id: 'm10', text: 'Add task: everything else you\'re forgetting', note: 'Keep adding here.', tags: [], done: false },
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// ============================================================
+// STATE
+// ============================================================
+
+let currentFilter = 'all';
+let editingTask = null; // { catId, groupIdx, taskIdx }
+let selectedTags = [];
+
+// ============================================================
+// RENDER
+// ============================================================
+
+function getColor(cat) { return cat.color; }
+
+function render() {
+  const container = document.getElementById('categories');
+  let html = '';
+
+  data.categories.forEach((cat, ci) => {
+    const allTasks = cat.groups.flatMap(g => g.tasks);
+    const done = allTasks.filter(t => t.done).length;
+    const total = allTasks.length;
+    const pct = total ? (done / total * 100) : 0;
+    const circumference = 2 * Math.PI * 17;
+    const offset = circumference - (pct / 100) * circumference;
+
+    const isVisible = categoryVisible(cat);
+    if (!isVisible) return;
+
+    html += `
+    <div class="category ${cat.open ? 'open' : ''}" id="cat-${cat.id}">
+      <div class="category-header" onclick="toggleCat('${cat.id}')">
+        <div class="cat-emoji">${cat.emoji}</div>
+        <div class="cat-title-group">
+          <div class="cat-title">${cat.title}</div>
+          <div class="cat-timeline">${cat.timeline}</div>
+        </div>
+        <div class="cat-right">
+          <div class="cat-progress-ring">
+            <svg width="44" height="44" viewBox="0 0 44 44">
+              <circle class="ring-bg" cx="22" cy="22" r="17"/>
+              <circle class="ring-fill" cx="22" cy="22" r="17"
+                style="stroke:${cat.color};stroke-dasharray:${circumference};stroke-dashoffset:${offset}"
+              />
+            </svg>
+            <div class="ring-count">${done}/${total}</div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+      </div>
+
+      <div class="task-list">
+        <div class="adhd-tip">
+          <span class="adhd-tip-icon">💡</span>
+          <span>${cat.adhdTip}</span>
+        </div>
+        ${cat.groups.map((grp, gi) => renderGroup(cat, gi, grp)).join('')}
+        <div class="add-task-row">
+          <input class="add-task-input" id="newTask-${cat.id}" placeholder="+ add task..." onkeydown="handleAddKey(event, '${cat.id}')">
+          <button class="add-task-btn" onclick="addTask('${cat.id}')">Add</button>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+  updateMasterProgress();
+  // Auto-resize any pre-filled note textareas
+  container.querySelectorAll('.task-mynote').forEach(el => {
+    if (el.value) autoResize(el);
+  });
+}
+
+function renderGroup(cat, gi, grp) {
+  const tasks = grp.tasks.filter(t => taskVisible(t));
+  if (tasks.length === 0 && currentFilter !== 'all') return '';
+
+  return `
+  <div class="task-group">
+    <div class="task-group-label">${grp.label}</div>
+    ${grp.tasks.filter(t => taskVisible(t)).map((task, ti) => {
+      const realTi = grp.tasks.indexOf(task);
+      return renderTask(cat, gi, realTi, task);
+    }).join('')}
+  </div>`;
+}
+
+function renderTask(cat, gi, ti, task) {
+  const tags = (task.tags || []).map(tag => `<span class="task-tag tag-${tag}">${TAG_LABELS[tag]}</span>`).join('');
+  const myNote = task.myNote || '';
+  const noteId = `mynote-${task.id}`;
+  return `
+  <div class="task-item ${task.done ? 'done' : ''}" id="task-${task.id}">
+    <div class="task-check ${task.done ? 'checked' : ''}" onclick="toggleTask('${cat.id}', ${gi}, ${ti})" style="${task.done ? `--check-color:${cat.color}` : ''}">
+      <div class="check-fill" style="background:${cat.color}"></div>
+      <span class="checkmark">✓</span>
+    </div>
+    <div class="task-content">
+      <div class="task-text">${task.text}</div>
+      ${task.note ? `<div class="task-note">${task.note}</div>` : ''}
+      ${tags ? `<div class="task-tags">${tags}</div>` : ''}
+      <div class="task-mynote-wrap">
+        <span class="task-mynote-label">my note</span>
+        <textarea
+          id="${noteId}"
+          class="task-mynote ${myNote ? 'has-content' : ''}"
+          rows="1"
+          placeholder="your notes here..."
+          oninput="autoResize(this)"
+          onblur="saveMyNote('${cat.id}', ${gi}, ${ti}, this.value)"
+        >${myNote}</textarea>
+      </div>
+    </div>
+    <div class="task-right">
+      <button class="task-edit-btn" onclick="openEdit('${cat.id}', ${gi}, ${ti})" title="Edit">✏️</button>
+    </div>
+  </div>`;
+}
+
+function saveMyNote(catId, gi, ti, value) {
+  const cat = data.categories.find(c => c.id === catId);
+  const task = cat.groups[gi].tasks[ti];
+  task.myNote = value.trim();
+  const el = document.getElementById(`mynote-${task.id}`);
+  if (el) el.classList.toggle('has-content', !!task.myNote);
+  scheduleSave();
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function categoryVisible(cat) {
+  if (currentFilter === 'all') return true;
+  const allTasks = cat.groups.flatMap(g => g.tasks);
+  if (currentFilter === 'done') return allTasks.some(t => t.done);
+  if (currentFilter === 'undone') return allTasks.some(t => !t.done);
+  if (currentFilter === 'urgent') return allTasks.some(t => !t.done && (t.tags || []).includes('urgent'));
+  return true;
+}
+
+function taskVisible(task) {
+  if (currentFilter === 'all') return true;
+  if (currentFilter === 'done') return task.done;
+  if (currentFilter === 'undone') return !task.done;
+  if (currentFilter === 'urgent') return !task.done && (task.tags || []).includes('urgent');
+  return true;
+}
+
+function updateMasterProgress() {
+  const all = data.categories.flatMap(c => c.groups.flatMap(g => g.tasks));
+  const done = all.filter(t => t.done).length;
+  const total = all.length;
+  document.getElementById('masterCount').textContent = `${done}/${total}`;
+  document.getElementById('masterBar').style.width = total ? `${done/total*100}%` : '0%';
+}
+
+// ============================================================
+// INTERACTIONS
+// ============================================================
+
+function toggleCat(id) {
+  const cat = data.categories.find(c => c.id === id);
+  cat.open = !cat.open;
+  render();
+}
+
+function toggleTask(catId, gi, ti) {
+  const cat = data.categories.find(c => c.id === catId);
+  const task = cat.groups[gi].tasks[ti];
+  task.done = !task.done;
+  render();
+  scheduleSave();
+  if (task.done) celebrateMicro();
+}
+
+function celebrateMicro() {
+  const el = document.createElement('div');
+  el.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;z-index:9999;pointer-events:none;animation:pop 0.6s ease forwards';
+  el.textContent = ['✅','🎯','⚡','✨','🌟'][Math.floor(Math.random()*5)];
+  document.body.appendChild(el);
+  const style = document.createElement('style');
+  style.textContent = '@keyframes pop{0%{opacity:1;transform:translate(-50%,-60%) scale(0.5)}50%{opacity:1;transform:translate(-50%,-70%) scale(1.2)}100%{opacity:0;transform:translate(-50%,-100%) scale(1)}}';
+  document.head.appendChild(style);
+  setTimeout(() => el.remove(), 700);
+}
+
+function addTask(catId) {
+  const input = document.getElementById(`newTask-${catId}`);
+  const text = input.value.trim();
+  if (!text) return;
+  const cat = data.categories.find(c => c.id === catId);
+  const lastGroup = cat.groups[cat.groups.length - 1];
+  const newTask = { id: 'task-' + Date.now(), text, note: '', tags: [], done: false };
+  lastGroup.tasks.push(newTask);
+  input.value = '';
+  cat.open = true;
+  render();
+  scheduleSave();
+}
+
+function handleAddKey(event, catId) {
+  if (event.key === 'Enter') addTask(catId);
+}
+
+function filterTasks(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  render();
+}
+
+function collapseAll() {
+  data.categories.forEach(c => c.open = false);
+  render();
+}
+
+function expandAll() {
+  data.categories.forEach(c => c.open = true);
+  render();
+}
+
+// ============================================================
+// EDIT MODAL
+// ============================================================
+
+function openEdit(catId, gi, ti) {
+  editingTask = { catId, gi, ti };
+  const cat = data.categories.find(c => c.id === catId);
+  const task = cat.groups[gi].tasks[ti];
+
+  document.getElementById('editText').value = task.text;
+  document.getElementById('editNote').value = task.note || '';
+
+  selectedTags = [...(task.tags || [])];
+  renderTagPicker();
+
+  document.getElementById('editModal').classList.add('open');
+}
+
+function renderTagPicker() {
+  const el = document.getElementById('tagPicker');
+  el.innerHTML = TAGS.map(tag => `
+    <button onclick="toggleTag('${tag}')" style="
+      padding:4px 12px;border-radius:100px;border:1.5px solid;font-size:0.75rem;font-family:'DM Sans',sans-serif;cursor:pointer;
+      ${selectedTags.includes(tag) ? 'background:var(--ink);color:var(--bg);border-color:var(--ink);' : 'background:transparent;color:var(--ink-light);border-color:var(--border);'}
+    ">${TAG_LABELS[tag]}</button>
+  `).join('');
+}
+
+function toggleTag(tag) {
+  if (selectedTags.includes(tag)) {
+    selectedTags = selectedTags.filter(t => t !== tag);
+  } else {
+    selectedTags.push(tag);
+  }
+  renderTagPicker();
+}
+
+function saveTask() {
+  const { catId, gi, ti } = editingTask;
+  const cat = data.categories.find(c => c.id === catId);
+  const task = cat.groups[gi].tasks[ti];
+  task.text = document.getElementById('editText').value.trim() || task.text;
+  task.note = document.getElementById('editNote').value.trim();
+  task.tags = [...selectedTags];
+  closeModal();
+  render();
+  scheduleSave();
+}
+
+function deleteTask() {
+  if (!confirm('Delete this task?')) return;
+  const { catId, gi, ti } = editingTask;
+  const cat = data.categories.find(c => c.id === catId);
+  cat.groups[gi].tasks.splice(ti, 1);
+  closeModal();
+  render();
+  scheduleSave();
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('open');
+  editingTask = null;
+}
+
+document.getElementById('editModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ============================================================
+// STORAGE — JSONBin.io shared storage (live sync for all viewers)
+// localStorage used for config only
+// ============================================================
+
+let isViewerMode = false;
+let saveTimer = null;
+let jsonbinKey = '';
+let jsonbinId = '';
+const LS_CONFIG = 'america-project-config';
+
+function getConfig() {
+  try {
+    const c = JSON.parse(localStorage.getItem(LS_CONFIG) || '{}');
+    jsonbinKey = c.key || '';
+    jsonbinId = c.id || '';
+  } catch(e) {}
+}
+
+function saveConfig(key, id) {
+  jsonbinKey = key.trim();
+  jsonbinId = id.trim();
+  localStorage.setItem(LS_CONFIG, JSON.stringify({ key: jsonbinKey, id: jsonbinId }));
+}
+
+function setSaveStatus(state, text) {
+  const dot = document.getElementById('saveDot');
+  const txt = document.getElementById('saveText');
+  dot.className = 'save-dot ' + state;
+  txt.textContent = text;
+}
+
+function getFlatState() {
+  return data.categories.flatMap(cat =>
+    cat.groups.flatMap(grp =>
+      grp.tasks.map(t => ({ id: t.id, done: t.done, myNote: t.myNote || '' }))
+    )
+  );
+}
+
+function applyFlatState(saved) {
+  const taskMap = {};
+  saved.forEach(t => { taskMap[t.id] = t; });
+  data.categories.forEach(cat => {
+    cat.groups.forEach(grp => {
+      grp.tasks.forEach(task => {
+        if (taskMap[task.id]) {
+          task.done = taskMap[task.id].done ?? task.done;
+          task.myNote = taskMap[task.id].myNote ?? '';
+        }
+      });
+    });
+  });
+}
+
+const LS_STATE = 'america-project-state-v1';
+
+function loadLocalState() {
+  try {
+    const raw = localStorage.getItem(LS_STATE);
+    if (raw) applyFlatState(JSON.parse(raw));
+  } catch(e) {}
+}
+
+function saveLocalState() {
+  try {
+    localStorage.setItem(LS_STATE, JSON.stringify(getFlatState()));
+  } catch(e) {}
+}
+
+function isFileProtocol() {
+  return window.location.protocol === 'file:';
+}
+
+async function loadState() {
+  if (!jsonbinKey || !jsonbinId || isFileProtocol()) {
+    loadLocalState();
+    if (isFileProtocol() && jsonbinKey) {
+      setSaveStatus('saved', 'local save only — JSONBin sync will activate on GitHub Pages');
+    } else if (!jsonbinKey) {
+      setSaveStatus('error', 'not configured — click ⚙ Setup');
+    } else {
+      setSaveStatus('saved', 'loaded from local storage');
+    }
+    return true;
+  }
+  setSaveStatus('saving', 'loading...');
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${jsonbinId}/latest`, {
+      headers: { 'X-Master-Key': jsonbinKey }
+    });
+    if (!res.ok) throw new Error(res.status);
+    const json = await res.json();
+    if (Array.isArray(json.record)) applyFlatState(json.record);
+    setSaveStatus('saved', 'loaded · live sync active');
+    return true;
+  } catch(e) {
+    // Fall back to localStorage silently
+    loadLocalState();
+    setSaveStatus('saved', 'local save only — JSONBin unreachable');
+    return true;
+  }
+}
+
+async function saveState() {
+  // Always save locally as backup
+  saveLocalState();
+
+  if (!jsonbinKey || !jsonbinId || isFileProtocol()) {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (isFileProtocol()) {
+      setSaveStatus('saved', `saved locally at ${time} · JSONBin activates on GitHub Pages`);
+    } else {
+      setSaveStatus('saved', `saved locally at ${time}`);
+    }
+    return;
+  }
+
+  setSaveStatus('saving', 'saving...');
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${jsonbinId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': jsonbinKey
+      },
+      body: JSON.stringify(getFlatState())
+    });
+    if (!res.ok) throw new Error(res.status);
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setSaveStatus('saved', `saved at ${time} · live`);
+  } catch(e) {
+    setSaveStatus('saved', 'saved locally · JSONBin unreachable');
+  }
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 800);
+}
+
+// ============================================================
+// SETUP MODAL
+// ============================================================
+
+function openSetup() {
+  document.getElementById('setupKey').value = jsonbinKey;
+  document.getElementById('setupId').value = jsonbinId;
+  document.getElementById('setupModal').classList.add('open');
+}
+
+function closeSetup() {
+  document.getElementById('setupModal').classList.remove('open');
+}
+
+async function createNewBin() {
+  const key = document.getElementById('setupKey').value.trim();
+  if (!key) { alert('Enter your X-Master-Key first.'); return; }
+  if (!key.startsWith('$2a$')) {
+    alert('That doesn\'t look like an X-Master-Key — it should start with $2a$10$...\n\nMake sure you\'re copying from jsonbin.io → Dashboard → API Keys → X-Master-Key (not Access Key).');
+    return;
+  }
+  if (isFileProtocol()) {
+    const errEl = document.getElementById('setupError');
+    errEl.innerHTML = 'You\'re running from a local file — browser blocks API calls. <strong>Save your key now anyway</strong>, then push to GitHub Pages. JSONBin will connect automatically once hosted.';
+    errEl.style.color = 'var(--gold)';
+    // Still save the key so it's ready for when hosted
+    document.getElementById('setupId').value = 'will-connect-on-github-pages';
+    return;
+  }
+  const btn = document.getElementById('createBinBtn');
+  const errEl = document.getElementById('setupError');
+  btn.textContent = 'Creating...';
+  btn.disabled = true;
+  errEl.textContent = '';
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': key,
+        'X-Bin-Name': 'america-project'
+      },
+      body: JSON.stringify([])
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.message || json.error || `HTTP ${res.status}`);
+    document.getElementById('setupId').value = json.metadata.id;
+    btn.textContent = '✓ Created — now click Save & Connect';
+    btn.style.background = 'var(--green)';
+  } catch(e) {
+    errEl.textContent = `Error: ${e.message}`;
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
+}
+
+async function saveSetup() {
+  const key = document.getElementById('setupKey').value.trim();
+  const id = document.getElementById('setupId').value.trim();
+  if (!key || !id) { alert('Both fields required.'); return; }
+  saveConfig(key, id);
+  closeSetup();
+  const ok = await loadState();
+  if (ok) render();
+}
+
+// ============================================================
+// VIEWER MODE
+// ============================================================
+
+function toggleMode() {
+  isViewerMode = !isViewerMode;
+  applyMode();
+}
+
+function applyMode() {
+  const btn = document.getElementById('modeToggleBtn');
+  const label = document.getElementById('modeLabel');
+  const viewerBanner = document.getElementById('viewerBanner');
+  const introBanner = document.getElementById('introBanner');
+  if (isViewerMode) {
+    document.body.classList.add('viewer-mode');
+    label.innerHTML = 'mode: <span style="color:#c84b2f">viewer (read-only)</span>';
+    btn.textContent = 'Switch to editor mode';
+    viewerBanner.style.display = 'block';
+    introBanner.style.display = 'none';
+  } else {
+    document.body.classList.remove('viewer-mode');
+    label.innerHTML = 'mode: <span>editor</span>';
+    btn.textContent = 'Switch to viewer mode';
+    viewerBanner.style.display = 'none';
+    introBanner.style.display = 'flex';
+  }
+}
+
+// ============================================================
+// TIMELINE STRIP
+// ============================================================
+
+function renderTimeline() {
+  const months = ['Mar 2026','Apr 2026','May 2026','Jun 2026','Jul 2026','Aug 2026'];
+  const today = new Date();
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const currentLabel = `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
+  const strip = document.getElementById('timelineStrip');
+  strip.innerHTML = months.map(m => `
+    <div class="month-marker ${m === currentLabel ? 'current' : ''}">
+      ${m}${m === currentLabel ? ' ← now' : ''}
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+
+async function init() {
+  getConfig();
+  renderTimeline();
+  await loadState();
+  render();
+  document.getElementById('loadingOverlay').classList.add('hidden');
+  setTimeout(() => document.getElementById('loadingOverlay').remove(), 500);
+  // Only prompt setup if no key at all — don't nag if on file:// with key already saved
+  if (!jsonbinKey) {
+    setTimeout(openSetup, 600);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
