@@ -41,15 +41,50 @@
     padding-bottom: 80px;
   }
 
-  /* Header */
+  /* Header — patriotic */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
   .header {
-    background: var(--ink);
-    color: var(--bg);
-    padding: 40px 32px 32px;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        rgba(180,20,20,0.92) 0px, rgba(180,20,20,0.92) 14px,
+        rgba(255,255,255,0.08) 14px, rgba(255,255,255,0.08) 28px
+      ),
+      linear-gradient(135deg, #0a1f5c 0%, #1a3a8f 40%, #0d1f4f 100%);
+    color: #fff;
+    padding: 36px 32px 28px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+
+  /* Star field */
+  .header::before {
+    content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 8px 16px;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.3em;
+    line-height: 1.8;
+    pointer-events: none;
+    word-break: break-all;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  /* White stripes overlay on left canton */
+  .header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 220px; height: 100%;
+    background: linear-gradient(135deg, rgba(10,31,92,0.82) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   .header-inner {
@@ -60,24 +95,56 @@
     justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   .header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
-    letter-spacing: -0.02em;
+    font-size: 2.6rem;
+    letter-spacing: 0.01em;
     line-height: 1;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.1);
   }
 
-  .header h1 span {
-    color: var(--accent);
+  .header h1 .the-word {
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 400;
+  }
+
+  .header h1 .america-word {
+    color: #fff;
     font-style: italic;
+    font-size: 3rem;
+    display: block;
+    line-height: 0.95;
+    text-shadow: 0 0 30px rgba(255,50,50,0.6), 0 2px 8px rgba(0,0,0,0.6);
+    background: linear-gradient(180deg, #ffffff 0%, #ffdddd 60%, #ff4444 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header h1 .project-word {
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px;
+    opacity: 0.7;
+    font-weight: 400;
+    font-style: normal;
   }
 
   .header-sub {
-    font-size: 0.85rem;
-    color: rgba(245,240,232,0.55);
-    margin-top: 6px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 10px;
     font-weight: 300;
     letter-spacing: 0.04em;
   }
@@ -90,21 +157,22 @@
     font-family: 'DM Mono', monospace;
     font-size: 2rem;
     font-weight: 500;
-    color: var(--gold);
+    color: #fff;
     line-height: 1;
+    text-shadow: 0 0 20px rgba(255,255,255,0.4);
   }
 
   .master-label {
-    font-size: 0.75rem;
-    color: rgba(245,240,232,0.5);
-    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 4px;
   }
 
   .progress-bar-master {
     margin-top: 10px;
-    height: 4px;
+    height: 5px;
     background: rgba(255,255,255,0.15);
     border-radius: 2px;
     overflow: hidden;
@@ -113,9 +181,10 @@
 
   .progress-bar-fill {
     height: 100%;
-    background: var(--gold);
+    background: linear-gradient(90deg, #e8293a, #ff6b6b);
     border-radius: 2px;
     transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(232,41,58,0.6);
   }
 
   /* Timeline strip */
@@ -376,8 +445,8 @@
   .task-item.done { opacity: 0.5; }
 
   .task-check {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 5px;
     border: 2px solid var(--border);
     flex-shrink: 0;
@@ -390,10 +459,20 @@
     background: transparent;
     position: relative;
     overflow: hidden;
+    font-size: 0.72rem;
+    user-select: none;
   }
 
   .task-check:hover { border-color: var(--ink-light); }
-  .task-check.checked { border-color: transparent; }
+
+  /* State 1: in-progress */
+  .task-check.in-progress {
+    border-color: var(--gold);
+    background: var(--gold-soft);
+  }
+
+  /* State 2: done */
+  .task-check.done-state { border-color: transparent; }
 
   .task-check .check-fill {
     position: absolute;
@@ -403,18 +482,13 @@
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .task-check.checked .check-fill { transform: scale(1); }
+  .task-check.done-state .check-fill { transform: scale(1); }
 
-  .task-check .checkmark {
+  .task-check .check-icon {
     position: relative;
     z-index: 1;
-    font-size: 0.65rem;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.15s 0.05s;
+    line-height: 1;
   }
-
-  .task-check.checked .checkmark { opacity: 1; }
 
   .task-content { flex: 1; min-width: 0; }
 
@@ -428,6 +502,13 @@
     text-decoration: line-through;
     color: var(--ink-faint);
   }
+
+  .task-item.in-progress .task-text {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .task-item.done { opacity: 0.5; }
 
   .task-note {
     font-size: 0.75rem;
@@ -514,7 +595,7 @@
   .task-right {
     flex-shrink: 0;
     display: flex;
-    gap: 4px;
+    gap: 2px;
     align-items: center;
   }
 
@@ -522,16 +603,19 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 4px 5px;
     color: var(--ink-faint);
     font-size: 0.8rem;
     border-radius: 4px;
     opacity: 0;
     transition: opacity 0.15s, background 0.1s;
+    line-height: 1;
   }
 
   .task-item:hover .task-edit-btn { opacity: 1; }
   .task-edit-btn:hover { background: var(--border); color: var(--ink); }
+  .task-edit-btn:disabled { opacity: 0.15 !important; cursor: default; }
+  .task-edit-btn:disabled:hover { background: none; }
 
   /* Add task row */
   .add-task-row {
@@ -722,7 +806,7 @@
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.04em;
     margin-top: 8px;
-    color: rgba(245,240,232,0.4);
+    color: rgba(255,255,255,0.35);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -854,7 +938,7 @@
 <div class="header">
   <div class="header-inner">
     <div>
-      <h1>The <span>America</span> Project</h1>
+      <h1><span class="the-word">The</span><span class="america-word">America</span><span class="project-word">Project</span></h1>
       <div class="header-sub">Miranda's relocation master list — every moving piece, one place</div>
       <div class="save-status" id="saveStatus">
         <div class="save-dot" id="saveDot"></div>
@@ -863,7 +947,7 @@
     </div>
     <div class="master-progress">
       <div class="master-count" id="masterCount">0/0</div>
-      <div class="master-label">tasks done</div>
+      <div class="master-label" id="masterLabel">tasks done</div>
       <div class="progress-bar-master">
         <div class="progress-bar-fill" id="masterBar" style="width:0%"></div>
       </div>
@@ -898,19 +982,37 @@
     </div>
   </div>
 
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterTasks('all')">All</button>
-    <button class="filter-btn" onclick="filterTasks('urgent')">🔴 Urgent</button>
-    <button class="filter-btn" onclick="filterTasks('undone')">Undone only</button>
-    <button class="filter-btn" onclick="filterTasks('done')">Done</button>
-    <div class="filter-spacer"></div>
-    <button class="add-category-btn" onclick="collapseAll()">Collapse all</button>
-    <button class="add-category-btn" onclick="expandAll()">Expand all</button>
+  <div class="filter-bar" id="filterBar">
+    <!-- rendered by renderFilterBar() -->
   </div>
 
   <div id="categories"></div>
 </main>
 
+<!-- Label manager modal -->
+<div class="modal-backdrop" id="labelModal">
+  <div class="modal" style="max-width:440px">
+    <h3>🏷 Manage Labels</h3>
+    <div class="modal-field">
+      <div class="modal-label">Existing custom labels</div>
+      <div id="customTagList"></div>
+    </div>
+    <div class="modal-field">
+      <div class="modal-label">Add new label</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input class="modal-input" id="newLabelInput" type="text" placeholder="Label name..." style="flex:1" onkeydown="if(event.key==='Enter')addCustomTag()">
+        <button class="add-task-btn" onclick="addCustomTag()" style="white-space:nowrap">Add</button>
+      </div>
+      <div style="margin-top:10px">
+        <div class="modal-label" style="margin-bottom:8px">Pick colour</div>
+        <div id="labelColorPicker" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" onclick="closeLabelManager()">Done</button>
+    </div>
+  </div>
+</div>
 <!-- Setup modal -->
 <div class="modal-backdrop" id="setupModal">
   <div class="modal" style="max-width:560px">
@@ -971,8 +1073,47 @@
 // DATA
 // ============================================================
 
-const TAGS = ['urgent','deadline','call','book','online','paperwork','legal'];
-const TAG_LABELS = { urgent:'🔴 urgent', deadline:'📅 deadline', call:'📞 call', book:'✈️ book', online:'💻 online', paperwork:'📄 paperwork', legal:'⚖️ legal' };
+const DEFAULT_TAGS = ['urgent','deadline','call','book','online','paperwork','legal'];
+const DEFAULT_TAG_LABELS = { urgent:'🔴 urgent', deadline:'📅 deadline', call:'📞 call', book:'✈️ book', online:'💻 online', paperwork:'📄 paperwork', legal:'⚖️ legal' };
+const DEFAULT_TAG_STYLES = {
+  urgent:    { bg:'#fde8e4', color:'#c84b2f' },
+  deadline:  { bg:'#fdf3d8', color:'#7a5800' },
+  call:      { bg:'#d8eddf', color:'#2d6a4f' },
+  book:      { bg:'#d8eaf5', color:'#1a4a6b' },
+  online:    { bg:'#d8f0f0', color:'#1e6b6b' },
+  paperwork: { bg:'#f5d8e8', color:'#8b2252' },
+  legal:     { bg:'#ede0f5', color:'#5c3a7a' },
+};
+
+let customTags = {}; // id -> { label, bg, color }
+const LS_TAGS = 'america-project-tags-v1';
+
+function loadCustomTags() {
+  try {
+    const raw = localStorage.getItem(LS_TAGS);
+    if (raw) customTags = JSON.parse(raw);
+  } catch(e) {}
+}
+
+function saveCustomTags() {
+  localStorage.setItem(LS_TAGS, JSON.stringify(customTags));
+}
+
+function getAllTags() {
+  return [...DEFAULT_TAGS, ...Object.keys(customTags)];
+}
+
+function getTagLabel(id) {
+  if (DEFAULT_TAG_LABELS[id]) return DEFAULT_TAG_LABELS[id];
+  if (customTags[id]) return customTags[id].label;
+  return id;
+}
+
+function getTagStyle(id) {
+  if (DEFAULT_TAG_STYLES[id]) return DEFAULT_TAG_STYLES[id];
+  if (customTags[id]) return { bg: customTags[id].bg, color: customTags[id].color };
+  return { bg: '#e8e8e8', color: '#444' };
+}
 
 let data = {
   categories: [
@@ -1378,9 +1519,10 @@ function render() {
 
   data.categories.forEach((cat, ci) => {
     const allTasks = cat.groups.flatMap(g => g.tasks);
-    const done = allTasks.filter(t => t.done).length;
+    const done = allTasks.filter(t => (t.state ?? (t.done ? 2 : 0)) === 2).length;
+    const inProg = allTasks.filter(t => (t.state ?? (t.done ? 2 : 0)) === 1).length;
     const total = allTasks.length;
-    const pct = total ? (done / total * 100) : 0;
+    const pct = total ? ((done + inProg * 0.5) / total * 100) : 0;
     const circumference = 2 * Math.PI * 17;
     const offset = circumference - (pct / 100) * circumference;
 
@@ -1425,6 +1567,7 @@ function render() {
 
   container.innerHTML = html;
   updateMasterProgress();
+  renderFilterBar();
   // Auto-resize any pre-filled note textareas
   container.querySelectorAll('.task-mynote').forEach(el => {
     if (el.value) autoResize(el);
@@ -1446,14 +1589,26 @@ function renderGroup(cat, gi, grp) {
 }
 
 function renderTask(cat, gi, ti, task) {
-  const tags = (task.tags || []).map(tag => `<span class="task-tag tag-${tag}">${TAG_LABELS[tag]}</span>`).join('');
+  const state = task.state ?? (task.done ? 2 : 0); // migrate old done bool
+  const tags = (task.tags || []).map(tag => {
+    const s = getTagStyle(tag);
+    return `<span class="task-tag" style="background:${s.bg};color:${s.color}">${getTagLabel(tag)}</span>`;
+  }).join('');
   const myNote = task.myNote || '';
   const noteId = `mynote-${task.id}`;
+  const stateClass = state === 2 ? 'done' : state === 1 ? 'in-progress' : '';
+  const checkClass = state === 2 ? 'done-state' : state === 1 ? 'in-progress' : '';
+  const checkIcon = state === 2 ? `<div class="check-fill" style="background:${cat.color}"></div><span class="check-icon" style="color:white">✓</span>`
+                  : state === 1 ? `<span class="check-icon">⏳</span>`
+                  : '';
+  const tooltip = state === 0 ? 'Click: in progress' : state === 1 ? 'Click: done' : 'Click: reset';
+  const groupLen = cat.groups[gi].tasks.length;
+  const isFirst = ti === 0;
+  const isLast = ti === groupLen - 1;
   return `
-  <div class="task-item ${task.done ? 'done' : ''}" id="task-${task.id}">
-    <div class="task-check ${task.done ? 'checked' : ''}" onclick="toggleTask('${cat.id}', ${gi}, ${ti})" style="${task.done ? `--check-color:${cat.color}` : ''}">
-      <div class="check-fill" style="background:${cat.color}"></div>
-      <span class="checkmark">✓</span>
+  <div class="task-item ${stateClass}" id="task-${task.id}">
+    <div class="task-check ${checkClass}" onclick="cycleTask('${cat.id}', ${gi}, ${ti})" title="${tooltip}">
+      ${checkIcon}
     </div>
     <div class="task-content">
       <div class="task-text">${task.text}</div>
@@ -1472,6 +1627,10 @@ function renderTask(cat, gi, ti, task) {
       </div>
     </div>
     <div class="task-right">
+      <button class="task-edit-btn" onclick="moveTask('${cat.id}', ${gi}, ${ti}, 'top')" title="Move to top" ${isFirst ? 'disabled' : ''}>⤒</button>
+      <button class="task-edit-btn" onclick="moveTask('${cat.id}', ${gi}, ${ti}, 'up')" title="Move up" ${isFirst ? 'disabled' : ''}>↑</button>
+      <button class="task-edit-btn" onclick="moveTask('${cat.id}', ${gi}, ${ti}, 'down')" title="Move down" ${isLast ? 'disabled' : ''}>↓</button>
+      <button class="task-edit-btn" onclick="moveTask('${cat.id}', ${gi}, ${ti}, 'bottom')" title="Move to bottom" ${isLast ? 'disabled' : ''}>⤓</button>
       <button class="task-edit-btn" onclick="openEdit('${cat.id}', ${gi}, ${ti})" title="Edit">✏️</button>
     </div>
   </div>`;
@@ -1494,26 +1653,32 @@ function autoResize(el) {
 function categoryVisible(cat) {
   if (currentFilter === 'all') return true;
   const allTasks = cat.groups.flatMap(g => g.tasks);
-  if (currentFilter === 'done') return allTasks.some(t => t.done);
-  if (currentFilter === 'undone') return allTasks.some(t => !t.done);
-  if (currentFilter === 'urgent') return allTasks.some(t => !t.done && (t.tags || []).includes('urgent'));
-  return true;
+  if (currentFilter === 'done') return allTasks.some(t => (t.state ?? (t.done ? 2 : 0)) === 2);
+  if (currentFilter === 'in-progress') return allTasks.some(t => (t.state ?? (t.done ? 2 : 0)) === 1);
+  if (currentFilter === 'undone') return allTasks.some(t => (t.state ?? (t.done ? 2 : 0)) === 0);
+  // tag filter
+  return allTasks.some(t => (t.state ?? (t.done ? 2 : 0)) !== 2 && (t.tags || []).includes(currentFilter));
 }
 
 function taskVisible(task) {
+  const state = task.state ?? (task.done ? 2 : 0);
   if (currentFilter === 'all') return true;
-  if (currentFilter === 'done') return task.done;
-  if (currentFilter === 'undone') return !task.done;
-  if (currentFilter === 'urgent') return !task.done && (task.tags || []).includes('urgent');
-  return true;
+  if (currentFilter === 'done') return state === 2;
+  if (currentFilter === 'in-progress') return state === 1;
+  if (currentFilter === 'undone') return state === 0;
+  // tag filter — show incomplete tasks with this tag
+  return state !== 2 && (task.tags || []).includes(currentFilter);
 }
 
 function updateMasterProgress() {
   const all = data.categories.flatMap(c => c.groups.flatMap(g => g.tasks));
-  const done = all.filter(t => t.done).length;
+  const done = all.filter(t => (t.state ?? (t.done ? 2 : 0)) === 2).length;
+  const inProg = all.filter(t => (t.state ?? (t.done ? 2 : 0)) === 1).length;
   const total = all.length;
   document.getElementById('masterCount').textContent = `${done}/${total}`;
   document.getElementById('masterBar').style.width = total ? `${done/total*100}%` : '0%';
+  const label = document.getElementById('masterLabel');
+  if (label) label.textContent = inProg > 0 ? `${inProg} in progress` : 'tasks done';
 }
 
 // ============================================================
@@ -1526,13 +1691,15 @@ function toggleCat(id) {
   render();
 }
 
-function toggleTask(catId, gi, ti) {
+function cycleTask(catId, gi, ti) {
   const cat = data.categories.find(c => c.id === catId);
   const task = cat.groups[gi].tasks[ti];
-  task.done = !task.done;
+  const cur = task.state ?? (task.done ? 2 : 0);
+  task.state = (cur + 1) % 3;
+  task.done = task.state === 2; // keep legacy field in sync
   render();
   scheduleSave();
-  if (task.done) celebrateMicro();
+  if (task.state === 2) celebrateMicro();
 }
 
 function celebrateMicro() {
@@ -1552,10 +1719,22 @@ function addTask(catId) {
   if (!text) return;
   const cat = data.categories.find(c => c.id === catId);
   const lastGroup = cat.groups[cat.groups.length - 1];
-  const newTask = { id: 'task-' + Date.now(), text, note: '', tags: [], done: false };
+  const newTask = { id: 'task-' + Date.now(), text, note: '', tags: [], state: 0, done: false };
   lastGroup.tasks.push(newTask);
   input.value = '';
   cat.open = true;
+  render();
+  scheduleSave();
+}
+
+function moveTask(catId, gi, ti, direction) {
+  const cat = data.categories.find(c => c.id === catId);
+  const tasks = cat.groups[gi].tasks;
+  const [task] = tasks.splice(ti, 1);
+  if (direction === 'top') tasks.unshift(task);
+  else if (direction === 'bottom') tasks.push(task);
+  else if (direction === 'up') tasks.splice(Math.max(0, ti - 1), 0, task);
+  else if (direction === 'down') tasks.splice(Math.min(tasks.length, ti + 1), 0, task);
   render();
   scheduleSave();
 }
@@ -1564,10 +1743,33 @@ function handleAddKey(event, catId) {
   if (event.key === 'Enter') addTask(catId);
 }
 
+function renderFilterBar() {
+  const bar = document.getElementById('filterBar');
+  if (!bar) return;
+  const allTagIds = getAllTags();
+  const tagButtons = allTagIds.map(id => {
+    const s = getTagStyle(id);
+    const active = currentFilter === id;
+    return `<button class="filter-btn ${active ? 'active' : ''}" onclick="filterTasks('${id}')"
+      style="${active ? `background:${s.color};color:white;border-color:${s.color}` : ''}"
+    >${getTagLabel(id)}</button>`;
+  }).join('');
+
+  bar.innerHTML = `
+    <button class="filter-btn ${currentFilter==='all'?'active':''}" onclick="filterTasks('all')">All</button>
+    <button class="filter-btn ${currentFilter==='undone'?'active':''}" onclick="filterTasks('undone')">⬜ Undone</button>
+    <button class="filter-btn ${currentFilter==='in-progress'?'active':''}" onclick="filterTasks('in-progress')">⏳ In progress</button>
+    <button class="filter-btn ${currentFilter==='done'?'active':''}" onclick="filterTasks('done')">✅ Done</button>
+    ${tagButtons}
+    <button class="filter-btn" onclick="openLabelManager()" title="Manage labels" style="border-style:dashed">+ label</button>
+    <div class="filter-spacer"></div>
+    <button class="add-category-btn" onclick="collapseAll()">Collapse all</button>
+    <button class="add-category-btn" onclick="expandAll()">Expand all</button>
+  `;
+}
+
 function filterTasks(filter) {
   currentFilter = filter;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
   render();
 }
 
@@ -1578,6 +1780,82 @@ function collapseAll() {
 
 function expandAll() {
   data.categories.forEach(c => c.open = true);
+  render();
+}
+
+// ============================================================
+// LABEL MANAGER
+// ============================================================
+
+const TAG_COLORS = [
+  { bg:'#fde8e4', color:'#c84b2f' },
+  { bg:'#fdf3d8', color:'#7a5800' },
+  { bg:'#d8eddf', color:'#2d6a4f' },
+  { bg:'#d8eaf5', color:'#1a4a6b' },
+  { bg:'#ede0f5', color:'#5c3a7a' },
+  { bg:'#d8f0f0', color:'#1e6b6b' },
+  { bg:'#f5d8e8', color:'#8b2252' },
+  { bg:'#e8f0d8', color:'#4a6b1a' },
+  { bg:'#f0e8d8', color:'#7a4a1a' },
+  { bg:'#d8e8f5', color:'#1a5a8b' },
+];
+let selectedLabelColor = 0;
+
+function openLabelManager() {
+  renderLabelManager();
+  document.getElementById('labelModal').classList.add('open');
+}
+
+function closeLabelManager() {
+  document.getElementById('labelModal').classList.remove('open');
+}
+
+function renderLabelManager() {
+  // Custom tags list
+  const list = document.getElementById('customTagList');
+  const ids = Object.keys(customTags);
+  list.innerHTML = ids.length === 0
+    ? '<div style="font-size:0.78rem;color:var(--ink-faint);padding:8px 0">No custom labels yet</div>'
+    : ids.map(id => {
+        const s = getTagStyle(id);
+        return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span class="task-tag" style="background:${s.bg};color:${s.color}">${customTags[id].label}</span>
+          <button onclick="deleteCustomTag('${id}')" style="background:none;border:none;cursor:pointer;color:var(--ink-faint);font-size:0.8rem;padding:2px 6px;border-radius:4px">✕</button>
+        </div>`;
+      }).join('');
+
+  // Color picker
+  const picker = document.getElementById('labelColorPicker');
+  picker.innerHTML = TAG_COLORS.map((c, i) => `
+    <div onclick="selectedLabelColor=${i};renderLabelManager()" style="
+      width:24px;height:24px;border-radius:50%;background:${c.color};cursor:pointer;
+      box-shadow:${selectedLabelColor===i?`0 0 0 3px white, 0 0 0 5px ${c.color}`:'none'};
+      transition:box-shadow 0.15s;flex-shrink:0
+    "></div>
+  `).join('');
+}
+
+function addCustomTag() {
+  const input = document.getElementById('newLabelInput');
+  const label = input.value.trim();
+  if (!label) return;
+  const id = 'tag_' + label.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '') + '_' + Date.now();
+  const c = TAG_COLORS[selectedLabelColor];
+  customTags[id] = { label, bg: c.bg, color: c.color };
+  saveCustomTags();
+  input.value = '';
+  renderLabelManager();
+  render(); // refresh filter bar
+}
+
+function deleteCustomTag(id) {
+  delete customTags[id];
+  saveCustomTags();
+  // Remove from any tasks that had it
+  data.categories.forEach(cat => cat.groups.forEach(grp => grp.tasks.forEach(task => {
+    task.tags = (task.tags || []).filter(t => t !== id);
+  })));
+  renderLabelManager();
   render();
 }
 
@@ -1601,12 +1879,14 @@ function openEdit(catId, gi, ti) {
 
 function renderTagPicker() {
   const el = document.getElementById('tagPicker');
-  el.innerHTML = TAGS.map(tag => `
-    <button onclick="toggleTag('${tag}')" style="
+  el.innerHTML = getAllTags().map(tag => {
+    const s = getTagStyle(tag);
+    const active = selectedTags.includes(tag);
+    return `<button onclick="toggleTag('${tag}')" style="
       padding:4px 12px;border-radius:100px;border:1.5px solid;font-size:0.75rem;font-family:'DM Sans',sans-serif;cursor:pointer;
-      ${selectedTags.includes(tag) ? 'background:var(--ink);color:var(--bg);border-color:var(--ink);' : 'background:transparent;color:var(--ink-light);border-color:var(--border);'}
-    ">${TAG_LABELS[tag]}</button>
-  `).join('');
+      ${active ? `background:${s.color};color:white;border-color:${s.color}` : `background:transparent;color:var(--ink-light);border-color:var(--border)`}
+    ">${getTagLabel(tag)}</button>`;
+  }).join('');
 }
 
 function toggleTag(tag) {
@@ -1662,9 +1942,19 @@ const LS_CONFIG = 'america-project-config';
 
 function getConfig() {
   try {
+    // BinId travels in the URL hash so any device gets it automatically
+    const hash = window.location.hash.replace('#', '');
+    const params = new URLSearchParams(hash);
+    const hashBinId = params.get('bin');
+
     const c = JSON.parse(localStorage.getItem(LS_CONFIG) || '{}');
     jsonbinKey = c.key || '';
-    jsonbinId = c.id || '';
+    jsonbinId = hashBinId || c.id || '';
+
+    // If bin came from URL, persist it locally too
+    if (hashBinId && hashBinId !== c.id) {
+      localStorage.setItem(LS_CONFIG, JSON.stringify({ key: c.key || '', id: hashBinId }));
+    }
   } catch(e) {}
 }
 
@@ -1672,6 +1962,10 @@ function saveConfig(key, id) {
   jsonbinKey = key.trim();
   jsonbinId = id.trim();
   localStorage.setItem(LS_CONFIG, JSON.stringify({ key: jsonbinKey, id: jsonbinId }));
+  // Put binId in URL hash — safe to share, not secret
+  if (jsonbinId && jsonbinId !== 'will-connect-on-github-pages') {
+    window.location.hash = 'bin=' + jsonbinId;
+  }
 }
 
 function setSaveStatus(state, text) {
@@ -1684,7 +1978,7 @@ function setSaveStatus(state, text) {
 function getFlatState() {
   return data.categories.flatMap(cat =>
     cat.groups.flatMap(grp =>
-      grp.tasks.map(t => ({ id: t.id, done: t.done, myNote: t.myNote || '' }))
+      grp.tasks.map(t => ({ id: t.id, state: t.state ?? (t.done ? 2 : 0), done: t.done, myNote: t.myNote || '' }))
     )
   );
 }
@@ -1696,7 +1990,8 @@ function applyFlatState(saved) {
     cat.groups.forEach(grp => {
       grp.tasks.forEach(task => {
         if (taskMap[task.id]) {
-          task.done = taskMap[task.id].done ?? task.done;
+          task.state = taskMap[task.id].state ?? (taskMap[task.id].done ? 2 : 0);
+          task.done = task.state === 2;
           task.myNote = taskMap[task.id].myNote ?? '';
         }
       });
@@ -1910,12 +2205,12 @@ function renderTimeline() {
 
 async function init() {
   getConfig();
+  loadCustomTags();
   renderTimeline();
   await loadState();
   render();
   document.getElementById('loadingOverlay').classList.add('hidden');
   setTimeout(() => document.getElementById('loadingOverlay').remove(), 500);
-  // Only prompt setup if no key at all — don't nag if on file:// with key already saved
   if (!jsonbinKey) {
     setTimeout(openSetup, 600);
   }
