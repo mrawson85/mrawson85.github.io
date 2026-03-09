@@ -41,50 +41,41 @@
     padding-bottom: 80px;
   }
 
-  /* Header — patriotic */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
-
+  /* Header — softened patriotic */
   .header {
     background:
-      repeating-linear-gradient(
-        180deg,
-        rgba(180,20,20,0.92) 0px, rgba(180,20,20,0.92) 14px,
-        rgba(255,255,255,0.08) 14px, rgba(255,255,255,0.08) 28px
-      ),
-      linear-gradient(135deg, #0a1f5c 0%, #1a3a8f 40%, #0d1f4f 100%);
+      linear-gradient(180deg, #1a2d5a 0%, #1e3060 60%, #2a1f3d 100%);
     color: #fff;
     padding: 36px 32px 28px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
     overflow: hidden;
   }
 
-  /* Star field */
+  /* Subtle red stripe accent — just a thin line at the top */
   .header::before {
-    content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    padding: 8px 16px;
-    font-size: 0.55rem;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.3em;
-    line-height: 1.8;
-    pointer-events: none;
-    word-break: break-all;
-    overflow: hidden;
-    height: 100%;
-  }
-
-  /* White stripes overlay on left canton */
-  .header::after {
     content: '';
     position: absolute;
-    top: 0; left: 0;
-    width: 220px; height: 100%;
-    background: linear-gradient(135deg, rgba(10,31,92,0.82) 0%, transparent 100%);
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #b22234 0%, #c8404f 40%, #b22234 100%);
+    opacity: 0.7;
+  }
+
+  /* Faint star field */
+  .header::after {
+    content: '★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★  ★';
+    position: absolute;
+    bottom: 10px; right: 20px;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.08);
+    letter-spacing: 0.4em;
     pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 60%;
   }
 
   .header-inner {
@@ -104,46 +95,44 @@
     font-size: 2.6rem;
     letter-spacing: 0.01em;
     line-height: 1;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.1);
   }
 
   .header h1 .the-word {
-    font-size: 1.4rem;
-    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.5;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
   }
 
   .header h1 .america-word {
-    color: #fff;
-    font-style: italic;
-    font-size: 3rem;
     display: block;
     line-height: 0.95;
-    text-shadow: 0 0 30px rgba(255,50,50,0.6), 0 2px 8px rgba(0,0,0,0.6);
-    background: linear-gradient(180deg, #ffffff 0%, #ffdddd 60%, #ff4444 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-style: italic;
+    font-size: 2.8rem;
+    color: #fff;
+    text-shadow: 0 1px 12px rgba(178,34,52,0.3);
+    opacity: 0.95;
   }
 
   .header h1 .project-word {
-    font-size: 1.1rem;
-    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     display: block;
-    margin-top: 4px;
-    opacity: 0.7;
+    margin-top: 5px;
+    opacity: 0.4;
     font-weight: 400;
     font-style: normal;
+    font-family: 'DM Sans', sans-serif;
   }
 
   .header-sub {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.4);
     margin-top: 10px;
     font-weight: 300;
     letter-spacing: 0.04em;
@@ -157,14 +146,13 @@
     font-family: 'DM Mono', monospace;
     font-size: 2rem;
     font-weight: 500;
-    color: #fff;
+    color: rgba(255,255,255,0.9);
     line-height: 1;
-    text-shadow: 0 0 20px rgba(255,255,255,0.4);
   }
 
   .master-label {
     font-size: 0.72rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.4);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 4px;
@@ -172,8 +160,8 @@
 
   .progress-bar-master {
     margin-top: 10px;
-    height: 5px;
-    background: rgba(255,255,255,0.15);
+    height: 3px;
+    background: rgba(255,255,255,0.12);
     border-radius: 2px;
     overflow: hidden;
     width: 140px;
@@ -181,10 +169,9 @@
 
   .progress-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #e8293a, #ff6b6b);
+    background: rgba(200,64,79,0.7);
     border-radius: 2px;
     transition: width 0.5s ease;
-    box-shadow: 0 0 8px rgba(232,41,58,0.6);
   }
 
   /* Timeline strip */
@@ -1603,8 +1590,8 @@ function renderTask(cat, gi, ti, task) {
                   : '';
   const tooltip = state === 0 ? 'Click: in progress' : state === 1 ? 'Click: done' : 'Click: reset';
   const groupLen = cat.groups[gi].tasks.length;
-  const isFirst = ti === 0;
-  const isLast = ti === groupLen - 1;
+  const isFirst = ti === 0 && gi === 0;
+  const isLast = ti === groupLen - 1 && gi === cat.groups.length - 1;
   return `
   <div class="task-item ${stateClass}" id="task-${task.id}">
     <div class="task-check ${checkClass}" onclick="cycleTask('${cat.id}', ${gi}, ${ti})" title="${tooltip}">
@@ -1696,10 +1683,68 @@ function cycleTask(catId, gi, ti) {
   const task = cat.groups[gi].tasks[ti];
   const cur = task.state ?? (task.done ? 2 : 0);
   task.state = (cur + 1) % 3;
-  task.done = task.state === 2; // keep legacy field in sync
+  task.done = task.state === 2;
   render();
   scheduleSave();
-  if (task.state === 2) celebrateMicro();
+  if (task.state === 1) tone('inprogress');
+  else if (task.state === 2) { tone('done'); celebrateMicro(); }
+  else tone('reset');
+}
+
+// ============================================================
+// AUDIO — Web Audio API, no files needed
+// ============================================================
+
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(frequency, type, gainVal, duration, fadeStart) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+    gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+
+function playChord(notes, type, gainVal, duration, stagger = 0) {
+  notes.forEach((freq, i) => {
+    setTimeout(() => playTone(freq, type, gainVal, duration), i * stagger);
+  });
+}
+
+function tone(action) {
+  // All tones are quiet, short, warm
+  if (action === 'inprogress') {
+    // Soft single mid note — "acknowledged"
+    playTone(440, 'sine', 0.06, 0.35);
+  } else if (action === 'done') {
+    // Rising two-note chime — gentle resolution
+    playChord([523.25, 783.99], 'sine', 0.07, 0.5, 120);
+  } else if (action === 'reset') {
+    // Soft descending tone — quiet undo
+    playTone(392, 'sine', 0.04, 0.25);
+  } else if (action === 'addtask') {
+    // Soft tick — something appeared
+    playTone(660, 'sine', 0.04, 0.18);
+  } else if (action === 'save') {
+    // Near-silent very soft high ping
+    playTone(880, 'sine', 0.025, 0.2);
+  } else if (action === 'move') {
+    // Tiny neutral click
+    playTone(330, 'sine', 0.035, 0.12);
+  }
 }
 
 function celebrateMicro() {
@@ -1725,18 +1770,49 @@ function addTask(catId) {
   cat.open = true;
   render();
   scheduleSave();
+  tone('addtask');
 }
 
 function moveTask(catId, gi, ti, direction) {
   const cat = data.categories.find(c => c.id === catId);
-  const tasks = cat.groups[gi].tasks;
-  const [task] = tasks.splice(ti, 1);
-  if (direction === 'top') tasks.unshift(task);
-  else if (direction === 'bottom') tasks.push(task);
-  else if (direction === 'up') tasks.splice(Math.max(0, ti - 1), 0, task);
-  else if (direction === 'down') tasks.splice(Math.min(tasks.length, ti + 1), 0, task);
+  const groups = cat.groups;
+
+  if (direction === 'top') {
+    // Move to top of first group
+    const [task] = groups[gi].tasks.splice(ti, 1);
+    groups[0].tasks.unshift(task);
+
+  } else if (direction === 'bottom') {
+    // Move to bottom of last group
+    const [task] = groups[gi].tasks.splice(ti, 1);
+    groups[groups.length - 1].tasks.push(task);
+
+  } else if (direction === 'up') {
+    if (ti > 0) {
+      // Simple swap within group
+      const [task] = groups[gi].tasks.splice(ti, 1);
+      groups[gi].tasks.splice(ti - 1, 0, task);
+    } else if (gi > 0) {
+      // At top of group — move to bottom of previous group
+      const [task] = groups[gi].tasks.splice(ti, 1);
+      groups[gi - 1].tasks.push(task);
+    }
+
+  } else if (direction === 'down') {
+    if (ti < groups[gi].tasks.length - 1) {
+      // Simple swap within group
+      const [task] = groups[gi].tasks.splice(ti, 1);
+      groups[gi].tasks.splice(ti + 1, 0, task);
+    } else if (gi < groups.length - 1) {
+      // At bottom of group — move to top of next group
+      const [task] = groups[gi].tasks.splice(ti, 1);
+      groups[gi + 1].tasks.unshift(task);
+    }
+  }
+
   render();
   scheduleSave();
+  tone('move');
 }
 
 function handleAddKey(event, catId) {
@@ -2077,6 +2153,7 @@ async function saveState() {
     const now = new Date();
     const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setSaveStatus('saved', `saved at ${time} · live`);
+    tone('save');
   } catch(e) {
     setSaveStatus('saved', 'saved locally · JSONBin unreachable');
   }
