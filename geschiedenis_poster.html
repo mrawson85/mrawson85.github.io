@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:#0a0a0f;
+  color:#fff;
+  width:820px;
+  padding:20px;
+}
+
+/* ─── HEADER ─────────────────────── */
+.header {
+  background: linear-gradient(135deg,#1a0533,#0d1a4a,#001a1a);
+  border-radius:18px;
+  padding:22px 28px 18px;
+  text-align:center;
+  margin-bottom:22px;
+  border:1px solid #333;
+  position:relative;
+  overflow:hidden;
+}
+.header::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.015) 20px,rgba(255,255,255,0.015) 40px);
+}
+.header h1 {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:42px;
+  letter-spacing:3px;
+  line-height:1;
+  background:linear-gradient(90deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff,#ff6bff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.header .sub { font-size:13px; color:#aaa; margin-top:6px; letter-spacing:2px; text-transform:uppercase; }
+.header .exam-tip {
+  margin-top:12px;
+  background:rgba(255,200,0,0.12);
+  border:1px solid rgba(255,200,0,0.3);
+  border-radius:10px;
+  padding:8px 14px;
+  font-size:12.5px;
+  color:#ffd93d;
+  font-weight:700;
+}
+
+/* ─── TIMELINE STRIP ─────────────── */
+.timeline {
+  display:flex;
+  gap:0;
+  margin-bottom:22px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid #222;
+  height:54px;
+}
+.tl-block {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:10.5px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  line-height:1.3;
+  text-align:center;
+  padding:4px;
+}
+.tl-7  { background:#1b3f72; }
+.tl-8  { background:#7a3200; }
+.tl-9  { background:#6e0000; }
+.tl-10 { background:#001660; }
+.tl-block .year { font-size:9px; opacity:0.7; font-weight:700; }
+
+/* ─── BIG CAUSE CHAIN ────────────── */
+.chain-banner {
+  background:linear-gradient(135deg,#1a1400,#2a2000);
+  border:1.5px solid #554400;
+  border-radius:14px;
+  padding:14px 18px;
+  margin-bottom:22px;
+}
+.chain-banner h2 {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:15px;
+  letter-spacing:2px;
+  color:#ffd93d;
+  margin-bottom:10px;
+}
+.chain-flow {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:4px;
+  font-size:12.5px;
+  font-weight:800;
+}
+.c-box {
+  background:rgba(255,255,255,0.08);
+  border-radius:7px;
+  padding:5px 10px;
+  white-space:nowrap;
+}
+.c-arrow { color:#ffd93d; font-size:16px; font-weight:900; }
+
+/* ─── ERA SECTIONS ───────────────── */
+.era-header {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  margin-top:4px;
+}
+.era-header .era-icon { font-size:28px; }
+.era-header h2 {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:20px;
+  letter-spacing:1px;
+}
+.era-header .era-dates {
+  font-size:12px;
+  opacity:0.5;
+  font-weight:700;
+  margin-left:auto;
+  letter-spacing:1px;
+}
+
+.cards-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:18px;
+}
+.cards-grid.single { grid-template-columns:1fr; }
+.cards-grid.triple { grid-template-columns:1fr 1fr 1fr; }
+
+/* ─── INDIVIDUAL CARDS ───────────── */
+.card {
+  border-radius:14px;
+  padding:14px 16px;
+  position:relative;
+  overflow:hidden;
+}
+.card .icon {
+  font-size:34px;
+  line-height:1;
+  margin-bottom:6px;
+  display:block;
+}
+.card .ka-num {
+  position:absolute;
+  top:10px;
+  right:14px;
+  font-family:'Black Han Sans',sans-serif;
+  font-size:32px;
+  opacity:0.1;
+  letter-spacing:-1px;
+}
+.card h3 {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:17px;
+  letter-spacing:.5px;
+  margin-bottom:6px;
+  line-height:1.1;
+}
+.card p {
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+  opacity:0.9;
+}
+.card .bullets { margin-top:7px; }
+.card .bullets li {
+  font-size:11.5px;
+  font-weight:700;
+  line-height:1.5;
+  list-style:none;
+  padding-left:14px;
+  position:relative;
+  opacity:0.9;
+}
+.card .bullets li::before {
+  content:'▸';
+  position:absolute;
+  left:0;
+  opacity:0.6;
+  font-size:10px;
+  top:2px;
+}
+.card .example {
+  margin-top:8px;
+  background:rgba(0,0,0,0.25);
+  border-radius:7px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:800;
+}
+.card .example span { opacity:0.6; }
+
+/* Card colors */
+.card-blue   { background:linear-gradient(140deg,#1b3f7a,#2255aa); }
+.card-purple { background:linear-gradient(140deg,#341569,#5a28b0); }
+.card-green  { background:linear-gradient(140deg,#145232,#1e7a48); }
+.card-orange { background:linear-gradient(140deg,#7a2e00,#b04a10); }
+.card-red    { background:linear-gradient(140deg,#7a0f0f,#a82020); }
+.card-navy   { background:linear-gradient(140deg,#1a1a60,#303090); }
+.card-crimson{ background:linear-gradient(140deg,#5c0000,#900000); }
+.card-yellow { background:linear-gradient(140deg,#3d3800,#605800); }
+.card-dkblue { background:linear-gradient(140deg,#001660,#0030a0); }
+
+/* ─── POLITICAL MOVEMENTS GRID ───── */
+.movements-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-bottom:18px;
+}
+.mov-card {
+  border-radius:12px;
+  padding:11px 10px;
+  text-align:center;
+}
+.mov-card .micon { font-size:26px; margin-bottom:5px; display:block; }
+.mov-card .mname {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:13px;
+  letter-spacing:.5px;
+  margin-bottom:4px;
+}
+.mov-card .mdef { font-size:10.5px; font-weight:700; opacity:0.85; line-height:1.4; }
+
+.m-lib   { background:linear-gradient(135deg,#0d3d6e,#1a5ea0); }
+.m-soc   { background:linear-gradient(135deg,#5c0000,#8a0000); }
+.m-nat   { background:linear-gradient(135deg,#3d2a00,#6e4d00); }
+.m-con   { background:linear-gradient(135deg,#1a3d1a,#2e6b2e); }
+.m-fem   { background:linear-gradient(135deg,#4a0060,#7a0099); }
+
+/* ─── EXAM TIPS BOX ──────────────── */
+.exam-box {
+  background:linear-gradient(135deg,#001a00,#003300);
+  border:1.5px solid #005500;
+  border-radius:14px;
+  padding:16px 18px;
+  margin-bottom:18px;
+}
+.exam-box h2 {
+  font-family:'Black Han Sans',sans-serif;
+  font-size:17px;
+  letter-spacing:1px;
+  color:#6bcb77;
+  margin-bottom:10px;
+}
+.exam-tip-row {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:12.5px;
+  font-weight:700;
+  line-height:1.45;
+}
+.exam-tip-row .tip-icon { font-size:20px; flex-shrink:0; margin-top:-2px; }
+.exam-tip-row .tip-label {
+  color:#6bcb77;
+  font-weight:900;
+  margin-right:4px;
+}
+
+/* divider */
+.divider { height:1px; background:linear-gradient(90deg,transparent,#333,transparent); margin:18px 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>GESCHIEDENIS SPIEKBRIEFJE</h1>
+  <div class="sub">Tijdvakken 7 · 8 · 9 · 10 &nbsp;·&nbsp; Kenmerkende Aspecten</div>
+  <div class="exam-tip">
+    📋 WAT VRAAGT HET EXAMEN? &nbsp;→&nbsp; Bij elke bron of vraag: &nbsp;<strong>welk KA hoort hier bij? Geef een voorbeeld. Leg het uit.</strong>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline">
+  <div class="tl-block tl-7">📜 TV7<div class="year">1700–1800</div>Pruiken & Revoluties</div>
+  <div class="tl-block tl-8">⚙️ TV8<div class="year">1800–1900</div>Burgers & Stoommachines</div>
+  <div class="tl-block tl-9">💣 TV9<div class="year">1900–1950</div>Wereldoorlogen</div>
+  <div class="tl-block tl-10">☢️ TV10<div class="year">1950–heden</div>Televisie & Computer</div>
+</div>
+
+<!-- CAUSE CHAIN -->
+<div class="chain-banner">
+  <h2>⚡ DE GROTE KETEN — alles hangt samen</h2>
+  <div class="chain-flow">
+    <div class="c-box">💡 #27 Verlichting</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">🏛️ #30 Democratische revoluties</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">📜 Grondrechten</div>
+    <div class="c-arrow" style="color:#aaa">|</div>
+    <div class="c-box">🏭 #31 Industrie</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">🌍 #32 Imperialisme</div>
+    <div class="c-arrow">&amp;</div>
+    <div class="c-box">✊ #33 Socialisme</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">🏴 Nationalisme → #37 WO1</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">📉 #38 Depressie → Hitler</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">💀 WO2</div>
+    <div class="c-arrow">→</div>
+    <div class="c-box">☢️ #46 Koude Oorlog</div>
+  </div>
+</div>
+
+<!-- TV7 -->
+<div class="era-header">
+  <span class="era-icon">📜</span>
+  <h2 style="color:#5b9bd5">TIJDVAK 7 — Pruiken &amp; Revoluties</h2>
+  <span class="era-dates">1700–1800</span>
+</div>
+<div class="cards-grid">
+  <div class="card card-blue">
+    <span class="ka-num">27</span>
+    <span class="icon">💡</span>
+    <h3>KA 27 · De Verlichting</h3>
+    <p>Mensen gaan geloven in <strong>rede &amp; wetenschap</strong> in plaats van religie en tradities.</p>
+    <ul class="bullets">
+      <li>Kritisch nadenken over koningen, kerk, wetten</li>
+      <li>Vrijheid van denken, gelijkheid, vooruitgang</li>
+    </ul>
+    <div class="example"><span>Denkers:</span> Voltaire · Rousseau · Locke</div>
+  </div>
+  <div class="card card-purple">
+    <span class="ka-num">28</span>
+    <span class="icon">👑</span>
+    <h3>KA 28 · Verlicht Absolutisme</h3>
+    <p>Koningen behouden <strong>alle macht</strong> maar doen alsof ze modern zijn.</p>
+    <ul class="bullets">
+      <li>"Alles voor, niets DOOR het volk"</li>
+      <li>Verbeteringen van bovenaf — geen democratie!</li>
+    </ul>
+    <div class="example"><span>Voorbeelden:</span> Frederik de Grote · Catharina de Grote</div>
+  </div>
+  <div class="card card-green">
+    <span class="ka-num">30</span>
+    <span class="icon">🏛️</span>
+    <h3>KA 30 · Democratische Revoluties</h3>
+    <p>Burgers eisen <strong>rechten, grondwetten en staatsburgerschap</strong>.</p>
+    <ul class="bullets">
+      <li>Amerikaanse Revolutie 1776 🇺🇸</li>
+      <li>Franse Revolutie 1789 🇫🇷</li>
+      <li>Vrijheid · Gelijkheid · Broederschap</li>
+    </ul>
+    <div class="example"><span>Gevolg:</span> Grondwet · Mensenrechten · Volkssoevereiniteit</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TV8 -->
+<div class="era-header">
+  <span class="era-icon">⚙️</span>
+  <h2 style="color:#e07b39">TIJDVAK 8 — Burgers &amp; Stoommachines</h2>
+  <span class="era-dates">1800–1900</span>
+</div>
+<div class="cards-grid">
+  <div class="card card-orange">
+    <span class="ka-num">31</span>
+    <span class="icon">🏭</span>
+    <h3>KA 31 · Industriële Revolutie</h3>
+    <p>Van <strong>landbouw → fabrieken</strong>. Stoomkracht verandert alles.</p>
+    <ul class="bullets">
+      <li>Steden groeien enorm snel</li>
+      <li>Arbeidersklasse (proletariaat) ontstaat</li>
+      <li>Rijken worden rijker, armen worden meer</li>
+    </ul>
+    <div class="example"><span>Begon in:</span> Engeland · Kolenmijnen · Stoommachine (Watt)</div>
+  </div>
+  <div class="card card-red">
+    <span class="ka-num">32</span>
+    <span class="icon">🌍</span>
+    <h3>KA 32 · Modern Imperialisme</h3>
+    <p>Industrie heeft <strong>grondstoffen + markten</strong> nodig → Europa koloniseert de wereld.</p>
+    <ul class="bullets">
+      <li>Afrika &amp; Azië worden opgedeeld ("Scramble for Africa")</li>
+      <li>Valse rechtvaardiging: "wij zijn superieur"</li>
+    </ul>
+    <div class="example"><span>Verband:</span> Industrie (#31) → grondstoffen nodig → kolonies</div>
+  </div>
+</div>
+
+<!-- Political movements -->
+<div class="era-header" style="margin-top:4px; margin-bottom:8px;">
+  <span class="era-icon">🗳️</span>
+  <h2 style="color:#9b9bff">KA 33 · Politieke Stromingen — LEER DEZE VIJF!</h2>
+</div>
+<div class="movements-grid">
+  <div class="mov-card m-lib">
+    <span class="micon">🗽</span>
+    <div class="mname">LIBERALISME</div>
+    <div class="mdef">Vrijheid van individu · vrije markt · democratie · minder staatsmacht</div>
+  </div>
+  <div class="mov-card m-soc">
+    <span class="micon">✊</span>
+    <div class="mname">SOCIALISME</div>
+    <div class="mdef">Arbeiders rechten · gelijkheid · staat beschermt armen · Marx</div>
+  </div>
+  <div class="mov-card m-nat">
+    <span class="micon">🏴</span>
+    <div class="mname">NATIONALISME</div>
+    <div class="mdef">Trots op eigen volk &amp; land · eigen staat · leidt tot WO1!</div>
+  </div>
+  <div class="mov-card m-con">
+    <span class="micon">✝️</span>
+    <div class="mname">CONFESSIONALISME</div>
+    <div class="mdef">Religie in de politiek · christelijke waarden als basis voor wetten</div>
+  </div>
+  <div class="mov-card m-fem">
+    <span class="micon">♀️</span>
+    <div class="mname">FEMINISME</div>
+    <div class="mdef">Gelijke rechten voor vrouwen · stemrecht · onderwijs toegang</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TV9 -->
+<div class="era-header">
+  <span class="era-icon">💣</span>
+  <h2 style="color:#ff6b6b">TIJDVAK 9 — Wereldoorlogen &amp; Crisis</h2>
+  <span class="era-dates">1900–1950</span>
+</div>
+<div class="cards-grid">
+  <div class="card card-crimson">
+    <span class="ka-num">37</span>
+    <span class="icon">⚔️</span>
+    <h3>KA 37 · Twee Wereldoorlogen</h3>
+    <p><strong>WO1 (1914–18):</strong> nationalisme + allianties ontploffen door moord op Franz Ferdinand.</p>
+    <ul class="bullets">
+      <li>Loopgravenoorlog · miljoenen doden</li>
+      <li>Verdrag van Versailles straft Duitsland</li>
+    </ul>
+    <p style="margin-top:7px"><strong>WO2 (1939–45):</strong> Hitler · Holocaust · totale oorlog.</p>
+    <ul class="bullets">
+      <li>6 miljoen Joden vermoord (Holocaust)</li>
+      <li>Atoombom op Hiroshima &amp; Nagasaki 1945</li>
+    </ul>
+  </div>
+  <div class="card card-yellow">
+    <span class="ka-num">38</span>
+    <span class="icon">📉</span>
+    <h3>KA 38 · Crisis van het Kapitalisme</h3>
+    <p><strong>Beurskrach 1929</strong> → Grote Depressie → massa-werkloosheid wereldwijd.</p>
+    <ul class="bullets">
+      <li>Fabrieken sluiten · mensen hebben geen geld</li>
+      <li>Wanhoop → mensen stemmen op extremisten</li>
+      <li>Hitler krijgt macht DOOR de economische crisis</li>
+    </ul>
+    <div class="example"><span>Verband:</span> #38 Depressie → Hitler aan macht → #37 WO2</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TV10 -->
+<div class="era-header">
+  <span class="era-icon">☢️</span>
+  <h2 style="color:#4d96ff">TIJDVAK 10 — Televisie &amp; Computer</h2>
+  <span class="era-dates">1950–heden</span>
+</div>
+<div class="cards-grid single">
+  <div class="card card-dkblue">
+    <span class="ka-num">46</span>
+    <span class="icon">🚀</span>
+    <h3>KA 46 · De Koude Oorlog</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;">
+      <div>
+        <p style="color:#4d96ff;font-size:13px;margin-bottom:4px">🇺🇸 VS — KAPITALISME</p>
+        <ul class="bullets">
+          <li>Vrije markt</li>
+          <li>Individuele vrijheid</li>
+          <li>NATO / NAVO</li>
+          <li>Democratie</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:#ff6b6b;font-size:13px;margin-bottom:4px">🇷🇺 USSR — COMMUNISME</p>
+        <ul class="bullets">
+          <li>Staatscontrole op alles</li>
+          <li>Collectief boven individu</li>
+          <li>Warschaupact</li>
+          <li>Dictatuur</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;background:rgba(255,0,0,0.1);border-radius:8px;padding:7px 10px;">
+      <span style="font-weight:900;font-size:12px;">☢️ GEEN ECHTE OORLOG maar:</span>
+      <span style="font-size:12px;font-weight:700"> Wapenwedloop · Cubacrisis 1962 · Berlijnse Muur · Proxy-oorlogen · Atoomdreigement (MAD)</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- EXAM TIPS -->
+<div class="exam-box">
+  <h2>✅ TIPS VOOR DE TOETS</h2>
+  <div class="exam-tip-row">
+    <span class="tip-icon">📸</span>
+    <div><span class="tip-label">BRONVRAAG:</span>Als je een foto, tekst of cartoon ziet → vraag jezelf: welk KA-nummer hoort hierbij? Noem het tijdvak + leg uit waarom.</div>
+  </div>
+  <div class="exam-tip-row">
+    <span class="tip-icon">🔗</span>
+    <div><span class="tip-label">VERBANDVRAAG:</span>"Leg het verband uit tussen X en Y" → gebruik de keten bovenaan. Bijv: Industrie → arbeiders arm → socialisme ontstaat.</div>
+  </div>
+  <div class="exam-tip-row">
+    <span class="tip-icon">🕐</span>
+    <div><span class="tip-label">CHRONOLOGIEVRAAG:</span>Zet events op volgorde → gebruik tijdvak-nummers als geheugensteun. TV7 → TV8 → TV9 → TV10.</div>
+  </div>
+  <div class="exam-tip-row">
+    <span class="tip-icon">💬</span>
+    <div><span class="tip-label">OPEN VRAAG:</span>Altijd: noem het KA + geef EEN concreet voorbeeld (naam, datum, land) + leg het uit in eigen woorden.</div>
+  </div>
+</div>
+
+</body>
+</html>
