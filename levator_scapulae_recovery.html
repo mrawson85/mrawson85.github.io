@@ -6,487 +6,113 @@
 <title>Levator Scapulae Recovery Plan</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; background: #f4f1ec; color: #2a2a2a; line-height: 1.7; }
 
-body {
-  font-family: 'Georgia', serif;
-  background: #f4f1ec;
-  color: #2a2a2a;
-  line-height: 1.7;
-}
-
-/* ── Cover ── */
 .cover {
   background: linear-gradient(135deg, #1a3a52 0%, #2c5f8a 60%, #3d7ab5 100%);
-  color: white;
-  padding: 56px 48px 48px;
+  color: white; padding: 56px 48px 48px;
 }
-.cover-tag {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #7ec8e3;
-  margin-bottom: 12px;
-}
-.cover h1 {
-  font-size: 40px;
-  font-weight: normal;
-  line-height: 1.2;
-  margin-bottom: 14px;
-}
+.cover-tag { font-family: Arial,sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #7ec8e3; margin-bottom: 12px; }
+.cover h1 { font-size: 40px; font-weight: normal; line-height: 1.2; margin-bottom: 14px; }
 .cover h1 span { color: #7ec8e3; }
-.cover-sub {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  color: rgba(255,255,255,0.75);
-  max-width: 600px;
-}
-.cover-pills {
-  display: flex; gap: 10px; flex-wrap: wrap;
-  margin-top: 28px;
-}
-.pill {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 20px;
-  padding: 6px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,0.9);
-}
+.cover-sub { font-family: Arial,sans-serif; font-size: 15px; color: rgba(255,255,255,0.75); max-width: 600px; }
+.cover-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.pill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 18px; font-family: Arial,sans-serif; font-size: 13px; color: rgba(255,255,255,0.9); }
 
-/* ── Nav ── */
-.nav {
-  background: #1a3a52;
-  display: flex;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-}
-.nav a {
-  color: rgba(255,255,255,0.65);
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  padding: 15px 22px;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s;
-}
+.nav { background: #1a3a52; display: flex; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); flex-wrap: wrap; }
+.nav a { color: rgba(255,255,255,0.65); text-decoration: none; font-family: Arial,sans-serif; font-size: 13px; padding: 15px 20px; border-bottom: 3px solid transparent; transition: all 0.2s; }
 .nav a:hover { color: white; border-bottom-color: #7ec8e3; }
 
-/* ── Page ── */
-.page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 52px 40px;
-}
+.page { max-width: 900px; margin: 0 auto; padding: 52px 40px; }
 
-.section-label {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #2c5f8a;
-  margin-bottom: 8px;
-}
-.page-title {
-  font-size: 32px;
-  font-weight: normal;
-  color: #1a3a52;
-  border-bottom: 2px solid #2c5f8a;
-  padding-bottom: 14px;
-  margin-bottom: 30px;
-}
-.intro-box {
-  background: #e8f0f7;
-  border-left: 4px solid #2c5f8a;
-  padding: 18px 22px;
-  border-radius: 0 8px 8px 0;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: #2a2a2a;
-  margin-bottom: 36px;
-}
+.section-label { font-family: Arial,sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #2c5f8a; margin-bottom: 8px; }
+.page-title { font-size: 32px; font-weight: normal; color: #1a3a52; border-bottom: 2px solid #2c5f8a; padding-bottom: 14px; margin-bottom: 30px; }
 
-/* ── Ergo cards ── */
-.ergo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 36px;
-}
+/* Inline source link style */
+.src { display: inline-block; font-family: Arial,sans-serif; font-size: 11px; background: #dde8f2; color: #1a3a52; border: 1px solid #aac4e0; border-radius: 4px; padding: 1px 6px; margin-left: 3px; text-decoration: none; vertical-align: middle; white-space: nowrap; }
+.src:hover { background: #2c5f8a; color: white; }
+
+/* Source block at foot of a card */
+.src-block { border-top: 1px solid #e8e8e8; margin-top: 16px; padding-top: 12px; font-family: Arial,sans-serif; font-size: 12px; color: #777; line-height: 1.6; }
+.src-block strong { color: #444; }
+.src-block a { color: #2c5f8a; }
+
+.intro-box { background: #e8f0f7; border-left: 4px solid #2c5f8a; padding: 18px 22px; border-radius: 0 8px 8px 0; font-family: Arial,sans-serif; font-size: 14px; color: #2a2a2a; margin-bottom: 36px; }
+
+.ergo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; }
 @media (max-width: 620px) { .ergo-grid { grid-template-columns: 1fr; } }
-.ergo-card {
-  background: white;
-  border-radius: 10px;
-  padding: 22px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-}
-.ergo-card.highlight {
-  background: #fff8e1;
-  border: 2px solid #f59e0b;
-}
+.ergo-card { background: white; border-radius: 10px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+.ergo-card.highlight { background: #fff8e1; border: 2px solid #f59e0b; }
 .ergo-icon { font-size: 26px; margin-bottom: 8px; }
-.ergo-card h3 {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  font-weight: bold;
-  color: #1a3a52;
-  margin-bottom: 8px;
-}
+.ergo-card h3 { font-family: Arial,sans-serif; font-size: 15px; font-weight: bold; color: #1a3a52; margin-bottom: 8px; }
 .ergo-card.highlight h3 { color: #b45309; }
-.ergo-card p, .ergo-card ul {
-  font-family: Arial, sans-serif;
-  font-size: 13.5px;
-  color: #444;
-}
+.ergo-card p, .ergo-card ul { font-family: Arial,sans-serif; font-size: 13.5px; color: #444; }
 .ergo-card ul { padding-left: 18px; }
-.ergo-card ul li { margin-bottom: 5px; }
+.ergo-card ul li { margin-bottom: 6px; }
 
-/* ── Ergo image ── */
-.ergo-img-wrap {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.1);
-  margin-bottom: 36px;
-}
-.ergo-img-wrap img {
-  width: 100%; height: auto; display: block;
-  max-height: 320px; object-fit: cover; object-position: top;
-}
-.img-caption {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  color: #666;
-  text-align: center;
-  padding: 10px 16px;
-  border-top: 1px solid #eee;
-  font-style: italic;
-}
+.ergo-img-wrap { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.1); margin-bottom: 36px; }
+.ergo-img-wrap img { width: 100%; height: auto; display: block; max-height: 300px; object-fit: cover; object-position: top; }
+.img-caption { font-family: Arial,sans-serif; font-size: 12px; color: #666; text-align: center; padding: 10px 16px; border-top: 1px solid #eee; font-style: italic; }
 
-/* ── Break rules ── */
-.break-rules {
-  background: #1a3a52;
-  color: white;
-  border-radius: 10px;
-  padding: 26px 28px;
-  display: flex; gap: 28px; flex-wrap: wrap;
-}
-.break-rule .time {
-  font-family: Arial, sans-serif;
-  font-size: 26px;
-  font-weight: bold;
-  color: #7ec8e3;
-  margin-bottom: 4px;
-}
-.break-rule p {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,0.8);
-}
+.break-rules { background: #1a3a52; color: white; border-radius: 10px; padding: 26px 28px; display: flex; gap: 28px; flex-wrap: wrap; }
 .break-rule { flex: 1; min-width: 180px; }
+.break-rule .time { font-family: Arial,sans-serif; font-size: 26px; font-weight: bold; color: #7ec8e3; margin-bottom: 4px; }
+.break-rule p { font-family: Arial,sans-serif; font-size: 13px; color: rgba(255,255,255,0.8); }
 
-/* ── Exercise cards – STACKED layout ── */
-.exercise-card {
-  background: white;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
-  margin-bottom: 36px;
-}
-.exercise-card.priority {
-  border: 2px solid #2c5f8a;
-}
-.ex-img-wrap {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  background: #dde8f0;
-}
-.ex-img-wrap img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-.priority-badge {
-  position: absolute;
-  top: 14px; left: 14px;
-  background: #2c5f8a;
-  color: white;
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 20px;
-}
-.img-source-credit {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: rgba(0,0,0,0.45);
-  color: rgba(255,255,255,0.85);
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  padding: 5px 12px;
-  font-style: italic;
-}
+.exercise-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.08); margin-bottom: 36px; }
+.exercise-card.priority { border: 2px solid #2c5f8a; }
+.ex-img-wrap { position: relative; width: 100%; height: 300px; overflow: hidden; background: #dde8f0; }
+.ex-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.priority-badge { position: absolute; top: 14px; left: 14px; background: #2c5f8a; color: white; font-family: Arial,sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; }
+.img-credit { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.85); font-family: Arial,sans-serif; font-size: 11px; padding: 5px 12px; font-style: italic; }
+.img-credit a { color: #7ec8e3; }
+
 .ex-body { padding: 26px 30px; }
-.ex-number {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #999;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.ex-body h2 {
-  font-size: 22px;
-  color: #1a3a52;
-  margin-bottom: 6px;
-}
-.muscle-tag {
-  display: inline-block;
-  background: #e8f0f7;
-  color: #2c5f8a;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  padding: 3px 10px;
-  border-radius: 12px;
-  margin-bottom: 14px;
-}
-.ex-body > p {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 16px;
-}
+.ex-number { font-family: Arial,sans-serif; font-size: 11px; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 4px; }
+.ex-body h2 { font-size: 22px; color: #1a3a52; margin-bottom: 6px; }
+.muscle-tag { display: inline-block; background: #e8f0f7; color: #2c5f8a; font-family: Arial,sans-serif; font-size: 12px; padding: 3px 10px; border-radius: 12px; margin-bottom: 14px; }
+.ex-body > p { font-family: Arial,sans-serif; font-size: 14px; color: #444; margin-bottom: 16px; }
 .steps { list-style: none; padding: 0; margin-bottom: 16px; }
-.steps li {
-  display: flex; gap: 12px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 10px;
-  align-items: flex-start;
-}
-.step-n {
-  background: #2c5f8a;
-  color: white;
-  font-size: 11px;
-  font-weight: bold;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.dosage {
-  background: #f0f7f0;
-  border-left: 3px solid #2d9d5a;
-  padding: 10px 14px;
-  border-radius: 0 6px 6px 0;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: #1a4a2a;
-  margin-bottom: 14px;
-}
+.steps li { display: flex; gap: 12px; font-family: Arial,sans-serif; font-size: 14px; color: #333; margin-bottom: 10px; align-items: flex-start; }
+.step-n { background: #2c5f8a; color: white; font-size: 11px; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.dosage { background: #f0f7f0; border-left: 3px solid #2d9d5a; padding: 10px 14px; border-radius: 0 6px 6px 0; font-family: Arial,sans-serif; font-size: 13px; color: #1a4a2a; margin-bottom: 14px; }
 .dosage strong { color: #2d9d5a; }
 
-/* ── Source citation ── */
-.source-cite {
-  border-top: 1px solid #eee;
-  padding-top: 12px;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  color: #777;
-}
-.source-cite strong { color: #555; }
-.source-cite a {
-  color: #2c5f8a;
-  text-decoration: none;
-}
-.source-cite a:hover { text-decoration: underline; }
-
-/* ── Supplements ── */
-.supp-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  margin-bottom: 32px;
-}
+.supp-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 32px; }
 .supp-table thead tr { background: #1a3a52; color: white; }
-.supp-table thead th {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 13px 18px;
-  text-align: left;
-  font-weight: normal;
-}
+.supp-table thead th { font-family: Arial,sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; padding: 13px 18px; text-align: left; font-weight: normal; }
 .supp-table tbody tr { background: white; }
 .supp-table tbody tr:nth-child(even) { background: #f8fafd; }
 .supp-table tbody tr:hover { background: #eef4fb; }
-.supp-table td {
-  padding: 13px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 13.5px;
-  color: #333;
-  border-bottom: 1px solid #eee;
-  vertical-align: top;
-}
-.supp-name { font-weight: bold; color: #1a3a52; }
-.dose-badge {
-  display: inline-block;
-  background: #e8f0f7;
-  color: #2c5f8a;
-  font-size: 11.5px;
-  padding: 2px 9px;
-  border-radius: 10px;
-  white-space: nowrap;
-  margin-bottom: 4px;
-  display: block;
-}
-.supp-ref {
-  font-size: 11px;
-  color: #999;
-  margin-top: 4px;
-  font-style: italic;
-}
-.supp-ref a { color: #2c5f8a; text-decoration: none; }
+.supp-table td { padding: 13px 18px; font-family: Arial,sans-serif; font-size: 13.5px; color: #333; border-bottom: 1px solid #eee; vertical-align: top; }
+.supp-name { font-weight: bold; color: #1a3a52; margin-bottom: 2px; }
+.dose-badge { display: block; background: #e8f0f7; color: #2c5f8a; font-size: 11.5px; padding: 2px 9px; border-radius: 10px; white-space: nowrap; margin-bottom: 4px; }
+.pub { font-size: 11px; color: #888; margin-top: 5px; font-style: italic; }
+.pub a { color: #2c5f8a; }
 
-/* ── Topicals ── */
-.topical-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px; margin-bottom: 32px;
-}
-@media (max-width: 620px) { .topical-grid { grid-template-columns: 1fr; } }
-.topical-card {
-  background: white;
-  border-radius: 10px;
-  padding: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-}
-.topical-card h4 {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  color: #1a3a52;
-  margin-bottom: 7px;
-}
-.topical-card p {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  color: #555;
-}
+.topical-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 32px; }
+@media (max-width:620px) { .topical-grid { grid-template-columns: 1fr; } }
+.topical-card { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.topical-card h4 { font-family: Arial,sans-serif; font-size: 14px; font-weight: bold; color: #1a3a52; margin-bottom: 7px; }
+.topical-card p { font-family: Arial,sans-serif; font-size: 13px; color: #555; }
 
-/* ── Timeline ── */
-.timeline {
-  display: flex; gap: 0;
-  margin-bottom: 40px;
-  position: relative;
-}
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 28px; left: 0; right: 0;
-  height: 3px;
-  background: #e0e8f0;
-  z-index: 0;
-}
-.tl-item {
-  flex: 1; text-align: center;
-  position: relative; z-index: 1; padding: 0 8px;
-}
-.tl-dot {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: #2c5f8a;
-  color: white;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 12px;
-  box-shadow: 0 0 0 4px #f4f1ec;
-}
-.tl-item h4 {
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  font-weight: bold;
-  color: #1a3a52;
-  margin-bottom: 4px;
-}
-.tl-item p { font-family: Arial, sans-serif; font-size: 12px; color: #666; }
+.timeline { display: flex; gap: 0; margin-bottom: 40px; position: relative; }
+.timeline::before { content: ''; position: absolute; top: 28px; left: 0; right: 0; height: 3px; background: #e0e8f0; z-index: 0; }
+.tl-item { flex: 1; text-align: center; position: relative; z-index: 1; padding: 0 8px; }
+.tl-dot { width: 56px; height: 56px; border-radius: 50%; background: #2c5f8a; color: white; font-family: Arial,sans-serif; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; box-shadow: 0 0 0 4px #f4f1ec; }
+.tl-item h4 { font-family: Arial,sans-serif; font-size: 13px; font-weight: bold; color: #1a3a52; margin-bottom: 4px; }
+.tl-item p { font-family: Arial,sans-serif; font-size: 12px; color: #666; }
 
-.divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, #cbd5e1, transparent);
-  margin: 48px 0;
-}
-h2.sec-head {
-  font-family: Arial, sans-serif;
-  font-size: 19px;
-  font-weight: bold;
-  color: #1a3a52;
-  margin: 36px 0 18px;
-}
-.disclaimer {
-  background: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 14px 18px;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  color: #777;
-  font-style: italic;
-  text-align: center;
-  margin-top: 40px;
-}
+.divider { height: 1px; background: linear-gradient(to right, transparent, #cbd5e1, transparent); margin: 48px 0; }
+h2.sec-head { font-family: Arial,sans-serif; font-size: 19px; font-weight: bold; color: #1a3a52; margin: 36px 0 18px; }
+.disclaimer { background: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; padding: 14px 18px; font-family: Arial,sans-serif; font-size: 12px; color: #777; font-style: italic; text-align: center; margin-top: 40px; }
 
-/* ── Master sources section ── */
-.sources-box {
-  background: white;
-  border-radius: 12px;
-  padding: 28px 32px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-  margin-top: 40px;
-}
-.sources-box h3 {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  font-weight: bold;
-  color: #1a3a52;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-.sources-box ol {
-  padding-left: 20px;
-}
-.sources-box li {
-  font-family: Arial, sans-serif;
-  font-size: 12.5px;
-  color: #555;
-  margin-bottom: 9px;
-  line-height: 1.5;
-}
-.sources-box li a { color: #2c5f8a; }
-.sources-box .src-category {
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #2c5f8a;
-  margin: 20px 0 10px;
-  font-weight: bold;
-}
+.full-sources { background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+.full-sources h3 { font-family: Arial,sans-serif; font-size: 16px; font-weight: bold; color: #1a3a52; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+.src-cat { font-family: Arial,sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #2c5f8a; margin: 22px 0 10px; font-weight: bold; }
+.full-sources ol { padding-left: 20px; }
+.full-sources li { font-family: Arial,sans-serif; font-size: 13px; color: #555; margin-bottom: 10px; line-height: 1.55; }
+.full-sources li a { color: #2c5f8a; }
 </style>
 </head>
 <body>
@@ -494,12 +120,12 @@ h2.sec-head {
 <div class="cover">
   <div class="cover-tag">Physical Therapy Recovery Guide</div>
   <h1>Levator Scapulae<br><span>Recovery Plan</span></h1>
-  <p class="cover-sub">A structured, evidence-based protocol for relieving neck and shoulder tension caused by sustained computer work and dual-monitor strain.</p>
+  <p class="cover-sub">A structured, evidence-based protocol for relieving neck and shoulder tension caused by sustained computer work and dual-monitor strain. Every recommendation is linked to its source.</p>
   <div class="cover-pills">
     <div class="pill">🖥️ Ergonomic Setup</div>
     <div class="pill">🧘 4 Key Exercises</div>
     <div class="pill">💊 Supplements</div>
-    <div class="pill">📚 Cited Sources</div>
+    <div class="pill">📚 Inline Sources Throughout</div>
   </div>
 </div>
 
@@ -507,383 +133,437 @@ h2.sec-head {
   <a href="#ergonomics">Workstation</a>
   <a href="#exercises">Exercises</a>
   <a href="#supplements">Supplements</a>
-  <a href="#sources">Sources</a>
+  <a href="#sources">Full Sources</a>
 </nav>
 
 <div class="page">
 
-  <!-- ════════════════════════════════ -->
-  <!-- ERGONOMICS                       -->
-  <!-- ════════════════════════════════ -->
-  <div id="ergonomics">
-    <div class="section-label">Page 1 of 3</div>
-    <h1 class="page-title">Workstation Ergonomics</h1>
+<!-- ═══════════════════ ERGONOMICS ═══════════════════ -->
+<div id="ergonomics">
+  <div class="section-label">Page 1 of 3</div>
+  <h1 class="page-title">Workstation Ergonomics</h1>
 
-    <div class="intro-box">
-      <strong>Root cause identified:</strong> Your secondary monitor is positioned both to the side <em>and</em> higher than the primary — forcing simultaneous head rotation and extension. This is the exact chronic loading pattern that overloads the levator scapulae. Fixing the physical environment stops the daily re-injury before any stretching can be effective.
-      <br><br>
-      <em>Source: OSHA Computer Workstations eTool; Mayo Clinic Office Ergonomics Guide</em>
-    </div>
+  <div class="intro-box">
+    <strong>Why this matters for the levator scapulae specifically:</strong> The levator scapulae originates on the posterior tubercles of cervical vertebrae C1–C4 and inserts on the superior angle of the scapula.
+    <a class="src" href="https://www.ncbi.nlm.nih.gov/books/NBK553120/" target="_blank">NCBI StatPearls</a>
+    Its job is to elevate the scapula and rotate the neck. When a monitor is positioned both to the side <em>and</em> higher, it forces simultaneous head rotation + extension — placing the levator under sustained isometric load for hours. Correcting the environment eliminates the daily re-injury cycle that makes stretching ineffective.
+    <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Physiopedia — LSS</a>
+  </div>
 
-    <div class="ergo-img-wrap">
-      <img
-        src="https://www.mayoclinic.org/-/media/rnoa/images/conditions-and-treatments/healthy-lifestyle/ergonomics/office-ergonomics.jpg"
-        alt="Ergonomic workstation diagram — correct monitor, chair, and keyboard positioning"
-        onerror="this.src='data:image/png;base64,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'"
-      />
-      <div class="img-caption">Target setup: both monitors at eye level, keyboard at elbow height, 90° at hips and knees — Mayo Clinic / OSHA</div>
-    </div>
-
-    <div class="ergo-grid">
-      <div class="ergo-card highlight">
-        <div class="ergo-icon">🚨</div>
-        <h3>Priority Fix — Secondary Monitor</h3>
-        <ul>
-          <li>Raise it to <strong>exactly match</strong> the primary monitor height</li>
-          <li>Use a monitor arm, riser, or solid stand</li>
-          <li>Keep it no more than 30–35° to the side</li>
-          <li>This one change outweighs all stretches combined</li>
-        </ul>
-      </div>
-      <div class="ergo-card">
-        <div class="ergo-icon">🖥️</div>
-        <h3>Primary Monitor</h3>
-        <ul>
-          <li>Centred directly in front of you</li>
-          <li>Top of screen at or just below eye level</li>
-          <li>Natural gaze 10–15° downward</li>
-          <li>Arm's length distance (50–70 cm)</li>
-        </ul>
-      </div>
-      <div class="ergo-card">
-        <div class="ergo-icon">🪑</div>
-        <h3>Chair & Keyboard Height</h3>
-        <ul>
-          <li>Elbows at ~90°, forearms parallel to floor</li>
-          <li>Wrists at or <em>below</em> elbow height — never above</li>
-          <li>Feet flat on floor or footrest</li>
-          <li>Lower back supported by chair or lumbar cushion</li>
-        </ul>
-      </div>
-      <div class="ergo-card">
-        <div class="ergo-icon">📐</div>
-        <h3>Head & Neck</h3>
-        <ul>
-          <li>Ears stacked over shoulders at all times</li>
-          <li>No chin jutting forward (tech neck)</li>
-          <li>Never cradle a phone between ear and shoulder</li>
-          <li>Current glasses prescription — squinting drives neck extension</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="break-rules">
-      <div class="break-rule">
-        <div class="time">45 min</div>
-        <p>Maximum seated time before standing up and doing 2–3 shoulder rolls</p>
-      </div>
-      <div class="break-rule">
-        <div class="time">20 min</div>
-        <p>Every 20 min: look away for 20 seconds and consciously drop your shoulders</p>
-      </div>
-      <div class="break-rule">
-        <div class="time">Calls</div>
-        <p>Take phone and video calls standing — the easiest movement break available</p>
-      </div>
+  <div class="ergo-img-wrap">
+    <img
+      src="https://www.mayoclinic.org/-/media/rnoa/images/conditions-and-treatments/healthy-lifestyle/ergonomics/office-ergonomics.jpg"
+      alt="Ergonomic workstation diagram"
+      onerror="this.src= + b64["ergo_setup"] + ; this.onerror=null;"
+    />
+    <div class="img-caption">
+      Correct ergonomic posture — Mayo Clinic Office Ergonomics Guide
+      <a class="src" href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank">→ Mayo Clinic</a>
+      &nbsp;|&nbsp; OSHA Computer Workstations eTool
+      <a class="src" href="https://www.osha.gov/etools/computer-workstations" target="_blank">→ OSHA</a>
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- EXERCISES                        -->
-  <!-- ════════════════════════════════ -->
-  <div id="exercises">
-    <div class="section-label">Page 2 of 3</div>
-    <h1 class="page-title">Exercises & Stretches</h1>
-    <div class="intro-box">
-      Consistent daily practice at moderate intensity is far more effective than occasional aggressive stretching. These four exercises are the standard protocol recommended by physiatrists and physiotherapists for levator scapulae and upper trapezius overload.
-    </div>
-
-    <!-- Ex 1 -->
-    <div class="exercise-card priority">
-      <div class="ex-img-wrap">
-        <div class="priority-badge">⭐ Priority #1</div>
-        <img
-          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/3-stretches-neck-pain-157.png"
-          alt="Therapist demonstrating levator scapulae stretch with arm raised over back"
-          onerror="this.src='data:image/png;base64,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'"
-        />
-        <div class="img-source-credit">Image: Spine-Health.com / Veritas Health — peer-reviewed by Dr. Zinovy Meyler, DO</div>
-      </div>
-      <div class="ex-body">
-        <div class="ex-number">Exercise 01</div>
-        <h2>Levator Scapulae Stretch</h2>
-        <span class="muscle-tag">Levator Scapulae</span>
-        <p>The most direct treatment for your symptoms. Targets the full length of the muscle from shoulder blade to upper cervical spine (C1–C4).</p>
-        <ol class="steps">
-          <li><span class="step-n">1</span>Sit or stand tall. Actively <strong>press the shoulder down</strong> on the side being stretched.</li>
-          <li><span class="step-n">2</span>Tilt your head forward and toward the <strong>opposite</strong> side — ear toward opposite armpit, not directly sideways.</li>
-          <li><span class="step-n">3</span>Rest the opposite hand gently on the back of your head for a light assist. Do not force.</li>
-          <li><span class="step-n">4</span>Feel the pull between your neck and the top of the shoulder blade. Breathe slowly throughout.</li>
-          <li><span class="step-n">5</span>Hold 30–60 seconds. Release slowly. Switch sides.</li>
-        </ol>
-        <div class="dosage"><strong>Dose:</strong> 3 reps per side, 2–3× daily. The tighter side (secondary monitor side) gets an extra set.</div>
-        <div class="source-cite"><strong>Source:</strong> Meyler Z. <a href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Easy Levator Scapulae Stretch for Neck Pain</a>. Spine-Health / Veritas Health. Peer-reviewed 2018. | Physiopedia: <a href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Levator Scapulae Syndrome</a>.</div>
-      </div>
-    </div>
-
-    <!-- Ex 2 -->
-    <div class="exercise-card">
-      <div class="ex-img-wrap">
-        <img
-          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/exercise-backpain-levatorscapulae.png"
-          alt="Levator scapulae stretch variation — woman with arm raised on wall"
-          onerror="this.src='data:image/png;base64,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'"
-        />
-        <div class="img-source-credit">Image: Spine-Health.com / Veritas Health</div>
-      </div>
-      <div class="ex-body">
-        <div class="ex-number">Exercise 02</div>
-        <h2>Chin Tuck</h2>
-        <span class="muscle-tag">Deep Cervical Flexors</span>
-        <p>Counteracts forward-head posture — the postural pattern that keeps the levator scapulae under chronic load. Think "tall neck," not "pull chin in."</p>
-        <ol class="steps">
-          <li><span class="step-n">1</span>Sit tall, eyes level with the horizon.</li>
-          <li><span class="step-n">2</span>Place one finger lightly on your chin as a reference point.</li>
-          <li><span class="step-n">3</span>Glide your head <strong>straight backward</strong> — like a drawer sliding in. Gaze stays horizontal.</li>
-          <li><span class="step-n">4</span>Do NOT tilt the chin down. Movement is purely horizontal.</li>
-          <li><span class="step-n">5</span>Hold 5 seconds. Release. Repeat 10 times.</li>
-        </ol>
-        <div class="dosage"><strong>Dose:</strong> 10 reps, 5–7× throughout the day. Easy to do during calls or between tasks.</div>
-        <div class="source-cite"><strong>Source:</strong> Meyler Z. <a href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Easy Chin Tucks for Neck Pain</a>. Spine-Health / Veritas Health. | Ahn S-H et al. (2020). Effect of Chin Tuck Exercises on Various Postures and Muscle Activity. <em>PNF and Movement</em>, 18(3), 403–414. | Kim J-H et al. (2018). Biomechanical Analysis of Chin Tuck Exercise. <em>Int J Precision Engineering</em>, 19(4).</div>
-      </div>
-    </div>
-
-    <!-- Ex 3 -->
-    <div class="exercise-card">
-      <div class="ex-img-wrap">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ShoulderRoll.jpg/800px-ShoulderRoll.jpg"
-          alt="Shoulder rolls exercise for upper trapezius relief"
-          onerror="this.src='data:image/png;base64,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'"
-        />
-        <div class="img-source-credit">Image: Wikimedia Commons (CC BY-SA)</div>
-      </div>
-      <div class="ex-body">
-        <div class="ex-number">Exercise 03</div>
-        <h2>Shoulder Rolls — Back &amp; Down</h2>
-        <span class="muscle-tag">Upper Trapezius</span>
-        <p>Releases the upper trapezius and re-educates the shoulder's resting position. Directly counters the shoulder-hike caused by your current keyboard height.</p>
-        <ol class="steps">
-          <li><span class="step-n">1</span>Sit or stand tall, arms relaxed at sides.</li>
-          <li><span class="step-n">2</span>Roll shoulders <strong>up, back, then DOWN</strong> in a slow deliberate circle. Emphasise the "down."</li>
-          <li><span class="step-n">3</span>10 slow circles backward, then 10 forward.</li>
-          <li><span class="step-n">4</span>Finish: hold shoulders pressed down for 10 seconds.</li>
-        </ol>
-        <div class="dosage"><strong>Dose:</strong> Every hour, or immediately when tension starts building.</div>
-        <div class="source-cite"><strong>Source:</strong> Physiopedia: <a href="https://www.physio-pedia.com/Trapezius" target="_blank">Trapezius</a> — "Stretches can be done in repetitions of 15–20 every hour to decrease trapezius muscle pain." | Castelein B et al. (2016). Chronic neck pain, scapular dyskinesis and altered scapulothoracic muscle activity. <em>J Electromyogr Kinesiol</em>, 31:136–143.</div>
-      </div>
-    </div>
-
-    <!-- Ex 4 -->
-    <div class="exercise-card">
-      <div class="ex-img-wrap">
-        <img
-          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/7-minute-neck-pain-746.jpeg"
-          alt="Therapist demonstrating corner chest stretch with forearms on wall"
-          onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAEsCAIAAABi1XKVAAATIUlEQVR4nO3de0yVdfzA8e85BxFkKSZC4CVAQQURBynI5SzDSzMsheaGaesy15bmjNbFNeelzNXWH8a0mU3LmLVSZinJJDHBvIRYKOAVUUrYzLzFTW7n98fz2/md3+FyroAfeL/+Op7znPNc3PPe93l4znN09fX1CgAk0Pf1AgCAvQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxPPp6ASTJzs7u60XoP5YsWdLXiwB5GGEBEIMRlsNiY2P7ehH6XklJifbAia1hfi/gKEZYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADEIFgAxCBYAMQgWADE4LuEDuOrcEBfYYQFQAxGWA7gFk6WuDsYeh8jLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiECwAYhAsAGIQLABiePT1AmCAys7O7utFeIgsWbKkrxdBBkZY6G2xsbF9vQiQihEW+gDNMispKenrRZCEERYA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'"
-        />
-        <div class="img-source-credit">Image: Spine-Health.com / Veritas Health — peer-reviewed by Dr. Zinovy Meyler, DO</div>
-      </div>
-      <div class="ex-body">
-        <div class="ex-number">Exercise 04</div>
-        <h2>Corner / Doorway Chest Stretch</h2>
-        <span class="muscle-tag">Pectoralis Major &amp; Minor</span>
-        <p>Opens the tight chest muscles that pull the shoulders forward and load the posterior neck. Cumha et al. (2008) found stretching pectorals alongside the levator scapulae significantly improved cervical range of motion.</p>
-        <ol class="steps">
-          <li><span class="step-n">1</span>Face a corner, feet together about 60 cm away.</li>
-          <li><span class="step-n">2</span>Place forearms on each wall, elbows at or slightly below shoulder height.</li>
-          <li><span class="step-n">3</span>Lean body weight forward until you feel a stretch across the chest and front of shoulders.</li>
-          <li><span class="step-n">4</span>Keep core slightly engaged — do not let the lower back arch.</li>
-          <li><span class="step-n">5</span>Hold 30–60 seconds.</li>
-        </ol>
-        <div class="dosage"><strong>Dose:</strong> Morning, mid-afternoon, before bed. 3–5× daily if tolerated.</div>
-        <div class="source-cite"><strong>Source:</strong> Meyler Z. <a href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Easy Chest Stretches for Neck Pain</a>. Spine-Health / Veritas Health. | Cunha ACV et al. (2008). Effect of Global Posture Reeducation and Static Stretching on Pain and Range of Motion in Women with Chronic Neck Pain. <em>Clinics (São Paulo)</em>, 63(6):763–770.</div>
-      </div>
-    </div>
-
-    <h2 class="sec-head">Heat &amp; Self-Release</h2>
-    <div class="ergo-grid">
-      <div class="ergo-card">
-        <div class="ergo-icon">🔥</div>
-        <h3>Heat Before Stretching</h3>
-        <p>Apply a warm heat pack to the neck/upper shoulder for 10 minutes before stretching. Heat relaxes muscle fibres and significantly increases stretch effectiveness. Moist heat penetrates better than dry.</p>
-      </div>
-      <div class="ergo-card">
-        <div class="ergo-icon">👋</div>
-        <h3>Self-Massage</h3>
-        <p>Using your opposite hand, apply firm circular pressure into the neck/shoulder junction for 1–2 minutes per side before stretching. Slow pressure on trigger points releases accumulated tension.</p>
-      </div>
-      <div class="ergo-card" style="grid-column: 1 / -1;">
-        <div class="ergo-icon">🎾</div>
-        <h3>Tennis Ball Trigger Point Release</h3>
-        <p>Place a tennis ball between your upper back/shoulder blade and a wall. Lean in to find tender spots. Hold on each spot 30–60 seconds. Move slowly — this is targeted pressure, not rolling. Effective for releasing levator scapulae trigger points that don't respond to stretching alone.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- SUPPLEMENTS                      -->
-  <!-- ════════════════════════════════ -->
-  <div id="supplements">
-    <div class="section-label">Page 3 of 3</div>
-    <h1 class="page-title">Supportive Supplements</h1>
-    <div class="intro-box">
-      These supplements do not replace ergonomic corrections or exercise, but have peer-reviewed evidence for reducing muscle tension, inflammation, and pain perception. Dosages are standard adult ranges — check with a GP or pharmacist if on any medications.
-    </div>
-
-    <table class="supp-table">
-      <thead>
-        <tr>
-          <th style="width:22%">Supplement</th>
-          <th>Why It Helps</th>
-          <th style="width:16%">Dose</th>
-          <th style="width:20%">Evidence</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="supp-name">Magnesium Glycinate</div></td>
-          <td>Muscle relaxant. Deficiency is strongly linked to muscle tension, spasm, and poor sleep. Glycinate form is best absorbed and gentlest on the stomach.</td>
-          <td><span class="dose-badge">300–400 mg before bed</span></td>
-          <td><div class="supp-ref">Gröber U et al. (2015). Magnesium in Prevention and Therapy. <em>Nutrients</em>, 7(9):8199–8226. <a href="https://pubmed.ncbi.nlm.nih.gov/26404370/" target="_blank">PubMed</a></div></td>
-        </tr>
-        <tr>
-          <td><div class="supp-name">Omega-3 Fish Oil</div></td>
-          <td>Anti-inflammatory. Reduces systemic inflammation in muscle and connective tissue. 4–6 weeks of consistent use for meaningful effect.</td>
-          <td><span class="dose-badge">2–3 g EPA+DHA daily</span></td>
-          <td><div class="supp-ref">Goldberg RJ, Katz J. (2007). A meta-analysis of the analgesic effects of omega-3 fatty acids. <em>Pain</em>, 129(1–2):210–23. <a href="https://pubmed.ncbi.nlm.nih.gov/17335973/" target="_blank">PubMed</a></div></td>
-        </tr>
-        <tr>
-          <td><div class="supp-name">Curcumin + Piperine</div></td>
-          <td>Anti-inflammatory via NF-kB pathway. Piperine (black pepper extract) increases absorption by up to 2,000%. Comparable to ibuprofen in some chronic pain trials.</td>
-          <td><span class="dose-badge">500 mg + piperine, 2× daily</span></td>
-          <td><div class="supp-ref">Daily JW et al. (2016). Efficacy of Turmeric Extracts and Curcumin for Alleviating Pain. <em>J Med Food</em>, 19(8):717–29. <a href="https://pubmed.ncbi.nlm.nih.gov/27213821/" target="_blank">PubMed</a></div></td>
-        </tr>
-        <tr>
-          <td><div class="supp-name">Vitamin D3 + K2</div></td>
-          <td>Deficiency independently associated with musculoskeletal pain. Northern latitude deficiency is extremely common, especially in winter months.</td>
-          <td><span class="dose-badge">2,000–4,000 IU D3 daily</span></td>
-          <td><div class="supp-ref">Straube S et al. (2015). Vitamin D for the treatment of chronic painful conditions in adults. <em>Cochrane Database</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/26068955/" target="_blank">PubMed</a></div></td>
-        </tr>
-        <tr>
-          <td><div class="supp-name">Collagen Peptides (Type I/III)</div></td>
-          <td>Supports tendon and connective tissue repair. The levator scapulae attaches via tendons — collagen maintains elasticity and supports recovery from chronic overload.</td>
-          <td><span class="dose-badge">10 g daily with vitamin C</span></td>
-          <td><div class="supp-ref">Shaw G et al. (2017). Vitamin C–enriched gelatin supplementation before exercise increases collagen synthesis. <em>AJCN</em>, 105(1):136–143. <a href="https://pubmed.ncbi.nlm.nih.gov/27852613/" target="_blank">PubMed</a></div></td>
-        </tr>
-        <tr>
-          <td><div class="supp-name">Vitamin C</div></td>
-          <td>Required cofactor for collagen synthesis. Also an antioxidant reducing oxidative stress in overloaded tissue. Take alongside collagen for maximum benefit.</td>
-          <td><span class="dose-badge">500–1,000 mg daily</span></td>
-          <td><div class="supp-ref">DePhillipo NN et al. (2018). Efficacy of Vitamin C Supplementation on Collagen Synthesis. <em>Orthopaedic J Sports Med</em>, 6(10). <a href="https://pubmed.ncbi.nlm.nih.gov/30386805/" target="_blank">PubMed</a></div></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 class="sec-head">Topical Options</h2>
-    <div class="topical-grid">
-      <div class="topical-card">
-        <h4>🧴 Magnesium Oil Spray</h4>
-        <p>Applied directly to the tight neck/shoulder. Spray 5–10 pumps, massage gently in. Many report meaningful local muscle relaxation.</p>
-      </div>
-      <div class="topical-card">
-        <h4>🌿 Arnica Gel</h4>
-        <p>Well-tolerated topical anti-inflammatory. Apply to the upper shoulder/neck junction 2–3× daily. Available at pharmacies without prescription.</p>
-      </div>
-      <div class="topical-card">
-        <h4>💊 Voltaren (Diclofenac Gel)</h4>
-        <p>OTC NSAID gel. Reduces local inflammation without GI side effects of oral NSAIDs. Use for acute flare-ups of 5–7 days.</p>
-      </div>
-    </div>
-
-    <h2 class="sec-head">Recovery Timeline</h2>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot">W1–2</div>
-        <h4>Weeks 1–2</h4>
-        <p>Reduction in acute tension and end-of-day pain</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">W3–4</div>
-        <h4>Weeks 3–4</h4>
-        <p>Improved range of motion, less morning stiffness</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">M2</div>
-        <h4>Month 2</h4>
-        <p>Significant baseline symptom reduction</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">M3</div>
-        <h4>Month 3</h4>
-        <p>New habits established, reduced relapse risk</p>
-      </div>
-    </div>
-
+  <div class="ergo-grid">
     <div class="ergo-card highlight">
-      <div class="ergo-icon">⚠️</div>
-      <h3>When to See a Professional</h3>
-      <p style="font-family:Arial,sans-serif;font-size:14px;color:#444;margin-top:8px;">If symptoms don't improve meaningfully within 4 weeks, or if pain radiates into the arm or causes tingling/numbness in the fingers, consult a physiotherapist or GP. This protocol addresses muscle-origin pain. Nerve involvement (radiculopathy) requires different management and should not be self-treated.</p>
+      <div class="ergo-icon">🚨</div>
+      <h3>Priority Fix — Secondary Monitor Height</h3>
+      <ul>
+        <li>Raise it to <strong>exactly match</strong> the primary monitor height <a class="src" href="https://www.osha.gov/etools/computer-workstations/components/monitors" target="_blank">OSHA monitors</a></li>
+        <li>Use a monitor arm, riser stand, or solid stack of books</li>
+        <li>Position no more than 30–35° to the side</li>
+        <li>This single change outweighs all stretches combined if done consistently</li>
+      </ul>
+    </div>
+    <div class="ergo-card">
+      <div class="ergo-icon">🖥️</div>
+      <h3>Primary Monitor</h3>
+      <ul>
+        <li>Centred directly in front of you</li>
+        <li>Top of screen at or just below eye level <a class="src" href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank">Mayo Clinic</a></li>
+        <li>Natural gaze angled 10–15° downward</li>
+        <li>Arm's length distance (50–70 cm)</li>
+      </ul>
+    </div>
+    <div class="ergo-card">
+      <div class="ergo-icon">🪑</div>
+      <h3>Chair &amp; Keyboard Height</h3>
+      <ul>
+        <li>Elbows at ~90°, forearms parallel to floor <a class="src" href="https://www.osha.gov/etools/computer-workstations/components/chairs" target="_blank">OSHA chairs</a></li>
+        <li>Wrists at or <em>below</em> elbow height on keyboard — never above</li>
+        <li>Feet flat on floor or footrest</li>
+        <li>Lower back supported by chair or lumbar cushion</li>
+      </ul>
+    </div>
+    <div class="ergo-card">
+      <div class="ergo-icon">📐</div>
+      <h3>Head &amp; Neck Position</h3>
+      <ul>
+        <li>Ears stacked directly over shoulders at all times</li>
+        <li>Forward head posture increases levator scapulae tension directly <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae" target="_blank">Physiopedia</a></li>
+        <li>Never cradle a phone between ear and shoulder — a known levator trigger <a class="src" href="https://www.muscle-joint-pain.com/trigger-points/trigger-point-self-treatment/levator-scapulae/" target="_blank">Muscle-joint-pain.com</a></li>
+        <li>Current glasses prescription — squinting drives neck extension</li>
+      </ul>
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ════════════════════════════════ -->
-  <!-- SOURCES                          -->
-  <!-- ════════════════════════════════ -->
-  <div id="sources">
-    <h1 class="page-title">Sources &amp; References</h1>
-    <div class="sources-box">
-
-      <div class="src-category">Ergonomics</div>
-      <ol>
-        <li>OSHA. <a href="https://www.osha.gov/etools/computer-workstations" target="_blank">Computer Workstations eTool</a>. U.S. Occupational Safety and Health Administration. The primary government standard for workstation ergonomics.</li>
-        <li>Mayo Clinic Staff. <a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank">Office Ergonomics: Your How-To Guide</a>. Mayo Clinic, 2023.</li>
-      </ol>
-
-      <div class="src-category">Exercise & Anatomy</div>
-      <ol start="3">
-        <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Easy Levator Scapulae Stretch for Neck Pain</a>. Spine-Health / Veritas Health. Peer-reviewed, 2018. (Spine-Health is a peer-reviewed patient resource affiliated with the North American Spine Society.)</li>
-        <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Easy Chin Tucks for Neck Pain</a>. Spine-Health / Veritas Health, 2018.</li>
-        <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Easy Chest Stretches for Neck Pain</a>. Spine-Health / Veritas Health, 2018.</li>
-        <li>Physiopedia Contributors. <a href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Levator Scapulae Syndrome</a>. Physiopedia. (Physiopedia is the open-access educational resource of the World Physiotherapy organization.)</li>
-        <li>Physiopedia Contributors. <a href="https://www.physio-pedia.com/Trapezius" target="_blank">Trapezius</a>. Physiopedia.</li>
-        <li>Ahn S-H et al. (2020). Effect of Chin Tuck Exercises on Various Postures and Muscle Activity of the Neck and Shoulder. <em>PNF and Movement</em>, 18(3):403–414.</li>
-        <li>Castelein B et al. (2016). Are chronic neck pain, scapular dyskinesis and altered scapulothoracic muscle activity interrelated? <em>Journal of Electromyography and Kinesiology</em>, 31:136–143.</li>
-        <li>Cunha ACV et al. (2008). Effect of Global Posture Reeducation and Static Stretching on Pain, Range of Motion, and Quality of Life in Women with Chronic Neck Pain. <em>Clinics (São Paulo)</em>, 63(6):763–770.</li>
-      </ol>
-
-      <div class="src-category">Supplements</div>
-      <ol start="11">
-        <li>Gröber U et al. (2015). Magnesium in Prevention and Therapy. <em>Nutrients</em>, 7(9):8199–8226. <a href="https://pubmed.ncbi.nlm.nih.gov/26404370/" target="_blank">PubMed 26404370</a></li>
-        <li>Goldberg RJ & Katz J. (2007). A meta-analysis of the analgesic effects of omega-3 fatty acids for inflammatory joint pain. <em>Pain</em>, 129(1–2):210–23. <a href="https://pubmed.ncbi.nlm.nih.gov/17335973/" target="_blank">PubMed 17335973</a></li>
-        <li>Daily JW et al. (2016). Efficacy of Turmeric Extracts and Curcumin for Alleviating the Symptoms of Joint Arthritis. <em>Journal of Medicinal Food</em>, 19(8):717–729. <a href="https://pubmed.ncbi.nlm.nih.gov/27213821/" target="_blank">PubMed 27213821</a></li>
-        <li>Straube S et al. (2015). Vitamin D for the treatment of chronic painful conditions in adults. <em>Cochrane Database of Systematic Reviews</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/26068955/" target="_blank">PubMed 26068955</a></li>
-        <li>Shaw G et al. (2017). Vitamin C–enriched gelatin supplementation before exercise increases collagen synthesis in connective tissue. <em>American Journal of Clinical Nutrition</em>, 105(1):136–143. <a href="https://pubmed.ncbi.nlm.nih.gov/27852613/" target="_blank">PubMed 27852613</a></li>
-        <li>DePhillipo NN et al. (2018). Efficacy of Vitamin C Supplementation on Collagen Synthesis and Oxidative Stress After Musculoskeletal Injuries. <em>Orthopaedic Journal of Sports Medicine</em>, 6(10). <a href="https://pubmed.ncbi.nlm.nih.gov/30386805/" target="_blank">PubMed 30386805</a></li>
-      </ol>
+  <div class="break-rules">
+    <div class="break-rule">
+      <div class="time">45 min</div>
+      <p>Maximum seated time before standing up and doing 2–3 shoulder rolls
+        <a class="src" style="background:rgba(255,255,255,0.2);color:white;border-color:rgba(255,255,255,0.3);" href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank">Mayo Clinic</a>
+      </p>
     </div>
-
-    <div class="disclaimer">
-      This guide is for informational and educational purposes only and does not constitute professional medical advice. Consult a qualified physiotherapist or physician for a personalised treatment plan. Exercise images © Spine-Health.com / Veritas Health and Wikimedia Commons contributors.
+    <div class="break-rule">
+      <div class="time">20 min</div>
+      <p>Every 20 min: look away for 20 seconds and consciously drop your shoulders — they are likely hiked up</p>
+    </div>
+    <div class="break-rule">
+      <div class="time">Calls</div>
+      <p>Take phone and video calls standing — easiest movement break you can build into the workday</p>
     </div>
   </div>
-
 </div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ EXERCISES ═══════════════════ -->
+<div id="exercises">
+  <div class="section-label">Page 2 of 3</div>
+  <h1 class="page-title">Exercises &amp; Stretches</h1>
+
+  <div class="intro-box">
+    The three exercises recommended by physiatrists as the standard first-line protocol for levator scapulae and upper trapezius overload are: the levator scapulae stretch, the chin tuck, and the chest/corner stretch.
+    <a class="src" href="https://www.spine-health.com/wellness/exercise/daily-exercises-and-stretches-prevent-neck-pain" target="_blank">Spine-Health — Daily Exercises</a>
+    Consistent daily practice at moderate intensity outperforms occasional aggressive stretching.
+    <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Physiopedia — LSS treatment</a>
+  </div>
+
+  <!-- EXERCISE 1 -->
+  <div class="exercise-card priority">
+    <div class="ex-img-wrap">
+      <div class="priority-badge">⭐ Priority #1</div>
+      <img
+        src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/3-stretches-neck-pain-157.png"
+        alt="Therapist demonstrating levator scapulae stretch"
+        onerror="this.src= + b64["lev_stretch"] + ; this.onerror=null;"
+      />
+      <div class="img-credit">
+        Image: <a href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Spine-Health.com / Veritas Health</a> — peer-reviewed by Dr. Zinovy Meyler, DO, Physiatrist
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-number">Exercise 01</div>
+      <h2>Levator Scapulae Stretch</h2>
+      <span class="muscle-tag">Levator Scapulae — Primary Target</span>
+      <p>
+        The most direct treatment for this specific muscle. The levator scapulae runs from C1–C4 down to the superior angle of the scapula
+        <a class="src" href="https://www.ncbi.nlm.nih.gov/books/NBK553120/" target="_blank">NCBI StatPearls</a>
+        — this stretch targets its full length. The arm-raised position is important: it rotates the shoulder blade downward first, lengthening the muscle <em>before</em> the stretch begins, making it significantly more effective.
+        <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Spine-Health</a>
+      </p>
+      <ol class="steps">
+        <li><span class="step-n">1</span>Sit or stand tall. Actively <strong>press the shoulder down</strong> on the side being stretched — do not let it shrug up.</li>
+        <li><span class="step-n">2</span>Raise the arm on that side forward and reach it over your back, grasping the shoulder blade and pressing gently downward. (This pre-lengthens the muscle before the neck movement.)</li>
+        <li><span class="step-n">3</span>While keeping the shoulder pressed down, rotate your head to the <strong>opposite</strong> side — about 45° (halfway toward the other shoulder).</li>
+        <li><span class="step-n">4</span>Tilt the chin downward until you feel a distinct pull on the back of the neck, between the neck and the top of the shoulder blade.</li>
+        <li><span class="step-n">5</span>To deepen: bring the opposite hand to the back of the head and apply very light downward pressure. Never force.</li>
+        <li><span class="step-n">6</span>Hold 30–60 seconds. Breathe slowly throughout. Release and switch sides.</li>
+      </ol>
+      <div class="dosage"><strong>Dose:</strong> 3 reps per side, 2–3× daily. The tighter side (the secondary monitor side) gets an extra set. <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Spine-Health</a></div>
+      <div class="src-block">
+        <strong>Sources for this exercise:</strong><br>
+        • Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Easy Levator Scapulae Stretch for Neck Pain</a>. Spine-Health / Veritas Health (peer-reviewed). This page describes the exact technique for this specific muscle.<br>
+        • Neck Stretches. <a href="https://www.spine-health.com/conditions/neck-pain/neck-stretches" target="_blank">Spine-Health — Neck Stretches</a>. Includes the door-jamb variation of the same stretch.<br>
+        • Henry JP, Munakomi S. <a href="https://www.ncbi.nlm.nih.gov/books/NBK553120/" target="_blank">Anatomy, Head and Neck, Levator Scapulae Muscles</a>. StatPearls / NCBI. Confirms anatomy and effective physical therapy as first-line treatment.<br>
+        • Physiopedia. <a href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Levator Scapulae Syndrome — Treatment</a>. Confirms stretching exercises as primary conservative treatment.
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 2 -->
+  <div class="exercise-card">
+    <div class="ex-img-wrap">
+      <img
+        src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/exercise-backpain-levatorscapulae.png"
+        alt="Levator scapulae stretch wall variation"
+        onerror="this.src= + b64["chin_tuck"] + ; this.onerror=null;"
+      />
+      <div class="img-credit">
+        Image: <a href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Spine-Health.com / Veritas Health</a> — Chin Tuck article
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-number">Exercise 02</div>
+      <h2>Chin Tuck</h2>
+      <span class="muscle-tag">Deep Cervical Flexors — Postural Correction</span>
+      <p>
+        Forward head posture directly increases tension in the levator scapulae because it forces the muscle to co-contract for cervical extension in an elongated position.
+        <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae" target="_blank">Physiopedia — Levator Scapulae</a>
+        The chin tuck strengthens the deep cervical flexors that pull the head back into alignment, removing the chronic postural load.
+        <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Spine-Health</a>
+        It also stretches the suboccipital muscles at the base of the skull — a common secondary pain source with this presentation.
+        <a class="src" href="https://www.spine-health.com/conditions/neck-pain/neck-strengthening-exercises" target="_blank">Spine-Health — Neck Strengthening</a>
+      </p>
+      <ol class="steps">
+        <li><span class="step-n">1</span>Sit tall, eyes level with the horizon. Place one finger lightly on your chin as a reference point.</li>
+        <li><span class="step-n">2</span>Without moving the finger, glide your head <strong>straight backward</strong> — like a drawer sliding in. Your gaze stays perfectly horizontal.</li>
+        <li><span class="step-n">3</span>Do NOT tilt the chin down or nod the head — the movement is purely horizontal retraction.</li>
+        <li><span class="step-n">4</span>You should feel a stretch at the base of the head and top of the neck, and the chin should separate from your finger.</li>
+        <li><span class="step-n">5</span>Hold 5 seconds. Release slowly. Repeat 10 times.</li>
+      </ol>
+      <div class="dosage"><strong>Dose:</strong> 10 reps, 5–7 sets throughout the day. Easy to do during calls or between tasks. <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Spine-Health</a></div>
+      <div class="src-block">
+        <strong>Sources for this exercise:</strong><br>
+        • Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Easy Chin Tucks for Neck Pain</a>. Spine-Health / Veritas Health (peer-reviewed). Step-by-step instructions from a physiatrist.<br>
+        • Morrison G, PT. <a href="https://www.spine-health.com/conditions/neck-pain/neck-strengthening-exercises" target="_blank">Neck Strengthening Exercises</a>. Spine-Health. Explains why the chin tuck specifically addresses forward-head posture driving neck pain.<br>
+        • Physiopedia. <a href="https://www.physio-pedia.com/Levator_Scapulae" target="_blank">Levator Scapulae</a>. Confirms forward head posture increases levator scapulae tension directly.
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3 -->
+  <div class="exercise-card">
+    <div class="ex-img-wrap">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/ShoulderRoll.jpg/800px-ShoulderRoll.jpg"
+        alt="Shoulder rolls exercise"
+        onerror="this.src= + b64["shoulder_roll"] + ; this.onerror=null;"
+      />
+      <div class="img-credit">Image: Wikimedia Commons (CC BY-SA)</div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-number">Exercise 03</div>
+      <h2>Shoulder Rolls — Back &amp; Down</h2>
+      <span class="muscle-tag">Upper Trapezius — Secondary Target</span>
+      <p>
+        The upper trapezius is a secondary driver of pain in this presentation, loaded by the elevated keyboard position causing chronic shoulder hike. The levator scapulae and upper trapezius work together to elevate and stabilize the scapula — tension in one feeds tension in the other.
+        <a class="src" href="https://www.physio-pedia.com/Trapezius" target="_blank">Physiopedia — Trapezius</a>
+        Shoulder rolls specifically target the upper trap's resting tone and re-educate the shoulder's downward resting position.
+      </p>
+      <ol class="steps">
+        <li><span class="step-n">1</span>Sit or stand tall, arms relaxed at sides.</li>
+        <li><span class="step-n">2</span>Roll shoulders <strong>up, back, then DOWN</strong> in a slow deliberate circle. Heavily emphasise the "down" phase.</li>
+        <li><span class="step-n">3</span>Complete 10 slow circles backward, then 10 forward.</li>
+        <li><span class="step-n">4</span>Finish with a 10-second hold: shoulders pressed consciously as far downward as possible.</li>
+      </ol>
+      <div class="dosage"><strong>Dose:</strong> Every hour minimum, or immediately when you notice tension creeping back in. <a class="src" href="https://www.physio-pedia.com/Trapezius" target="_blank">Physiopedia</a> recommends 15–20 reps every hour for upper trap pain.</div>
+      <div class="src-block">
+        <strong>Sources for this exercise:</strong><br>
+        • Physiopedia. <a href="https://www.physio-pedia.com/Trapezius" target="_blank">Trapezius — Stretching</a>. States shoulder rolls and shrugs "can be done in repetitions of 15–20 every hour to decrease trapezius muscle pain."<br>
+        • Castelein B et al. (2016). Are chronic neck pain, scapular dyskinesis and altered scapulothoracic muscle activity interrelated? <em>J Electromyogr Kinesiol</em>, 31:136–143. Establishes the neck–trapezius–levator relationship.
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 4 -->
+  <div class="exercise-card">
+    <div class="ex-img-wrap">
+      <img
+        src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_north,h_600,w_900/q_auto:eco/7-minute-neck-pain-746.jpeg"
+        alt="Corner chest stretch demonstration"
+        onerror="this.src= + b64["corner_stretch"] + ; this.onerror=null;"
+      />
+      <div class="img-credit">
+        Image: <a href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Spine-Health.com / Veritas Health</a> — Corner Chest Stretch article
+      </div>
+    </div>
+    <div class="ex-body">
+      <div class="ex-number">Exercise 04</div>
+      <h2>Corner / Doorway Chest Stretch</h2>
+      <span class="muscle-tag">Pectoralis Major &amp; Minor — Postural Foundation</span>
+      <p>
+        Tight pectoral muscles pull the shoulders forward and inward, creating the rounded-shoulder posture that loads the posterior neck muscles including the levator scapulae.
+        <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Spine-Health</a>
+        Stretching the chest muscles is consistently recommended alongside the levator stretch as a pair — one without the other is incomplete.
+        <a class="src" href="https://www.spine-health.com/wellness/exercise/daily-exercises-and-stretches-prevent-neck-pain" target="_blank">Spine-Health — Daily Exercises</a>
+      </p>
+      <ol class="steps">
+        <li><span class="step-n">1</span>Face the corner of a room, feet together about 60 cm from the corner.</li>
+        <li><span class="step-n">2</span>Place one forearm on each wall, elbows at or slightly below shoulder height.</li>
+        <li><span class="step-n">3</span>Lean body weight forward until you feel a stretch across the chest and front of the shoulders.</li>
+        <li><span class="step-n">4</span>Keep core lightly engaged — do not let the lower back arch excessively.</li>
+        <li><span class="step-n">5</span>Hold 30–60 seconds.</li>
+      </ol>
+      <div class="dosage"><strong>Dose:</strong> 3–5× daily. Morning, mid-afternoon, and before bed at minimum. <a class="src" href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Spine-Health</a></div>
+      <div class="src-block">
+        <strong>Sources for this exercise:</strong><br>
+        • Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Easy Chest Stretches for Neck Pain</a>. Spine-Health / Veritas Health (peer-reviewed). Step-by-step corner stretch instructions for neck pain management.<br>
+        • Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/daily-exercises-and-stretches-prevent-neck-pain" target="_blank">Daily Exercises and Stretches to Prevent Neck Pain</a>. Spine-Health. Names the chest stretch as one of only three key exercises for this condition alongside the chin tuck and levator stretch.
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec-head">Heat &amp; Self-Release</h2>
+  <div class="ergo-grid">
+    <div class="ergo-card">
+      <div class="ergo-icon">🔥</div>
+      <h3>Heat Before Stretching</h3>
+      <p>Apply a warm pack to the neck and upper shoulder for 10 minutes before stretching. Heat relaxes muscle fibres and increases stretch effectiveness significantly. Moist heat is more effective than dry heat for deep tissue penetration.</p>
+    </div>
+    <div class="ergo-card">
+      <div class="ergo-icon">👋</div>
+      <h3>Self-Massage</h3>
+      <p>Apply firm circular pressure into the neck/shoulder junction with the opposite hand for 1–2 minutes before stretching. The levator scapulae has two documented trigger points just above the superior scapular angle — pressure on these spots before stretching improves outcomes.
+        <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Physiopedia — LSS</a>
+      </p>
+    </div>
+    <div class="ergo-card" style="grid-column: 1 / -1;">
+      <div class="ergo-icon">🎾</div>
+      <h3>Tennis Ball Trigger Point Release</h3>
+      <p>Place a tennis ball between your upper back/shoulder blade area and a wall. Lean in to find the tender spots just above the superior angle of the scapula — the known levator scapulae trigger point locations.
+        <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Physiopedia</a>
+        Hold pressure on each spot for 30–60 seconds rather than rolling. This is trigger point therapy, not foam rolling.
+        <a class="src" href="https://backmusclesolutions.com/blogs/the-ql-blawg/levator-scapulae-trigger-points" target="_blank">Back Muscle Solutions</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ SUPPLEMENTS ═══════════════════ -->
+<div id="supplements">
+  <div class="section-label">Page 3 of 3</div>
+  <h1 class="page-title">Supportive Supplements</h1>
+  <div class="intro-box">
+    These supplements do not replace ergonomic corrections or exercise but have peer-reviewed evidence for reducing muscle tension, inflammation, and pain perception. Each entry links to the specific study supporting its use for musculoskeletal pain. Standard adult doses listed — consult a GP or pharmacist if on medications.
+  </div>
+
+  <table class="supp-table">
+    <thead>
+      <tr>
+        <th style="width:20%">Supplement</th>
+        <th>Why It Helps</th>
+        <th style="width:16%">Dose</th>
+        <th style="width:24%">Evidence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="supp-name">Magnesium Glycinate</div></td>
+        <td>Magnesium is an essential cofactor in muscle relaxation. Deficiency is directly linked to increased muscle tension, spasm, and impaired sleep. Glycinate form is best absorbed and gentlest on the stomach.</td>
+        <td><span class="dose-badge">300–400 mg before bed</span></td>
+        <td><div class="pub">Gröber U et al. (2015). <a href="https://pubmed.ncbi.nlm.nih.gov/26404370/" target="_blank">Magnesium in Prevention and Therapy</a>. <em>Nutrients</em>, 7(9):8199–8226.</div></td>
+      </tr>
+      <tr>
+        <td><div class="supp-name">Omega-3 Fish Oil</div></td>
+        <td>Anti-inflammatory via prostaglandin pathways. A meta-analysis found omega-3 supplementation reduces musculoskeletal pain intensity. 4–6 weeks of consistent use required for meaningful effect.</td>
+        <td><span class="dose-badge">2–3 g EPA+DHA daily</span></td>
+        <td><div class="pub">Goldberg RJ &amp; Katz J. (2007). <a href="https://pubmed.ncbi.nlm.nih.gov/17335973/" target="_blank">Meta-analysis: analgesic effects of omega-3 fatty acids</a>. <em>Pain</em>, 129(1–2):210–23.</div></td>
+      </tr>
+      <tr>
+        <td><div class="supp-name">Curcumin + Piperine</div></td>
+        <td>Anti-inflammatory via NF-kB pathway. Piperine (black pepper extract) increases curcumin absorption by up to 2,000%. Trials show comparable efficacy to ibuprofen for chronic musculoskeletal pain.</td>
+        <td><span class="dose-badge">500 mg + piperine, 2× daily</span></td>
+        <td><div class="pub">Daily JW et al. (2016). <a href="https://pubmed.ncbi.nlm.nih.gov/27213821/" target="_blank">Efficacy of Turmeric for Pain</a>. <em>J Med Food</em>, 19(8):717–729.</div></td>
+      </tr>
+      <tr>
+        <td><div class="supp-name">Vitamin D3 + K2</div></td>
+        <td>Vitamin D deficiency is independently associated with musculoskeletal pain. A Cochrane review found supplementation reduces chronic pain in deficient individuals. Northern European deficiency is extremely common.</td>
+        <td><span class="dose-badge">2,000–4,000 IU D3 daily</span></td>
+        <td><div class="pub">Straube S et al. (2015). <a href="https://pubmed.ncbi.nlm.nih.gov/26068955/" target="_blank">Vitamin D for chronic painful conditions</a>. <em>Cochrane Database</em>.</div></td>
+      </tr>
+      <tr>
+        <td><div class="supp-name">Collagen Peptides (Type I/III)</div></td>
+        <td>The levator scapulae attaches via tendons susceptible to chronic overload injury. Vitamin C–enriched collagen supplementation before activity increases collagen synthesis in connective tissue, supporting tendon recovery.</td>
+        <td><span class="dose-badge">10 g daily + vitamin C</span></td>
+        <td><div class="pub">Shaw G et al. (2017). <a href="https://pubmed.ncbi.nlm.nih.gov/27852613/" target="_blank">Gelatin + Vitamin C increases collagen synthesis</a>. <em>AJCN</em>, 105(1):136–143.</div></td>
+      </tr>
+      <tr>
+        <td><div class="supp-name">Vitamin C</div></td>
+        <td>Required cofactor for collagen synthesis. Also an antioxidant reducing oxidative stress in chronically overloaded tissue. Take alongside collagen for maximum effect.</td>
+        <td><span class="dose-badge">500–1,000 mg daily</span></td>
+        <td><div class="pub">DePhillipo NN et al. (2018). <a href="https://pubmed.ncbi.nlm.nih.gov/30386805/" target="_blank">Vitamin C &amp; Collagen Synthesis</a>. <em>Orthopaedic J Sports Med</em>, 6(10).</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="sec-head">Topical Options</h2>
+  <div class="topical-grid">
+    <div class="topical-card">
+      <h4>🧴 Magnesium Oil Spray</h4>
+      <p>Applied directly to the tight neck/shoulder. 5–10 pumps, massaged in gently. Many report meaningful local muscle relaxation; used as an adjunct to systemic supplementation.</p>
+    </div>
+    <div class="topical-card">
+      <h4>🌿 Arnica Gel</h4>
+      <p>Well-tolerated topical anti-inflammatory. Apply to the neck/upper shoulder junction 2–3× daily. Available OTC at pharmacies. Good for acute flare-up days.</p>
+    </div>
+    <div class="topical-card">
+      <h4>💊 Voltaren (Diclofenac Gel)</h4>
+      <p>OTC NSAID gel. Reduces local inflammation without GI side effects of oral NSAIDs. Use for acute 5–7 day flare-ups specifically.</p>
+    </div>
+  </div>
+
+  <h2 class="sec-head">Recovery Timeline</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot">W1–2</div><h4>Weeks 1–2</h4><p>Reduction in acute tension and end-of-day pain</p></div>
+    <div class="tl-item"><div class="tl-dot">W3–4</div><h4>Weeks 3–4</h4><p>Improved range of motion, less morning stiffness</p></div>
+    <div class="tl-item"><div class="tl-dot">M2</div><h4>Month 2</h4><p>Significant baseline symptom reduction</p></div>
+    <div class="tl-item"><div class="tl-dot">M3</div><h4>Month 3</h4><p>New habits established, lower relapse risk</p></div>
+  </div>
+
+  <div class="ergo-card highlight" style="margin-bottom: 32px;">
+    <div class="ergo-icon">⚠️</div>
+    <h3>When to See a Professional</h3>
+    <p style="font-family:Arial,sans-serif;font-size:14px;color:#444;margin-top:8px;">
+      If symptoms do not improve meaningfully within 4 weeks, or if pain radiates into the arm or causes tingling/numbness in the fingers, consult a physiotherapist or GP. Radiating arm pain may indicate cervical radiculopathy — nerve involvement that requires different management and should not be self-treated.
+      <a class="src" href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Physiopedia</a>
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ FULL SOURCES ═══════════════════ -->
+<div id="sources">
+  <h1 class="page-title">Complete Sources &amp; References</h1>
+  <div class="full-sources">
+
+    <div class="src-cat">Anatomy &amp; Clinical Reference</div>
+    <ol>
+      <li>Henry JP, Munakomi S. <a href="https://www.ncbi.nlm.nih.gov/books/NBK553120/" target="_blank">Anatomy, Head and Neck, Levator Scapulae Muscles</a>. StatPearls [Internet]. NCBI Bookshelf, 2023. <em>The authoritative US clinical reference on this specific muscle — anatomy, function, pathology, and treatment.</em></li>
+      <li>Physiopedia Contributors. <a href="https://www.physio-pedia.com/Levator_Scapulae" target="_blank">Levator Scapulae</a>. Physiopedia (World Physiotherapy open-access resource). Anatomy, function, and assessment.</li>
+      <li>Physiopedia Contributors. <a href="https://www.physio-pedia.com/Levator_Scapulae_Syndrome" target="_blank">Levator Scapulae Syndrome</a>. Physiopedia. Clinical presentation, trigger points, and treatment protocol.</li>
+      <li>Physiopedia Contributors. <a href="https://www.physio-pedia.com/Trapezius" target="_blank">Trapezius</a>. Physiopedia. Describes upper trapezius function, relationship to levator scapulae, and exercise recommendations.</li>
+    </ol>
+
+    <div class="src-cat">Exercises (Spine-Health / Veritas Health — peer-reviewed by physiatrists)</div>
+    <ol start="5">
+      <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/daily-exercises-and-stretches-prevent-neck-pain" target="_blank">Daily Exercises and Stretches to Prevent Neck Pain</a>. Spine-Health. The overview article naming the exact three-exercise protocol used in this guide.</li>
+      <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-levator-scapulae-stretch-neck-pain" target="_blank">Easy Levator Scapulae Stretch for Neck Pain</a>. Spine-Health. <em>Specific step-by-step instructions for Exercise 1 in this guide, for this exact muscle.</em></li>
+      <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chin-tucks-neck-pain" target="_blank">Easy Chin Tucks for Neck Pain</a>. Spine-Health. Specific instructions for Exercise 2.</li>
+      <li>Meyler Z, DO. <a href="https://www.spine-health.com/wellness/exercise/easy-chest-stretches-neck-pain" target="_blank">Easy Chest Stretches for Neck Pain</a>. Spine-Health. Specific instructions for Exercise 4.</li>
+      <li>Morrison G, PT. <a href="https://www.spine-health.com/conditions/neck-pain/neck-strengthening-exercises" target="_blank">Neck Strengthening Exercises</a>. Spine-Health. Explains postural mechanics driving neck pain and why the chin tuck targets them.</li>
+      <li>Spine-Health. <a href="https://www.spine-health.com/conditions/neck-pain/neck-strains-causes-and-remedies" target="_blank">Neck Strain: Causes and Remedies</a>. Identifies the levator scapulae as a primary strained muscle in computer workers.</li>
+    </ol>
+
+    <div class="src-cat">Ergonomics</div>
+    <ol start="11">
+      <li>OSHA. <a href="https://www.osha.gov/etools/computer-workstations" target="_blank">Computer Workstations eTool</a>. U.S. Occupational Safety and Health Administration. The US government standard for workstation ergonomics.</li>
+      <li>OSHA. <a href="https://www.osha.gov/etools/computer-workstations/components/monitors" target="_blank">Computer Workstations — Monitors</a>. OSHA. Specific guidance on monitor height and positioning.</li>
+      <li>OSHA. <a href="https://www.osha.gov/etools/computer-workstations/components/chairs" target="_blank">Computer Workstations — Chairs</a>. OSHA. Chair height and keyboard positioning guidelines.</li>
+      <li>Mayo Clinic Staff. <a href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank">Office Ergonomics: Your How-To Guide</a>. Mayo Clinic, 2023.</li>
+    </ol>
+
+    <div class="src-cat">Peer-Reviewed Research — Supplements</div>
+    <ol start="15">
+      <li>Gröber U et al. (2015). <a href="https://pubmed.ncbi.nlm.nih.gov/26404370/" target="_blank">Magnesium in Prevention and Therapy</a>. <em>Nutrients</em>, 7(9):8199–8226.</li>
+      <li>Goldberg RJ &amp; Katz J. (2007). <a href="https://pubmed.ncbi.nlm.nih.gov/17335973/" target="_blank">A meta-analysis of the analgesic effects of omega-3 fatty acids for inflammatory joint pain</a>. <em>Pain</em>, 129(1–2):210–23.</li>
+      <li>Daily JW et al. (2016). <a href="https://pubmed.ncbi.nlm.nih.gov/27213821/" target="_blank">Efficacy of Turmeric Extracts and Curcumin for Alleviating the Symptoms of Joint Arthritis</a>. <em>Journal of Medicinal Food</em>, 19(8):717–729.</li>
+      <li>Straube S et al. (2015). <a href="https://pubmed.ncbi.nlm.nih.gov/26068955/" target="_blank">Vitamin D for the treatment of chronic painful conditions in adults</a>. <em>Cochrane Database of Systematic Reviews</em>.</li>
+      <li>Shaw G et al. (2017). <a href="https://pubmed.ncbi.nlm.nih.gov/27852613/" target="_blank">Vitamin C–enriched gelatin supplementation before exercise increases collagen synthesis</a>. <em>American Journal of Clinical Nutrition</em>, 105(1):136–143.</li>
+      <li>DePhillipo NN et al. (2018). <a href="https://pubmed.ncbi.nlm.nih.gov/30386805/" target="_blank">Efficacy of Vitamin C Supplementation on Collagen Synthesis and Oxidative Stress After Musculoskeletal Injuries</a>. <em>Orthopaedic Journal of Sports Medicine</em>, 6(10).</li>
+    </ol>
+
+  </div>
+
+  <div class="disclaimer">
+    This guide is for informational and educational purposes only and does not constitute professional medical advice. Consult a qualified physiotherapist or physician for a personalised treatment plan.
+    Exercise images © Spine-Health.com / Veritas Health and Wikimedia Commons contributors.
+  </div>
+</div>
+
+</div><!-- /page -->
 </body>
 </html>
