@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levator Scapulae Recovery Plan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #f4f1ec;
+    color: #2a2a2a;
+    line-height: 1.7;
+  }
+
+  /* ── Cover header ── */
+  .cover {
+    background: linear-gradient(135deg, #1a3a52 0%, #2c5f8a 60%, #3d7ab5 100%);
+    color: white;
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .cover-tag {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7ec8e3;
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cover h1 span { color: #7ec8e3; }
+  .cover-sub {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+  }
+  .cover-pills {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── Nav tabs ── */
+  .nav {
+    background: #1a3a52;
+    display: flex;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .nav a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 16px 24px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav a:hover { color: white; border-bottom-color: #7ec8e3; }
+
+  /* ── Page sections ── */
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 52px 40px;
+  }
+
+  .section-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #2c5f8a;
+    margin-bottom: 8px;
+  }
+
+  .page-title {
+    font-size: 34px;
+    font-weight: normal;
+    color: #1a3a52;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #2c5f8a;
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+
+  .intro-box {
+    background: #e8f0f7;
+    border-left: 4px solid #2c5f8a;
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: #2a2a2a;
+    margin-bottom: 40px;
+  }
+  .intro-box strong { color: #1a3a52; }
+
+  /* ── Ergonomics grid ── */
+  .ergo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 640px) { .ergo-grid { grid-template-columns: 1fr; } }
+
+  .ergo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .ergo-card.highlight {
+    background: #fff8e1;
+    border: 2px solid #f59e0b;
+  }
+  .ergo-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .ergo-card h3 {
+    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1a3a52;
+    margin-bottom: 10px;
+  }
+  .ergo-card.highlight h3 { color: #b45309; }
+  .ergo-card p, .ergo-card ul {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #444;
+  }
+  .ergo-card ul { padding-left: 18px; }
+  .ergo-card ul li { margin-bottom: 6px; }
+
+  .ergo-image-wrap {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+  }
+  .ergo-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .ergo-image-wrap figcaption {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: #666;
+    padding: 12px 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    font-style: italic;
+  }
+
+  .break-rules {
+    background: #1a3a52;
+    color: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .break-rule { flex: 1; min-width: 200px; }
+  .break-rule .time {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #7ec8e3;
+    margin-bottom: 4px;
+  }
+  .break-rule p {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── Exercises ── */
+  .exercise-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+  }
+  @media (max-width: 700px) {
+    .exercise-card { grid-template-columns: 1fr; }
+  }
+  .exercise-card.priority {
+    border: 2px solid #2c5f8a;
+  }
+  .exercise-img {
+    position: relative;
+    overflow: hidden;
+    background: #e8f0f7;
+  }
+  .exercise-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 260px;
+  }
+  .priority-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: #2c5f8a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .exercise-body { padding: 28px 32px; }
+  .ex-number {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .exercise-body h2 {
+    font-size: 22px;
+    color: #1a3a52;
+    margin-bottom: 6px;
+  }
+  .exercise-body .muscle-tag {
+    display: inline-block;
+    background: #e8f0f7;
+    color: #2c5f8a;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .exercise-body p {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 16px;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 18px;
+  }
+  .steps li {
+    display: flex;
+    gap: 12px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .steps li .step-n {
+    background: #2c5f8a;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .dosage {
+    background: #f0f7f0;
+    border-left: 3px solid #2d9d5a;
+    padding: 10px 16px;
+    border-radius: 0 6px 6px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: #1a4a2a;
+  }
+  .dosage strong { color: #2d9d5a; }
+
+  /* ── Supplements ── */
+  .supp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 36px;
+  }
+  .supp-table thead tr {
+    background: #1a3a52;
+    color: white;
+  }
+  .supp-table thead th {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: normal;
+  }
+  .supp-table tbody tr {
+    background: white;
+    transition: background 0.15s;
+  }
+  .supp-table tbody tr:nth-child(even) { background: #f8fafd; }
+  .supp-table tbody tr:hover { background: #eef4fb; }
+  .supp-table td {
+    padding: 14px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  .supp-name { font-weight: bold; color: #1a3a52; }
+  .dose-badge {
+    display: inline-block;
+    background: #e8f0f7;
+    color: #2c5f8a;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .topical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 640px) { .topical-grid { grid-template-columns: 1fr; } }
+  .topical-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .topical-card h4 {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #1a3a52;
+    margin-bottom: 8px;
+  }
+  .topical-card p {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 0; right: 0;
+    height: 3px;
+    background: #e0e8f0;
+    z-index: 0;
+  }
+  .tl-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 8px;
+  }
+  .tl-dot {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #2c5f8a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    box-shadow: 0 0 0 4px white;
+  }
+  .tl-item h4 {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1a3a52;
+    margin-bottom: 4px;
+  }
+  .tl-item p {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .disclaimer {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: #777;
+    font-style: italic;
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #cbd5e1, transparent);
+    margin: 52px 0;
+  }
+
+  h2.section-heading {
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1a3a52;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">Physical Therapy Recovery Guide</div>
+  <h1>Levator Scapulae<br><span>Recovery Plan</span></h1>
+  <p class="cover-sub">A structured, evidence-based protocol for relieving neck and shoulder tension caused by sustained computer work and dual-monitor strain.</p>
+  <div class="cover-pills">
+    <div class="pill">🖥️ Ergonomic Setup</div>
+    <div class="pill">🧘 4 Key Exercises</div>
+    <div class="pill">💊 Supplements</div>
+    <div class="pill">📅 Recovery Timeline</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#ergonomics">Workstation Setup</a>
+  <a href="#exercises">Exercises</a>
+  <a href="#supplements">Supplements</a>
+  <a href="#timeline">Timeline</a>
+</nav>
+
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PAGE 1 — ERGONOMICS                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="ergonomics">
+    <div class="section-label">Page 1 of 3</div>
+    <h1 class="page-title">Workstation Ergonomics</h1>
+
+    <div class="intro-box">
+      <strong>Root cause identified:</strong> Your secondary monitor is positioned both to the side <em>and</em> higher than the primary. This forces the head into simultaneous rotation and extension — the exact loading pattern that chronically overloads the levator scapulae. Fixing the environment eliminates the daily re-injury cycle and is the highest-leverage intervention available.
+    </div>
+
+    <figure class="ergo-image-wrap">
+      <img
+        src="https://www.mayoclinic.org/-/media/rnoa/images/conditions-and-treatments/healthy-lifestyle/ergonomics/office-ergonomics.jpg"
+        onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Ergonomic_workstation.jpg/800px-Ergonomic_workstation.jpg'; this.onerror=null;"
+        alt="Ergonomic workstation setup diagram showing correct monitor, chair, and keyboard height"
+      />
+      <figcaption>Target ergonomic setup — both monitors at eye level, keyboard at elbow height, 90° at hips and knees</figcaption>
+    </figure>
+
+    <div class="ergo-grid">
+
+      <div class="ergo-card highlight">
+        <div class="ergo-icon">🚨</div>
+        <h3>Priority Fix — Secondary Monitor Height</h3>
+        <ul>
+          <li>Raise it to <strong>exactly match</strong> the height of your primary monitor</li>
+          <li>Use a monitor arm, riser stand, or stack of solid books</li>
+          <li>Position it no more than 30–35° to the side</li>
+          <li>This single change will do more than all stretches combined</li>
+        </ul>
+      </div>
+
+      <div class="ergo-card">
+        <div class="ergo-icon">🖥️</div>
+        <h3>Primary Monitor Position</h3>
+        <ul>
+          <li>Centred directly in front of you</li>
+          <li>Top of screen at or just below eye level</li>
+          <li>Natural gaze falls 10–15° downward</li>
+          <li>Arm's length distance (roughly 50–70 cm)</li>
+        </ul>
+      </div>
+
+      <div class="ergo-card">
+        <div class="ergo-icon">🪑</div>
+        <h3>Chair & Keyboard Height</h3>
+        <ul>
+          <li>Raise chair until elbows rest at ~90° with forearms parallel to floor</li>
+          <li>Wrists at or <em>below</em> elbow height on keyboard — never above</li>
+          <li>Feet flat on floor or on footrest</li>
+          <li>Lower back supported by chair back or lumbar cushion</li>
+        </ul>
+      </div>
+
+      <div class="ergo-card">
+        <div class="ergo-icon">📐</div>
+        <h3>Head & Neck Alignment</h3>
+        <ul>
+          <li>Ears stacked directly over shoulders</li>
+          <li>No chin jutting forward ("tech neck")</li>
+          <li>Never cradle a phone between ear and shoulder</li>
+          <li>Ensure current glasses prescription — squinting drives neck extension</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="break-rules">
+      <div class="break-rule">
+        <div class="time">45 min</div>
+        <p>Maximum seated time before standing, walking briefly, and doing 2–3 shoulder rolls</p>
+      </div>
+      <div class="break-rule">
+        <div class="time">20 min</div>
+        <p>Every 20 minutes: look away from screen for 20 seconds and consciously drop your shoulders</p>
+      </div>
+      <div class="break-rule">
+        <div class="time">Calls</div>
+        <p>Take phone and video calls standing when possible — the easiest movement break you can build in</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PAGE 2 — EXERCISES                          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="exercises">
+    <div class="section-label">Page 2 of 3</div>
+    <h1 class="page-title">Exercises & Stretches</h1>
+
+    <div class="intro-box">
+      These target the levator scapulae specifically, with supporting work for the upper trapezius and suboccipitals. Do them consistently at low intensity — occasional aggressive stretching is far less effective than daily gentle practice.
+    </div>
+
+    <!-- Exercise 1 -->
+    <div class="exercise-card priority">
+      <div class="exercise-img">
+        <div class="priority-badge">⭐ Priority #1</div>
+        <img
+          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_center,h_520,w_680/q_auto:eco/3-stretches-neck-pain-157.png"
+          alt="Therapist demonstrating levator scapulae stretch — head tilted forward and to the side"
+          onerror="this.src='https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_center,h_520,w_680/q_auto:eco/exercise-backpain-levatorscapulae.png'; this.onerror=null;"
+        />
+      </div>
+      <div class="exercise-body">
+        <div class="ex-number">Exercise 01</div>
+        <h2>Levator Scapulae Stretch</h2>
+        <span class="muscle-tag">Levator Scapulae</span>
+        <p>The most direct treatment for your symptoms. Targets the full length of the muscle from shoulder blade to upper cervical spine.</p>
+        <ol class="steps">
+          <li><span class="step-n">1</span>Sit or stand tall. Actively <strong>press the shoulder down</strong> on the side being stretched.</li>
+          <li><span class="step-n">2</span>Tilt your head forward and toward the <strong>opposite</strong> side — ear toward opposite armpit, not directly sideways.</li>
+          <li><span class="step-n">3</span>Place the opposite hand gently on the back of your head to add a light assist. No forcing.</li>
+          <li><span class="step-n">4</span>Feel the distinct pull between your neck and the top of your shoulder blade. Breathe slowly.</li>
+          <li><span class="step-n">5</span>Hold 30 seconds. Release slowly. Repeat on other side.</li>
+        </ol>
+        <div class="dosage"><strong>Dose:</strong> 3 reps per side, 2–3× daily. The tighter side (secondary monitor side) gets an extra set.</div>
+      </div>
+    </div>
+
+    <!-- Exercise 2 -->
+    <div class="exercise-card">
+      <div class="exercise-img">
+        <img
+          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_center,h_520,w_680/q_auto:eco/exercise-backpain-levatorscapulae.png"
+          alt="Woman demonstrating levator scapulae stretch variation with arm raised"
+          onerror="this.style.minHeight='260px'; this.style.background='#e8f0f7'; this.onerror=null;"
+        />
+      </div>
+      <div class="exercise-body">
+        <div class="ex-number">Exercise 02</div>
+        <h2>Chin Tuck</h2>
+        <span class="muscle-tag">Deep Cervical Flexors</span>
+        <p>Counteracts forward-head posture — the postural pattern that keeps the levator scapulae under constant load. Think "tall neck," not "pull chin in."</p>
+        <ol class="steps">
+          <li><span class="step-n">1</span>Sit tall, eyes level with the horizon.</li>
+          <li><span class="step-n">2</span>Place one finger lightly on your chin as a reference point.</li>
+          <li><span class="step-n">3</span>Glide your head <strong>straight backward</strong> — like a drawer sliding in. Your gaze stays perfectly horizontal.</li>
+          <li><span class="step-n">4</span>Do NOT tilt the chin down. Movement is purely horizontal.</li>
+          <li><span class="step-n">5</span>Hold 5 seconds. Release. Repeat 10 times.</li>
+        </ol>
+        <div class="dosage"><strong>Dose:</strong> 10 reps every hour at your desk. Easy to do during a call or between tasks.</div>
+      </div>
+    </div>
+
+    <!-- Exercise 3 -->
+    <div class="exercise-card">
+      <div class="exercise-img">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Shoulder_Roll_1.jpg/640px-Shoulder_Roll_1.jpg"
+          alt="Shoulder rolls exercise for upper trapezius relief"
+          onerror="this.src='https://www.spine-health.com/sites/default/files/styles/article_image/public/field/image/shoulder-shrug-exercise.jpg'; this.style.minHeight='260px'; this.onerror=null;"
+        />
+      </div>
+      <div class="exercise-body">
+        <div class="ex-number">Exercise 03</div>
+        <h2>Shoulder Rolls — Back & Down</h2>
+        <span class="muscle-tag">Upper Trapezius</span>
+        <p>Releases the upper trapezius and re-educates the shoulder's resting position. Specifically counters the shoulder-hike caused by your current keyboard height.</p>
+        <ol class="steps">
+          <li><span class="step-n">1</span>Sit or stand tall, arms relaxed at sides.</li>
+          <li><span class="step-n">2</span>Roll shoulders <strong>up, then back, then DOWN</strong> in a slow circle. Emphasise the "down" phase.</li>
+          <li><span class="step-n">3</span>Complete 10 slow circles backward, then 10 forward.</li>
+          <li><span class="step-n">4</span>Finish with a 10-second hold: shoulders pressed consciously downward.</li>
+        </ol>
+        <div class="dosage"><strong>Dose:</strong> Every hour at minimum, or immediately when you notice tension creeping in.</div>
+      </div>
+    </div>
+
+    <!-- Exercise 4 -->
+    <div class="exercise-card">
+      <div class="exercise-img">
+        <img
+          src="https://res.cloudinary.com/da1molee1/image/upload/c_fill,g_center,h_520,w_680/q_auto:eco/7-minute-neck-pain-746.jpeg"
+          alt="Therapist demonstrating corner chest stretch with forearms on wall"
+        />
+      </div>
+      <div class="exercise-body">
+        <div class="ex-number">Exercise 04</div>
+        <h2>Corner / Doorway Chest Stretch</h2>
+        <span class="muscle-tag">Pectoralis Major & Minor</span>
+        <p>Opens tight chest muscles that contribute to the rounded-shoulder posture loading the posterior neck. Essential companion to the levator stretch.</p>
+        <ol class="steps">
+          <li><span class="step-n">1</span>Face a corner or doorway, feet together about 60 cm away.</li>
+          <li><span class="step-n">2</span>Place forearms on each wall, elbows at or slightly below shoulder height.</li>
+          <li><span class="step-n">3</span>Lean body weight gently forward until you feel a stretch across the chest and front of shoulders.</li>
+          <li><span class="step-n">4</span>Keep core slightly engaged so your lower back doesn't arch.</li>
+          <li><span class="step-n">5</span>Hold 30–60 seconds.</li>
+        </ol>
+        <div class="dosage"><strong>Dose:</strong> Morning, mid-afternoon, and before bed. 3–5× daily if tolerated.</div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">Heat & Self-Release</h2>
+    <div class="ergo-grid">
+      <div class="ergo-card">
+        <div class="ergo-icon">🔥</div>
+        <h3>Heat Before Stretching</h3>
+        <p>Apply a warm heat pack to the neck and upper shoulder for 10 minutes before doing the stretches above. Heat relaxes muscle fibres and significantly increases stretch effectiveness.</p>
+      </div>
+      <div class="ergo-card">
+        <div class="ergo-icon">👋</div>
+        <h3>Self-Massage</h3>
+        <p>Using your opposite hand, apply firm circular pressure into the junction between your neck and top of shoulder. Work slowly for 1–2 minutes per side before stretching.</p>
+      </div>
+      <div class="ergo-card" style="grid-column: 1 / -1;">
+        <div class="ergo-icon">🎾</div>
+        <h3>Tennis Ball Against Wall</h3>
+        <p>For deeper trigger point release: place a tennis ball between your upper back/shoulder blade area and a wall. Lean into it to find tender spots and hold on each for 30–60 seconds. Move slowly — this is not a massage roller, it's targeted pressure.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PAGE 3 — SUPPLEMENTS                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="supplements">
+    <div class="section-label">Page 3 of 3</div>
+    <h1 class="page-title">Supportive Supplements</h1>
+
+    <div class="intro-box">
+      Supplements do not replace ergonomic corrections or exercise, but several have solid evidence for reducing muscle tension, inflammation, and pain perception. All listed below are generally safe for most adults — consult a GP or pharmacist if you are on any medications.
+    </div>
+
+    <table class="supp-table">
+      <thead>
+        <tr>
+          <th>Supplement</th>
+          <th>Why It Helps</th>
+          <th>Typical Dose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="supp-name">Magnesium Glycinate</div></td>
+          <td>Muscle relaxant. Magnesium deficiency is extremely common and directly linked to muscle tension, spasm, and poor sleep. Glycinate form is well-absorbed and gentle on the stomach.</td>
+          <td><span class="dose-badge">300–400 mg before bed</span></td>
+        </tr>
+        <tr>
+          <td><div class="supp-name">Omega-3 Fish Oil</div></td>
+          <td>Anti-inflammatory. Reduces systemic inflammation in muscle and connective tissue. Consistent intake over 4–6 weeks produces meaningful effect.</td>
+          <td><span class="dose-badge">2–3 g EPA+DHA daily</span></td>
+        </tr>
+        <tr>
+          <td><div class="supp-name">Curcumin (Turmeric)</div></td>
+          <td>Anti-inflammatory via NF-kB pathway. More effective when taken with piperine (black pepper extract) for absorption. Pairs well with omega-3.</td>
+          <td><span class="dose-badge">500 mg + piperine, 2× daily</span></td>
+        </tr>
+        <tr>
+          <td><div class="supp-name">Vitamin D3 + K2</div></td>
+          <td>Low vitamin D is independently associated with musculoskeletal pain and tension. Deficiency is very common in northern latitudes, especially in winter.</td>
+          <td><span class="dose-badge">2,000–4,000 IU D3 daily</span></td>
+        </tr>
+        <tr>
+          <td><div class="supp-name">Collagen Peptides (Type I/III)</div></td>
+          <td>Supports tendon and connective tissue repair. The levator scapulae attaches via tendons — collagen maintains elasticity and aids recovery.</td>
+          <td><span class="dose-badge">10 g daily with vitamin C</span></td>
+        </tr>
+        <tr>
+          <td><div class="supp-name">Vitamin C</div></td>
+          <td>Required cofactor for collagen synthesis. Also an antioxidant that reduces oxidative stress in overloaded muscle tissue. Take alongside collagen.</td>
+          <td><span class="dose-badge">500–1,000 mg daily</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-heading">Topical Options</h2>
+    <div class="topical-grid">
+      <div class="topical-card">
+        <h4>🧴 Magnesium Oil Spray</h4>
+        <p>Applied directly to the tight neck/shoulder area. Many find it provides meaningful local muscle relaxation. Spray 5–10 pumps, massage in gently.</p>
+      </div>
+      <div class="topical-card">
+        <h4>🌿 Arnica Gel</h4>
+        <p>Well-tolerated topical anti-inflammatory. Apply to the neck/upper shoulder junction 2–3× daily. Available at most pharmacies.</p>
+      </div>
+      <div class="topical-card">
+        <h4>💊 Voltaren (Diclofenac Gel)</h4>
+        <p>Over-the-counter NSAID gel. Reduces local inflammation without GI side effects of oral NSAIDs. Effective for 5–7 day acute flare-ups. Available at pharmacies.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TIMELINE -->
+  <div id="timeline">
+    <div class="section-label">Recovery Expectations</div>
+    <h1 class="page-title" style="margin-bottom: 48px;">What to Expect</h1>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">W1–2</div>
+        <h4>Weeks 1–2</h4>
+        <p>Reduction in acute tension and end-of-day pain</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">W3–4</div>
+        <h4>Weeks 3–4</h4>
+        <p>Improved range of motion, less morning stiffness</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">M2</div>
+        <h4>Month 2</h4>
+        <p>Significant reduction in baseline symptoms</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">M3</div>
+        <h4>Month 3</h4>
+        <p>New patterns established, reduced relapse risk</p>
+      </div>
+    </div>
+
+    <div class="ergo-card highlight" style="margin-bottom: 32px;">
+      <div class="ergo-icon">⚠️</div>
+      <h3>When to See a Professional</h3>
+      <p style="font-family: Arial, sans-serif; font-size: 14px; color: #444; margin-top: 8px;">If symptoms do not improve meaningfully within 4 weeks, or if pain radiates into the arm or causes tingling/numbness in the fingers, consult a physiotherapist or GP to rule out cervical nerve involvement (radiculopathy). This protocol addresses muscle-origin pain — nerve involvement requires different management.</p>
+    </div>
+
+    <div class="disclaimer">
+      This guide is for informational and educational purposes only and does not constitute professional medical advice. Consult a qualified physiotherapist or physician for a personalised treatment plan.
+      Images sourced from Spine-Health.com (Veritas Health) and Wikimedia Commons.
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
