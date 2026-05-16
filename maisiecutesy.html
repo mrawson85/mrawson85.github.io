@@ -4857,9 +4857,8 @@ setInterval(() => {
    reads them all via the public API.
    ═══════════════════════════════════════════════ */
 const GUESTBOOK_REPO = "mrawson85/mrawson85.github.io";
-// Only show issues whose title contains one of these (case-insensitive).
-// Leave as [""] to show every open issue in the repo.
-const GUESTBOOK_TITLE_MATCH = ["maisie"];
+// Show every open issue as a note. (Use ["maisie"] etc. to filter by title.)
+const GUESTBOOK_TITLE_MATCH = [""];
 
 function guestbookWriteURL(){
   return `https://github.com/${GUESTBOOK_REPO}/issues/new?title=To%20Maisie&body=`;
@@ -4881,9 +4880,9 @@ async function loadGuestbook(force){
   if(!list) return;
   const NL = state.lang === "nl";
 
-  const CACHE_KEY = "mk_guest_v2";
-  // wipe the old single-issue cache so the panel doesn't keep showing stale data
-  try{ localStorage.removeItem("mk_guest_v1"); }catch(e){}
+  const CACHE_KEY = "mk_guest_v3";
+  // wipe older caches so a previously-filtered list can't haunt the panel
+  try{ localStorage.removeItem("mk_guest_v1"); localStorage.removeItem("mk_guest_v2"); }catch(e){}
   let cached = null;
   try{ cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); }catch(e){}
   if(!force && cached && cached.items && (Date.now() - (cached.t||0) < 10*60*1000)){
@@ -4990,7 +4989,11 @@ async function loadGuestbook(force){
 
 function refreshGuestbook(){
   AudioEngine.click();
-  try{ localStorage.removeItem("mk_guest_v2"); localStorage.removeItem("mk_guest_v1"); }catch(e){}
+  try{
+    localStorage.removeItem("mk_guest_v3");
+    localStorage.removeItem("mk_guest_v2");
+    localStorage.removeItem("mk_guest_v1");
+  }catch(e){}
   loadGuestbook(true);
 }
 
@@ -5470,11 +5473,54 @@ function skipType(){
 
 /* ----- QUIZ ----- */
 
+/*
+  Pick distractors that are PLAUSIBLE — share vocabulary with the correct
+  answer — so the right one isn't visually obvious. Strategy:
+    1) Score every other definition by keyword overlap with the correct one.
+    2) Take the top ~8 most similar (similar enough to be tempting), drop any
+       identical-text duplicates.
+    3) Randomly choose 3 of those — so the quiz doesn't show the same trio
+       every time you see this card.
+    4) If somehow there are <3 similar candidates, fill from random.
+*/
+function defSimilarity(a, b){
+  const A = new Set(keyWords(a));
+  const B = new Set(keyWords(b));
+  if(A.size === 0 || B.size === 0) return 0;
+  let hit = 0;
+  A.forEach(w => { if(B.has(w)) hit++; });
+  // Symmetric overlap ratio — biased toward the smaller set
+  return hit / Math.min(A.size, B.size);
+}
+
 function buildQuizOptions(){
   const c = currentCard();
-  const all = DATA[state.topic].terms.filter((x,i)=>i!==c._i);
-  const distractors = shuffle(all).slice(0,3).map(x=>x.d[state.lang]);
-  return shuffle([c.d[state.lang], ...distractors]);
+  const correctDef = c.d[state.lang];
+
+  const others = DATA[state.topic].terms
+    .filter((x,i) => i !== c._i)
+    .map(x => ({ def: x.d[state.lang] }))
+    .filter(x => x.def && x.def !== correctDef);
+
+  // Score by similarity to the correct answer
+  others.forEach(x => { x.score = defSimilarity(correctDef, x.def); });
+  others.sort((a,b) => b.score - a.score);
+
+  // Top-K most similar (but not identical-by-text)
+  const topK = Math.min(8, others.length);
+  let pool = others.slice(0, topK);
+  // If everything's near-zero similarity, just fall back to the whole list
+  if(pool.length === 0 || pool[0].score === 0) pool = others;
+
+  const picked = shuffle(pool).slice(0, 3).map(x => x.def);
+
+  // Fill if we somehow didn't get 3
+  if(picked.length < 3){
+    const remaining = shuffle(others).map(x => x.def).filter(d => !picked.includes(d));
+    while(picked.length < 3 && remaining.length){ picked.push(remaining.shift()); }
+  }
+
+  return shuffle([correctDef, ...picked]);
 }
 
 function viewQuiz(){
