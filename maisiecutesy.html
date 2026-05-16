@@ -2027,6 +2027,417 @@
     transform: none !important;
   }
 
+  /* ════════════════════════════════════════════
+     ♡  PROGRESS PAGE — kawaii overhaul  ♡
+     ════════════════════════════════════════════ */
+
+  /* SVG sticker URL variables so each one is defined once */
+  :root{
+    --st-bee:         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/><path d='M 14 21 Q 18 24 22 21' stroke='%23fff' stroke-width='1.2' fill='none' stroke-linecap='round'/></svg>");
+    --st-star:        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><circle cx='10' cy='10' r='1' fill='%23fff'/></svg>");
+    --st-heart-wings: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/></svg>");
+    --st-rainbow:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 22'><path d='M 3 20 Q 20 -1 37 20' stroke='%23ec6e8c' stroke-width='2.4' fill='none'/><path d='M 5 20 Q 20 2 35 20' stroke='%23f9a64a' stroke-width='2.4' fill='none'/><path d='M 7 20 Q 20 5 33 20' stroke='%23f9c84a' stroke-width='2.4' fill='none'/><path d='M 9 20 Q 20 8 31 20' stroke='%237bc26b' stroke-width='2.4' fill='none'/><path d='M 11 20 Q 20 11 29 20' stroke='%235a9cd6' stroke-width='2.4' fill='none'/></svg>");
+    --st-pixel-heart: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'><g fill='%23ec6e8c'><rect x='4' y='2' width='4' height='4'/><rect x='14' y='2' width='4' height='4'/><rect x='2' y='6' width='20' height='4'/><rect x='4' y='10' width='16' height='4'/><rect x='6' y='14' width='12' height='4'/><rect x='8' y='18' width='8' height='2'/><rect x='10' y='20' width='4' height='2'/></g></svg>");
+  }
+
+  /* Top bar title for stats — cursive, no emoji */
+  .top-bar .topic-title{
+    font-family: "Yellowtail", cursive !important;
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    color: var(--sage-deep) !important;
+    text-shadow: 1px 1px 0 var(--paper) !important;
+    font-style: normal !important;
+  }
+
+  /* Stats hero card */
+  .stats-hero{
+    background: var(--paper) !important;
+    border: 1px solid var(--rule) !important;
+    border-top: 22px solid var(--bar) !important;
+    border-radius: 0 !important;
+    box-shadow: 1px 1px 0 var(--rule), 2px 2px 0 var(--rule-soft) !important;
+    color: var(--ink) !important;
+    padding: 16px !important;
+    margin-bottom: 14px !important;
+  }
+  .stats-hero::before{
+    content: "MIJN VOORTGANG" !important;
+    animation: none !important;
+    background: none !important;
+    position: absolute !important;
+    inset: auto !important;
+    top: -19px !important;
+    left: 8px !important;
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .68rem !important;
+    letter-spacing: .22em !important;
+    color: var(--bar-ink) !important;
+  }
+  .stats-hero::after{ /* the rainbow-sprinkle we placed earlier — keep but smaller/quieter */
+    background-position: 6% 18%, 92% 70% !important;
+    background-size: 18px 18px, 16px 16px !important;
+    opacity: 0.7 !important;
+  }
+  .stats-hero .label{
+    color: var(--ink-soft) !important;
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .65rem !important;
+    letter-spacing: .2em !important;
+    text-transform: uppercase;
+  }
+  .stats-hero .accuracy{
+    font-family: "Yellowtail", cursive !important;
+    font-size: 3.2rem !important;
+    color: var(--accent) !important;
+    text-shadow: none !important;
+    line-height: 1 !important;
+    margin: 4px 0 !important;
+  }
+  .stats-hero .hero-meta{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .9rem;
+    margin: 2px 0 10px;
+  }
+
+  /* Stat tiles */
+  .stats-grid{ gap: 8px !important; }
+  .stat-tile{
+    background: var(--paper-soft) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 2px !important;
+    box-shadow: 1px 1px 0 var(--rule) !important;
+    padding: 14px 4px 6px !important;
+    position: relative !important;
+    text-align: center;
+  }
+  .stat-tile::before{
+    content: "";
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    width: 22px; height: 22px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+  }
+  .stat-tile[data-icon="bee"]::before  { background-image: var(--st-bee);         background-size: 18px 18px; }
+  .stat-tile[data-icon="heart"]::before{ background-image: var(--st-pixel-heart); background-size: 14px 14px; }
+  .stat-tile[data-icon="star"]::before { background-image: var(--st-star);        background-size: 14px 14px; }
+  .stat-tile .num{
+    font-family: "Yellowtail", cursive !important;
+    color: var(--sage-deep) !important;
+    font-size: 1.8rem !important;
+    line-height: 1 !important;
+  }
+  .stat-tile .lbl{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    color: var(--ink-mute) !important;
+    font-size: .58rem !important;
+    letter-spacing: .15em !important;
+    text-transform: uppercase;
+  }
+
+  /* Stats card frames */
+  .stats-card{
+    background: var(--paper) !important;
+    border: 1px solid var(--rule) !important;
+    border-top: 18px solid var(--bar) !important;
+    border-radius: 0 !important;
+    box-shadow: 1px 1px 0 var(--rule), 2px 2px 0 var(--rule-soft) !important;
+    padding: 12px 14px !important;
+    margin-bottom: 14px !important;
+    position: relative;
+  }
+  .stats-card h3{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    color: var(--sage-deep) !important;
+    font-size: 1.1rem !important;
+    margin: 0 0 10px !important;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .badge-count{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .68rem !important;
+    color: var(--ink-mute) !important;
+    font-weight: 400 !important;
+    letter-spacing: .12em;
+    font-style: normal !important;
+  }
+
+  /* Topic progress bars — quieter pastel palette */
+  .topic-bar{
+    background: var(--paper-soft) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 2px !important;
+    padding: 8px 10px !important;
+    margin-bottom: 10px !important;
+    box-shadow: 1px 1px 0 var(--rule);
+  }
+  .topic-bar-top{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-size: .95rem !important;
+    color: var(--ink) !important;
+    font-weight: 500 !important;
+    margin-bottom: 4px !important;
+  }
+  .topic-bar-top span:last-child{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-style: normal !important;
+    font-size: .82rem !important;
+    color: var(--sage-deep) !important;
+  }
+  .topic-bar-track{
+    height: 9px !important;
+    background: var(--paper) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden;
+  }
+  .topic-bar-fill{
+    height: 100% !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    padding: 0 !important;
+  }
+  .tb-pol{ background: linear-gradient(90deg, #f0c4b4, #d99a8a) !important; }
+  .tb-cri{ background: linear-gradient(90deg, #c0d4e8, #95b5d2) !important; }
+  .tb-med{ background: linear-gradient(90deg, #d4c2e8, #b095c8) !important; }
+  .tb-ana{ background: linear-gradient(90deg, #c5dbb4, #8eb285) !important; }
+  .topic-bar-meta{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    color: var(--ink-soft) !important;
+    font-size: .8rem !important;
+    margin-top: 4px !important;
+  }
+  .topic-bar-meta b{
+    font-style: normal;
+    font-weight: 500;
+    color: var(--sage-deep);
+  }
+
+  /* Badges grid — kawaii stickers via data-bid */
+  .badges{
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(82px, 1fr)) !important;
+    gap: 8px !important;
+  }
+  .badge{
+    background: var(--paper-soft) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 2px !important;
+    padding: 12px 4px 8px !important;
+    text-align: center !important;
+    box-shadow: 1px 1px 0 var(--rule) !important;
+    filter: none !important;
+    position: relative;
+  }
+  .badge.unlocked{
+    background: var(--paper) !important;
+    border-color: var(--bar-deep) !important;
+    box-shadow: 1px 1px 0 var(--bar-deep) !important;
+    opacity: 1 !important;
+  }
+  .badge.locked{
+    opacity: 0.42 !important;
+    filter: saturate(0.4) !important;
+  }
+  .badge .ico{ display: none !important; }
+  .badge::before{
+    content: "";
+    display: block;
+    width: 38px; height: 38px;
+    margin: 0 auto 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  /* 15 unique kawaii stickers, one per badge */
+  :root{
+    --bdg-egg:        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 36'><ellipse cx='14' cy='22' rx='10' ry='12' fill='%23fef9c3' stroke='%233b2a18' stroke-width='1.5'/><path d='M 5 16 L 8 20 L 11 14 L 14 22 L 17 14 L 20 20 L 23 16' stroke='%233b2a18' stroke-width='1.5' fill='none' stroke-linejoin='round'/><circle cx='10' cy='25' r='1.2' fill='%233b2a18'/><circle cx='18' cy='25' r='1.2' fill='%233b2a18'/><path d='M 11 29 Q 14 31 17 29' stroke='%233b2a18' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
+    --bdg-book:       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 32'><rect x='4' y='6' width='28' height='22' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5' rx='2'/><line x1='18' y1='6' x2='18' y2='28' stroke='%233b2a18' stroke-width='1.5'/><line x1='8' y1='13' x2='15' y2='13' stroke='%233b2a18' stroke-width='1'/><line x1='8' y1='17' x2='15' y2='17' stroke='%233b2a18' stroke-width='1'/><line x1='8' y1='21' x2='15' y2='21' stroke='%233b2a18' stroke-width='1'/><line x1='21' y1='13' x2='28' y2='13' stroke='%233b2a18' stroke-width='1'/><line x1='21' y1='17' x2='28' y2='17' stroke='%233b2a18' stroke-width='1'/><line x1='21' y1='21' x2='28' y2='21' stroke='%233b2a18' stroke-width='1'/></svg>");
+    --bdg-stamp100:   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 28'><rect x='3' y='4' width='40' height='20' fill='%23fef9c3' stroke='%233b2a18' stroke-width='1.5' rx='2' transform='rotate(-6 23 14)'/><text x='23' y='20' font-family='Arial Black, Verdana, sans-serif' font-size='13' font-weight='900' fill='%23ec6e8c' text-anchor='middle' transform='rotate(-6 23 14)'>100</text></svg>");
+    --bdg-stamp250:   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 28'><rect x='3' y='4' width='40' height='20' fill='%23fbcfb8' stroke='%233b2a18' stroke-width='1.5' rx='2' transform='rotate(4 23 14)'/><text x='23' y='20' font-family='Arial Black, Verdana, sans-serif' font-size='13' font-weight='900' fill='%238a3a3a' text-anchor='middle' transform='rotate(4 23 14)'>250</text></svg>");
+    --bdg-stars3:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 14'><path d='M6 1 L7.2 5 L11 5 L8 7.5 L9 11.5 L6 9 L3 11.5 L4 7.5 L1 5 L4.8 5 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='0.9'/><path d='M18 1 L19.2 5 L23 5 L20 7.5 L21 11.5 L18 9 L15 11.5 L16 7.5 L13 5 L16.8 5 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='0.9'/><path d='M30 1 L31.2 5 L35 5 L32 7.5 L33 11.5 L30 9 L27 11.5 L28 7.5 L25 5 L28.8 5 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='0.9'/></svg>");
+    --bdg-flame:      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'><path d='M12 2 C 8 7, 5 12, 5 18 C 5 25, 8 30, 12 30 C 16 30, 19 25, 19 18 C 19 13, 16 11, 15 6 C 14 9, 13 11, 11 13 C 11 8, 13 4, 12 2 Z' fill='%23f9a04a' stroke='%233b2a18' stroke-width='1.5'/><path d='M12 14 C 10 18, 10 22, 11 25 C 12 27, 14 27, 14 25 C 15 22, 13 18, 12 14 Z' fill='%23f9c84a'/></svg>");
+    --bdg-bolt:       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 32'><path d='M12 2 L3 18 L9 18 L7 30 L17 12 L11 12 L13 2 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/></svg>");
+    --bdg-target:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23fef0e8' stroke='%233b2a18' stroke-width='1.5'/><circle cx='16' cy='16' r='10' fill='%23fbcfb8' stroke='%233b2a18' stroke-width='1'/><circle cx='16' cy='16' r='6' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1'/><circle cx='16' cy='16' r='2' fill='%233b2a18'/></svg>");
+    --bdg-crown:      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'><path d='M2 20 L4 8 L10 14 L16 4 L22 14 L28 8 L30 20 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><rect x='2' y='18' width='28' height='4' fill='%23e89858' stroke='%233b2a18' stroke-width='1.5'/><circle cx='4' cy='8' r='1.5' fill='%23ec6e8c'/><circle cx='16' cy='4' r='1.5' fill='%23ec6e8c'/><circle cx='28' cy='8' r='1.5' fill='%23ec6e8c'/></svg>");
+    --bdg-scales:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='18' y1='5' x2='18' y2='30' stroke='%233b2a18' stroke-width='2'/><line x1='6' y1='10' x2='30' y2='10' stroke='%233b2a18' stroke-width='2' stroke-linecap='round'/><path d='M3 18 L9 18 L6 12 Z' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><path d='M27 18 L33 18 L30 12 Z' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><rect x='13' y='30' width='10' height='3' fill='%233b2a18'/></svg>");
+    --bdg-camera:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 32'><rect x='3' y='8' width='30' height='20' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5' rx='2'/><path d='M12 8 L14 4 L22 4 L24 8 Z' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><circle cx='18' cy='18' r='6' fill='%23fef9c3' stroke='%233b2a18' stroke-width='1.5'/><circle cx='18' cy='18' r='3' fill='%23ec6e8c'/><circle cx='28' cy='12' r='1.5' fill='%23ec6e8c'/></svg>");
+    --bdg-magnifier:  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='13' cy='13' r='9' fill='%23cae8ed' fill-opacity='0.6' stroke='%233b2a18' stroke-width='1.8'/><circle cx='13' cy='13' r='5' fill='%23fef9c3' stroke='%233b2a18' stroke-width='1'/><line x1='20' y1='20' x2='29' y2='29' stroke='%233b2a18' stroke-width='3.5' stroke-linecap='round'/><line x1='20' y1='20' x2='29' y2='29' stroke='%23a87850' stroke-width='2' stroke-linecap='round'/></svg>");
+    --bdg-grad:       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 32'><path d='M2 12 L18 4 L34 12 L18 20 Z' fill='%233b2a18' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><path d='M8 14 L8 22 C 8 25, 28 25, 28 22 L 28 14 L 18 19 Z' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.5'/><line x1='32' y1='12' x2='32' y2='22' stroke='%233b2a18' stroke-width='1.5'/><circle cx='32' cy='24' r='2' fill='%23ec6e8c'/></svg>");
+  }
+  .badge[data-bid="first_steps"]::before  { background-image: var(--bdg-egg); }
+  .badge[data-bid="bookworm"]::before     { background-image: var(--bdg-book); }
+  .badge[data-bid="crunch_100"]::before   { background-image: var(--bdg-stamp100); }
+  .badge[data-bid="crunch_250"]::before   { background-image: var(--bdg-stamp250); }
+  .badge[data-bid="streak_3"]::before     { background-image: var(--bdg-stars3); }
+  .badge[data-bid="streak_7"]::before     { background-image: var(--bdg-flame); }
+  .badge[data-bid="perfect_10"]::before   { background-image: var(--st-heart-wings); }
+  .badge[data-bid="hot_streak"]::before   { background-image: var(--bdg-bolt); }
+  .badge[data-bid="sharpshooter"]::before { background-image: var(--bdg-target); }
+  .badge[data-bid="all_topics"]::before   { background-image: var(--st-rainbow); }
+  .badge[data-bid="master_pol"]::before   { background-image: var(--bdg-crown); }
+  .badge[data-bid="master_cri"]::before   { background-image: var(--bdg-scales); }
+  .badge[data-bid="master_med"]::before   { background-image: var(--bdg-camera); }
+  .badge[data-bid="master_ana"]::before   { background-image: var(--bdg-magnifier); }
+  .badge[data-bid="exam_ready"]::before   { background-image: var(--bdg-grad); }
+  .badge .ttl{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-size: .82rem !important;
+    color: var(--ink) !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    margin-top: 2px;
+  }
+  .badge .sub{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .58rem !important;
+    color: var(--ink-mute) !important;
+    letter-spacing: .1em !important;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Sessions list */
+  .sess-emoji{ display: none !important; }
+  .sess-row{
+    background: var(--paper-soft) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 2px !important;
+    box-shadow: 1px 1px 0 var(--rule);
+    padding: 7px 10px !important;
+    margin-bottom: 5px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .sess-title{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    color: var(--ink) !important;
+    font-size: .92rem !important;
+  }
+  .sess-meta{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .6rem !important;
+    color: var(--ink-mute) !important;
+    letter-spacing: .08em !important;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .sess-score{
+    font-family: "Yellowtail", cursive !important;
+    font-size: 1.55rem !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+  }
+  .sess-score.good{ color: var(--sage-deep) !important; }
+  .sess-score.mid{ color: var(--warn) !important; }
+  .sess-score.low{ color: var(--accent) !important; }
+
+  /* Reset button */
+  .reset-btn{
+    background: var(--paper-soft) !important;
+    border: 1px solid var(--rule) !important;
+    border-radius: 2px !important;
+    color: var(--accent) !important;
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .68rem !important;
+    letter-spacing: .15em !important;
+    text-transform: uppercase;
+    padding: 6px 14px !important;
+    box-shadow: 1px 1px 0 var(--rule) !important;
+    font-weight: 400 !important;
+    margin-top: 10px;
+  }
+  .reset-btn:hover{ background: var(--accent-soft) !important; }
+
+  /* ── HOME PAGE — tiny earned-badges strip ── */
+  .home-badges{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    box-shadow: 1px 1px 0 var(--rule);
+    cursor: pointer;
+    transition: background .1s;
+  }
+  .home-badges:hover{ background: var(--paper-soft); }
+  .home-badges-label{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .58rem;
+    color: var(--ink-mute);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .home-badges-icons{
+    display: flex; gap: 5px; flex-wrap: wrap; flex: 1;
+    align-items: center; justify-content: flex-start;
+  }
+  .hb-icon{
+    display: inline-block;
+    width: 18px; height: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  .hb-empty{
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: .82rem;
+  }
+  .hb-icon[data-bid="first_steps"]  { background-image: var(--bdg-egg); }
+  .hb-icon[data-bid="bookworm"]     { background-image: var(--bdg-book); }
+  .hb-icon[data-bid="crunch_100"]   { background-image: var(--bdg-stamp100); }
+  .hb-icon[data-bid="crunch_250"]   { background-image: var(--bdg-stamp250); }
+  .hb-icon[data-bid="streak_3"]     { background-image: var(--bdg-stars3); }
+  .hb-icon[data-bid="streak_7"]     { background-image: var(--bdg-flame); }
+  .hb-icon[data-bid="perfect_10"]   { background-image: var(--st-heart-wings); }
+  .hb-icon[data-bid="hot_streak"]   { background-image: var(--bdg-bolt); }
+  .hb-icon[data-bid="sharpshooter"] { background-image: var(--bdg-target); }
+  .hb-icon[data-bid="all_topics"]   { background-image: var(--st-rainbow); }
+  .hb-icon[data-bid="master_pol"]   { background-image: var(--bdg-crown); }
+  .hb-icon[data-bid="master_cri"]   { background-image: var(--bdg-scales); }
+  .hb-icon[data-bid="master_med"]   { background-image: var(--bdg-camera); }
+  .hb-icon[data-bid="master_ana"]   { background-image: var(--bdg-magnifier); }
+  .hb-icon[data-bid="exam_ready"]   { background-image: var(--bdg-grad); }
+  .home-badges-count{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .65rem;
+    color: var(--bar-ink);
+    letter-spacing: .15em;
+    background: var(--sage-soft);
+    border: 1px solid var(--sage-deep);
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+
   /* ── FOOTER ── */
   footer{
     background: transparent !important;
@@ -3969,6 +4380,7 @@ function viewHome(){
         <div class="cur-quote">${q[state.lang]}</div>
       </div>
     </div>
+    ${homeBadgesStrip()}
     <div style="margin:6px 4px 10px;font-weight:800;color:#1f1147;">${L().pickTopic}</div>
     <div class="grid">${cards}</div>
 
@@ -3999,33 +4411,47 @@ function shortClass(key){
   return {politiek:"pol", criminaliteit:"cri", media:"med", analyse:"ana", praktijk:"prk"}[key];
 }
 
+function homeBadgesStrip(){
+  const NL = state.lang === "nl";
+  const earned = ACHIEVEMENTS.filter(a => SCORE.achievements[a.id]);
+  const total = ACHIEVEMENTS.length;
+  const icons = earned.length
+    ? earned.slice(0, 12).map(a => `<span class="hb-icon" data-bid="${a.id}" title="${escapeText(a.ttl[state.lang])}"></span>`).join("")
+    : `<span class="hb-empty">${NL?"verdien je eerste badge!":"earn your first badge!"}</span>`;
+  return `
+    <div class="home-badges" onclick="openStats()">
+      <span class="home-badges-label">${NL?"badges":"badges"}</span>
+      <div class="home-badges-icons">${icons}</div>
+      <span class="home-badges-count">${earned.length}/${total}</span>
+    </div>
+  `;
+}
+
 function viewStats(){
   const total = SCORE.totals.correct + SCORE.totals.wrong;
   const acc = total ? Math.round(SCORE.totals.correct / total * 100) : 0;
   const NL = state.lang === "nl";
 
-  // Per-topic bars
   const topics = ["politiek","criminaliteit","media","analyse"];
   const bars = topics.map(k => {
     const tc = topicCounts(SCORE, k);
     const pct = topicMasteryPct(SCORE, k);
     const cls = "tb-"+shortClass(k);
     return `
-      <div class="topic-bar">
+      <div class="topic-bar" data-topic="${k}">
         <div class="topic-bar-top">
-          <span>${DATA[k].icon} ${DATA[k].label[state.lang]}</span>
+          <span>${DATA[k].label[state.lang]}</span>
           <span>${pct}%</span>
         </div>
         <div class="topic-bar-track">
           <div class="topic-bar-fill ${cls}" style="width:${Math.max(pct, 4)}%">${pct>15?(tc.mastered+"/"+tc.total):""}</div>
         </div>
         <div class="topic-bar-meta">
-          ${NL?"Beheerst":"Mastered"}: <b>${tc.mastered}</b> · ${NL?"Gezien":"Seen"}: ${tc.seen}/${tc.total}${tc.struggling?` · ⚠️ ${tc.struggling} ${NL?"lastig":"tough"}`:""}
+          ${NL?"Beheerst":"Mastered"}: <b>${tc.mastered}</b> · ${NL?"Gezien":"Seen"}: ${tc.seen}/${tc.total}${tc.struggling?` · ${tc.struggling} ${NL?"lastig":"tough"}`:""}
         </div>
       </div>`;
   }).join("");
 
-  // Sessions
   const sess = SCORE.sessions.slice(0, 10).map(s => {
     const pct = s.total ? Math.round(s.correct/s.total*100) : 0;
     const cls = pct >= 80 ? "good" : (pct >= 50 ? "mid" : "low");
@@ -4034,27 +4460,24 @@ function viewStats(){
     const dateStr = (date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0") === today)
       ? (NL?"Vandaag":"Today")+" "+String(date.getHours()).padStart(2,"0")+":"+String(date.getMinutes()).padStart(2,"0")
       : date.toLocaleDateString(state.lang==="nl"?"nl-NL":"en-GB",{month:"short",day:"numeric"}) + " " + String(date.getHours()).padStart(2,"0")+":"+String(date.getMinutes()).padStart(2,"0");
-    const modeIco = {flash:"🃏",type:"⌨️",quiz:"🎯"}[s.mode]||"📚";
-    const topicIco = (DATA[s.topic]||{}).icon || "📚";
+    const modeName = ({flash:"flashcards",type:"type",quiz:"quiz",match:"match"})[s.mode] || s.mode;
     return `
       <div class="sess-row">
         <div class="sess-left">
-          <span class="sess-emoji">${topicIco}${modeIco}</span>
           <div>
-            <div style="font-weight:800;font-size:.85rem;">${(DATA[s.topic]||{label:{nl:s.topic,en:s.topic}}).label[state.lang]}</div>
-            <div class="sess-meta">${dateStr} · ${s.correct}/${s.total} · ${NL?"top reeks":"best run"} ${s.bestStreak||0}</div>
+            <div class="sess-title">${(DATA[s.topic]||{label:{nl:s.topic,en:s.topic}}).label[state.lang]}</div>
+            <div class="sess-meta">${dateStr} · ${modeName} · ${s.correct}/${s.total}</div>
           </div>
         </div>
         <div class="sess-score ${cls}">${pct}%</div>
       </div>`;
-  }).join("") || `<div style="text-align:center;color:#94a3b8;padding:14px 0;font-size:.85rem;">${NL?"Nog geen sessies — start een ronde!":"No sessions yet — start a round!"}</div>`;
+  }).join("") || `<div class="guest-empty">${NL?"Nog geen sessies — start een ronde!":"No sessions yet — start a round!"}</div>`;
 
-  // Badges
   const unlockedCount = ACHIEVEMENTS.filter(a=>SCORE.achievements[a.id]).length;
   const badges = ACHIEVEMENTS.map(a => {
     const unlocked = !!SCORE.achievements[a.id];
     return `
-      <div class="badge ${unlocked?'unlocked':'locked'}">
+      <div class="badge ${unlocked?'unlocked':'locked'}" data-bid="${a.id}">
         <span class="ico">${a.ico}</span>
         <div class="ttl">${a.ttl[state.lang]}</div>
         <div class="sub">${a.sub[state.lang]}</div>
@@ -4064,24 +4487,24 @@ function viewStats(){
   return `
     <div class="top-bar">
       <button class="back" onclick="goHome()">← ${L().back}</button>
-      <div class="topic-title">📊 ${NL?"Mijn voortgang":"My progress"}</div>
+      <div class="topic-title">${NL?"mijn voortgang":"my progress"}</div>
       <div></div>
     </div>
 
     <div class="stats-hero">
       <div class="label">${NL?"Totale nauwkeurigheid":"Overall accuracy"}</div>
       <div class="accuracy">${acc}%</div>
-      <div style="font-size:.85rem;opacity:.9;font-weight:700;">${SCORE.totals.correct} ${NL?"goed":"right"} · ${SCORE.totals.wrong} ${NL?"fout":"wrong"}</div>
+      <div class="hero-meta">${SCORE.totals.correct} ${NL?"goed":"right"} · ${SCORE.totals.wrong} ${NL?"fout":"wrong"}</div>
       <div class="stats-grid">
-        <div class="stat-tile">
-          <div class="num">🔥 ${SCORE.daily.streak||0}</div>
+        <div class="stat-tile" data-icon="bee">
+          <div class="num">${SCORE.daily.streak||0}</div>
           <div class="lbl">${NL?"Dagstreak":"Day streak"}</div>
         </div>
-        <div class="stat-tile">
+        <div class="stat-tile" data-icon="heart">
           <div class="num">${SCORE.totals.seen}</div>
           <div class="lbl">${NL?"Kaarten gezien":"Cards seen"}</div>
         </div>
-        <div class="stat-tile">
+        <div class="stat-tile" data-icon="star">
           <div class="num">${SCORE.totals.sessions}</div>
           <div class="lbl">${NL?"Sessies":"Sessions"}</div>
         </div>
@@ -4089,22 +4512,22 @@ function viewStats(){
     </div>
 
     <div class="stats-card">
-      <h3>🏆 ${NL?"Voortgang per onderwerp":"Progress by topic"}</h3>
+      <h3>${NL?"Voortgang per onderwerp":"Progress by topic"}</h3>
       ${bars}
     </div>
 
     <div class="stats-card">
-      <h3>🏅 ${NL?"Badges":"Badges"} <span style="font-size:.78rem;color:#6b5b95;font-weight:700;margin-left:auto;">${unlockedCount}/${ACHIEVEMENTS.length}</span></h3>
+      <h3>${NL?"Badges":"Badges"} <span class="badge-count">${unlockedCount}/${ACHIEVEMENTS.length}</span></h3>
       <div class="badges">${badges}</div>
     </div>
 
     <div class="stats-card">
-      <h3>📜 ${NL?"Recente sessies":"Recent sessions"}</h3>
+      <h3>${NL?"Recente sessies":"Recent sessions"}</h3>
       <div class="sessions-list">${sess}</div>
     </div>
 
     <div style="text-align:center;">
-      <button class="reset-btn" onclick="resetAllProgress()">🗑️ ${NL?"Voortgang resetten":"Reset progress"}</button>
+      <button class="reset-btn" onclick="resetAllProgress()">${NL?"voortgang resetten":"reset progress"}</button>
     </div>
   `;
 }
