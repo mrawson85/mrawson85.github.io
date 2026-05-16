@@ -1879,12 +1879,15 @@
     margin-right: 6px;
   }
   .guest-card .title{
-    font-family: "Yellowtail", cursive;
-    font-style: normal;
-    color: var(--sage-deep);
-    font-size: 1.2rem;
-    line-height: 1.15;
-    margin: 2px 0 4px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-mute);
+    font-size: .85rem;
+    line-height: 1.2;
+    margin: 6px 0 0;
+    text-align: right;
+    opacity: .9;
   }
   .guest-card .body{ font-size: 1rem; }
   .guest-write{
@@ -7348,8 +7351,8 @@ function renderGuestbook(items, warning){
   let html = items.map(it => `
     <div class="guest-card">
       <div class="meta"><b>${escapeText(it.author)}</b> · ${guestbookFmtDate(it.date, state.lang)}</div>
-      ${it.title ? `<div class="title">${escapeText(it.title)}</div>` : ""}
       <div class="body">${escapeText(it.body).replace(/\n+/g, "<br>")}</div>
+      ${it.title ? `<div class="title">— ${escapeText(it.title)}</div>` : ""}
     </div>
   `).join("");
   if(warning){
