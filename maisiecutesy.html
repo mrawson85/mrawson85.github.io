@@ -1536,6 +1536,296 @@
   .prk-card .prk-arrow::before{ content: "»"; }
   .prk-card .prk-arrow > *{ display: none; }
 
+  /* The Timelines home-card uses a pink top border instead of sage */
+  .prk-card.tl-home{ border-top-color: #ec6e8c !important; }
+  .prk-card.tl-home::before{
+    content: "✦  GETALLEN EN VOLGORDES" !important;
+    color: #b04766 !important;
+  }
+  .prk-card.tl-home .prk-info h2{ color: #b04766 !important; }
+  .prk-card.tl-home .prk-arrow{ color: #b04766 !important; }
+
+  /* ── TIJDLIJNEN page ── */
+  .tl-page{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4px 2px 32px;
+  }
+  .tl-intro{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sage-deep);
+    padding: 12px 16px;
+    margin: 4px 0 16px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 var(--rule-soft);
+  }
+  .tl-card{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 16px solid var(--sage-soft);
+    border-radius: 0;
+    box-shadow: 1px 1px 0 var(--rule), 2px 2px 0 var(--rule-soft);
+    padding: 10px 14px 14px;
+    margin: 14px 0;
+    position: relative;
+  }
+  .tl-card.tl-pol{ border-top-color: #f6c8d5; }
+  .tl-card.tl-cri{ border-top-color: #cae8ed; }
+  .tl-card.tl-med{ border-top-color: #f9e4a5; }
+  .tl-card.tl-ana{ border-top-color: #d8c9e8; }
+  .tl-hd{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .tl-ico{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: 1.8rem;
+    color: var(--sage-deep);
+    line-height: 1;
+    flex: 0 0 auto;
+    padding-top: 2px;
+  }
+  .tl-type{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .62rem;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    margin-bottom: 2px;
+  }
+  .tl-hd h2{
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--sage-deep);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .tl-note{
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .92rem;
+    line-height: 1.4;
+    margin: 4px 0 10px;
+  }
+  .tl-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: tlstep;
+  }
+  .tl-list li{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--rule-soft);
+    font-family: "EB Garamond", Georgia, serif;
+    color: var(--ink);
+    font-size: .98rem;
+    line-height: 1.4;
+  }
+  .tl-list li:last-child{ border-bottom: 0; }
+  .tl-step{
+    flex: 0 0 auto;
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    background: var(--sage-soft);
+    border: 1px solid var(--sage-deep);
+    color: var(--sage-deep);
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .78rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .tl-num{
+    flex: 0 0 auto;
+    min-width: 36px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    color: #b04766;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .82rem;
+    text-align: center;
+  }
+  .tl-txt{ flex: 1 1 auto; }
+  .tl-list-num li{ align-items: center; }
+
+  /* practice action row on each card */
+  .tl-actions{
+    display: flex; justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  /* practice screen */
+  .tl-prac-status{
+    text-align: center;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .7rem;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    margin: 4px 0 12px;
+    text-transform: uppercase;
+  }
+  .tl-prac-done{
+    text-align: center;
+    font-family: "Yellowtail", cursive;
+    font-size: 1.7rem;
+    color: var(--sage-deep);
+    background: var(--sage-soft);
+    border: 1px solid var(--sage-deep);
+    box-shadow: 2px 2px 0 var(--rule);
+    padding: 14px 12px;
+    margin: 12px 0 6px;
+    border-radius: 2px;
+  }
+  .tl-chips{
+    display: flex; flex-direction: column; gap: 8px;
+    max-width: 540px; margin: 0 auto;
+  }
+  .tl-chip{
+    display: flex; align-items: center; gap: 10px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 10px 12px;
+    text-align: left;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .08s;
+  }
+  .tl-chip:hover:not(:disabled){ background: var(--paper-soft); }
+  .tl-chip:active:not(:disabled){ transform: translate(1px, 1px); }
+  .tl-chip:disabled{ cursor: default; }
+  .tl-chip.ok{
+    background: var(--sage-soft);
+    border-color: var(--sage-deep);
+    color: var(--sage-deep);
+  }
+  .tl-chip.bad{
+    background: #fbd6cf;
+    border-color: #8a3a3a;
+    color: #8a3a3a;
+    animation: tlShake 0.35s;
+  }
+  @keyframes tlShake{
+    0%,100%{ transform: translateX(0); }
+    25%   { transform: translateX(-4px); }
+    75%   { transform: translateX(4px); }
+  }
+  .tlc-n{
+    flex: 0 0 auto;
+    width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .82rem;
+    color: var(--ink-mute);
+  }
+  .tl-chip.ok .tlc-n{
+    background: var(--sage-deep);
+    color: #fff;
+    border-color: var(--sage-deep);
+  }
+  .tl-chip.bad .tlc-n{
+    background: #8a3a3a;
+    color: #fff;
+    border-color: #8a3a3a;
+  }
+  .tlc-t{ flex: 1 1 auto; line-height: 1.35; }
+
+  /* practice buttons */
+  .tl-prac-btn{
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 8px 14px;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .78rem;
+    letter-spacing: .12em;
+    color: var(--ink);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .12s, transform .06s;
+  }
+  .tl-prac-btn:hover{ background: var(--paper); }
+  .tl-prac-btn:active{ transform: translate(1px,1px); box-shadow: 0 0 0 var(--rule-soft); }
+  .tl-prac-btn.primary{
+    background: var(--sage-soft);
+    border-color: var(--sage-deep);
+    color: var(--sage-deep);
+    box-shadow: 1px 1px 0 var(--sage-deep);
+  }
+
+  /* quiz */
+  .tl-q{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--ink);
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sage-deep);
+    padding: 12px 14px;
+    margin: 4px 0 14px;
+    border-radius: 2px;
+  }
+  .tl-opts{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 540px; margin: 0 auto; }
+  @media (max-width: 480px){ .tl-opts{ grid-template-columns: 1fr; } }
+  .tl-opt{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 12px 12px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+    transition: background .12s, transform .06s;
+  }
+  .tl-opt:hover:not(:disabled){ background: var(--paper-soft); }
+  .tl-opt:active:not(:disabled){ transform: translate(1px,1px); }
+  .tl-opt:disabled{ cursor: default; opacity: .85; }
+  .tl-opt.ok{
+    background: var(--sage-soft);
+    border-color: var(--sage-deep);
+    color: var(--sage-deep);
+  }
+  .tl-opt.bad{
+    background: #fbd6cf;
+    border-color: #8a3a3a;
+    color: #8a3a3a;
+  }
+  .tl-fb{
+    text-align: center;
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    margin: 12px 0 4px;
+  }
+  .tl-fb.ok{ color: var(--sage-deep); }
+  .tl-fb.bad{ color: #8a3a3a; }
+
   /* ── STATS BUTTON ── */
   .stats-btn{
     background: var(--sage-soft) !important;
@@ -1947,7 +2237,7 @@
   /* Cute bee */
   .k-bee{
     width: 32px; height: 32px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/><path d='M 14 21 Q 18 24 22 21' stroke='%23fff' stroke-width='1.2' fill='none' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='14' y1='3' x2='15.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><line x1='22' y1='3' x2='20.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><circle cx='14' cy='2.5' r='1.6' fill='%23c44'/><circle cx='22' cy='2.5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='24' rx='9.5' ry='7' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9.5 22 Q 12 20.5 14 22 T 18 22 T 22 22 T 26.5 22' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><path d='M 9.5 27 Q 12 28.5 14 27 T 18 27 T 22 27 T 26.5 27' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><ellipse cx='8.5' cy='19' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 8.5 19)' opacity='0.9'/><circle cx='18' cy='13' r='6' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><ellipse cx='14' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><ellipse cx='22' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><circle cx='15.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='20.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='15.85' cy='12.15' r='0.45' fill='%23fff'/><circle cx='20.85' cy='12.15' r='0.45' fill='%23fff'/><path d='M 15.5 14.5 Q 18 16.3 20.5 14.5' stroke='%233b2a18' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
   }
   /* Heart with wings */
   .k-heart-wings{
@@ -1974,7 +2264,7 @@
     content: "" !important; display: inline-block;
     position: absolute; right: 0; top: 50%; transform: translateY(-50%);
     width: 32px; height: 32px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='14' y1='3' x2='15.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><line x1='22' y1='3' x2='20.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><circle cx='14' cy='2.5' r='1.6' fill='%23c44'/><circle cx='22' cy='2.5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='24' rx='9.5' ry='7' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9.5 22 Q 12 20.5 14 22 T 18 22 T 22 22 T 26.5 22' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><path d='M 9.5 27 Q 12 28.5 14 27 T 18 27 T 22 27 T 26.5 27' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><ellipse cx='8.5' cy='19' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 8.5 19)' opacity='0.9'/><circle cx='18' cy='13' r='6' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><ellipse cx='14' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><ellipse cx='22' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><circle cx='15.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='20.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='15.85' cy='12.15' r='0.45' fill='%23fff'/><circle cx='20.85' cy='12.15' r='0.45' fill='%23fff'/><path d='M 15.5 14.5 Q 18 16.3 20.5 14.5' stroke='%233b2a18' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
     background-repeat: no-repeat; background-size: contain;
   }
   /* Streak chip gets a star prefix instead of "✦" */
@@ -2038,7 +2328,7 @@
 
   /* SVG sticker URL variables so each one is defined once */
   :root{
-    --st-bee:         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/><path d='M 14 21 Q 18 24 22 21' stroke='%23fff' stroke-width='1.2' fill='none' stroke-linecap='round'/></svg>");
+    --st-bee:         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='14' y1='3' x2='15.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><line x1='22' y1='3' x2='20.5' y2='9' stroke='%233b2a18' stroke-width='1.3'/><circle cx='14' cy='2.5' r='1.6' fill='%23c44'/><circle cx='22' cy='2.5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='24' rx='9.5' ry='7' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9.5 22 Q 12 20.5 14 22 T 18 22 T 22 22 T 26.5 22' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><path d='M 9.5 27 Q 12 28.5 14 27 T 18 27 T 22 27 T 26.5 27' stroke='%233b2a18' stroke-width='2.4' fill='none' stroke-linecap='round'/><ellipse cx='8.5' cy='19' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 8.5 19)' opacity='0.9'/><circle cx='18' cy='13' r='6' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><ellipse cx='14' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><ellipse cx='22' cy='14.5' rx='1.7' ry='1.1' fill='%23ec6e8c' opacity='0.6'/><circle cx='15.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='20.5' cy='12.5' r='1.3' fill='%233b2a18'/><circle cx='15.85' cy='12.15' r='0.45' fill='%23fff'/><circle cx='20.85' cy='12.15' r='0.45' fill='%23fff'/><path d='M 15.5 14.5 Q 18 16.3 20.5 14.5' stroke='%233b2a18' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
     --st-star:        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><circle cx='10' cy='10' r='1' fill='%23fff'/></svg>");
     --st-heart-wings: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/></svg>");
     --st-rainbow:     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 22'><path d='M 3 20 Q 20 -1 37 20' stroke='%23ec6e8c' stroke-width='2.4' fill='none'/><path d='M 5 20 Q 20 2 35 20' stroke='%23f9a64a' stroke-width='2.4' fill='none'/><path d='M 7 20 Q 20 5 33 20' stroke='%23f9c84a' stroke-width='2.4' fill='none'/><path d='M 9 20 Q 20 8 31 20' stroke='%237bc26b' stroke-width='2.4' fill='none'/><path d='M 11 20 Q 20 11 29 20' stroke='%235a9cd6' stroke-width='2.4' fill='none'/></svg>");
@@ -6793,6 +7083,15 @@ function viewHome(){
       <div class="prk-arrow">→</div>
     </div>
 
+    <div class="prk-card tl-home" onclick="openTijdlijnen()" style="margin-top:12px;">
+      <div class="prk-emoji">❀</div>
+      <div class="prk-info">
+        <h2>${NL?"Tijdlijnen & Volgordes":"Timelines & Sequences"}</h2>
+        <p>${NL?"De getallen en stappen die het examen letterlijk vraagt — leeftijden, vasthoudtijden, Prinsjesdag, rechtszitting in de juiste volgorde.":"The numbers and steps the exam literally asks for — ages, custody limits, Prinsjesdag, the order of a court hearing."}</p>
+      </div>
+      <div class="prk-arrow">→</div>
+    </div>
+
     <div class="guest" id="guestPanel">
       <div class="guest-list" id="guestList">
         <div class="guest-empty">${NL?"berichtjes laden…":"loading messages…"}</div>
@@ -7107,13 +7406,14 @@ function renderMoodCell(){
 }
 function buildMoodSelect(currentId, displayLabel){
   // Render the <select> with options; the currently-selected one shows in the closed state.
+  // Icons live in the external .cur-mood-ico span — don't repeat them inside options.
   const opts = MOOD_OPTIONS.map(m => {
     const lab = state.lang === "nl" ? m.nl : m.en;
     const sel = m.id === currentId ? " selected" : "";
     // For "auto", show the live computed label so the closed select reads naturally
     const shown = (m.id === "auto" && currentId === "auto")
-      ? `${m.ico}  ${displayLabel}`
-      : `${m.ico}  ${lab}`;
+      ? displayLabel
+      : lab;
     return `<option value="${m.id}"${sel}>${shown}</option>`;
   }).join("");
   return `<select class="mood-select" onchange="setMood(this.value)">${opts}</select>`;
@@ -7403,6 +7703,531 @@ async function loadPraktijkImages(){
     }
   });
   if(changed) savePraktijkImageCache(cache);
+}
+
+/* ════════════════════════════════════════════
+   ❀  TIJDLIJNEN & VOLGORDES  ❀
+   Hand-curated from syllabus 2026.
+   Sequences, durations, dates the eindterm requires.
+   ════════════════════════════════════════════ */
+const TIMELINES = [
+  {
+    id: "rechtszitting",
+    topic: "criminaliteit",
+    icon: "⚖",
+    type: "sequence",
+    title: { nl: "Volgorde van een rechtszitting", en: "Order of a court hearing" },
+    note: {
+      nl: "De eindterm gebruikt zelf het woord <i>volgorde</i> — dit moet je in de juiste volgorde kunnen opschrijven.",
+      en: "The eindterm itself uses the word <i>volgorde</i> — you must be able to write these in the correct order."
+    },
+    steps: [
+      { nl: "Opening door de rechter",              en: "Opening by the judge" },
+      { nl: "Aanklacht (tenlastelegging) door OvJ", en: "Indictment by public prosecutor" },
+      { nl: "Verhoor van getuigen en deskundigen",  en: "Examination of witnesses and experts" },
+      { nl: "Verhoor van de verdachte",             en: "Examination of the defendant" },
+      { nl: "Requisitoir (eis) door OvJ",           en: "Closing argument by the prosecutor" },
+      { nl: "Pleidooi door de advocaat",            en: "Plea by the defence lawyer" },
+      { nl: "Laatste woord van de verdachte",       en: "Last word by the defendant" },
+      { nl: "Uitspraak / vonnis door de rechter",   en: "Verdict by the judge" }
+    ]
+  },
+  {
+    id: "besluitvorming",
+    topic: "politiek",
+    icon: "❀",
+    type: "sequence",
+    title: { nl: "4 fasen van politieke besluitvorming", en: "4 phases of political decision-making" },
+    note: {
+      nl: "Plus <b>terugkoppeling</b> — de cyclus begint opnieuw als beleid niet werkt.",
+      en: "Plus <b>feedback</b> — the cycle restarts when policy doesn't work."
+    },
+    steps: [
+      { nl: "Agendavorming · een probleem komt op de politieke agenda",          en: "Agenda-setting · an issue lands on the political agenda" },
+      { nl: "Beleidsvoorbereiding · ambtenaren en deskundigen onderzoeken het",  en: "Policy preparation · civil servants and experts research it" },
+      { nl: "Beleidsbepaling · regering & parlement nemen een besluit (wet)",    en: "Policy decision · government & parliament decide (law)" },
+      { nl: "Beleidsuitvoering · uitvoeringsorganisaties voeren de wet uit",     en: "Policy execution · agencies implement the law" }
+    ]
+  },
+  {
+    id: "wetgeving",
+    topic: "politiek",
+    icon: "✦",
+    type: "sequence",
+    title: { nl: "Hoe een wet wordt gemaakt", en: "How a law is made" },
+    note: {
+      nl: "De eindterm noemt expliciet de <i>volgorde</i> waarin een wet wordt vastgesteld.",
+      en: "The eindterm explicitly names the <i>order</i> in which a law is passed."
+    },
+    steps: [
+      { nl: "Wetsvoorstel · regering of Tweede Kamerlid dient in",      en: "Bill · proposed by cabinet or MP" },
+      { nl: "Tweede Kamer · debat, amendementen, stemming",              en: "Lower House · debate, amendments, vote" },
+      { nl: "Eerste Kamer · alleen ja of nee, geen wijzigingen",         en: "Senate · only yes or no, no changes" },
+      { nl: "Ondertekening · minister(s) + koning",                       en: "Signing · minister(s) + king" },
+      { nl: "Publicatie in Staatsblad — de wet treedt in werking",       en: "Published in Staatsblad — the law takes effect" }
+    ]
+  },
+  {
+    id: "kabinetsformatie",
+    topic: "politiek",
+    icon: "❋",
+    type: "sequence",
+    title: { nl: "Kabinetsformatie", en: "Cabinet formation" },
+    note: {
+      nl: "Na de Tweede Kamer-verkiezingen — coalitie + regeerakkoord zijn de sleutelwoorden.",
+      en: "After the Lower House elections — coalition + coalition agreement are the key terms."
+    },
+    steps: [
+      { nl: "Verkenner · onderzoekt welke partijen samen kunnen",   en: "Scout · explores which parties can govern together" },
+      { nl: "Informateur · onderhandelt over regeerakkoord",         en: "Informateur · negotiates the coalition agreement" },
+      { nl: "Regeerakkoord · plannen van de coalitie staan zwart-op-wit", en: "Coalition agreement · the plans of the coalition in writing" },
+      { nl: "Formateur (vaak nieuwe MP) · stelt kabinet samen",      en: "Formateur (often the PM-to-be) · forms the cabinet" },
+      { nl: "Beëdiging · koning beëdigt de nieuwe ministers",         en: "Inauguration · the king swears in the new ministers" }
+    ]
+  },
+  {
+    id: "eubesluit",
+    topic: "politiek",
+    icon: "✺",
+    type: "sequence",
+    title: { nl: "EU-besluitvorming", en: "EU decision-making" },
+    note: {
+      nl: "Onthoud: één stelt voor, twee stemmen, en één bepaalt de richting.",
+      en: "Remember: one proposes, two vote, one sets the direction."
+    },
+    steps: [
+      { nl: "Europese Commissie · stelt voor",                             en: "European Commission · proposes" },
+      { nl: "Raad van de EU + Europees Parlement · stemmen samen",         en: "Council of the EU + European Parliament · vote together" },
+      { nl: "Europese Raad (regeringsleiders) · bepaalt de grote richting", en: "European Council (heads of government) · sets the broad direction" }
+    ]
+  },
+  {
+    id: "leeftijden",
+    topic: "criminaliteit",
+    icon: "◇",
+    type: "numbers",
+    title: { nl: "Leeftijden in het strafrecht", en: "Ages in criminal law" },
+    note: {
+      nl: "Vier harde grenzen — niets ertussen.",
+      en: "Four hard cut-offs — nothing in between."
+    },
+    steps: [
+      { num: "12", nl: "Strafrechtelijk aansprakelijk · jeugdstrafrecht begint",          en: "Criminally responsible · juvenile law begins" },
+      { num: "16", nl: "Volwassenenstrafrecht kan al worden toegepast",                    en: "Adult law may already be applied" },
+      { num: "18", nl: "Norm: vanaf hier volwassenenstrafrecht",                            en: "Default: adult criminal law from here" },
+      { num: "23", nl: "Volledig volwassen · jeugdstrafrecht is niet meer mogelijk",       en: "Fully adult · juvenile law no longer possible" }
+    ]
+  },
+  {
+    id: "vasthoudtijden",
+    topic: "criminaliteit",
+    icon: "☽",
+    type: "numbers",
+    title: { nl: "Vasthoudtijden door de politie", en: "Police custody time limits" },
+    note: {
+      nl: "Voor verhoor — daarna moet de OvJ beslissen.",
+      en: "For questioning — after that the prosecutor must decide."
+    },
+    steps: [
+      { num: "6 u",  nl: "Maximaal voor verhoor, exclusief de nacht",  en: "Max for questioning, excluding overnight" },
+      { num: "9 u",  nl: "Als de nacht (00–09) wordt meegerekend",      en: "If the night (00:00–09:00) is included" },
+      { num: "+",    nl: "Langer alleen met toestemming van de Officier van Justitie", en: "Longer only with the prosecutor's permission" }
+    ]
+  },
+  {
+    id: "rechterlijke",
+    topic: "criminaliteit",
+    icon: "❦",
+    type: "sequence",
+    title: { nl: "Rechterlijke hiërarchie", en: "Court hierarchy" },
+    note: {
+      nl: "Van laag naar hoog · met snelheid van uitspraak.",
+      en: "From low to high · with verdict speed."
+    },
+    steps: [
+      { nl: "Kantonrechter · overtredingen, direct uitspraak",                                       en: "Cantonal judge · misdemeanors, immediate verdict" },
+      { nl: "Politierechter · misdrijven tot max. 12 maanden eis, direct uitspraak",                  en: "Police judge · crimes up to 12-month sentence, immediate verdict" },
+      { nl: "Meervoudige kamer · zware zaken, uitspraak na 14 dagen",                                 en: "Multi-judge chamber · serious cases, verdict after 14 days" },
+      { nl: "Gerechtshof · hoger beroep",                                                             en: "Court of Appeal · appeals" },
+      { nl: "Hoge Raad · cassatie (alleen of de wet juist is toegepast)",                              en: "Supreme Court · cassation (only on correct application of law)" }
+    ]
+  },
+  {
+    id: "cycli",
+    topic: "politiek",
+    icon: "✦",
+    type: "cycles",
+    title: { nl: "Verkiezings- en meetcycli", en: "Election & survey cycles" },
+    note: {
+      nl: "Drie cijfers · 4, 5, 2.",
+      en: "Three numbers · 4, 5, 2."
+    },
+    steps: [
+      { num: "4 jr", nl: "Tweede Kamer + Eerste Kamer (niet tegelijk)",  en: "Lower House + Senate (not simultaneously)" },
+      { num: "5 jr", nl: "Europees Parlement",                            en: "European Parliament" },
+      { num: "2 jr", nl: "Veiligheidsmonitor (slachtofferenquête)",        en: "Veiligheidsmonitor (victim survey)" }
+    ]
+  },
+  {
+    id: "prinsjesdag",
+    topic: "politiek",
+    icon: "❧",
+    type: "date",
+    title: { nl: "Prinsjesdag", en: "Prinsjesdag" },
+    note: {
+      nl: "Vaste datum: <b>derde dinsdag van september</b>.",
+      en: "Fixed date: <b>third Tuesday of September</b>."
+    },
+    steps: [
+      { nl: "Troonrede · de koning leest de plannen van de regering voor", en: "Throne Speech · the king reads the government's plans" },
+      { nl: "Miljoenennota · de begroting voor het komende jaar",           en: "Budget memorandum · next year's budget" },
+      { nl: "Begroting · per ministerie, inkomsten + uitgaven",              en: "Budget · per ministry, income + spending" },
+      { nl: "Algemene beschouwingen · debat in de Tweede Kamer",             en: "Algemene beschouwingen · debate in the Lower House" }
+    ]
+  }
+];
+
+function openTijdlijnen(){
+  AudioEngine.pop();
+  state.view = "tijdlijnen";
+  render();
+}
+
+/* ── Practice-mode state ──────────────────────────── */
+let tlPrac = null;  // {id, type, lang, order:[shuffledIndices], placed:[], wrongIdx:null, qIdx:0, questions:[...], score:{ok,bad}, done:false}
+
+function openTlPractice(id){
+  AudioEngine.pop();
+  const tl = TIMELINES.find(t => t.id === id);
+  if(!tl) return;
+  tlPrac = startTlPracticeSession(tl);
+  state.view = "tlPractice";
+  render();
+}
+
+function startTlPracticeSession(tl){
+  const sess = { id: tl.id, type: tl.type, score: { ok: 0, bad: 0 }, done: false };
+  if(tl.type === "sequence"){
+    // shuffled visible chip indices
+    const idxs = tl.steps.map((_, i) => i);
+    // Fisher–Yates
+    for(let i=idxs.length-1; i>0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [idxs[i], idxs[j]] = [idxs[j], idxs[i]];
+    }
+    sess.order   = idxs;        // the shuffled positions on screen
+    sess.placed  = [];          // user's chosen indices so far (must match 0,1,2,...)
+    sess.wrong   = new Set();   // currently-flashing wrong chips (visual only)
+  } else {
+    // numbers / cycles / date → multiple-choice quiz
+    sess.questions = buildTlQuiz(tl);
+    sess.qIdx      = 0;
+    sess.answered  = false;
+    sess.picked    = -1;
+  }
+  return sess;
+}
+
+function buildTlQuiz(tl){
+  const NL_Q = {
+    leeftijden:  "Vanaf welke leeftijd:",
+    vasthoudtijden: "Hoeveel uur:",
+    cycli:       "Hoe vaak:",
+    prinsjesdag: "Wanneer / wat:"
+  };
+  const EN_Q = {
+    leeftijden:  "From which age:",
+    vasthoudtijden: "How many hours:",
+    cycli:       "How often:",
+    prinsjesdag: "When / what:"
+  };
+  // Distractor pools per timeline id
+  const POOLS = {
+    leeftijden:    ["10","12","14","16","18","21","23","25"],
+    vasthoudtijden:["3 u","6 u","9 u","12 u","24 u","48 u","+"],
+    cycli:         ["1 jr","2 jr","3 jr","4 jr","5 jr","6 jr","10 jr"]
+  };
+  const questions = [];
+
+  if(tl.id === "prinsjesdag"){
+    // Q1: When is Prinsjesdag?
+    questions.push({
+      prompt: { nl: "Wanneer is Prinsjesdag?", en: "When is Prinsjesdag?" },
+      correct: { nl: "Derde dinsdag van september", en: "Third Tuesday of September" },
+      options: [
+        { nl: "Derde dinsdag van september", en: "Third Tuesday of September" },
+        { nl: "Eerste maandag van september", en: "First Monday of September" },
+        { nl: "Tweede dinsdag van januari", en: "Second Tuesday of January" },
+        { nl: "Laatste zondag van mei", en: "Last Sunday of May" }
+      ]
+    });
+    // Q2: What does the king read?
+    questions.push({
+      prompt: { nl: "Wat leest de koning op Prinsjesdag voor?", en: "What does the king read on Prinsjesdag?" },
+      correct: { nl: "De Troonrede — de plannen van de regering", en: "The Throne Speech — the government's plans" },
+      options: [
+        { nl: "De Troonrede — de plannen van de regering", en: "The Throne Speech — the government's plans" },
+        { nl: "Het regeerakkoord — de coalitie-afspraken", en: "The coalition agreement — coalition deal" },
+        { nl: "De grondwet — de basiswetten",                en: "The constitution — the basic laws" },
+        { nl: "Het partijprogramma — verkiezingsbeloftes",   en: "The party programme — election promises" }
+      ]
+    });
+    // Q3: Miljoenennota
+    questions.push({
+      prompt: { nl: "Wat is de miljoenennota?", en: "What is the miljoenennota?" },
+      correct: { nl: "De begroting voor het komende jaar", en: "Next year's budget" },
+      options: [
+        { nl: "De begroting voor het komende jaar", en: "Next year's budget" },
+        { nl: "De jaarrekening van het afgelopen jaar", en: "Last year's accounts" },
+        { nl: "De troonrede zelf", en: "The Throne Speech itself" },
+        { nl: "Het regeerakkoord", en: "The coalition agreement" }
+      ]
+    });
+    return questions;
+  }
+
+  // For numeric / cycle timelines: each step becomes one question
+  const pool = POOLS[tl.id] || [];
+  tl.steps.forEach(s => {
+    if(!s.num) return;
+    const correct = s.num;
+    // Build distractors: 3 different values from pool (or close numbers)
+    const others = pool.filter(p => p !== correct);
+    // shuffle others
+    for(let i=others.length-1; i>0; i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [others[i], others[j]] = [others[j], others[i]];
+    }
+    const distract = others.slice(0, 3);
+    const optsRaw = [correct, ...distract];
+    // shuffle final
+    for(let i=optsRaw.length-1; i>0; i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [optsRaw[i], optsRaw[j]] = [optsRaw[j], optsRaw[i]];
+    }
+    questions.push({
+      prompt:  { nl: (NL_Q[tl.id] || "") + " " + s.nl, en: (EN_Q[tl.id] || "") + " " + s.en },
+      correct: { nl: correct, en: correct },
+      options: optsRaw.map(v => ({ nl: v, en: v }))
+    });
+  });
+  return questions;
+}
+
+/* — sequence interaction — */
+function tlTapStep(visIdx){
+  if(!tlPrac || tlPrac.done) return;
+  const tl = TIMELINES.find(t => t.id === tlPrac.id);
+  if(!tl) return;
+  const targetIdx = tlPrac.order[visIdx];   // the underlying step the user tapped
+  const expected  = tlPrac.placed.length;   // we want them in 0,1,2,…
+  if(tlPrac.placed.includes(visIdx)) return; // already placed
+
+  if(targetIdx === expected){
+    tlPrac.placed.push(visIdx);
+    tlPrac.score.ok++;
+    AudioEngine.correct && AudioEngine.correct();
+    if(tlPrac.placed.length === tl.steps.length){
+      tlPrac.done = true;
+      AudioEngine.win && AudioEngine.win();
+    }
+  } else {
+    tlPrac.score.bad++;
+    tlPrac.wrong.add(visIdx);
+    AudioEngine.wrong && AudioEngine.wrong();
+    // visual reset after a short flash
+    setTimeout(() => {
+      if(tlPrac && tlPrac.wrong){
+        tlPrac.wrong.delete(visIdx);
+        renderTlPracticeOnly();
+      }
+    }, 700);
+  }
+  renderTlPracticeOnly();
+}
+
+function tlResetSequence(){
+  if(!tlPrac) return;
+  const tl = TIMELINES.find(t => t.id === tlPrac.id);
+  if(!tl) return;
+  AudioEngine.click && AudioEngine.click();
+  tlPrac = startTlPracticeSession(tl);
+  renderTlPracticeOnly();
+}
+
+/* — quiz interaction — */
+function tlPickOption(optIdx){
+  if(!tlPrac || tlPrac.done) return;
+  if(tlPrac.answered) return;
+  const q = tlPrac.questions[tlPrac.qIdx];
+  const picked = q.options[optIdx];
+  const correct = picked[state.lang] === q.correct[state.lang];
+  tlPrac.picked   = optIdx;
+  tlPrac.answered = true;
+  if(correct){ tlPrac.score.ok++; AudioEngine.correct && AudioEngine.correct(); }
+  else       { tlPrac.score.bad++; AudioEngine.wrong   && AudioEngine.wrong(); }
+  renderTlPracticeOnly();
+}
+function tlQuizNext(){
+  if(!tlPrac) return;
+  AudioEngine.click && AudioEngine.click();
+  if(tlPrac.qIdx + 1 >= tlPrac.questions.length){
+    tlPrac.done = true;
+    AudioEngine.win && AudioEngine.win();
+  } else {
+    tlPrac.qIdx++;
+    tlPrac.answered = false;
+    tlPrac.picked = -1;
+  }
+  renderTlPracticeOnly();
+}
+
+function renderTlPracticeOnly(){
+  const el = document.getElementById("tlPracBody");
+  if(!el) return;
+  el.innerHTML = renderTlPracticeBody();
+}
+
+function renderTlPracticeBody(){
+  if(!tlPrac) return "";
+  const tl = TIMELINES.find(t => t.id === tlPrac.id);
+  if(!tl) return "";
+  const NL = state.lang === "nl";
+
+  if(tl.type === "sequence"){
+    const chips = tlPrac.order.map((stepIdx, visIdx) => {
+      const placedIndex = tlPrac.placed.indexOf(visIdx);
+      const isPlaced = placedIndex >= 0;
+      const isWrong  = tlPrac.wrong && tlPrac.wrong.has(visIdx);
+      const cls = isPlaced ? "ok" : (isWrong ? "bad" : "");
+      const order = isPlaced ? `<span class="tlc-n">${placedIndex+1}</span>` : `<span class="tlc-n">·</span>`;
+      const label = tl.steps[stepIdx][state.lang] || tl.steps[stepIdx].nl;
+      return `<button class="tl-chip ${cls}" onclick="tlTapStep(${visIdx})" ${isPlaced?"disabled":""}>${order}<span class="tlc-t">${label}</span></button>`;
+    }).join("");
+    const status = tlPrac.done
+      ? `<div class="tl-prac-done">★ ${NL?"Helemaal goed!":"All correct!"} · ${tlPrac.score.ok} ${NL?"juist":"right"} · ${tlPrac.score.bad} ${NL?"fout":"wrong"}</div>`
+      : `<div class="tl-prac-status">${NL?"tik in juiste volgorde":"tap in correct order"} · ${tlPrac.placed.length}/${tl.steps.length}</div>`;
+    return `
+      ${status}
+      <div class="tl-chips">${chips}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px;">
+        <button class="tl-prac-btn" onclick="tlResetSequence()">↻ ${NL?"opnieuw schudden":"reshuffle"}</button>
+        <button class="tl-prac-btn primary" onclick="openTijdlijnen()">← ${NL?"terug":"back"}</button>
+      </div>`;
+  }
+
+  // quiz
+  if(tlPrac.done){
+    const tot = tlPrac.questions.length;
+    const ok = tlPrac.score.ok;
+    return `
+      <div class="tl-prac-done">★ ${NL?"Klaar!":"Done!"} · ${ok}/${tot} ${NL?"juist":"right"}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px;">
+        <button class="tl-prac-btn" onclick="openTlPractice('${tlPrac.id}')">↻ ${NL?"nog een keer":"again"}</button>
+        <button class="tl-prac-btn primary" onclick="openTijdlijnen()">← ${NL?"terug":"back"}</button>
+      </div>`;
+  }
+  const q = tlPrac.questions[tlPrac.qIdx];
+  const opts = q.options.map((o, i) => {
+    const isPicked  = tlPrac.picked === i;
+    const isCorrect = o[state.lang] === q.correct[state.lang];
+    let cls = "";
+    if(tlPrac.answered){
+      if(isCorrect) cls = "ok";
+      else if(isPicked) cls = "bad";
+    }
+    return `<button class="tl-opt ${cls}" onclick="tlPickOption(${i})" ${tlPrac.answered?"disabled":""}>${o[state.lang]}</button>`;
+  }).join("");
+  const feedback = tlPrac.answered
+    ? (q.options[tlPrac.picked][state.lang] === q.correct[state.lang]
+        ? `<div class="tl-fb ok">✓ ${NL?"juist!":"correct!"}</div>`
+        : `<div class="tl-fb bad">✗ ${NL?"juist was:":"correct was:"} <b>${q.correct[state.lang]}</b></div>`)
+    : "";
+  return `
+    <div class="tl-prac-status">${NL?"vraag":"question"} ${tlPrac.qIdx+1}/${tlPrac.questions.length} · ${tlPrac.score.ok} ${NL?"juist":"right"} · ${tlPrac.score.bad} ${NL?"fout":"wrong"}</div>
+    <div class="tl-q">${q.prompt[state.lang]}</div>
+    <div class="tl-opts">${opts}</div>
+    ${feedback}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px;">
+      ${tlPrac.answered ? `<button class="tl-prac-btn primary" onclick="tlQuizNext()">${NL?"volgende":"next"} →</button>` : ""}
+      <button class="tl-prac-btn" onclick="openTijdlijnen()">← ${NL?"terug":"back"}</button>
+    </div>`;
+}
+
+function viewTlPractice(){
+  if(!tlPrac) return viewTijdlijnen();
+  const tl = TIMELINES.find(t => t.id === tlPrac.id);
+  if(!tl) return viewTijdlijnen();
+  const NL = state.lang === "nl";
+  const intro = (tl.type === "sequence")
+    ? (NL ? "Tik de stappen in de juiste volgorde aan." : "Tap the steps in the correct order.")
+    : (NL ? "Kies het juiste antwoord." : "Pick the right answer.");
+  return `
+    <div class="top-bar">
+      <button class="back" onclick="openTijdlijnen()">← ${L().back}</button>
+      <div class="topic-title">${tl.title[state.lang]}</div>
+      <span style="width:54px;"></span>
+    </div>
+    <div class="tl-page">
+      <div class="tl-intro"><b>${NL?"Oefenen":"Practice"}.</b> ${intro}</div>
+      ${tl.note ? `<div class="tl-note" style="text-align:center;margin:2px 0 12px;">${tl.note[state.lang]}</div>` : ""}
+      <div id="tlPracBody">${renderTlPracticeBody()}</div>
+    </div>
+  `;
+}
+
+function viewTijdlijnen(){
+  const NL = state.lang === "nl";
+  const typeLabel = (t) => ({
+    sequence: NL?"VOLGORDE":"SEQUENCE",
+    numbers:  NL?"GETALLEN":"NUMBERS",
+    cycles:   NL?"CYCLI":"CYCLES",
+    date:     NL?"DATUM":"DATE"
+  }[t] || "");
+  const topicTint = (k) => ({ politiek:"tl-pol", criminaliteit:"tl-cri", media:"tl-med", analyse:"tl-ana" }[k] || "");
+  const items = TIMELINES.map((tl, i) => {
+    const steps = tl.steps.map((s, idx) => {
+      const label = s[state.lang] || s.nl;
+      const marker = s.num
+        ? `<span class="tl-num">${s.num}</span>`
+        : `<span class="tl-step">${idx+1}</span>`;
+      return `<li>${marker}<span class="tl-txt">${label}</span></li>`;
+    }).join("");
+    const practiceLabel = (tl.type === "sequence")
+      ? (NL ? "Oefen volgorde" : "Practice order")
+      : (NL ? "Quiz mij" : "Quiz me");
+    return `
+      <div class="tl-card ${topicTint(tl.topic)}">
+        <div class="tl-hd">
+          <span class="tl-ico">${tl.icon}</span>
+          <div>
+            <div class="tl-type">${typeLabel(tl.type)}</div>
+            <h2>${tl.title[state.lang]}</h2>
+          </div>
+        </div>
+        ${tl.note ? `<div class="tl-note">${tl.note[state.lang]}</div>` : ""}
+        <ol class="tl-list ${tl.steps[0] && tl.steps[0].num ? 'tl-list-num' : ''}">${steps}</ol>
+        <div class="tl-actions">
+          <button class="tl-prac-btn primary" onclick="openTlPractice('${tl.id}')">→ ${practiceLabel}</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  return `
+    <div class="top-bar">
+      <button class="back" onclick="goHome()">← ${L().back}</button>
+      <div class="topic-title">${NL?"Tijdlijnen & Volgordes":"Timelines & Sequences"}</div>
+      <span style="width:54px;"></span>
+    </div>
+    <div class="tl-page">
+      <div class="tl-intro">
+        ${NL
+          ? "<b>De getalletjes en de volgordes.</b> Dit zijn de dingen die het examen <i>met naam en toenaam</i> noemt: <i>volgorde</i>, <i>leeftijd</i>, <i>termijn</i>, <i>cyclus</i>. Hier hoef je alleen te onthouden — geen begripsdefinities."
+          : "<b>The numbers and the sequences.</b> These are the bits the exam <i>names by name</i>: <i>order</i>, <i>age</i>, <i>time limit</i>, <i>cycle</i>. Pure memorisation — no concept definitions."}
+      </div>
+      ${items}
+    </div>
+  `;
 }
 
 function viewPraktijk(){
@@ -8204,6 +9029,8 @@ function render(){
     // Re-inject cached images + fetch any new ones every time praktijk renders
     setTimeout(loadPraktijkImages, 0);
   }
+  else if(state.view === "tijdlijnen") el.innerHTML = viewTijdlijnen();
+  else if(state.view === "tlPractice") el.innerHTML = viewTlPractice();
   else if(state.view === "mode")  el.innerHTML = viewMode();
   else if(state.view === "study") el.innerHTML = viewStudy();
   else if(state.view === "done")  el.innerHTML = viewDone();
