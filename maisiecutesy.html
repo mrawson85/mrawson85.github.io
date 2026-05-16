@@ -2550,12 +2550,12 @@
     <h4 id="musicTitle">🎶 Concentratie-muziek</h4>
     <label id="musicTypeLabel">Sfeer</label>
     <select id="musicType" onchange="changeMusicType(this.value)">
-      <option value="lofi">🌙 Lofi Girl — Beats to study to</option>
-      <option value="chillhop">☕ Chillhop Café</option>
-      <option value="rain">🌧️ Rain on window</option>
-      <option value="forest">🌲 Forest birds</option>
-      <option value="brown">🟫 Brown noise</option>
-      <option value="ambient">🌊 Ambient pads (synth)</option>
+      <option value="lofi">Groove Salad — ambient downtempo</option>
+      <option value="chillhop">Lush — mellow vocal chill</option>
+      <option value="rain">Drone Zone — deep ambient</option>
+      <option value="forest">Mission Control — space ambient</option>
+      <option value="brown">Brown noise (offline)</option>
+      <option value="ambient">Ambient pads — synth (offline)</option>
     </select>
     <label id="musicVolLabel">Volume</label>
     <input id="musicVol" type="range" min="0" max="100" value="55" oninput="setMusicVolume(this.value/100)" />
@@ -3599,13 +3599,15 @@ const AudioEngine = {
   },
 
   // ----- MUSIC -----
-  // Real lofi/ambient via YouTube. Procedural fallback for synth/noise types.
-  // YouTube IDs of well-known public 24/7 study streams + ambience.
+  // Free 24/7 ambient/downtempo streams from SomaFM (CC-licensed).
+  // We use HTML5 <audio> with these direct MP3 URLs because it works on iOS
+  // Safari, unlike a YouTube iframe — and lets the in-app volume slider
+  // control playback through audio.volume.
   YT_TRACKS: {
-    lofi:     "jfKfPfyJRdk",  // Lofi Girl - beats to relax/study to
-    chillhop: "5yx6BWlEVcY",  // Chillhop Cafe / chill beats
-    rain:     "mPZkdNFkNps",  // Rain on window 10 hours
-    forest:   "xNN7iTA57jM"   // Forest birds ambience
+    lofi:     "https://ice1.somafm.com/groovesalad-128-mp3",    // Groove Salad — ambient/downtempo
+    chillhop: "https://ice1.somafm.com/lush-128-mp3",            // Lush — mellow vocal chill
+    rain:     "https://ice1.somafm.com/dronezone-128-mp3",       // Drone Zone — deep ambient
+    forest:   "https://ice1.somafm.com/missioncontrol-128-mp3"   // Mission Control — ambient + space audio
   },
 
   start(){
@@ -3636,7 +3638,11 @@ const AudioEngine = {
     this.volume = v;
     this.ensure();
     this.musicBus.gain.setTargetAtTime(v, this.ctx.currentTime, 0.2);
-    // YouTube iframe embed volume is controlled by the phone's volume buttons.
+    // Apply to the streaming <audio> element when present
+    const audio = document.getElementById("streamAudio");
+    if(audio && typeof audio.volume === "number"){
+      try{ audio.volume = Math.max(0, Math.min(1, v)); }catch(e){}
+    }
   },
 
   changeType(t){
@@ -3646,27 +3652,29 @@ const AudioEngine = {
     if(wasPlaying) this.start();
   },
 
-  // ----- YouTube embed (real lofi tracks) — uses a plain iframe, no API.
-  // The IFrame API can fail to load on file:// origins or with ad-blockers;
-  // a bare <iframe> with autoplay=1 just works wherever embeds are allowed.
-  _startYT(videoId){
+  // ----- Streaming audio (HTML5 <audio>) — works on iOS Safari.
+  // SomaFM streams are direct MP3 URLs; <audio> plays them natively with no
+  // CORS / autoplay-policy issues that the YouTube iframe had.
+  _startYT(streamUrl){
     const host = document.getElementById("ytHost");
     if(!host) return;
-    // Make the iframe visually invisible but functionally present.
-    // For some browsers, the iframe must have non-zero size for audio to play reliably.
-    // We keep it off-screen via fixed positioning on the host element.
-    host.innerHTML = `<iframe
-      width="200" height="120"
-      src="https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1"
-      title="study music"
-      frameborder="0"
-      allow="autoplay; encrypted-media; fullscreen"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"
-    ></iframe>`;
-    this._yt = true; // flag so stop knows to clear
+    host.innerHTML = `<audio id="streamAudio" src="${streamUrl}" preload="none" playsinline></audio>`;
+    const audio = document.getElementById("streamAudio");
+    if(!audio){ return; }
+    audio.volume = Math.max(0, Math.min(1, this.volume));
+    audio.loop = true;
+    // play() must be called from a user-gesture handler; the music panel's
+    // "Play" button click counts, so this should succeed.
+    const p = audio.play();
+    if(p && p.catch) p.catch(err => console.warn("audio play failed:", err && err.message));
+    this._yt = audio;
   },
   _stopYT(){
+    const audio = document.getElementById("streamAudio");
+    if(audio){
+      try{ audio.pause(); }catch(e){}
+      try{ audio.removeAttribute("src"); audio.load(); }catch(e){}
+    }
     const host = document.getElementById("ytHost");
     if(host) host.innerHTML = "";
     this._yt = null;
@@ -3852,10 +3860,10 @@ function updateMusicHint(){
   const el = document.getElementById("musicHint");
   if(!el) return;
   const NL = state.lang === "nl";
-  const usingYT = !!AudioEngine.YT_TRACKS[AudioEngine.musicType];
-  el.innerHTML = usingYT
-    ? (NL ? "Streamt van YouTube — gebruik telefoonvolume om aan te passen. Eerste keer kan paar seconden duren." : "Streaming from YouTube — use phone volume to adjust. May take a few seconds to start.")
-    : (NL ? "Speelt lokaal — werkt ook offline" : "Plays locally — works offline too");
+  const usingStream = !!AudioEngine.YT_TRACKS[AudioEngine.musicType];
+  el.innerHTML = usingStream
+    ? (NL ? "Streamt van SomaFM — werkt op iOS. Internet nodig." : "Streaming from SomaFM — works on iOS. Internet required.")
+    : (NL ? "Speelt lokaal — werkt offline" : "Plays locally — works offline");
 }
 function setMusicVolume(v){
   AudioEngine.setVolume(v);
