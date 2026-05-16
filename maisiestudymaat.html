@@ -120,15 +120,19 @@
     padding:3px 8px;border-radius:999px;background:#ede9fe;color:#6d28d9;
   }
   .prk-img-wrap{
-    margin:0 -16px 12px;
-    background:linear-gradient(135deg,#f1f5f9,#e2e8f0);
-    min-height:160px;max-height:240px;
-    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    margin:0 auto 12px !important;
+    background:linear-gradient(135deg,#f8fafc,#f1f5f9) !important;
+    min-height:120px !important;
+    max-height:none !important;
+    padding:8px !important;border-radius:14px !important;
+    display:flex !important;align-items:center !important;justify-content:center !important;overflow:visible !important;
     position:relative;text-decoration:none;color:inherit;cursor:pointer;
   }
   .prk-img-wrap:hover .prk-img-placeholder{opacity:.7;}
   .prk-img-wrap img{
-    width:100%;height:auto;max-height:240px;object-fit:cover;display:block;
+    max-width:100% !important;max-height:180px !important;
+    width:auto !important;height:auto !important;
+    object-fit:contain !important;display:block !important;border-radius:10px !important;
   }
   .prk-img-placeholder{
     font-size:3rem;color:#94a3b8;
@@ -213,6 +217,24 @@
   .flash-face .term{font-size:1.55rem;font-weight:900;color:#7c2d12;word-wrap:break-word;hyphens:auto;}
   .flash-face .def{font-size:1rem;line-height:1.5;color:#1f1147;word-wrap:break-word;hyphens:auto;}
   .flash-face .def.long{text-align:left;font-size:.92rem;}
+  .flash-face .mnemonic{
+    background:linear-gradient(135deg,#fef9c3,#fde68a);
+    color:#713f12;
+    padding:10px 12px;
+    margin:14px auto 0;
+    max-width:480px;
+    border-radius:10px;
+    font-size:.85rem;
+    font-weight:600;
+    line-height:1.4;
+    text-align:left;
+    border-left:4px solid #f59e0b;
+    box-shadow:0 2px 6px rgba(245,158,11,.18);
+  }
+  .flash-face .mnemonic .ezelsbrug-label{
+    display:block;font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;
+    color:#a16207;font-weight:800;margin-bottom:3px;
+  }
   .flash-face .hint{position:absolute;bottom:10px;left:0;right:0;font-size:.72rem;color:#6b5b95;opacity:.7;}
   @media(max-width:380px){
     .flash{height:480px;}
@@ -577,10 +599,14 @@ const DATA = {
            en:"Monarchy in which the king's powers are limited by the constitution; the king is head of state but has no political power."}},
       { t:{nl:"Trias politica (machtenscheiding)", en:"Separation of powers (trias politica)"},
         d:{nl:"De scheiding tussen wetgevende, uitvoerende en rechterlijke macht zodat geen orgaan te veel macht krijgt.",
-           en:"Separation of legislative, executive and judicial power so no single body holds too much power."}},
+           en:"Separation of legislative, executive and judicial power so no single body holds too much power."},
+        m:{nl:"<b>WUR</b> — <b>W</b>etgevend (Parlement) → <b>U</b>itvoerend (Regering/Kabinet) → <b>R</b>echterlijk (Rechters). Denk: 'Wij Uit Rotterdam'.",
+           en:"<b>LEJ</b> — <b>L</b>egislative (Parliament) → <b>E</b>xecutive (Cabinet) → <b>J</b>udicial (Courts)."}},
       { t:{nl:"Drie bestuurslagen", en:"Three layers of government"},
         d:{nl:"Rijk (landelijk), provincie en gemeente. Elk niveau heeft een eigen volksvertegenwoordiging en dagelijks bestuur.",
-           en:"National (Rijk), provincial and municipal levels. Each has its own elected body and daily executive."}},
+           en:"National (Rijk), provincial and municipal levels. Each has its own elected body and daily executive."},
+        m:{nl:"<b>RPG</b> — <b>R</b>ijk → <b>P</b>rovincie → <b>G</b>emeente (van groot naar klein, zoals een Russisch matroesjkapopje).",
+           en:"<b>RPM</b> — <b>R</b>ijk → <b>P</b>rovince → <b>M</b>unicipality (big to small, like a Russian doll)."}},
       { t:{nl:"Regering vs. kabinet", en:"Government vs. cabinet"},
         d:{nl:"De regering bestaat uit de koning + ministers. Het kabinet bestaat uit ministers + staatssecretarissen.",
            en:"The 'regering' is the king plus the ministers. The 'kabinet' is the ministers plus state secretaries."}},
@@ -634,7 +660,9 @@ const DATA = {
            en:"Progressive = open to change, personal freedom. Conservative = preserving, holding on to traditional values and norms."}},
       { t:{nl:"Liberalisme", en:"Liberalism"},
         d:{nl:"Stroming met nadruk op individuele vrijheid, eigen verantwoordelijkheid en de vrije markt; beperkte overheid die zich richt op kerntaken.",
-           en:"Stream emphasising individual freedom, personal responsibility and the free market; limited government focused on core tasks."}},
+           en:"Stream emphasising individual freedom, personal responsibility and the free market; limited government focused on core tasks."},
+        m:{nl:"<b>5 stromingen — LSCEN</b>: <b>L</b>iberaal, <b>S</b>ociaaldemocratisch, <b>C</b>hristendemocratisch, <b>E</b>cologisch, <b>N</b>ationalistisch.<br>+ stijlen: <b>P</b>opulisme & <b>E</b>xtremisme.",
+           en:"<b>5 streams — LSCEN</b>: <b>L</b>iberal, <b>S</b>ocial-democratic, <b>C</b>hristian-democratic, <b>E</b>cological, <b>N</b>ationalist.<br>+ styles: <b>P</b>opulism & <b>E</b>xtremism."}},
       { t:{nl:"Sociaaldemocratie", en:"Social democracy"},
         d:{nl:"Stroming die streeft naar meer sociaaleconomische gelijkheid via een actieve overheid en verzorgingsstaat, en internationale solidariteit.",
            en:"Stream pursuing more socio-economic equality via active government and welfare state, plus international solidarity."}},
@@ -661,13 +689,17 @@ const DATA = {
            en:"Trying to influence politicians behind the scenes to shape policy in favour of an interest."}},
       { t:{nl:"Fasen van besluitvorming", en:"Phases of decision-making"},
         d:{nl:"1) Agendavorming, 2) Beleidsvoorbereiding, 3) Beleidsbepaling, 4) Beleidsuitvoering — daarna terugkoppeling.",
-           en:"1) Agenda-setting, 2) Policy preparation, 3) Policy decision, 4) Implementation — then feedback."}},
+           en:"1) Agenda-setting, 2) Policy preparation, 3) Policy decision, 4) Implementation — then feedback."},
+        m:{nl:"<b>AVBU</b> + T — <b>A</b>genda → <b>V</b>oorbereiding → <b>B</b>epaling → <b>U</b>itvoering → <b>T</b>erugkoppeling. Denk: 'Anna Vond Boeken Uit Tilburg'.",
+           en:"<b>APDI</b> + F — <b>A</b>genda → <b>P</b>reparation → <b>D</b>ecision → <b>I</b>mplementation → <b>F</b>eedback."}},
       { t:{nl:"Verzorgingsstaat", en:"Welfare state"},
         d:{nl:"Staat waarin de overheid zorgt voor bestaanszekerheid: sociale zekerheid, gezondheidszorg, onderwijs en werkgelegenheid.",
            en:"State in which the government secures basic livelihoods: social security, healthcare, education and employment."}},
       { t:{nl:"Doelen Europese Unie", en:"Goals of the European Union"},
         d:{nl:"Vrede, welzijn, garanderen van Europese waarden (vrijheid, gelijkheid, veiligheid) en economische samenwerking (vrij verkeer goederen, diensten, kapitaal, personen).",
-           en:"Peace, welfare, safeguarding European values (freedom, equality, security) and economic cooperation (free movement of goods, services, capital and people)."}},
+           en:"Peace, welfare, safeguarding European values (freedom, equality, security) and economic cooperation (free movement of goods, services, capital and people)."},
+        m:{nl:"<b>VWEE</b> — <b>V</b>rede, <b>W</b>elzijn, <b>E</b>uropese waarden, <b>E</b>conomische samenwerking.",
+           en:"<b>PWVE</b> — <b>P</b>eace, <b>W</b>elfare, European <b>V</b>alues, <b>E</b>conomic cooperation."}},
       { t:{nl:"Europese Commissie", en:"European Commission"},
         d:{nl:"Enige EU-instelling die wetgeving mag voorstellen; voert wetgeving uit en controleert of lidstaten zich eraan houden.",
            en:"Only EU body allowed to propose legislation; implements EU law and checks that member states comply."}},
@@ -715,7 +747,9 @@ const DATA = {
            en:"Many compromises cause voter frustration, a gap between citizens and politics, weaker party loyalty, fragmented party landscape and short-termism."}},
       { t:{nl:"Voorwaarden EU-toetreding", en:"EU accession requirements"},
         d:{nl:"Een land moet in Europa liggen, een functionerende rechtsstaat zijn, een democratische bestuursvorm hebben, een werkende markteconomie hebben en mensenrechten garanderen.",
-           en:"A country must be in Europe, be a functioning rule-of-law state, have a democratic system of government, have a working market economy and guarantee human rights."}},
+           en:"A country must be in Europe, be a functioning rule-of-law state, have a democratic system of government, have a working market economy and guarantee human rights."},
+        m:{nl:"<b>5 eisen</b>: <b>E</b>uropa, <b>R</b>echtsstaat, <b>D</b>emocratie, <b>M</b>arkteconomie, <b>M</b>ensenrechten. 'Echte Romeinen Doen Mooi Mee'.",
+           en:"<b>5 must-haves</b>: <b>E</b>urope, <b>R</b>ule of law, <b>D</b>emocracy, <b>M</b>arket economy, human <b>R</b>ights."}},
       { t:{nl:"Beleidsterreinen EU", en:"EU policy areas"},
         d:{nl:"O.a. buitenlands beleid (asiel/integratie), milieu (emissie-eisen), justitie (misdaad- en terreurbestrijding), economische samenwerking (euro, markt), consumentenrecht, voedselveiligheid en EU-burgerschap.",
            en:"Including foreign policy (asylum/integration), environment (emission rules), justice (crime and terrorism), economic cooperation (euro, market), consumer rights, food safety and EU citizenship."}},
@@ -819,7 +853,9 @@ const DATA = {
            en:"Different treatment of people from different social classes or ethnic groups by police, prosecution or courts."}},
       { t:{nl:"Aangeleerd-gedragstheorie", en:"Social learning theory"},
         d:{nl:"Crimineel gedrag wordt aangeleerd via contact met mensen in de directe omgeving (familie, vrienden).",
-           en:"Criminal behaviour is learned through contact with people in one's environment (family, friends)."}},
+           en:"Criminal behaviour is learned through contact with people in one's environment (family, friends)."},
+        m:{nl:"<b>6 theorieën — AABREN</b>: <b>A</b>angeleerd, <b>A</b>nomie, <b>B</b>inding, <b>R</b>ationele keuze, <b>E</b>tiketten, <b>N</b>eutralisering.",
+           en:"<b>6 theories — SABREN</b>: <b>S</b>ocial learning, <b>A</b>nomie, <b>B</b>onding, <b>R</b>ational choice, <b>E</b>tiketten (labelling), <b>N</b>eutralisation."}},
       { t:{nl:"Anomietheorie", en:"Anomie theory"},
         d:{nl:"Criminaliteit ontstaat doordat mensen door de samenleving gestelde levensdoelen nastreven, maar daarvoor te weinig legale middelen hebben.",
            en:"Crime arises when people pursue society-imposed life goals but lack the legal means to achieve them."}},
@@ -846,10 +882,14 @@ const DATA = {
            en:"Policy that fights crime after the fact (e.g. policing, harsher punishment)."}},
       { t:{nl:"Doelen van straf", en:"Goals of punishment"},
         d:{nl:"Vergelding, afschrikking/preventie, beveiliging van de samenleving, handhaving van de rechtsorde, voorkomen van eigenrichting, resocialisatie en genoegdoening.",
-           en:"Retribution, deterrence, protection of society, upholding legal order, preventing vigilantism, resocialisation and satisfaction."}},
+           en:"Retribution, deterrence, protection of society, upholding legal order, preventing vigilantism, resocialisation and satisfaction."},
+        m:{nl:"<b>7 doelen — VAB-HER-G</b>: <b>V</b>ergelding, <b>A</b>fschrikking, <b>B</b>eveiliging, <b>H</b>andhaving rechtsorde, <b>E</b>igenrichting voorkomen, <b>R</b>esocialisatie, <b>G</b>enoegdoening.",
+           en:"<b>7 goals — RDP-UPR-S</b>: <b>R</b>etribution, <b>D</b>eterrence, <b>P</b>rotection, <b>U</b>pholding order, <b>P</b>revent vigilantism, <b>R</b>esocialisation, <b>S</b>atisfaction."}},
       { t:{nl:"Hoofdstraffen", en:"Main sanctions"},
         d:{nl:"Taakstraf/werkstraf, gevangenisstraf, geldboete en hechtenis.",
-           en:"Community service, imprisonment, fine and short-term detention (hechtenis)."}},
+           en:"Community service, imprisonment, fine and short-term detention (hechtenis)."},
+        m:{nl:"<b>TGGH</b> — <b>T</b>aakstraf, <b>G</b>evangenisstraf, <b>G</b>eldboete, <b>H</b>echtenis. Denk: 'Twee Gele Giraffen Huppelen'.",
+           en:"<b>CIFD</b> — <b>C</b>ommunity service, <b>I</b>mprisonment, <b>F</b>ine, short-term <b>D</b>etention."}},
       { t:{nl:"TBS", en:"TBS (compulsory psychiatric treatment)"},
         d:{nl:"Maatregel waarbij iemand met een psychische stoornis verplicht wordt behandeld om de samenleving te beschermen.",
            en:"Measure forcing someone with a mental disorder into treatment to protect society."}},
@@ -900,7 +940,9 @@ const DATA = {
            en:"Rules on how a criminal case proceeds: right to a fair trial, independent judge, right to a lawyer and interpreter, public sessions, defined tasks and powers."}},
       { t:{nl:"Rechten van de verdachte", en:"Rights of the suspect"},
         d:{nl:"Recht om te weten waarvan je verdacht wordt, recht op advocaat (ook gratis), zwijgrecht, beperkte tijd vasthouden, hoger beroep, recht op een eerlijk proces.",
-           en:"Right to know the charge, right to a lawyer (free if needed), right to remain silent, limited detention time, right to appeal, right to a fair trial."}},
+           en:"Right to know the charge, right to a lawyer (free if needed), right to remain silent, limited detention time, right to appeal, right to a fair trial."},
+        m:{nl:"<b>WAZBHE</b> — <b>W</b>eten waarvan, <b>A</b>dvocaat, <b>Z</b>wijgrecht, <b>B</b>eperkte tijd, <b>H</b>oger beroep, <b>E</b>erlijk proces.",
+           en:"<b>KLSDAF</b> — <b>K</b>now charge, <b>L</b>awyer, <b>S</b>ilence, <b>D</b>etention limit, <b>A</b>ppeal, <b>F</b>air trial."}},
       { t:{nl:"Zwijgrecht", en:"Right to remain silent"},
         d:{nl:"Een verdachte hoeft geen antwoord te geven; wel moet hij meewerken aan identificatie, foto's, vingerafdrukken en DNA-onderzoek.",
            en:"A suspect doesn't have to answer questions; they must still cooperate with ID, photos, fingerprints and DNA testing."}},
@@ -924,7 +966,9 @@ const DATA = {
            en:"Special investigating officer: assists the police in maintaining order and safety; enforces e.g. parking and environmental rules."}},
       { t:{nl:"Volgorde rechtszitting", en:"Order of a court hearing"},
         d:{nl:"1) Opening door rechter, 2) aanklacht (OvJ), 3) verhoor van getuigen, 4) verhoor verdachte, 5) requisitoir, 6) pleidooi advocaat, 7) laatste woord verdachte, 8) uitspraak/vonnis.",
-           en:"1) Opening by judge, 2) charges (prosecutor), 3) witness questioning, 4) suspect questioning, 5) prosecutor's closing, 6) defence pleading, 7) suspect's last word, 8) verdict."}},
+           en:"1) Opening by judge, 2) charges (prosecutor), 3) witness questioning, 4) suspect questioning, 5) prosecutor's closing, 6) defence pleading, 7) suspect's last word, 8) verdict."},
+        m:{nl:"<b>8 stappen — O-A-Vg-Vv-R-P-L-U</b>. Verhaaltje: 'Op Avond Vroeg Verdachte: Requisitoir of Pleidooi? Laatste woord, Uitspraak.' OvJ → Advocaat → Verdachte → Rechter.",
+           en:"<b>8 steps — O-C-Wq-Sq-Pc-Dp-Lw-V</b>. Story: 'Open, Charges, Witnesses, Suspect, Prosecutor close, Defence plead, Last word, Verdict.'"}},
       { t:{nl:"Requisitoir", en:"Prosecution's closing speech"},
         d:{nl:"Slotbetoog van de officier van justitie waarin hij/zij vertelt waarom de verdachte schuldig is en welke straf hij eist.",
            en:"Closing speech by the prosecutor stating why the suspect is guilty and what sentence is demanded."}},
@@ -971,7 +1015,9 @@ const DATA = {
            en:"Communication channels reaching a large and varied public (TV, papers, radio, internet, social media)."}},
       { t:{nl:"Informatiefunctie", en:"Information function"},
         d:{nl:"Media informeren burgers over wat er in politiek en maatschappij gebeurt, zodat zij een eigen mening kunnen vormen.",
-           en:"Media inform citizens about politics and society so they can form their own opinions."}},
+           en:"Media inform citizens about politics and society so they can form their own opinions."},
+        m:{nl:"<b>3 functies in democratie — ICA</b>: <b>I</b>nformatie, <b>C</b>ontrole (waakhond), <b>A</b>genda.<br>+ algemeen: <b>ASIM</b> — <b>A</b>musement, <b>S</b>ocialiseren, <b>I</b>nformatie, <b>M</b>eningsvorming.",
+           en:"<b>3 democratic — ICA</b>: <b>I</b>nformation, <b>C</b>ontrol (watchdog), <b>A</b>genda.<br>+ general: <b>ESIO</b> — <b>E</b>ntertainment, <b>S</b>ocialising, <b>I</b>nformation, <b>O</b>pinion-forming."}},
       { t:{nl:"Controle-/waakhondfunctie", en:"Watchdog function"},
         d:{nl:"Media controleren de macht en stellen politieke en maatschappelijke misstanden aan de kaak.",
            en:"Media monitor those in power and expose political and social wrongs."}},
@@ -1037,7 +1083,9 @@ const DATA = {
            en:"Journalistic norm: in a dispute, you let all parties involved have their say."}},
       { t:{nl:"Injectienaaldtheorie", en:"Hypodermic needle theory"},
         d:{nl:"Theorie dat media het publiek 'inspuiten' met ideeën en informatie; mensen zijn passieve afnemers en kunnen worden geïndoctrineerd.",
-           en:"Theory that media 'inject' the public with ideas and information; people are passive receivers and can be indoctrinated."}},
+           en:"Theory that media 'inject' the public with ideas and information; people are passive receivers and can be indoctrinated."},
+        m:{nl:"<b>4 beïnvloedingstheorieën — IFAS</b>: <b>I</b>njectienaald, <b>F</b>raming, <b>A</b>genda, <b>S</b>electieve perceptie. Denk: 'In Frans Avondje Slapen'.",
+           en:"<b>4 influence theories — HFAS</b>: <b>H</b>ypodermic needle, <b>F</b>raming, <b>A</b>genda-setting, <b>S</b>elective perception."}},
       { t:{nl:"Framingtheorie", en:"Framing theory"},
         d:{nl:"Media belichten een onderwerp op een bepaalde manier — een 'frame' — en sturen daarmee hoe mensen erover denken en praten.",
            en:"Media highlight a topic in a particular way — a 'frame' — steering how people think and talk about it."}},
@@ -1072,7 +1120,9 @@ const DATA = {
            en:"1) Many find it undesirable, 2) different values/norms/interests, 3) solutions imaginable via organisations, citizens or government, 4) gains attention from media and public opinion."}},
       { t:{nl:"Politiek-juridische benadering", en:"Political-legal approach"},
         d:{nl:"Kijkt naar beleid, wetten, machtsmiddelen, politieke partijen en de rol van de overheid bij het vraagstuk.",
-           en:"Looks at policy, laws, power resources, political parties and the role of government in the issue."}},
+           en:"Looks at policy, laws, power resources, political parties and the role of government in the issue."},
+        m:{nl:"<b>4 benaderingswijzen — PSSV</b>: <b>P</b>olitiek-juridisch, <b>S</b>ociaaleconomisch, <b>S</b>ociaal-cultureel, <b>V</b>eranderings-/vergelijkend. Denk: 'Politici Spreken Slim Vooruit'.",
+           en:"<b>4 perspectives — PSSC</b>: <b>P</b>olitical-legal, <b>S</b>ocio-economic, <b>S</b>ocio-cultural, <b>C</b>omparative/historical."}},
       { t:{nl:"Sociaaleconomische benadering", en:"Socio-economic approach"},
         d:{nl:"Kijkt naar belangen, maatschappelijke positie, arbeidsverhoudingen, sociale ongelijkheid en financiële aspecten.",
            en:"Looks at interests, social position, labour relations, social inequality and financial aspects."}},
@@ -1132,7 +1182,9 @@ const DATA = {
            en:"Journalistic norm of giving both parties in a dispute a voice — a test of objectivity."}},
       { t:{nl:"Bronnen op betrouwbaarheid beoordelen", en:"Evaluating source reliability"},
         d:{nl:"Check: hoor en wederhoor, feiten controleren via een andere bron, en feit van mening scheiden.",
-           en:"Check: hearing both sides, verifying facts with another source, separating fact from opinion."}},
+           en:"Check: hearing both sides, verifying facts with another source, separating fact from opinion."},
+        m:{nl:"<b>3 checks — HFF</b>: <b>H</b>oor en wederhoor, <b>F</b>eiten controleren, <b>F</b>eit en mening scheiden.",
+           en:"<b>3 checks — BVS</b>: <b>B</b>oth sides, <b>V</b>erify facts, <b>S</b>eparate fact and opinion."}},
       { t:{nl:"Standpunt onderbouwen", en:"Supporting a position"},
         d:{nl:"Een eigen mening over een vraagstuk geven en die met kennis, argumenten en bronnen onderbouwen.",
            en:"Giving your own view on an issue and backing it up with knowledge, arguments and sources."}},
@@ -1589,10 +1641,7 @@ const AudioEngine = {
     this.volume = v;
     this.ensure();
     this.musicBus.gain.setTargetAtTime(v, this.ctx.currentTime, 0.2);
-    // Mirror volume to YouTube too (0..100)
-    if(this._yt && this._yt.setVolume){
-      try{ this._yt.setVolume(Math.round(v*100)); }catch(e){}
-    }
+    // YouTube iframe embed volume is controlled by the phone's volume buttons.
   },
 
   changeType(t){
@@ -1602,42 +1651,30 @@ const AudioEngine = {
     if(wasPlaying) this.start();
   },
 
-  // ----- YouTube embed (real lofi tracks) -----
+  // ----- YouTube embed (real lofi tracks) — uses a plain iframe, no API.
+  // The IFrame API can fail to load on file:// origins or with ad-blockers;
+  // a bare <iframe> with autoplay=1 just works wherever embeds are allowed.
   _startYT(videoId){
-    const onReady = () => {
-      const host = document.getElementById("ytHost");
-      if(!host) return;
-      host.innerHTML = '<div id="ytPlayerEl"></div>';
-      this._yt = new YT.Player("ytPlayerEl", {
-        height: "1", width: "1",
-        videoId: videoId,
-        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, playsinline: 1, rel: 0 },
-        events: {
-          onReady: (e)=>{
-            try{
-              e.target.setVolume(Math.round(this.volume * 100));
-              e.target.playVideo();
-            }catch(err){}
-          },
-          onStateChange: (e)=>{
-            // Loop the live/long video; if it ends, replay
-            if(e.data === YT.PlayerState.ENDED && this.playing){
-              try{ e.target.playVideo(); }catch(err){}
-            }
-          }
-        }
-      });
-    };
-    loadYTAPI(onReady);
+    const host = document.getElementById("ytHost");
+    if(!host) return;
+    // Make the iframe visually invisible but functionally present.
+    // For some browsers, the iframe must have non-zero size for audio to play reliably.
+    // We keep it off-screen via fixed positioning on the host element.
+    host.innerHTML = `<iframe
+      width="200" height="120"
+      src="https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&playsinline=1"
+      title="study music"
+      frameborder="0"
+      allow="autoplay; encrypted-media; fullscreen"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>`;
+    this._yt = true; // flag so stop knows to clear
   },
   _stopYT(){
-    if(this._yt){
-      try{ this._yt.stopVideo(); }catch(e){}
-      try{ this._yt.destroy(); }catch(e){}
-      this._yt = null;
-    }
     const host = document.getElementById("ytHost");
     if(host) host.innerHTML = "";
+    this._yt = null;
   },
 
   // ----- Brown noise (deeper, more relaxing than white noise) -----
@@ -1821,8 +1858,8 @@ function updateMusicHint(){
   if(!el) return;
   const NL = state.lang === "nl";
   const usingYT = !!AudioEngine.YT_TRACKS[AudioEngine.musicType];
-  el.textContent = usingYT
-    ? (NL ? "Streamt van YouTube — even geduld bij eerste laden" : "Streaming from YouTube — give it a sec to load")
+  el.innerHTML = usingYT
+    ? (NL ? "Streamt van YouTube — gebruik telefoonvolume om aan te passen. Eerste keer kan paar seconden duren." : "Streaming from YouTube — use phone volume to adjust. May take a few seconds to start.")
     : (NL ? "Speelt lokaal — werkt ook offline" : "Plays locally — works offline too");
 }
 function setMusicVolume(v){
@@ -2570,10 +2607,14 @@ function injectPraktijkImage(wikiTitle, src){
   if(!src) return;
   const wrap = document.querySelector(`[data-prk-img="${wikiTitle}"]`);
   if(!wrap || wrap.querySelector("img")) return;
+  // Force wrap shape via inline styles so cached/old CSS can't crop the image
+  wrap.style.cssText += ";min-height:120px;max-height:none;padding:8px;display:flex;align-items:center;justify-content:center;overflow:visible;";
   const img = document.createElement("img");
   img.src = src;
   img.alt = "";
   img.loading = "lazy";
+  // Inline styles win over any cached CSS — guarantees the image isn't cropped
+  img.style.cssText = "max-width:100%;max-height:180px;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;";
   img.onerror = () => { img.remove(); };
   const credit = document.createElement("a");
   credit.className = "prk-img-credit";
@@ -2905,6 +2946,11 @@ function viewFlash(){
         </div>
         <div class="flash-face flash-back">
           <div class="def ${isLong?'long':''}">${def}</div>
+          ${c.m && c.m[state.lang] ? `
+            <div class="mnemonic">
+              <span class="ezelsbrug-label">💡 ${NL?'Ezelsbruggetje':'Memory trick'}</span>
+              ${c.m[state.lang]}
+            </div>` : ''}
           <div class="tap-hint"><span class="ico">👆</span>${NL?"Tik om terug te draaien":"Tap to flip back"}</div>
         </div>
       </div>
@@ -3039,7 +3085,9 @@ function viewQuiz(){
     state.quizOptions = buildQuizOptions();
     state.quizForIdx = state.idx;
     state.quizAnswered = null;
+    state.quizCorrectIdx = state.quizOptions.findIndex(opt => opt === c.d[state.lang]);
   }
+  const correctIdx = state.quizCorrectIdx;
   return `
     <div class="quiz-card">
       <div class="type-q">${L().promptLabel2}</div>
@@ -3047,11 +3095,12 @@ function viewQuiz(){
       ${ state.quizOptions.map((opt,i)=>{
         let cls = "quiz-opt";
         if(state.quizAnswered !== null){
-          if(opt === c.d[state.lang]) cls += " correct";
+          if(i === correctIdx) cls += " correct";
           else if(i === state.quizAnswered) cls += " wrong";
           cls += " disabled";
         }
-        return `<button class="${cls}" onclick="answerQuiz(${i})">${opt}</button>`;
+        // Pass correctness directly so click handler doesn't depend on state arrays
+        return `<button class="${cls}" onclick="answerQuiz(${i}, ${correctIdx})">${opt}</button>`;
       }).join("") }
       ${ state.quizAnswered !== null ? `
         <button class="btn btn-primary" style="margin-top:8px;width:100%;" onclick="quizNext()">${L().next} →</button>
@@ -3060,21 +3109,30 @@ function viewQuiz(){
   `;
 }
 
-function answerQuiz(i){
-  if(state.quizAnswered !== null) return;
-  const c = currentCard();
-  state.quizAnswered = i;
-  const correct = (state.quizOptions[i] === c.d[state.lang]);
-  state.lastQuizRight = correct;
-  if(correct){ confetti(); AudioEngine.correct(); }
-  else { AudioEngine.wrong(); }
-  render();
+function answerQuiz(i, correctIdx){
+  try{
+    if(state.quizAnswered !== null) return;
+    state.quizAnswered = i;
+    const correct = (i === correctIdx);
+    state.lastQuizRight = correct;
+    if(correct){ confetti(); AudioEngine.correct(); }
+    else { AudioEngine.wrong(); }
+    render();
+  }catch(e){
+    console.error("answerQuiz error:", e);
+  }
 }
 
 function quizNext(){
-  nextCard(!!state.lastQuizRight);
+  // Reset the per-question state BEFORE incrementing idx, so viewQuiz
+  // unambiguously sees a fresh state and rebuilds options.
+  const wasRight = !!state.lastQuizRight;
   state.quizOptions = null;
   state.quizAnswered = null;
+  state.quizForIdx = undefined;
+  state.quizCorrectIdx = undefined;
+  state.lastQuizRight = null;
+  nextCard(wasRight);
 }
 
 /* ----- MATCH game -----
