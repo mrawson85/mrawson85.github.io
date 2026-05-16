@@ -1429,11 +1429,13 @@
     font-size: .68rem !important; letter-spacing: .22em !important;
   }
   .type-prompt{
-    font-family: "Yellowtail", cursive !important;
-    font-style: normal !important;
-    font-size: 1.7rem !important;
+    font-family: "EB Garamond", Georgia, "Times New Roman", serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    font-size: 1.15rem !important;
     color: var(--ink) !important;
-    line-height: 1.1 !important;
+    line-height: 1.45 !important;
+    letter-spacing: .005em !important;
   }
   .type-input{
     background: var(--paper-soft) !important;
@@ -2298,6 +2300,53 @@
   .badge[data-bid="master_med"]::before   { background-image: var(--bdg-camera); }
   .badge[data-bid="master_ana"]::before   { background-image: var(--bdg-magnifier); }
   .badge[data-bid="exam_ready"]::before   { background-image: var(--bdg-grad); }
+
+  /* ────────────────────────────────────────────
+     OVERRIDE: when stickers.png is present in
+     the same folder as this HTML, each badge
+     crops one specific sticker from your sheet.
+     Coordinates are calibrated for the original
+     1792x2390 kawaii-bees image.
+     ──────────────────────────────────────────── */
+  .uses-sheet .badge::before,
+  .uses-sheet .hb-icon{
+    background-image: url("stickers.png") !important;
+    background-repeat: no-repeat !important;
+  }
+  /* Per-badge crop. Format: bg-size scales the WHOLE sheet so the chosen
+     sticker fits the 40px badge icon; bg-position scrolls to that sticker. */
+  .uses-sheet .badge[data-bid="first_steps"]::before  { background-size: 205px 273px !important; background-position: -17px  -9px  !important; } /* Sparkly bee */
+  .uses-sheet .badge[data-bid="bookworm"]::before     { background-size: 239px 319px !important; background-position: -69px  -20px !important; } /* Tamagotchi */
+  .uses-sheet .badge[data-bid="crunch_100"]::before   { background-size: 224px 299px !important; background-position: -108px -20px !important; } /* LUV U bee */
+  .uses-sheet .badge[data-bid="crunch_250"]::before   { background-size: 188px 252px !important; background-position: -131px -18px !important; } /* Heart wings */
+  .uses-sheet .badge[data-bid="streak_3"]::before     { background-size: 205px 273px !important; background-position: -14px  -74px !important; } /* Cat */
+  .uses-sheet .badge[data-bid="streak_7"]::before     { background-size: 224px 299px !important; background-position: -64px  -83px !important; } /* GIF stack */
+  .uses-sheet .badge[data-bid="perfect_10"]::before   { background-size: 239px 319px !important; background-position: -120px -77px !important; } /* Mushroom bee */
+  .uses-sheet .badge[data-bid="hot_streak"]::before   { background-size: 188px 252px !important; background-position: -130px -61px !important; } /* Game over bee */
+  .uses-sheet .badge[data-bid="sharpshooter"]::before { background-size: 119px 159px !important; background-position: -8px   -73px !important; } /* Honeycomb */
+  .uses-sheet .badge[data-bid="all_topics"]::before   { background-size: 211px 281px !important; background-position: -92px  -135px !important; } /* UFO */
+  .uses-sheet .badge[data-bid="master_pol"]::before   { background-size: 163px 217px !important; background-position: -107px -98px !important; } /* Error 404 */
+  .uses-sheet .badge[data-bid="master_cri"]::before   { background-size: 224px 299px !important; background-position: -15px  -198px !important; } /* Cutie bees */
+  .uses-sheet .badge[data-bid="master_med"]::before   { background-size: 188px 252px !important; background-position: -47px  -171px !important; } /* Rainbow */
+  .uses-sheet .badge[data-bid="master_ana"]::before   { background-size: 188px 252px !important; background-position: -91px  -164px !important; } /* Stars */
+  .uses-sheet .badge[data-bid="exam_ready"]::before   { background-size: 205px 273px !important; background-position: -144px -185px !important; } /* BEE HAPPY */
+
+  /* Mirror crops onto the home-page mini badge strip — smaller scale */
+  .uses-sheet .hb-icon[data-bid="first_steps"]  { background-size: 97px 130px  !important; background-position: -8px  -4px  !important; }
+  .uses-sheet .hb-icon[data-bid="bookworm"]     { background-size: 113px 151px !important; background-position: -33px -9px  !important; }
+  .uses-sheet .hb-icon[data-bid="crunch_100"]   { background-size: 106px 142px !important; background-position: -51px -9px  !important; }
+  .uses-sheet .hb-icon[data-bid="crunch_250"]   { background-size: 89px 119px  !important; background-position: -62px -8px  !important; }
+  .uses-sheet .hb-icon[data-bid="streak_3"]     { background-size: 97px 130px  !important; background-position: -7px  -35px !important; }
+  .uses-sheet .hb-icon[data-bid="streak_7"]     { background-size: 106px 142px !important; background-position: -30px -39px !important; }
+  .uses-sheet .hb-icon[data-bid="perfect_10"]   { background-size: 113px 151px !important; background-position: -57px -36px !important; }
+  .uses-sheet .hb-icon[data-bid="hot_streak"]   { background-size: 89px 119px  !important; background-position: -61px -29px !important; }
+  .uses-sheet .hb-icon[data-bid="sharpshooter"] { background-size: 56px 75px   !important; background-position: -4px  -34px !important; }
+  .uses-sheet .hb-icon[data-bid="all_topics"]   { background-size: 100px 134px !important; background-position: -44px -64px !important; }
+  .uses-sheet .hb-icon[data-bid="master_pol"]   { background-size: 77px 103px  !important; background-position: -51px -47px !important; }
+  .uses-sheet .hb-icon[data-bid="master_cri"]   { background-size: 106px 142px !important; background-position: -7px  -94px !important; }
+  .uses-sheet .hb-icon[data-bid="master_med"]   { background-size: 89px 119px  !important; background-position: -22px -81px !important; }
+  .uses-sheet .hb-icon[data-bid="master_ana"]   { background-size: 89px 119px  !important; background-position: -43px -78px !important; }
+  .uses-sheet .hb-icon[data-bid="exam_ready"]   { background-size: 97px 130px  !important; background-position: -68px -88px !important; }
   .badge .ttl{
     font-family: "EB Garamond", Georgia, serif !important;
     font-style: italic !important;
@@ -5777,6 +5826,21 @@ document.addEventListener("keydown", e=>{
 setLang(state.lang);
 restoreAudioPrefs();
 render();
+
+/* ════════════════════════════════════════════
+   If a stickers.png file exists alongside this
+   HTML, swap every badge icon over to crops of
+   that real sticker sheet. Otherwise the inline
+   SVG fallbacks stay (so the page is never blank).
+   ════════════════════════════════════════════ */
+(function detectStickerSheet(){
+  const probe = new Image();
+  probe.onload = () => {
+    document.body.classList.add("uses-sheet");
+  };
+  probe.onerror = () => { /* fall back to SVG defaults */ };
+  probe.src = "stickers.png?_=" + Date.now();
+})();
 
 /* ════════════════════════════════════════════
      ✦  Tiny sparkle trail (typographic, no emoji)  ✦
