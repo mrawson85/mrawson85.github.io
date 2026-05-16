@@ -1480,6 +1480,171 @@
   .feedback.almost{ border-left-color: var(--warn) !important; color: var(--warn) !important; }
   .feedback.wrong{ border-left-color: var(--accent) !important; color: var(--accent) !important; }
 
+  /* ── TYPE THE DEFINITION (self-graded) ── */
+  .tdef-term{
+    font-family: "Yellowtail", cursive;
+    color: var(--sage-deep);
+    font-size: 2rem;
+    line-height: 1.1;
+    text-align: center;
+    margin: 14px 0 8px;
+    padding: 14px 12px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 var(--rule-soft);
+  }
+  .tdef-input{
+    width: 100%;
+    min-height: 130px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 12px 14px;
+    font-family: "EB Garamond", Georgia, serif;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    resize: vertical;
+    box-shadow: inset 1px 1px 0 var(--rule-soft);
+  }
+  .tdef-input:focus{
+    outline: 0;
+    border-color: var(--sage-deep);
+    box-shadow: 0 0 0 2px var(--sage-soft), inset 1px 1px 0 var(--rule-soft);
+  }
+  .tdef-grade-help{
+    text-align: center;
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 10px 0 8px;
+    font-size: .98rem;
+  }
+  .tdef-cmp{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 600px){
+    .tdef-cmp{ grid-template-columns: 1fr; }
+  }
+  .tdef-side{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 10px 12px;
+  }
+  .tdef-side.canon{ /* if you wanted to color the official side differently */ }
+  .tdef-side-label{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .62rem;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tdef-side-text{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .tdef-side-text.empty{ color: var(--ink-mute); font-style: italic; }
+  .tdef-side-text.canon{ font-style: italic; }
+  /* keyword highlights inside the comparison */
+  mark.tdef-hit{
+    background: var(--sage-soft);
+    color: var(--sage-deep);
+    border-radius: 2px;
+    padding: 0 2px;
+    font-weight: 600;
+  }
+  mark.tdef-miss-kw{
+    background: #fbe2dc;
+    color: #8a3a3a;
+    border-radius: 2px;
+    padding: 0 2px;
+    font-weight: 600;
+    text-decoration: underline wavy rgba(138,58,58,.4);
+    text-underline-offset: 2px;
+  }
+  .tdef-meter{
+    display: flex; gap: 10px; align-items: center;
+    margin: 6px 0 14px;
+  }
+  .tdef-meter-bar{
+    flex: 1 1 auto;
+    height: 6px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .tdef-meter-fill{
+    height: 100%;
+    background: var(--sage);
+    border-radius: 999px;
+    transition: width .3s;
+  }
+  .tdef-meter-txt{
+    flex: 0 0 auto;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .62rem;
+    letter-spacing: .15em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .tdef-rate{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .tdef-btn{
+    padding: 14px 8px;
+    border-radius: 2px;
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    background: var(--paper);
+    color: var(--ink);
+    transition: transform .06s, background .12s;
+  }
+  .tdef-btn:active{ transform: translate(1px,1px); }
+  .tdef-btn.good{
+    background: var(--sage-soft);
+    border-color: var(--sage-deep);
+    color: var(--sage-deep);
+    box-shadow: 1px 1px 0 var(--sage-deep);
+  }
+  .tdef-btn.good:hover{ background: var(--sage); color: #fff; }
+  .tdef-btn.close{
+    background: #fbeed3;
+    border-color: var(--warn);
+    color: var(--warn);
+    box-shadow: 1px 1px 0 var(--warn);
+  }
+  .tdef-btn.close:hover{ background: #f4e2bd; }
+  .tdef-btn.miss{
+    background: #fbe2dc;
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 1px 1px 0 var(--accent);
+  }
+  .tdef-btn.miss:hover{ background: #f4c8be; }
+
+  /* mode-typedef tile gets its own roman numeral on kawaii theme */
+  .mode-typedef::before{ content: "III·" !important; }
+  .mode-quiz::before{ content: "IV·" !important; }
+
   /* ── MATCH ── */
   .match-card{
     border-radius: 2px !important;
@@ -7112,6 +7277,8 @@ const i18n = {
     progress:"Voortgang",
     flashHelp:"Tik op de kaart of druk op spatie om om te draaien.",
     typeHelp:"Je krijgt een definitie te zien — typ het juiste begrip. Spelling mag een beetje afwijken.",
+    typedef:"Typ definitie",
+    typedefHelp:"Je krijgt een begrip — typ de definitie. Daarna beoordeel je jezelf eerlijk.",
     quizHelp:"Kies de juiste definitie uit 4 opties — de quiz loopt door alle kaarten in de sessie.",
     of:"van",
     correctCount:"goed",
@@ -7154,6 +7321,8 @@ const i18n = {
     progress:"Progress",
     flashHelp:"Tap the card or press space to flip.",
     typeHelp:"You're shown a definition — type the matching term. Small spelling slips are OK.",
+    typedef:"Type definition",
+    typedefHelp:"You're shown a term — write the definition. Then grade yourself honestly.",
     quizHelp:"Pick the right definition from 4 options — the quiz runs through every card in the session.",
     of:"of",
     correctCount:"right",
@@ -7439,7 +7608,7 @@ function viewStats(){
     const dateStr = (date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0") === today)
       ? (NL?"Vandaag":"Today")+" "+String(date.getHours()).padStart(2,"0")+":"+String(date.getMinutes()).padStart(2,"0")
       : date.toLocaleDateString(state.lang==="nl"?"nl-NL":"en-GB",{month:"short",day:"numeric"}) + " " + String(date.getHours()).padStart(2,"0")+":"+String(date.getMinutes()).padStart(2,"0");
-    const modeName = ({flash:"flashcards",type:"type",quiz:"quiz",match:"match"})[s.mode] || s.mode;
+    const modeName = ({flash:"flashcards",type:"type",typedef:"type-def",quiz:"quiz",match:"match"})[s.mode] || s.mode;
     return `
       <div class="sess-row">
         <div class="sess-left">
@@ -8783,12 +8952,15 @@ function viewMode(){
     </div>
     <div class="modes">
       <h3>${L().pickMode}</h3>
-      <div class="mode-row" style="grid-template-columns:repeat(4,1fr);">
+      <div class="mode-row" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));">
         <button class="mode-btn mode-flash" onclick="startMode('flash')">
           <div class="ico">🃏</div>${L().flash}
         </button>
         <button class="mode-btn mode-type" onclick="startMode('type')">
           <div class="ico">⌨️</div>${L().type}
+        </button>
+        <button class="mode-btn mode-typedef" onclick="startMode('typedef')">
+          <div class="ico">✎</div>${L().typedef}
         </button>
         <button class="mode-btn mode-quiz" onclick="startMode('quiz')">
           <div class="ico">🎯</div>${L().quiz}
@@ -8813,8 +8985,9 @@ function viewMode(){
       <div class="mode-help">
         <div><span class="mh-num">I.</span> ${L().flashHelp}</div>
         <div><span class="mh-num">II.</span> ${L().typeHelp}</div>
-        <div><span class="mh-num">III.</span> ${L().quizHelp}</div>
-        <div><span class="mh-num">IV.</span> ${state.lang==="nl"?"Koppel begrippen aan hun definities zo snel mogelijk — je beste tijd wordt opgeslagen.":"Match terms to their definitions as fast as you can — your best time is saved."}</div>
+        <div><span class="mh-num">III.</span> ${L().typedefHelp}</div>
+        <div><span class="mh-num">IV.</span> ${L().quizHelp}</div>
+        <div><span class="mh-num">V.</span> ${state.lang==="nl"?"Koppel begrippen aan hun definities zo snel mogelijk — je beste tijd wordt opgeslagen.":"Match terms to their definitions as fast as you can — your best time is saved."}</div>
       </div>
     </div>
   `;
@@ -8935,10 +9108,11 @@ function viewStudy(){
     <div class="progress"><div style="width:${pct}%"></div></div>
   `;
 
-  if(state.mode === "flash") return header + viewFlash();
-  if(state.mode === "type")  return header + viewType();
-  if(state.mode === "quiz")  return header + viewQuiz();
-  if(state.mode === "match") return viewMatchWrap();
+  if(state.mode === "flash")   return header + viewFlash();
+  if(state.mode === "type")    return header + viewType();
+  if(state.mode === "typedef") return header + viewTypeDef();
+  if(state.mode === "quiz")    return header + viewQuiz();
+  if(state.mode === "match")   return viewMatchWrap();
 }
 
 function currentCard(){ return state.deck[state.idx]; }
@@ -9064,18 +9238,82 @@ function viewType(){
 
 function escapeAttr(s){ return String(s).replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
 
-// Smarter scoring for short terms. Returns 0..1.
+/* Damerau-ish Levenshtein edit distance.
+   Counts inserts/deletes/substitutions; we include transpositions as 1 op too,
+   so "rehctsstaat" ↔ "rechtsstaat" costs 1, not 2. */
+function editDistance(a, b){
+  a = a || ""; b = b || "";
+  const m = a.length, n = b.length;
+  if(m === 0) return n;
+  if(n === 0) return m;
+  // One-row DP, with previous-row & prev-prev-row to handle adjacent transposition.
+  let prev2 = null;
+  let prev = new Array(n+1);
+  for(let j=0; j<=n; j++) prev[j] = j;
+  for(let i=1; i<=m; i++){
+    const cur = new Array(n+1);
+    cur[0] = i;
+    for(let j=1; j<=n; j++){
+      const cost = a[i-1] === b[j-1] ? 0 : 1;
+      cur[j] = Math.min(
+        cur[j-1] + 1,      // insert
+        prev[j] + 1,       // delete
+        prev[j-1] + cost   // substitute
+      );
+      // adjacent transposition
+      if(i > 1 && j > 1 && a[i-1] === b[j-2] && a[i-2] === b[j-1]){
+        cur[j] = Math.min(cur[j], prev2[j-2] + 1);
+      }
+    }
+    prev2 = prev; prev = cur;
+  }
+  return prev[n];
+}
+
+/* Smarter scoring for short terms. Returns 0..1.
+   Forgives:
+   - leading articles (de/het/een/the/a/an)
+   - missing/extra spaces in compound words (tweede kamer ↔ tweedekamer)
+   - tiny typos (~12% of answer length, min 1 for words ≥4 chars; min 2 for ≥10) */
 function scoreTerm(user, answer){
   const nu = normalize(user);
   const na = normalize(answer);
   if(!nu) return 0;
   if(nu === na) return 1;
-  // strip leading article (de/het/een/the/a/an)
+
+  // strip leading article
   const strip = s => s.replace(/^(de|het|een|the|a|an)\s+/, "");
-  if(strip(nu) === strip(na)) return 1;
+  const sNu = strip(nu), sNa = strip(na);
+  if(sNu === sNa) return 1;
+
+  // ignore all whitespace for compound-word forgiveness
+  const collapse = s => s.replace(/\s+/g, "");
+  const cNu = collapse(sNu), cNa = collapse(sNa);
+  if(cNu === cNa) return 1;
+
+  // Fuzzy edit-distance: tolerate small typos.
+  // Tolerance scales with answer length:
+  //   <4 chars  → only exact wins
+  //   4-9       → 1 typo
+  //   10-19     → 2 typos
+  //   20+       → ~12% of length
+  const len = cNa.length;
+  let tol = 0;
+  if(len >= 4 && len < 10) tol = 1;
+  else if(len >= 10 && len < 20) tol = 2;
+  else if(len >= 20) tol = Math.max(2, Math.floor(len * 0.12));
+
+  if(tol > 0){
+    const d = editDistance(cNu, cNa);
+    if(d <= tol) return 1;
+    if(d <= tol * 2) return 0.7;
+  }
+
+  // Substring inclusion (e.g. she wrote a synonym phrase that includes the term)
   if(na.includes(nu) && nu.length >= Math.max(4, na.length*0.6)) return 0.9;
   if(nu.includes(na)) return 0.95;
-  // keyword overlap
+
+  // keyword overlap as a last resort (mostly a no-op for single-word answers)
   return similarity(user, answer);
 }
 
@@ -9111,6 +9349,129 @@ function overrideTypeRight(){ state.feedback.score = 1; AudioEngine.click(); ren
 function skipType(){
   AudioEngine.click();
   state.feedback = { user: "", score: 0 };
+  render();
+}
+
+/* ----- TYPE THE DEFINITION (self-graded) -----
+   Show the term, ask her to write the definition.
+   After Check: side-by-side with keyword highlights, then she picks
+   "Got it / Close / Missed it" — her honest self-grade drives recordCard.
+*/
+
+function viewTypeDef(){
+  const c = currentCard();
+  const NL = state.lang === "nl";
+  const term = c.t[state.lang];
+  const answer = c.d[state.lang];
+  const fb = state.feedback;
+
+  // Build keyword sets for the highlight diff
+  let userHTML = "", answerHTML = "", coverage = 0;
+  if(fb){
+    const userText = fb.user || "";
+    const userTokens = new Set(keyWords(userText));
+    const answerTokens = keyWords(answer);
+    const uniqueAnswerTokens = new Set(answerTokens);
+    const hits = answerTokens.filter(w => userTokens.has(w)).length;
+    coverage = answerTokens.length ? Math.round(hits / uniqueAnswerTokens.size * 100) : 0;
+
+    userHTML   = highlightTokens(userText,  uniqueAnswerTokens, "tdef-hit");
+    answerHTML = highlightTokens(answer,    userTokens,         "tdef-hit", uniqueAnswerTokens);
+  }
+
+  return `
+    <div class="type-card tdef-card">
+      <div class="type-q">${NL?"Begrip":"Term"} →  ${NL?"Definitie":"Definition"}</div>
+      <div class="tdef-term">${term}</div>
+
+      ${ fb ? `
+        <div class="tdef-grade-help">${NL?"Hoe deed je dat? Wees eerlijk ☆":"How did you do? Be honest ☆"}</div>
+        <div class="tdef-cmp">
+          <div class="tdef-side">
+            <div class="tdef-side-label">${NL?"Jouw antwoord":"Your answer"}</div>
+            <div class="tdef-side-text ${userHTML.trim()?"":"empty"}">${userHTML || (NL?"(leeg)":"(empty)")}</div>
+          </div>
+          <div class="tdef-side">
+            <div class="tdef-side-label">${NL?"Officiële definitie":"Official definition"}</div>
+            <div class="tdef-side-text canon">${answerHTML}</div>
+          </div>
+        </div>
+        <div class="tdef-meter">
+          <div class="tdef-meter-bar"><div class="tdef-meter-fill" style="width:${coverage}%"></div></div>
+          <div class="tdef-meter-txt">${coverage}% ${NL?"sleutelwoorden geraakt":"keywords matched"}</div>
+        </div>
+        <div class="tdef-rate">
+          <button class="tdef-btn good"  onclick="rateTypeDef('got')">✓ ${NL?"Ik had het":"Got it"}</button>
+          <button class="tdef-btn close" onclick="rateTypeDef('close')">~ ${NL?"Bijna":"Close"}</button>
+          <button class="tdef-btn miss"  onclick="rateTypeDef('miss')">✗ ${NL?"Mis":"Missed it"}</button>
+        </div>
+      ` : `
+        <textarea id="tdefInput" class="tdef-input" placeholder="${NL?'Schrijf hier de definitie in je eigen woorden… (ctrl+enter = controleer)':'Write the definition in your own words… (ctrl+enter = check)'}" rows="5" autocomplete="off" autocorrect="off" autocapitalize="sentences"></textarea>
+        <div class="type-actions">
+          <button class="btn btn-primary" onclick="checkTypeDefAnswer()">✓ ${L().check}</button>
+          <button class="btn btn-ghost"   onclick="skipTypeDef()">${L().skip}</button>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+/* Word-boundary highlight: wrap every token from `target` in <mark class>
+   when it appears in `text`. Optionally requireSet limits which tokens count.
+   Diacritics-insensitive via normalize(). */
+function highlightTokens(text, targetSet, cls, requireSet){
+  if(!text) return "";
+  // We do a token walk: split text on whitespace+punctuation but keep the original glyphs
+  // for display. For matching we normalize the cleaned token.
+  const parts = text.split(/(\s+|[.,;:!?()"'‘’“”—–…]+)/);
+  return parts.map(piece => {
+    if(/^\s+$/.test(piece) || /^[.,;:!?()"'‘’“”—–…]+$/.test(piece)){
+      return piece;
+    }
+    const norm = normalize(piece);
+    if(!norm) return piece;
+    const isMatch = targetSet.has(norm);
+    const required = requireSet ? requireSet.has(norm) : true;
+    if(isMatch && required){
+      return `<mark class="${cls}">${piece}</mark>`;
+    }
+    // For the canonical side, also show missed keywords (in requireSet but not matched)
+    if(requireSet && requireSet.has(norm) && !isMatch){
+      return `<mark class="tdef-miss-kw">${piece}</mark>`;
+    }
+    return piece;
+  }).join("");
+}
+
+function checkTypeDefAnswer(){
+  const ti = document.getElementById("tdefInput");
+  const user = ti ? ti.value.trim() : "";
+  // We DON'T set a numeric score — she'll grade herself.
+  state.feedback = { user, kind: "typedef" };
+  AudioEngine.tap && AudioEngine.tap();
+  render();
+}
+function skipTypeDef(){
+  AudioEngine.click();
+  state.feedback = { user: "", kind: "typedef" };
+  render();
+}
+function rateTypeDef(rating){
+  // rating: 'got' | 'close' | 'miss'
+  if(rating === "got"){ AudioEngine.correct && AudioEngine.correct(); }
+  else if(rating === "close"){ AudioEngine.almost && AudioEngine.almost(); }
+  else { AudioEngine.wrong && AudioEngine.wrong(); }
+
+  const ok = (rating === "got");
+  recordCurrentCardResult(ok);
+  state.correct += ok ? 1 : 0;
+  state.wrong   += ok ? 0 : 1;
+  state.idx++;
+  state.feedback = null;
+  if(state.idx >= state.deck.length){
+    finishSession();
+    state.view = "done";
+  }
   render();
 }
 
@@ -9514,6 +9875,9 @@ function render(){
   if(state.view === "study" && state.mode === "type" && !state.feedback){
     setTimeout(()=>{ const ti = document.getElementById("typeInput"); ti && ti.focus(); }, 60);
   }
+  if(state.view === "study" && state.mode === "typedef" && !state.feedback){
+    setTimeout(()=>{ const ti = document.getElementById("tdefInput"); ti && ti.focus(); }, 60);
+  }
 }
 
 document.addEventListener("keydown", e=>{
@@ -9526,6 +9890,9 @@ document.addEventListener("keydown", e=>{
   if(state.mode === "type"){
     if(e.ctrlKey && e.code === "Enter" && !state.feedback){ e.preventDefault(); checkTypeAnswer(); }
     if(state.feedback && e.code === "Enter"){ e.preventDefault(); nextAfterType(); }
+  }
+  if(state.mode === "typedef"){
+    if(e.ctrlKey && e.code === "Enter" && !state.feedback){ e.preventDefault(); checkTypeDefAnswer(); }
   }
 });
 
