@@ -1525,13 +1525,24 @@
     font-family: "Pixelify Sans","VT323",monospace;
     font-size: .68rem; letter-spacing: .22em;
   }
+  /* Match the topic-card h2 typography exactly so Media / Practical Examples /
+     Timelines all look like siblings in the same family. */
   .prk-card .prk-info h2{
-    font-family: "Yellowtail", cursive !important;
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
     color: var(--sage-deep) !important;
-    font-size: 1.5rem !important; font-weight: 400 !important;
-    font-style: normal !important;
+    font-size: 1.08rem !important;
+    line-height: 1.2 !important;
+    margin: 0 0 4px !important;
+    text-shadow: none !important;
   }
-  .prk-card .prk-info p{ color: var(--ink-soft) !important; font-size: .88rem !important; }
+  .prk-card .prk-info p{
+    font-family: "EB Garamond", Georgia, serif !important;
+    color: var(--ink-soft) !important;
+    font-size: .82rem !important;
+    line-height: 1.4 !important;
+  }
   .prk-card .prk-arrow{ color: var(--sage-deep) !important; font-family: "Pixelify Sans",monospace !important; font-size: 1rem !important; }
   .prk-card .prk-arrow::before{ content: "»"; }
   .prk-card .prk-arrow > *{ display: none; }
@@ -1825,6 +1836,194 @@
   }
   .tl-fb.ok{ color: var(--sage-deep); }
   .tl-fb.bad{ color: #8a3a3a; }
+
+  /* progress badge on each timeline card (inline with the SEQUENCE/NUMBERS pill) */
+  .tl-prog-badge{
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 7px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .58rem;
+    letter-spacing: .12em;
+    color: var(--ink-mute);
+    background: var(--paper-soft);
+    text-transform: uppercase;
+  }
+  .tl-prog-badge.good{ color: var(--sage-deep); border-color: var(--sage-deep); background: var(--sage-soft); }
+  .tl-prog-badge.ok{
+    color: #fff;
+    border-color: var(--sage-deep);
+    background: var(--sage-deep);
+  }
+  .tl-card.tl-mastered{ box-shadow: 1px 1px 0 var(--sage-deep), 2px 2px 0 var(--sage-deep); }
+  .tl-card.tl-mastered::after{
+    content: "★";
+    position: absolute;
+    top: -22px; right: 8px;
+    font-family: "Pixelify Sans",monospace;
+    color: var(--sage-deep);
+    font-size: 1rem;
+  }
+
+  /* progress bar on the home-card */
+  .tl-progress-row{
+    display: flex; align-items: center; gap: 8px; margin-top: 8px;
+  }
+  .tl-progress-bar{
+    flex: 1 1 auto;
+    height: 5px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .tl-progress-fill{
+    height: 100%;
+    background: #ec6e8c;
+    border-radius: 999px;
+    transition: width .3s;
+  }
+  .tl-progress-txt{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .62rem;
+    letter-spacing: .12em;
+    color: #b04766;
+    text-transform: uppercase;
+    flex: 0 0 auto;
+  }
+
+  /* timeline stats rows on the Progress page */
+  .tl-stat-list{ display: flex; flex-direction: column; gap: 6px; }
+  .tl-stat-row{
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 10px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--rule);
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 var(--rule-soft);
+  }
+  .tl-stat-row.tl-stat-mastered{ border-left-color: var(--sage-deep); background: var(--sage-soft); }
+  .tl-stat-row.tl-stat-good{ border-left-color: var(--sage); }
+  .tl-stat-row.tl-stat-trying{ border-left-color: #c97a76; }
+  .tl-stat-row.tl-stat-untouched{ opacity: 0.65; }
+  .tl-stat-ico{
+    font-family: "Pixelify Sans",monospace;
+    font-size: 1.3rem;
+    color: var(--sage-deep);
+    line-height: 1;
+    flex: 0 0 auto;
+    padding-top: 2px;
+  }
+  .tl-stat-body{ flex: 1 1 auto; }
+  .tl-stat-title{
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: .95rem;
+    line-height: 1.2;
+  }
+  .tl-stat-line{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .62rem;
+    letter-spacing: .12em;
+    color: var(--ink-mute);
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+  .tl-stat-row.tl-stat-mastered .tl-stat-line{ color: var(--sage-deep); }
+
+  /* share button on Stats page */
+  .share-btn{
+    background: var(--sage-soft) !important;
+    border-color: var(--sage-deep) !important;
+    color: var(--sage-deep) !important;
+    box-shadow: 1px 1px 0 var(--sage-deep) !important;
+  }
+
+  /* share modal — selectable copy-and-paste report */
+  .share-modal{
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 18px;
+    background: rgba(28, 25, 23, 0.55);
+    backdrop-filter: blur(2px);
+  }
+  .share-modal-card{
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 18px solid #ec6e8c;
+    box-shadow: 4px 4px 0 var(--rule);
+    border-radius: 2px;
+    padding: 14px 16px 16px;
+    position: relative;
+  }
+  .share-modal-hd{
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .share-modal-hd h3{
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    color: #b04766;
+    font-size: 1.6rem;
+    margin: 0;
+    line-height: 1;
+  }
+  .share-modal-x{
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-mute);
+    border-radius: 999px;
+    width: 28px; height: 28px;
+    font-family: "Pixelify Sans", monospace;
+    font-size: .8rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-modal-x:hover{ background: var(--paper-soft); color: var(--ink); }
+  .share-modal-help{
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .95rem;
+    margin: 4px 0 12px;
+    line-height: 1.35;
+  }
+  .share-modal-text{
+    width: 100%;
+    height: 240px;
+    resize: vertical;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-family: "Pixelify Sans","VT323",ui-monospace,monospace;
+    font-size: .82rem;
+    line-height: 1.5;
+    color: var(--ink);
+    box-shadow: inset 1px 1px 0 var(--rule-soft);
+  }
+  .share-modal-actions{
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .share-copy-status{
+    margin-top: 8px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: .92rem;
+    min-height: 1.2em;
+  }
+  .share-copy-status.ok{ color: var(--sage-deep); }
+  .share-copy-status.bad{ color: #8a3a3a; }
 
   /* ── STATS BUTTON ── */
   .stats-btn{
@@ -6593,6 +6792,7 @@ function loadScore(){
     // Fill any missing branches
     return Object.assign(defaultScore(), s, {
       cards: Object.assign({}, s.cards||{}),
+      timelines: Object.assign({}, s.timelines||{}),
       sessions: s.sessions || [],
       achievements: Object.assign({}, s.achievements||{})
     });
@@ -6601,6 +6801,7 @@ function loadScore(){
 function defaultScore(){
   return {
     cards: {},
+    timelines: {},
     sessions: [],
     daily: { lastDate: null, streak: 0, longest: 0 },
     totals: { correct: 0, wrong: 0, seen: 0, sessions: 0 },
@@ -6666,6 +6867,61 @@ function recordSession(sess){
   saveScore(SCORE);
 }
 
+/* Mastery rule for a single timeline: 2 perfect (no-mistake) runs. */
+function isTimelineMastered(t){
+  if(!t) return false;
+  return (t.perfectRuns||0) >= 2;
+}
+
+function recordTimeline(id, type, ok, bad){
+  const t = SCORE.timelines[id] || {
+    runs:0, perfectRuns:0, correct:0, wrong:0, mastered:false, lastDone:null, type
+  };
+  t.type = type;
+  t.runs    += 1;
+  t.correct += ok;
+  t.wrong   += bad;
+  t.lastDone = Date.now();
+  if(bad === 0) t.perfectRuns = (t.perfectRuns||0) + 1;
+  t.mastered = isTimelineMastered(t);
+  SCORE.timelines[id] = t;
+  // Roll up into shared totals so streaks/sessions count
+  SCORE.totals.correct += ok;
+  SCORE.totals.wrong   += bad;
+  SCORE.totals.seen    += (ok + bad);
+  SCORE.totals.sessions += 1;
+  // Treat the practice as a one-off session for daily-streak/badge purposes
+  SCORE.sessions.unshift({
+    kind: "timeline", id, type, total: ok+bad, correct: ok, wrong: bad,
+    bestStreak: bad === 0 ? (ok) : 0,
+    date: new Date().toISOString()
+  });
+  if(SCORE.sessions.length > 30) SCORE.sessions.length = 30;
+  updateDailyStreak();
+  checkAchievements(SCORE.sessions[0]);
+  saveScore(SCORE);
+}
+
+function timelineMasteryPct(s){
+  const total = (typeof TIMELINES !== "undefined") ? TIMELINES.length : 0;
+  if(!total) return 0;
+  const tl = s.timelines || {};
+  let m = 0;
+  Object.values(tl).forEach(t => { if(t.mastered) m++; });
+  return Math.round((m/total)*100);
+}
+function timelinesTouched(s){
+  return Object.keys(s.timelines||{}).length;
+}
+function timelinesPerfectCount(s){
+  return Object.values(s.timelines||{}).filter(t => (t.perfectRuns||0) >= 1).length;
+}
+function sequenceMasteryAll(s){
+  if(typeof TIMELINES === "undefined") return false;
+  const seqIds = TIMELINES.filter(t => t.type === "sequence").map(t => t.id);
+  return seqIds.length && seqIds.every(id => (s.timelines[id] && s.timelines[id].mastered));
+}
+
 const ACHIEVEMENTS = [
   { id:"first_steps", ico:"👶", ttl:{nl:"Eerste stap",en:"First step"}, sub:{nl:"1 sessie",en:"1 session"},
     test:s => s.totals.sessions >= 1 },
@@ -6700,7 +6956,18 @@ const ACHIEVEMENTS = [
   { id:"master_ana", ico:"🔍", ttl:{nl:"Analyse-meester",en:"Analysis master"}, sub:{nl:"Alles beheerst",en:"All mastered"},
     test:s => topicMasteryPct(s, "analyse") >= 100 },
   { id:"exam_ready", ico:"🎓", ttl:{nl:"Examen-klaar",en:"Exam-ready"}, sub:{nl:"Alle 4 beheerst",en:"All 4 mastered"},
-    test:s => ["politiek","criminaliteit","media","analyse"].every(k => topicMasteryPct(s, k) >= 100) }
+    test:s => ["politiek","criminaliteit","media","analyse"].every(k => topicMasteryPct(s, k) >= 100) },
+  // ── Timeline-specific badges ──
+  { id:"tl_first", ico:"⏱", ttl:{nl:"Eerste tijdlijn",en:"First timeline"}, sub:{nl:"1 tijdlijn geoefend",en:"1 timeline practiced"},
+    test:s => timelinesTouched(s) >= 1 },
+  { id:"tl_perfect_one", ico:"✦", ttl:{nl:"Foutloze run",en:"Flawless run"}, sub:{nl:"1 tijdlijn zonder fouten",en:"1 timeline with no mistakes"},
+    test:(s, last) => last && last.kind === "timeline" && last.wrong === 0 },
+  { id:"tl_perfect_3", ico:"❀", ttl:{nl:"Drie perfect",en:"Three perfect"}, sub:{nl:"3 tijdlijnen foutloos",en:"3 timelines flawless"},
+    test:s => timelinesPerfectCount(s) >= 3 },
+  { id:"tl_seq_master", ico:"❋", ttl:{nl:"Volgorde-meester",en:"Sequence master"}, sub:{nl:"Alle volgordes beheerst",en:"All sequences mastered"},
+    test:s => sequenceMasteryAll(s) },
+  { id:"tl_all_master", ico:"★", ttl:{nl:"Tijdlijn-meester",en:"Timeline master"}, sub:{nl:"Alle 10 beheerst",en:"All 10 mastered"},
+    test:s => timelineMasteryPct(s) >= 100 }
 ];
 
 function topicMasteryPct(s, topicKey){
@@ -7083,14 +7350,27 @@ function viewHome(){
       <div class="prk-arrow">→</div>
     </div>
 
+    ${(() => {
+      const tlPct = timelineMasteryPct(SCORE);
+      const tlTouched = timelinesTouched(SCORE);
+      const tlTotal = (typeof TIMELINES !== "undefined") ? TIMELINES.length : 10;
+      const tlMastered = Object.values(SCORE.timelines||{}).filter(t=>t.mastered).length;
+      return `
     <div class="prk-card tl-home" onclick="openTijdlijnen()" style="margin-top:12px;">
       <div class="prk-emoji">❀</div>
       <div class="prk-info">
         <h2>${NL?"Tijdlijnen & Volgordes":"Timelines & Sequences"}</h2>
         <p>${NL?"De getallen en stappen die het examen letterlijk vraagt — leeftijden, vasthoudtijden, Prinsjesdag, rechtszitting in de juiste volgorde.":"The numbers and steps the exam literally asks for — ages, custody limits, Prinsjesdag, the order of a court hearing."}</p>
+        ${tlTouched>0 ? `
+          <div class="tl-progress-row">
+            <div class="tl-progress-bar"><div class="tl-progress-fill" style="width:${tlPct}%"></div></div>
+            <div class="tl-progress-txt">${tlMastered}/${tlTotal} ${NL?"beheerst":"mastered"}</div>
+          </div>
+        ` : ""}
       </div>
       <div class="prk-arrow">→</div>
-    </div>
+    </div>`;
+    })()}
 
     <div class="guest" id="guestPanel">
       <div class="guest-list" id="guestList">
@@ -7216,6 +7496,11 @@ function viewStats(){
     </div>
 
     <div class="stats-card">
+      <h3>${NL?"Tijdlijnen & Volgordes":"Timelines & Sequences"}</h3>
+      ${renderTlStats(NL)}
+    </div>
+
+    <div class="stats-card">
       <h3>${NL?"Badges":"Badges"} <span class="badge-count">${unlockedCount}/${ACHIEVEMENTS.length}</span></h3>
       <div class="badges">${badges}</div>
     </div>
@@ -7225,10 +7510,186 @@ function viewStats(){
       <div class="sessions-list">${sess}</div>
     </div>
 
-    <div style="text-align:center;">
+    <div style="text-align:center; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+      <button class="reset-btn share-btn" onclick="shareProgress()">${NL?"📨 stuur naar mama":"📨 send to mom"}</button>
       <button class="reset-btn" onclick="resetAllProgress()">${NL?"voortgang resetten":"reset progress"}</button>
     </div>
   `;
+}
+
+function renderTlStats(NL){
+  if(typeof TIMELINES === "undefined") return "";
+  const tl = SCORE.timelines || {};
+  const total = TIMELINES.length;
+  const mastered = Object.values(tl).filter(t => t.mastered).length;
+  const touched = Object.keys(tl).length;
+  const overall = total ? Math.round(mastered/total*100) : 0;
+
+  const items = TIMELINES.map(t => {
+    const p = tl[t.id];
+    const title = t.title[state.lang];
+    let state2, line;
+    if(!p){ state2 = "untouched"; line = NL?"nog niet geprobeerd":"not tried yet"; }
+    else if(p.mastered){ state2 = "mastered"; line = `★ ${NL?"beheerst":"mastered"} · ${p.runs} ${NL?"runs":"runs"} · ${p.perfectRuns} ${NL?"foutloos":"flawless"}`; }
+    else if((p.perfectRuns||0) >= 1){ state2 = "good"; line = `${p.perfectRuns}× ${NL?"foutloos":"flawless"} · ${p.runs} ${NL?"runs":"runs"}`; }
+    else { state2 = "trying"; line = `${p.runs} ${NL?"runs":"runs"} · ${p.correct} ${NL?"juist":"right"} · ${p.wrong} ${NL?"fout":"wrong"}`; }
+    return `
+      <div class="tl-stat-row tl-stat-${state2}">
+        <span class="tl-stat-ico">${t.icon}</span>
+        <div class="tl-stat-body">
+          <div class="tl-stat-title">${title}</div>
+          <div class="tl-stat-line">${line}</div>
+        </div>
+      </div>`;
+  }).join("");
+
+  const header = `
+    <div class="topic-bar" style="margin-bottom:10px;">
+      <div class="topic-bar-top">
+        <span>${NL?"Totale voortgang":"Overall progress"}</span>
+        <span>${overall}%</span>
+      </div>
+      <div class="topic-bar-track">
+        <div class="topic-bar-fill" style="width:${Math.max(overall,4)}%;background:#ec6e8c;">${overall>15?(mastered+"/"+total):""}</div>
+      </div>
+      <div class="topic-bar-meta">${NL?"Beheerst":"Mastered"}: <b>${mastered}</b> · ${NL?"Geprobeerd":"Tried"}: ${touched}/${total}</div>
+    </div>`;
+
+  return header + `<div class="tl-stat-list">${items}</div>`;
+}
+
+/* ── Share progress report ───────────────────────────────── */
+function shareProgress(){
+  AudioEngine.click && AudioEngine.click();
+  const NL = state.lang === "nl";
+  const report = buildProgressReport(NL);
+  openShareModal(report, NL);
+}
+
+function openShareModal(report, NL){
+  // Remove any existing modal
+  const old = document.getElementById("shareModal");
+  if(old) old.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "shareModal";
+  overlay.className = "share-modal";
+  overlay.innerHTML = `
+    <div class="share-modal-card">
+      <div class="share-modal-hd">
+        <h3>${NL?"Voortgangs-rapport":"Progress report"}</h3>
+        <button class="share-modal-x" onclick="closeShareModal()" aria-label="close">✕</button>
+      </div>
+      <div class="share-modal-help">
+        ${NL?"Tik op <b>kopieer</b>, ga naar WhatsApp, en plak in mama's chat ☆":
+              "Tap <b>copy</b>, open WhatsApp, and paste in mom's chat ☆"}
+      </div>
+      <textarea id="shareText" class="share-modal-text" readonly>${escapeText(report)}</textarea>
+      <div class="share-modal-actions">
+        <button class="tl-prac-btn primary" onclick="copyShareText()">📋 ${NL?"kopieer":"copy"}</button>
+        ${navigator.share ? `<button class="tl-prac-btn" onclick="sysShareReport()">↗ ${NL?"deel via…":"share via…"}</button>` : ""}
+        <button class="tl-prac-btn" onclick="closeShareModal()">${NL?"sluit":"close"}</button>
+      </div>
+      <div id="shareCopyStatus" class="share-copy-status"></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  // Focus the textarea so on desktop the user can hit Cmd+A immediately
+  setTimeout(() => {
+    const ta = document.getElementById("shareText");
+    if(ta){ ta.focus(); ta.setSelectionRange(0, ta.value.length); }
+  }, 50);
+}
+function closeShareModal(){
+  AudioEngine.click && AudioEngine.click();
+  const m = document.getElementById("shareModal");
+  if(m) m.remove();
+}
+function copyShareText(){
+  const ta = document.getElementById("shareText");
+  if(!ta) return;
+  const NL = state.lang === "nl";
+  const status = document.getElementById("shareCopyStatus");
+  const ok = NL ? "Gekopieerd! Plak het nu in WhatsApp ✿" : "Copied! Now paste it in WhatsApp ✿";
+  const fail = NL ? "Hmm, kon niet kopiëren — selecteer de tekst en kopieer handmatig." : "Hmm, couldn't copy — select the text and copy manually.";
+  const text = ta.value;
+  const done = (good) => {
+    if(status){
+      status.textContent = good ? ok : fail;
+      status.className = "share-copy-status " + (good ? "ok" : "bad");
+    }
+    if(good && AudioEngine.correct) AudioEngine.correct();
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>done(true), ()=>{
+      // Fallback to execCommand
+      try{
+        ta.focus(); ta.setSelectionRange(0, ta.value.length);
+        const did = document.execCommand("copy");
+        done(did);
+      }catch(e){ done(false); }
+    });
+  } else {
+    try{
+      ta.focus(); ta.setSelectionRange(0, ta.value.length);
+      const did = document.execCommand("copy");
+      done(did);
+    }catch(e){ done(false); }
+  }
+}
+function sysShareReport(){
+  const ta = document.getElementById("shareText");
+  if(!ta || !navigator.share) return;
+  const NL = state.lang === "nl";
+  navigator.share({
+    title: NL ? "Maisie's studievoortgang" : "Maisie's study progress",
+    text: ta.value
+  }).catch(()=>{});
+}
+function buildProgressReport(NL){
+  const d = (typeof daysUntilExam === "function") ? daysUntilExam() : null;
+  const total = SCORE.totals.correct + SCORE.totals.wrong;
+  const acc = total ? Math.round(SCORE.totals.correct / total * 100) : 0;
+  const lines = [];
+  lines.push(NL ? `Hi mam! Hier is mijn voortgang ☆.｡` : `Hi mom! Here's my progress ☆.｡`);
+  lines.push("");
+  if(d !== null) lines.push(NL ? `Examen over: ${d} dag${d===1?"":"en"}` : `Exam in: ${d} day${d===1?"":"s"}`);
+  lines.push(NL ? `Dagstreak: ${SCORE.daily.streak||0} dag${(SCORE.daily.streak||0)===1?"":"en"}` : `Day streak: ${SCORE.daily.streak||0} day${(SCORE.daily.streak||0)===1?"":"s"}`);
+  lines.push(NL ? `Sessies totaal: ${SCORE.totals.sessions}` : `Total sessions: ${SCORE.totals.sessions}`);
+  lines.push(NL ? `Kaarten gezien: ${SCORE.totals.seen}` : `Cards seen: ${SCORE.totals.seen}`);
+  lines.push(NL ? `Totale nauwkeurigheid: ${acc}% (${SCORE.totals.correct} goed / ${SCORE.totals.wrong} fout)`
+                : `Overall accuracy: ${acc}% (${SCORE.totals.correct} right / ${SCORE.totals.wrong} wrong)`);
+  lines.push("");
+  lines.push(NL ? "— ONDERWERPEN —" : "— TOPICS —");
+  ["politiek","criminaliteit","media","analyse"].forEach(k => {
+    const g = topicGrade(SCORE, k);
+    const tc = topicCounts(SCORE, k);
+    const label = (DATA[k]||{label:{nl:k,en:k}}).label[NL?"nl":"en"];
+    const grade = (g.grade!=null) ? g.grade.toFixed(1) : "–";
+    const statusTxt = ({passing: NL?"geslaagd":"passing", almost: NL?"bijna":"almost", needsWork: NL?"meer oefenen":"keep studying", starting: NL?"net begonnen":"just started", untouched: NL?"nog niet":"untouched"})[g.status] || "";
+    lines.push(`• ${label}: ${tc.mastered}/${tc.total} ${NL?"beheerst":"mastered"} · ${NL?"cijfer":"grade"} ${grade} (${statusTxt})`);
+  });
+  lines.push("");
+  if(typeof TIMELINES !== "undefined"){
+    const tl = SCORE.timelines || {};
+    const masteredTl = Object.values(tl).filter(t=>t.mastered).length;
+    lines.push(NL ? `— TIJDLIJNEN & VOLGORDES — (${masteredTl}/${TIMELINES.length} ${NL?"beheerst":"mastered"})` : `— TIMELINES & SEQUENCES — (${masteredTl}/${TIMELINES.length} mastered)`);
+    TIMELINES.forEach(t => {
+      const p = tl[t.id];
+      const title = t.title[NL?"nl":"en"];
+      if(!p) lines.push(`• ${title}: ${NL?"nog niet geprobeerd":"not tried"}`);
+      else if(p.mastered) lines.push(`• ${title}: ★ ${NL?"beheerst":"mastered"} (${p.perfectRuns}× ${NL?"foutloos":"flawless"}, ${p.runs} ${NL?"runs":"runs"})`);
+      else lines.push(`• ${title}: ${p.runs} ${NL?"runs":"runs"}, ${p.correct} ${NL?"juist":"right"} / ${p.wrong} ${NL?"fout":"wrong"}, ${p.perfectRuns||0}× ${NL?"foutloos":"flawless"}`);
+    });
+    lines.push("");
+  }
+  const unlocked = ACHIEVEMENTS.filter(a => SCORE.achievements[a.id]);
+  lines.push(NL ? `— BADGES — (${unlocked.length}/${ACHIEVEMENTS.length})` : `— BADGES — (${unlocked.length}/${ACHIEVEMENTS.length})`);
+  unlocked.forEach(a => lines.push(`• ${a.ttl[NL?"nl":"en"]} — ${a.sub[NL?"nl":"en"]}`));
+  if(!unlocked.length) lines.push(NL ? `(nog geen badges)` : `(no badges yet)`);
+  lines.push("");
+  lines.push(NL ? `xo, Maisie ♡` : `xo, Maisie ♡`);
+  return lines.join("\n");
 }
 
 function openStats(){
@@ -8030,6 +8491,7 @@ function tlTapStep(visIdx){
     if(tlPrac.placed.length === tl.steps.length){
       tlPrac.done = true;
       AudioEngine.win && AudioEngine.win();
+      recordTimeline(tl.id, tl.type, tlPrac.score.ok, tlPrac.score.bad);
     }
   } else {
     tlPrac.score.bad++;
@@ -8074,6 +8536,8 @@ function tlQuizNext(){
   if(tlPrac.qIdx + 1 >= tlPrac.questions.length){
     tlPrac.done = true;
     AudioEngine.win && AudioEngine.win();
+    const tl = TIMELINES.find(t => t.id === tlPrac.id);
+    if(tl) recordTimeline(tl.id, tl.type, tlPrac.score.ok, tlPrac.score.bad);
   } else {
     tlPrac.qIdx++;
     tlPrac.answered = false;
@@ -8196,12 +8660,23 @@ function viewTijdlijnen(){
     const practiceLabel = (tl.type === "sequence")
       ? (NL ? "Oefen volgorde" : "Practice order")
       : (NL ? "Quiz mij" : "Quiz me");
+    const prog = (SCORE.timelines||{})[tl.id];
+    let badge = "";
+    if(prog){
+      if(prog.mastered){
+        badge = `<span class="tl-prog-badge ok">★ ${NL?"beheerst":"mastered"}</span>`;
+      } else if((prog.perfectRuns||0) >= 1){
+        badge = `<span class="tl-prog-badge good">${NL?"1× foutloos":"1× flawless"} · ${prog.runs} ${NL?"runs":"runs"}</span>`;
+      } else {
+        badge = `<span class="tl-prog-badge">${prog.runs} ${NL?"runs":"runs"} · ${prog.correct}/${prog.correct+prog.wrong}</span>`;
+      }
+    }
     return `
-      <div class="tl-card ${topicTint(tl.topic)}">
+      <div class="tl-card ${topicTint(tl.topic)}${prog && prog.mastered ? ' tl-mastered' : ''}">
         <div class="tl-hd">
           <span class="tl-ico">${tl.icon}</span>
-          <div>
-            <div class="tl-type">${typeLabel(tl.type)}</div>
+          <div style="flex:1 1 auto;">
+            <div class="tl-type">${typeLabel(tl.type)}${badge}</div>
             <h2>${tl.title[state.lang]}</h2>
           </div>
         </div>
