@@ -1374,6 +1374,37 @@
   .ctrl.hard{ color: var(--accent) !important; border-color: var(--accent-soft) !important; box-shadow: 1px 1px 0 var(--accent-soft) !important; }
   .ctrl.easy{ color: var(--sage-deep) !important; border-color: var(--sage) !important; box-shadow: 1px 1px 0 var(--sage) !important; }
   .ctrl.star.on{ background: var(--sage-soft) !important; color: var(--sage-deep) !important; }
+  /* coach line under the flashcard */
+  .flash-coach{
+    text-align: center;
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .85rem;
+    margin: -2px 0 10px;
+  }
+  /* force the typographic marks (✗ ✓ ★ ☆) to render as text glyphs, not OS emoji */
+  .ctrl-ico{
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-variant-emoji: text !important;
+    margin-right: 2px;
+    display: inline;
+  }
+  .ctrl.star .ctrl-ico{ font-size: 1.1em; }
+
+  /* coach line under the flashcard: re-skin to itinerae palette (was purple) */
+  .flash + div + .flash-controls, .flash + div{ }
+  .flash ~ div[style*="#1f1147"],
+  .flash ~ div[style*="6b5b95"]{
+    /* selectors are defensive — the inline coach line uses these colours */
+    color: var(--ink-soft) !important;
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: .82rem !important;
+  }
 
   /* ── TYPE / QUIZ ── */
   .type-card, .quiz-card{
@@ -1627,6 +1658,36 @@
     letter-spacing: .15em !important;
   }
   .prk-quad .txt{ font-family: "EB Garamond", Georgia, serif !important; color: var(--ink) !important; }
+
+  /* Mode-help block (under the mode buttons) — typographic, no emoji */
+  .mode-help{
+    margin-top: 14px !important;
+    font-family: "EB Garamond", Georgia, serif !important;
+    font-size: .82rem !important;
+    line-height: 1.4 !important;
+    color: var(--ink-soft) !important;
+    font-style: italic !important;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    border-top: 1px dotted var(--rule);
+    padding-top: 10px;
+  }
+  .mode-help > div{
+    display: grid;
+    grid-template-columns: 1.8em 1fr;
+    column-gap: 8px;
+    align-items: baseline;
+  }
+  .mh-num{
+    font-family: "Pixelify Sans","VT323",monospace !important;
+    font-size: .68rem !important;
+    letter-spacing: .12em !important;
+    color: var(--bar-deep) !important;
+    font-style: normal !important;
+    text-transform: uppercase;
+    text-align: right;
+  }
 
   /* ── Custom cursors: pink-bow default, heart on clickables ── */
   @media (hover: hover){
@@ -3795,7 +3856,10 @@ function viewHome(){
       <div class="guest-list" id="guestList">
         <div class="guest-empty">${NL?"berichtjes laden…":"loading messages…"}</div>
       </div>
-      <a class="guest-write" href="${guestbookWriteURL()}" target="_blank" rel="noopener">+ ${NL?"schrijf een berichtje":"write a note"}</a>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px;">
+        <a class="guest-write" href="${guestbookWriteURL()}" target="_blank" rel="noopener">+ ${NL?"schrijf een berichtje":"write a note"}</a>
+        <button class="guest-write" onclick="refreshGuestbook()" style="border:1px solid var(--rule);background:var(--paper-soft);">↻ ${NL?"verversen":"refresh"}</button>
+      </div>
     </div>
 
     <button class="stats-btn" onclick="openStats()">${NL?"Bekijk mijn voortgang":"View my progress"}</button>
@@ -4200,47 +4264,70 @@ function guestbookFmtDate(iso, lang){
   }catch(e){ return ""; }
 }
 
-async function loadGuestbook(){
+async function loadGuestbook(force){
   if(state.view !== "home") return;
   const list = document.getElementById("guestList");
   if(!list) return;
   const NL = state.lang === "nl";
 
-  // 1) Show cached immediately so it never looks empty
   const CACHE_KEY = "mk_guest_v1";
   let cached = null;
   try{ cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); }catch(e){}
-  if(cached && cached.items && cached.items.length){
+  // Only paint cached if not forced refresh and recent (under 10 minutes)
+  if(!force && cached && cached.items && (Date.now() - (cached.t||0) < 10*60*1000)){
     renderGuestbook(cached.items);
+  } else if(force){
+    list.innerHTML = `<div class="guest-empty">${NL?"berichtjes verversen…":"refreshing…"}</div>`;
   }
 
-  // 2) Fetch via JSONP-safe fetch (GitHub API supports CORS for public repos)
+  // Cache-bust + tell the browser not to use its HTTP cache.
+  // GitHub's API is CDN-cached; without a unique URL each call, deletes/new comments
+  // can take a long time to show up.
+  const url = `https://api.github.com/repos/${GUESTBOOK_REPO}/issues/${GUESTBOOK_ISSUE}/comments?per_page=30&_=${Date.now()}`;
   try{
-    const url = `https://api.github.com/repos/${GUESTBOOK_REPO}/issues/${GUESTBOOK_ISSUE}/comments?per_page=30`;
-    const r = await fetch(url, { headers: { "Accept": "application/vnd.github+json" } });
+    const r = await fetch(url, {
+      headers: { "Accept": "application/vnd.github+json", "Cache-Control": "no-cache" },
+      cache: "no-store"
+    });
     if(!r.ok){
-      if(!cached) {
-        list.innerHTML = `<div class="guest-empty">${NL?"nog geen berichtjes — schrijf de eerste!":"no notes yet — write the first one!"}</div>`;
+      // 403 = rate limited, 404 = wrong repo/issue, anything else = transient
+      let msg;
+      if(r.status === 403) msg = NL ? "te vaak ververst — even wachten" : "rate limited — try again in a minute";
+      else if(r.status === 404) msg = NL ? "issue niet gevonden" : "issue not found";
+      else msg = NL ? "berichtjes konden niet geladen worden" : "couldn't load messages";
+      if(!cached || !cached.items || !cached.items.length){
+        list.innerHTML = `<div class="guest-empty">${msg}</div>`;
+      } else {
+        // Keep showing the cached items, but append a small warning footer
+        renderGuestbook(cached.items, msg);
       }
+      console.warn("Guestbook fetch failed", r.status);
       return;
     }
     const data = await r.json();
     const items = (Array.isArray(data) ? data : []).map(c => ({
       author: (c.user && c.user.login) || "Anon",
       body:   String(c.body || "").trim(),
-      date:   c.created_at,
-      url:    c.html_url
+      date:   c.created_at
     })).filter(i => i.body.length > 0);
     try{ localStorage.setItem(CACHE_KEY, JSON.stringify({items, t: Date.now()})); }catch(e){}
     renderGuestbook(items);
   }catch(e){
-    if(!cached){
+    console.warn("Guestbook fetch error", e);
+    if(!cached || !cached.items || !cached.items.length){
       list.innerHTML = `<div class="guest-empty">${NL?"berichtjes konden niet geladen worden":"couldn't load messages"}</div>`;
     }
   }
 }
 
-function renderGuestbook(items){
+function refreshGuestbook(){
+  AudioEngine.click();
+  // Clear cache so the stale empty state can't win.
+  try{ localStorage.removeItem("mk_guest_v1"); }catch(e){}
+  loadGuestbook(true);
+}
+
+function renderGuestbook(items, warning){
   const list = document.getElementById("guestList");
   if(!list) return;
   const NL = state.lang === "nl";
@@ -4248,12 +4335,16 @@ function renderGuestbook(items){
     list.innerHTML = `<div class="guest-empty">${NL?"nog geen berichtjes — schrijf de eerste!":"no notes yet — write the first one!"}</div>`;
     return;
   }
-  list.innerHTML = items.slice().reverse().map(it => `
+  let html = items.slice().reverse().map(it => `
     <div class="guest-card">
       <div class="meta"><b>${escapeText(it.author)}</b> · ${guestbookFmtDate(it.date, state.lang)}</div>
       <div class="body">${escapeText(it.body).replace(/\n+/g, "<br>")}</div>
     </div>
   `).join("");
+  if(warning){
+    html += `<div class="guest-empty" style="text-align:right;">${warning}</div>`;
+  }
+  list.innerHTML = html;
 }
 
 function escapeText(s){
@@ -4405,8 +4496,11 @@ function viewMode(){
       <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap;">
         <button class="btn btn-ghost" onclick="toggleStarred()">${state.starredOnly? L().starredOnly: L().allCards}</button>
       </div>
-      <div style="margin-top:12px;font-size:.78rem;color:#6b5b95;line-height:1.5;">
-        🃏 ${L().flashHelp}<br>⌨️ ${L().typeHelp}<br>🎯 ${L().quizHelp}<br>🧩 ${state.lang==="nl"?"Koppel begrippen aan hun definities zo snel mogelijk — je beste tijd wordt opgeslagen.":"Match terms to their definitions as fast as you can — your best time is saved."}
+      <div class="mode-help">
+        <div><span class="mh-num">I.</span> ${L().flashHelp}</div>
+        <div><span class="mh-num">II.</span> ${L().typeHelp}</div>
+        <div><span class="mh-num">III.</span> ${L().quizHelp}</div>
+        <div><span class="mh-num">IV.</span> ${state.lang==="nl"?"Koppel begrippen aan hun definities zo snel mogelijk — je beste tijd wordt opgeslagen.":"Match terms to their definitions as fast as you can — your best time is saved."}</div>
       </div>
     </div>
   `;
@@ -4591,22 +4685,22 @@ function viewFlash(){
         </div>
       </div>
     </div>
-    <div style="text-align:center;font-size:.8rem;color:#6b5b95;font-weight:700;margin:-4px 0 10px;">
+    <div class="flash-coach">
       ${state.flipped
         ? (NL?"Wist je het? Kies hieronder:":"Did you know it? Choose below:")
         : (NL?"Bedenk het antwoord, tik dan op de kaart":"Think of the answer, then tap the card")}
     </div>
     <div class="flash-controls">
       <button class="ctrl hard" onclick="event.stopPropagation();nextCard(false)">
-        ❌ ${NL?"Wist ik niet":"Didn't know"}
+        <span class="ctrl-ico">✗</span> ${NL?"Wist ik niet":"Didn't know"}
         <span class="lbl-sub">${NL?"nog oefenen":"practice again"}</span>
       </button>
       <button class="ctrl star ${starred?'on':''}" onclick="event.stopPropagation();toggleStar()" title="${starTitle}">
-        ${starred? "★" : "☆"}
+        <span class="ctrl-ico">${starred? "★" : "☆"}</span>
         <span class="lbl-sub">${NL?"lastig":"tough"}</span>
       </button>
       <button class="ctrl easy" onclick="event.stopPropagation();nextCard(true)">
-        ✅ ${NL?"Wist ik":"Knew it"}
+        <span class="ctrl-ico">✓</span> ${NL?"Wist ik":"Knew it"}
         <span class="lbl-sub">${NL?"top!":"nice!"}</span>
       </button>
     </div>
