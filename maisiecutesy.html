@@ -1906,6 +1906,127 @@
     padding: 8px 4px;
   }
 
+  /* ════════════════════════════════════════════
+     ♡ Kawaii sticker overlay (heart bg + cute icons) ♡
+     SVG-only so it ships with the page, no image files.
+     ════════════════════════════════════════════ */
+
+  /* Heart-pattern background — pixel hearts in cream tones, tiles cleanly */
+  body{
+    background-color: #f3e7c8 !important;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'><g fill='%23d4b878' opacity='0.55'><g transform='translate(8,8)'><rect x='2' y='0' width='3' height='2'/><rect x='8' y='0' width='3' height='2'/><rect x='0' y='2' width='13' height='2'/><rect x='0' y='4' width='13' height='2'/><rect x='2' y='6' width='9' height='2'/><rect x='4' y='8' width='5' height='2'/><rect x='5' y='10' width='3' height='2'/></g><g transform='translate(52,46)'><rect x='2' y='0' width='3' height='2'/><rect x='8' y='0' width='3' height='2'/><rect x='0' y='2' width='13' height='2'/><rect x='0' y='4' width='13' height='2'/><rect x='2' y='6' width='9' height='2'/><rect x='4' y='8' width='5' height='2'/><rect x='5' y='10' width='3' height='2'/></g></g><g fill='%23e0a070' opacity='0.45'><g transform='translate(38,60)'><rect x='2' y='0' width='2' height='1.5'/><rect x='6' y='0' width='2' height='1.5'/><rect x='0' y='1.5' width='10' height='1.5'/><rect x='1' y='3' width='8' height='1.5'/><rect x='3' y='4.5' width='4' height='1.5'/><rect x='4' y='6' width='2' height='1.5'/></g></g></svg>") !important;
+    background-repeat: repeat !important;
+    background-size: 84px 84px !important;
+    background-attachment: fixed !important;
+  }
+  /* keep the body::before twinkle layer hidden */
+  body::before{ content: none !important; }
+
+  /* ── Sticker classes — small inline-svg backgrounds ── */
+  .k-bee, .k-heart-wings, .k-star, .k-rainbow, .k-pixel-heart{
+    display: inline-block; vertical-align: middle;
+    background-repeat: no-repeat; background-position: center; background-size: contain;
+    font-variant-emoji: text;
+  }
+  /* Pixel star (yellow w/ outline) */
+  .k-star{
+    width: 18px; height: 18px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/><circle cx='10' cy='10' r='1' fill='%23ffffff'/></svg>");
+  }
+  /* Pixel heart */
+  .k-pixel-heart{
+    width: 16px; height: 16px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'><g fill='%23ec6e8c'><rect x='4' y='2' width='4' height='4'/><rect x='14' y='2' width='4' height='4'/><rect x='2' y='6' width='20' height='4'/><rect x='4' y='10' width='16' height='4'/><rect x='6' y='14' width='12' height='4'/><rect x='8' y='18' width='8' height='2'/><rect x='10' y='20' width='4' height='2'/></g></svg>");
+  }
+  /* Cute bee */
+  .k-bee{
+    width: 32px; height: 32px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/><path d='M 14 21 Q 18 24 22 21' stroke='%23fff' stroke-width='1.2' fill='none' stroke-linecap='round'/></svg>");
+  }
+  /* Heart with wings */
+  .k-heart-wings{
+    width: 36px; height: 28px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/><circle cx='3' cy='9' r='1' fill='%23fff'/><circle cx='37' cy='9' r='1' fill='%23fff'/></svg>");
+  }
+  /* Mini rainbow */
+  .k-rainbow{
+    width: 40px; height: 20px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'><path d='M 3 18 Q 20 -3 37 18' stroke='%23ec6e8c' stroke-width='2.4' fill='none'/><path d='M 5 18 Q 20 0 35 18' stroke='%23f9a64a' stroke-width='2.4' fill='none'/><path d='M 7 18 Q 20 3 33 18' stroke='%23f9c84a' stroke-width='2.4' fill='none'/><path d='M 9 18 Q 20 6 31 18' stroke='%237bc26b' stroke-width='2.4' fill='none'/><path d='M 11 18 Q 20 9 29 18' stroke='%235a9cd6' stroke-width='2.4' fill='none'/></svg>");
+  }
+
+  /* ── Place stickers contextually ── */
+  /* Title: a small heart-with-wings before, a bee after */
+  .title{ position: relative; padding: 0 50px !important; }
+  .title::before{
+    content: "" !important; display: inline-block;
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 28px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/></svg>");
+    background-repeat: no-repeat; background-size: contain;
+  }
+  .title::after{
+    content: "" !important; display: inline-block;
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><line x1='13' y1='6' x2='15' y2='13' stroke='%233b2a18' stroke-width='1.2'/><line x1='23' y1='6' x2='21' y2='13' stroke='%233b2a18' stroke-width='1.2'/><circle cx='13' cy='5' r='1.6' fill='%23c44'/><circle cx='23' cy='5' r='1.6' fill='%23c44'/><ellipse cx='18' cy='21' rx='10' ry='9' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5'/><path d='M 9 17 Q 11 15 13 17 T 17 17 T 21 17 T 25 17 T 27 17' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><path d='M 9 24 Q 11 26 13 24 T 17 24 T 21 24 T 25 24 T 27 24' stroke='%233b2a18' stroke-width='2.6' fill='none' stroke-linecap='round'/><ellipse cx='10' cy='14' rx='4' ry='5.5' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-25 10 14)' opacity='0.9'/></svg>");
+    background-repeat: no-repeat; background-size: contain;
+  }
+  /* Streak chip gets a star prefix instead of "✦" */
+  .streak-chip::before{ content: none !important; }
+  .streak-chip{
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.5' stroke-linejoin='round'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: 8px center !important;
+    background-size: 14px 14px !important;
+    padding-left: 28px !important;
+  }
+  /* Stats hero: replace the rotating gradient with a kawaii star sprinkle */
+  .stats-hero::after{
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z' fill='%23f9c84a' stroke='%233b2a18' stroke-width='1.2' stroke-linejoin='round'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 20'><g fill='%23ec6e8c'><rect x='3' y='2' width='3' height='3'/><rect x='12' y='2' width='3' height='3'/><rect x='1' y='5' width='17' height='3'/><rect x='3' y='8' width='13' height='3'/><rect x='5' y='11' width='9' height='3'/><rect x='7' y='14' width='5' height='3'/><rect x='8' y='17' width='3' height='3'/></g></svg>");
+    background-repeat: no-repeat, no-repeat;
+    background-position: 6% 18%, 92% 70%;
+    background-size: 20px 20px, 18px 18px;
+    opacity: 0.85;
+  }
+  /* Done screen: rainbow sits above the score on success */
+  .done::after{
+    content: "";
+    position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+    width: 80px; height: 40px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'><path d='M 3 18 Q 20 -3 37 18' stroke='%23ec6e8c' stroke-width='2.4' fill='none'/><path d='M 5 18 Q 20 0 35 18' stroke='%23f9a64a' stroke-width='2.4' fill='none'/><path d='M 7 18 Q 20 3 33 18' stroke='%23f9c84a' stroke-width='2.4' fill='none'/><path d='M 9 18 Q 20 6 31 18' stroke='%237bc26b' stroke-width='2.4' fill='none'/><path d='M 11 18 Q 20 9 29 18' stroke='%235a9cd6' stroke-width='2.4' fill='none'/></svg>");
+    background-repeat: no-repeat; background-size: contain;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .done.done-success::after{ opacity: 1; }
+
+  /* Maisie quote gets a heart-with-wings glyph instead of ❀ */
+  .cur-quote::before{
+    content: "" !important;
+    display: inline-block;
+    width: 22px; height: 16px;
+    vertical-align: -2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/></svg>") !important;
+    background-repeat: no-repeat; background-size: contain;
+    margin-right: 6px;
+  }
+
+  /* Guestbook panel gets a small heart-wings instead of washi tape */
+  .guest::after{
+    background: none !important;
+    border: 0 !important;
+    width: 28px !important; height: 22px !important;
+    top: -10px !important;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'><ellipse cx='7' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(-20 7 15)'/><ellipse cx='33' cy='15' rx='6' ry='4' fill='%23cae8ed' stroke='%233b2a18' stroke-width='1.2' transform='rotate(20 33 15)'/><path d='M20 25 C 12 17, 12 11, 16 10 C 18 9.5, 20 11, 20 13 C 20 11, 22 9.5, 24 10 C 28 11, 28 17, 20 25 Z' fill='%23ec6e8c' stroke='%233b2a18' stroke-width='1.5'/></svg>") !important;
+    background-repeat: no-repeat !important; background-size: contain !important;
+    transform: none !important;
+  }
+
   /* ── FOOTER ── */
   footer{
     background: transparent !important;
@@ -4293,6 +4414,17 @@ async function loadGuestbook(force){
 
   const repoUrl = `https://github.com/${GUESTBOOK_REPO}/issues`;
   const apiUrl  = `https://api.github.com/repos/${GUESTBOOK_REPO}/issues?state=open&per_page=30&sort=created&direction=desc&_=${Date.now()}`;
+  const onFileProto = (typeof location !== "undefined" && location.protocol === "file:");
+  // Multiple CORS proxy fallbacks — if api.github.com is blocked (extension,
+  // corporate firewall, browser quirk), retry through a public proxy.
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`
+  ];
+  const urlsToTry = onFileProto
+    ? [proxies[0](apiUrl), apiUrl, proxies[1](apiUrl), proxies[2](apiUrl)]
+    : [apiUrl, proxies[0](apiUrl), proxies[1](apiUrl), proxies[2](apiUrl)];
 
   const renderErr = (mainMsg, detail) => {
     if(cached && cached.items && cached.items.length){
@@ -4309,28 +4441,45 @@ async function loadGuestbook(force){
       </div>`;
   };
 
-  try{
-    const r = await fetch(apiUrl, {
-      headers: { "Accept": "application/vnd.github+json", "Cache-Control": "no-cache" },
-      cache: "no-store"
-    });
-    if(!r.ok){
-      console.warn("Guestbook fetch failed", r.status, apiUrl);
-      let main, detail;
-      if(r.status === 403){
-        main   = NL ? "te vaak ververst — even wachten" : "rate limited — wait a minute";
-        detail = NL ? "GitHub staat 60 verzoeken per uur toe zonder login." : "GitHub allows 60 requests/hour unauthenticated.";
-      } else if(r.status === 404){
-        main   = NL ? "repo niet gevonden" : "repo not found";
-        detail = NL ? "Pas GUESTBOOK_REPO bovenaan het script aan." : "Edit GUESTBOOK_REPO at the top of the script.";
-      } else {
-        main   = NL ? `kon berichtjes niet laden (HTTP ${r.status})` : `couldn't load messages (HTTP ${r.status})`;
-        detail = "";
+  let data = null, lastStatus = 0, lastError = null;
+  for(const u of urlsToTry){
+    try{
+      const r = await fetch(u, {
+        headers: { "Accept": "application/vnd.github+json", "Cache-Control": "no-cache" },
+        cache: "no-store"
+      });
+      lastStatus = r.status;
+      if(r.ok){
+        data = await r.json();
+        break;
       }
-      renderErr(main, detail);
-      return;
+    }catch(e){
+      lastError = e;
+      console.warn("Guestbook fetch attempt failed", u, e && e.message);
+      // continue to next URL
     }
-    const data = await r.json();
+  }
+  if(data === null){
+    let main, detail;
+    if(lastStatus === 403){
+      main   = NL ? "te vaak ververst — even wachten" : "rate limited — wait a minute";
+      detail = NL ? "GitHub staat 60 verzoeken per uur toe zonder login." : "GitHub allows 60 requests/hour unauthenticated.";
+    } else if(lastStatus === 404){
+      main   = NL ? "repo niet gevonden" : "repo not found";
+      detail = NL ? "Pas GUESTBOOK_REPO bovenaan het script aan." : "Edit GUESTBOOK_REPO at the top of the script.";
+    } else if(lastError){
+      main   = NL ? "netwerkfout bij het laden van berichtjes" : "network error loading messages";
+      detail = onFileProto
+        ? (NL ? "Werkt het beste via GitHub Pages (file:// blokkeert vaak)." : "Works best via GitHub Pages (file:// often blocks fetch).")
+        : (lastError.message || "");
+    } else {
+      main   = NL ? `kon berichtjes niet laden (HTTP ${lastStatus})` : `couldn't load messages (HTTP ${lastStatus})`;
+      detail = "";
+    }
+    renderErr(main, detail);
+    return;
+  }
+  try{
     const matches = GUESTBOOK_TITLE_MATCH.map(s => String(s).toLowerCase());
     const items = (Array.isArray(data) ? data : [])
       // GitHub's /issues endpoint returns PRs too — filter them out
@@ -4353,12 +4502,9 @@ async function loadGuestbook(force){
     try{ localStorage.setItem(CACHE_KEY, JSON.stringify({items, t: Date.now()})); }catch(e){}
     renderGuestbook(items);
   }catch(e){
-    console.warn("Guestbook fetch error", e && e.message, apiUrl);
-    const main = NL ? "netwerkfout bij het laden van berichtjes" : "network error loading messages";
-    const detail = (typeof location !== "undefined" && location.protocol === "file:")
-      ? (NL ? "Sommige browsers blokkeren fetch vanuit file://. Probeer via GitHub Pages." : "Some browsers block fetch from file://. Try via GitHub Pages.")
-      : (e && e.message ? e.message : "");
-    renderErr(main, detail);
+    console.warn("Guestbook render error", e && e.message);
+    const main = NL ? "fout bij verwerken van berichtjes" : "couldn't process messages";
+    renderErr(main, e && e.message ? e.message : "");
   }
 }
 
@@ -5136,7 +5282,7 @@ function viewDone(){
   else { emoji = "📚"; msg = NL?"Nog even oefenen. Probeer flashcards eerst!":"Practise some more. Try flashcards first!"; }
   if(pct >= 70) confetti(40);
   return `
-    <div class="done">
+    <div class="done ${pct >= 70 ? 'done-success' : ''}">
       <div style="font-size:3rem;">${emoji}</div>
       <h2>${L().sessionDone}</h2>
       <div class="score-num">${pct}%</div>
