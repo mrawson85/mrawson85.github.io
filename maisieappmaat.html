@@ -120,17 +120,19 @@
     padding:3px 8px;border-radius:999px;background:#ede9fe;color:#6d28d9;
   }
   .prk-img-wrap{
-    margin:0 auto 12px;
-    background:linear-gradient(135deg,#f8fafc,#f1f5f9);
-    min-height:120px;
-    padding:8px;border-radius:14px;
-    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    margin:0 auto 12px !important;
+    background:linear-gradient(135deg,#f8fafc,#f1f5f9) !important;
+    min-height:120px !important;
+    max-height:none !important;
+    padding:8px !important;border-radius:14px !important;
+    display:flex !important;align-items:center !important;justify-content:center !important;overflow:visible !important;
     position:relative;text-decoration:none;color:inherit;cursor:pointer;
   }
   .prk-img-wrap:hover .prk-img-placeholder{opacity:.7;}
   .prk-img-wrap img{
-    max-width:100%;max-height:180px;width:auto;height:auto;
-    object-fit:contain;display:block;border-radius:10px;
+    max-width:100% !important;max-height:180px !important;
+    width:auto !important;height:auto !important;
+    object-fit:contain !important;display:block !important;border-radius:10px !important;
   }
   .prk-img-placeholder{
     font-size:3rem;color:#94a3b8;
@@ -2557,10 +2559,14 @@ function injectPraktijkImage(wikiTitle, src){
   if(!src) return;
   const wrap = document.querySelector(`[data-prk-img="${wikiTitle}"]`);
   if(!wrap || wrap.querySelector("img")) return;
+  // Force wrap shape via inline styles so cached/old CSS can't crop the image
+  wrap.style.cssText += ";min-height:120px;max-height:none;padding:8px;display:flex;align-items:center;justify-content:center;overflow:visible;";
   const img = document.createElement("img");
   img.src = src;
   img.alt = "";
   img.loading = "lazy";
+  // Inline styles win over any cached CSS — guarantees the image isn't cropped
+  img.style.cssText = "max-width:100%;max-height:180px;width:auto;height:auto;object-fit:contain;display:block;border-radius:10px;";
   img.onerror = () => { img.remove(); };
   const credit = document.createElement("a");
   credit.className = "prk-img-credit";
@@ -3059,9 +3065,10 @@ function answerQuiz(i){
 }
 
 function quizNext(){
+  // viewQuiz rebuilds options when state.idx changes, so we must NOT
+  // null them out after nextCard() — that would wipe the freshly-built
+  // options for the next question and break the click handler.
   nextCard(!!state.lastQuizRight);
-  state.quizOptions = null;
-  state.quizAnswered = null;
 }
 
 /* ----- MATCH game -----
