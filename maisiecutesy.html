@@ -1876,6 +1876,14 @@
     font-weight: 500;
     margin-right: 6px;
   }
+  .guest-card .title{
+    font-family: "Yellowtail", cursive;
+    font-style: normal;
+    color: var(--sage-deep);
+    font-size: 1.2rem;
+    line-height: 1.15;
+    margin: 2px 0 4px;
+  }
   .guest-card .body{ font-size: 1rem; }
   .guest-write{
     display: inline-flex; align-items: center; gap: 4px;
@@ -4240,18 +4248,20 @@ setInterval(() => {
 }, 30 * 1000);
 
 /* ═══════════════════════════════════════════════
-   GUESTBOOK — reads from GitHub Issue comments.
-   Edit GUESTBOOK_REPO and GUESTBOOK_ISSUE below to
-   point at your repo + issue. To leave Maisie a
-   note, just comment on that issue from any device
-   (github.com or the GitHub mobile app). The page
-   reads it via the unauthenticated public API.
+   GUESTBOOK — every GitHub Issue is one note.
+   To leave a new message, open a new issue in the
+   repo from any device (the GitHub mobile app's
+   "+" button is fastest). Title becomes the note
+   headline, body becomes the message. The page
+   reads them all via the public API.
    ═══════════════════════════════════════════════ */
-const GUESTBOOK_REPO  = "mrawson85/mrawson85.github.io";
-const GUESTBOOK_ISSUE = 1;
+const GUESTBOOK_REPO = "mrawson85/mrawson85.github.io";
+// Only show issues whose title contains one of these (case-insensitive).
+// Leave as [""] to show every open issue in the repo.
+const GUESTBOOK_TITLE_MATCH = ["maisie"];
 
 function guestbookWriteURL(){
-  return `https://github.com/${GUESTBOOK_REPO}/issues/${GUESTBOOK_ISSUE}`;
+  return `https://github.com/${GUESTBOOK_REPO}/issues/new?title=To%20Maisie&body=`;
 }
 
 function guestbookFmtDate(iso, lang){
@@ -4270,60 +4280,91 @@ async function loadGuestbook(force){
   if(!list) return;
   const NL = state.lang === "nl";
 
-  const CACHE_KEY = "mk_guest_v1";
+  const CACHE_KEY = "mk_guest_v2";
+  // wipe the old single-issue cache so the panel doesn't keep showing stale data
+  try{ localStorage.removeItem("mk_guest_v1"); }catch(e){}
   let cached = null;
   try{ cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); }catch(e){}
-  // Only paint cached if not forced refresh and recent (under 10 minutes)
   if(!force && cached && cached.items && (Date.now() - (cached.t||0) < 10*60*1000)){
     renderGuestbook(cached.items);
   } else if(force){
     list.innerHTML = `<div class="guest-empty">${NL?"berichtjes verversen…":"refreshing…"}</div>`;
   }
 
-  // Cache-bust + tell the browser not to use its HTTP cache.
-  // GitHub's API is CDN-cached; without a unique URL each call, deletes/new comments
-  // can take a long time to show up.
-  const url = `https://api.github.com/repos/${GUESTBOOK_REPO}/issues/${GUESTBOOK_ISSUE}/comments?per_page=30&_=${Date.now()}`;
+  const repoUrl = `https://github.com/${GUESTBOOK_REPO}/issues`;
+  const apiUrl  = `https://api.github.com/repos/${GUESTBOOK_REPO}/issues?state=open&per_page=30&sort=created&direction=desc&_=${Date.now()}`;
+
+  const renderErr = (mainMsg, detail) => {
+    if(cached && cached.items && cached.items.length){
+      renderGuestbook(cached.items, mainMsg);
+      return;
+    }
+    list.innerHTML = `
+      <div class="guest-empty">
+        <div style="margin-bottom:6px;">${mainMsg}</div>
+        ${detail ? `<div style="font-size:.72rem;color:var(--ink-mute);">${detail}</div>` : ""}
+        <div style="font-size:.7rem;margin-top:8px;font-family:'Pixelify Sans',monospace;letter-spacing:.1em;">
+          ${NL?"Ingesteld op":"Configured for"}: <a href="${repoUrl}" target="_blank" rel="noopener" style="color:var(--accent);">${GUESTBOOK_REPO}</a>
+        </div>
+      </div>`;
+  };
+
   try{
-    const r = await fetch(url, {
+    const r = await fetch(apiUrl, {
       headers: { "Accept": "application/vnd.github+json", "Cache-Control": "no-cache" },
       cache: "no-store"
     });
     if(!r.ok){
-      // 403 = rate limited, 404 = wrong repo/issue, anything else = transient
-      let msg;
-      if(r.status === 403) msg = NL ? "te vaak ververst — even wachten" : "rate limited — try again in a minute";
-      else if(r.status === 404) msg = NL ? "issue niet gevonden" : "issue not found";
-      else msg = NL ? "berichtjes konden niet geladen worden" : "couldn't load messages";
-      if(!cached || !cached.items || !cached.items.length){
-        list.innerHTML = `<div class="guest-empty">${msg}</div>`;
+      console.warn("Guestbook fetch failed", r.status, apiUrl);
+      let main, detail;
+      if(r.status === 403){
+        main   = NL ? "te vaak ververst — even wachten" : "rate limited — wait a minute";
+        detail = NL ? "GitHub staat 60 verzoeken per uur toe zonder login." : "GitHub allows 60 requests/hour unauthenticated.";
+      } else if(r.status === 404){
+        main   = NL ? "repo niet gevonden" : "repo not found";
+        detail = NL ? "Pas GUESTBOOK_REPO bovenaan het script aan." : "Edit GUESTBOOK_REPO at the top of the script.";
       } else {
-        // Keep showing the cached items, but append a small warning footer
-        renderGuestbook(cached.items, msg);
+        main   = NL ? `kon berichtjes niet laden (HTTP ${r.status})` : `couldn't load messages (HTTP ${r.status})`;
+        detail = "";
       }
-      console.warn("Guestbook fetch failed", r.status);
+      renderErr(main, detail);
       return;
     }
     const data = await r.json();
-    const items = (Array.isArray(data) ? data : []).map(c => ({
-      author: (c.user && c.user.login) || "Anon",
-      body:   String(c.body || "").trim(),
-      date:   c.created_at
-    })).filter(i => i.body.length > 0);
+    const matches = GUESTBOOK_TITLE_MATCH.map(s => String(s).toLowerCase());
+    const items = (Array.isArray(data) ? data : [])
+      // GitHub's /issues endpoint returns PRs too — filter them out
+      .filter(it => !it.pull_request)
+      // Title filter (case-insensitive substring)
+      .filter(it => {
+        if(!matches.length || matches[0] === "") return true;
+        const t = String(it.title || "").toLowerCase();
+        return matches.some(m => t.includes(m));
+      })
+      .map(it => ({
+        title:  String(it.title || "").trim(),
+        author: (it.user && it.user.login) || "Anon",
+        body:   String(it.body || "").trim(),
+        date:   it.created_at,
+        url:    it.html_url,
+        number: it.number
+      }))
+      .filter(it => it.body.length > 0);
     try{ localStorage.setItem(CACHE_KEY, JSON.stringify({items, t: Date.now()})); }catch(e){}
     renderGuestbook(items);
   }catch(e){
-    console.warn("Guestbook fetch error", e);
-    if(!cached || !cached.items || !cached.items.length){
-      list.innerHTML = `<div class="guest-empty">${NL?"berichtjes konden niet geladen worden":"couldn't load messages"}</div>`;
-    }
+    console.warn("Guestbook fetch error", e && e.message, apiUrl);
+    const main = NL ? "netwerkfout bij het laden van berichtjes" : "network error loading messages";
+    const detail = (typeof location !== "undefined" && location.protocol === "file:")
+      ? (NL ? "Sommige browsers blokkeren fetch vanuit file://. Probeer via GitHub Pages." : "Some browsers block fetch from file://. Try via GitHub Pages.")
+      : (e && e.message ? e.message : "");
+    renderErr(main, detail);
   }
 }
 
 function refreshGuestbook(){
   AudioEngine.click();
-  // Clear cache so the stale empty state can't win.
-  try{ localStorage.removeItem("mk_guest_v1"); }catch(e){}
+  try{ localStorage.removeItem("mk_guest_v2"); localStorage.removeItem("mk_guest_v1"); }catch(e){}
   loadGuestbook(true);
 }
 
@@ -4335,9 +4376,10 @@ function renderGuestbook(items, warning){
     list.innerHTML = `<div class="guest-empty">${NL?"nog geen berichtjes — schrijf de eerste!":"no notes yet — write the first one!"}</div>`;
     return;
   }
-  let html = items.slice().reverse().map(it => `
+  let html = items.map(it => `
     <div class="guest-card">
       <div class="meta"><b>${escapeText(it.author)}</b> · ${guestbookFmtDate(it.date, state.lang)}</div>
+      ${it.title ? `<div class="title">${escapeText(it.title)}</div>` : ""}
       <div class="body">${escapeText(it.body).replace(/\n+/g, "<br>")}</div>
     </div>
   `).join("");
