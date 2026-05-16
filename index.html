@@ -3,104 +3,248 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>mrawson85 — Projects</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✨%3C/text%3E%3C/svg%3E" />
+<title>Study apps for my kids</title>
+<meta name="description" content="A small, growing collection of web-based study aids and exam-preparation tools, built for my children." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231e3a8a'/%3E%3Ctext x='50' y='66' font-family='Georgia, serif' font-size='56' font-weight='600' text-anchor='middle' fill='white'%3EM%3C/text%3E%3C/svg%3E" />
 <style>
+  :root{
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --border: #e7e5e4;
+    --border-strong: #d6d3d1;
+    --text: #1c1917;
+    --text-soft: #57534e;
+    --text-mute: #a8a29e;
+    --accent: #1e3a8a;
+    --accent-soft: #eef2ff;
+  }
   *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
   body{
-    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-    color:#1f1147;min-height:100vh;
-    background: linear-gradient(135deg,#ff9a9e 0%,#fad0c4 25%,#a18cd1 55%,#fbc2eb 80%,#84fab0 100%);
-    background-attachment:fixed;padding:24px 18px 60px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+    font-size: 16px;
   }
-  .wrap{max-width:780px;margin:0 auto;}
-  header{margin-bottom:22px;text-align:center;}
+  .container{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+  @media (max-width: 600px){
+    .container{ padding: 40px 20px 72px; }
+  }
+
+  /* Eyebrow + title */
+  .eyebrow{
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
   h1{
-    font-size:2rem;font-weight:900;margin:0 0 6px;letter-spacing:-.5px;
-    background:linear-gradient(90deg,#7c3aed,#ec4899,#f59e0b);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-family: "Charter", "Iowan Old Style", "ITC Charter", Georgia, "Times New Roman", serif;
+    font-size: 2.6rem;
+    line-height: 1.15;
+    font-weight: 600;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+    color: var(--text);
   }
-  .sub{font-size:.95rem;color:#4a3f6b;font-weight:600;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:8px;}
+  @media (max-width: 600px){
+    h1{ font-size: 2rem; }
+  }
+  .lead{
+    font-size: 1.08rem;
+    color: var(--text-soft);
+    max-width: 60ch;
+    margin: 0 0 8px;
+  }
+
+  /* Divider */
+  .rule{
+    height: 1px;
+    background: var(--border);
+    border: 0;
+    margin: 44px 0 28px;
+  }
+
+  /* Section label */
+  .section-label{
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+
+  /* Card grid */
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 720px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+
   a.card{
-    display:flex;flex-direction:column;justify-content:space-between;
-    border-radius:18px;padding:18px;color:#fff;text-decoration:none;
-    box-shadow:0 10px 24px rgba(0,0,0,.16);transition:transform .15s, box-shadow .15s;
-    min-height:140px;position:relative;overflow:hidden;
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 22px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+    position: relative;
   }
-  a.card:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.22);}
-  a.card .emoji{font-size:2rem;line-height:1;}
-  a.card h2{font-size:1.05rem;margin:8px 0 4px;font-weight:900;}
-  a.card p{margin:0;font-size:.78rem;opacity:.92;line-height:1.35;}
-  .featured{
-    grid-column:1 / -1;
-    background:linear-gradient(135deg,#7c3aed,#ec4899,#f59e0b);
+  a.card:hover{
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px -12px rgba(28, 25, 23, 0.18);
   }
-  .featured h2{font-size:1.3rem;}
-  .featured p{font-size:.88rem;}
-  .c1{background:linear-gradient(135deg,#10b981,#84cc16);}
-  .c2{background:linear-gradient(135deg,#3b82f6,#06b6d4);}
-  .c3{background:linear-gradient(135deg,#ef4444,#f97316);}
-  .c4{background:linear-gradient(135deg,#a855f7,#ec4899);}
-  .c5{background:linear-gradient(135deg,#f59e0b,#ef4444);}
-  .c6{background:linear-gradient(135deg,#0ea5e9,#22d3ee);}
-  footer{margin-top:30px;text-align:center;font-size:.78rem;color:#4a3f6b;opacity:.8;}
+  a.card:hover h3{ color: var(--accent); }
+  a.card .meta{
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  a.card h3{
+    font-family: "Charter", "Iowan Old Style", Georgia, serif;
+    font-size: 1.18rem;
+    line-height: 1.3;
+    font-weight: 600;
+    margin: 0 0 6px;
+    letter-spacing: -0.005em;
+    transition: color .15s ease;
+  }
+  a.card p{
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+  a.card .arrow{
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    font-size: 0.95rem;
+    color: var(--text-mute);
+    transition: transform .15s ease, color .15s ease;
+  }
+  a.card:hover .arrow{ color: var(--accent); transform: translate(2px, -2px); }
+
+  /* Featured card */
+  a.card.featured{
+    grid-column: 1 / -1;
+    padding: 26px 28px 24px;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    border-color: var(--border-strong);
+  }
+  a.card.featured h3{ font-size: 1.45rem; }
+  a.card.featured p{ font-size: 0.98rem; max-width: 56ch; }
+
+  /* Footer */
+  footer{
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--text-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer a{ color: var(--text-soft); text-decoration: none; border-bottom: 1px solid var(--border); }
+  footer a:hover{ color: var(--accent); border-color: var(--accent); }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>mrawson85 ✨</h1>
-    <div class="sub">A little collection of small web projects.</div>
-  </header>
+<main class="container">
+
+  <p class="eyebrow">M. Rawson</p>
+  <h1>Study apps for my&nbsp;kids.</h1>
+  <p class="lead">
+    A small, growing collection of web-based study aids and exam-preparation tools — built one at a time, around what each of my children is working through at school.
+  </p>
+
+  <hr class="rule" />
+
+  <p class="section-label">Projects</p>
 
   <div class="grid">
+
     <a class="card featured" href="maisiestudymaat.html">
-      <div class="emoji">📚</div>
-      <h2>Maatschappijkunde Crunch</h2>
-      <p>Maisie's bilingual study app for the VMBO GL/TL Maatschappijkunde 2026 central exam — flashcards, typing, quiz, match game, lofi music & real-world examples.</p>
+      <span class="arrow">↗</span>
+      <div class="meta">Featured · VMBO exam prep</div>
+      <h3>Maatschappijkunde Crunch</h3>
+      <p>Bilingual (NL / EN) study app for the VMBO GL/TL Maatschappijkunde central exam. Flashcards, typing practice, multiple-choice quiz, match game, real-world examples with images, and progress tracking.</p>
     </a>
 
-    <a class="card c1" href="america-project.html">
-      <div class="emoji">🇺🇸</div>
-      <h2>America Project</h2>
-      <p>America-themed project page.</p>
+    <a class="card" href="geschiedenis_poster.html">
+      <span class="arrow">↗</span>
+      <div class="meta">History · Poster</div>
+      <h3>Geschiedenis Poster</h3>
+      <p>A study-poster summary built for a Dutch history topic.</p>
     </a>
 
-    <a class="card c2" href="carybioblitzexam.html">
-      <div class="emoji">🧬</div>
-      <h2>Cary Bioblitz Exam</h2>
-      <p>Cary Bioblitz exam page.</p>
+    <a class="card" href="america-project.html">
+      <span class="arrow">↗</span>
+      <div class="meta">Social studies · Project</div>
+      <h3>America Project</h3>
+      <p>Research and presentation page for a school project on the United States.</p>
     </a>
 
-    <a class="card c3" href="geminiappbio.html">
-      <div class="emoji">♊</div>
-      <h2>Gemini App Bio</h2>
-      <p>Gemini app bio page.</p>
+    <a class="card" href="carybioblitzexam.html">
+      <span class="arrow">↗</span>
+      <div class="meta">Biology · Exam</div>
+      <h3>Cary Bioblitz Exam</h3>
+      <p>Practice and reference material for a biology bioblitz exam.</p>
     </a>
 
-    <a class="card c4" href="geschiedenis_poster.html">
-      <div class="emoji">🏛️</div>
-      <h2>Geschiedenis Poster</h2>
-      <p>History poster project.</p>
+    <a class="card" href="geminiappbio.html">
+      <span class="arrow">↗</span>
+      <div class="meta">Personal · Reference</div>
+      <h3>Gemini App Bio</h3>
+      <p>A short reference page used alongside Google Gemini.</p>
     </a>
 
-    <a class="card c5" href="levator_scapulae_recovery.html">
-      <div class="emoji">💪</div>
-      <h2>Levator Scapulae Recovery</h2>
-      <p>Recovery info page.</p>
+    <a class="card" href="levator_scapulae_recovery.html">
+      <span class="arrow">↗</span>
+      <div class="meta">Health · Reference</div>
+      <h3>Levator Scapulae Recovery</h3>
+      <p>A concise recovery guide for a strained levator scapulae.</p>
     </a>
 
-    <a class="card c6" href="mockatlassiancollectiveprofile.html">
-      <div class="emoji">📇</div>
-      <h2>Mock Atlassian Profile</h2>
-      <p>Atlassian-style mock profile page.</p>
+    <a class="card" href="mockatlassiancollectiveprofile.html">
+      <span class="arrow">↗</span>
+      <div class="meta">Design · Mock</div>
+      <h3>Mock Atlassian Profile</h3>
+      <p>A design exercise: a mock collective-style profile page.</p>
     </a>
+
   </div>
 
   <footer>
-    Made with ❤️ — built and deployed via GitHub Pages.
+    <span>© <span id="yr">2026</span> M. Rawson</span>
+    <span>Hosted on <a href="https://pages.github.com" rel="noopener" target="_blank">GitHub Pages</a></span>
   </footer>
-</div>
+
+</main>
+
+<script>
+  document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
