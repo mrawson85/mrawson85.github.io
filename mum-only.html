@@ -267,12 +267,38 @@
   <div class="footer">
     <span id="updated">loading…</span>
     <button class="refresh-btn" onclick="loadAll()">↻ refresh</button>
+    <button class="refresh-btn" id="momTagBtn" onclick="toggleMomTag()">·</button>
   </div>
 </div>
 
 <script>
 const NS = "maisie-study-2026";
 const API = "https://abacus.jasoncameron.dev/get/" + NS + "/";
+
+/* Tag this device as "mom" — the study app checks this flag and skips its
+   visit ping when it's set, so your own visits never inflate Maisie's count.
+   First time you load this dashboard it sets the tag automatically. */
+function setMomTag(){
+  try{ localStorage.setItem("mk_is_mom", "1"); }catch(e){}
+}
+function clearMomTag(){
+  try{ localStorage.removeItem("mk_is_mom"); }catch(e){}
+}
+function isMomTagged(){
+  try{ return localStorage.getItem("mk_is_mom") === "1"; }catch(e){ return false; }
+}
+setMomTag();  // auto-tag on every dashboard load
+function toggleMomTag(){
+  if(isMomTagged()){
+    clearMomTag();
+    document.getElementById("momTagBtn").textContent = "tag this device as mom";
+    document.getElementById("momTagBtn").style.opacity = "0.6";
+  } else {
+    setMomTag();
+    document.getElementById("momTagBtn").textContent = "✓ device tagged as mom";
+    document.getElementById("momTagBtn").style.opacity = "1";
+  }
+}
 
 function ymd(d){
   return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
@@ -357,6 +383,17 @@ async function loadAll(){
   const now = new Date();
   document.getElementById("updated").textContent =
     "updated " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+  // sync the tag button label with current state
+  const btn = document.getElementById("momTagBtn");
+  if(btn){
+    if(isMomTagged()){
+      btn.textContent = "✓ device tagged as mom";
+      btn.style.opacity = "1";
+    } else {
+      btn.textContent = "tag this device as mom";
+      btn.style.opacity = "0.6";
+    }
+  }
 }
 
 loadAll();
