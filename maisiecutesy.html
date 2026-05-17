@@ -747,6 +747,7 @@
   .tb-cri{background:linear-gradient(90deg,#2563eb,#06b6d4);}
   .tb-med{background:linear-gradient(90deg,#a855f7,#ec4899);}
   .tb-ana{background:linear-gradient(90deg,#10b981,#84cc16);}
+  .tb-inv{background:linear-gradient(90deg,#ca8a04,#f59e0b);}
 
   .badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;}
   .badge{
@@ -1121,10 +1122,12 @@
   .topic.cri{ border-top-color: #a4b7cd !important; }
   .topic.med{ border-top-color: #c0a9cf !important; }
   .topic.ana{ border-top-color: #a9c4a4 !important; }
+  .topic.inv{ border-top-color: #d9c89e !important; }
   .topic.pol::before{ content: "✿  POLITIEK" !important; }
   .topic.cri::before{ content: "✿  CRIMINALITEIT" !important; }
   .topic.med::before{ content: "✿  MEDIA" !important; }
   .topic.ana::before{ content: "✿  ANALYSE" !important; }
+  .topic.inv::before{ content: "✿  INVALSHOEKEN" !important; }
 
   /* washi-tape strip across each topic's title bar */
   .topic::after{
@@ -1143,10 +1146,12 @@
   .topic.cri::after{ background: repeating-linear-gradient(45deg, #d1dde9 0 5px, #e3ecf2 5px 10px) !important; transform: rotate(5deg) !important; }
   .topic.med::after{ background: repeating-linear-gradient(45deg, #e1d2ec 0 5px, #ede2f4 5px 10px) !important; transform: rotate(-4deg) !important; }
   .topic.ana::after{ background: repeating-linear-gradient(45deg, #d5e3cf 0 5px, #e6efe2 5px 10px) !important; transform: rotate(6deg) !important; }
+  .topic.inv::after{ background: repeating-linear-gradient(45deg, #e8d9a8 0 5px, #f1e6c4 5px 10px) !important; transform: rotate(-3deg) !important; }
   .topic.pol h2{ color: #8b3a5a !important; }
   .topic.cri h2{ color: #3e5f80 !important; }
   .topic.med h2{ color: #6b497d !important; }
   .topic.ana h2{ color: #4f7556 !important; }
+  .topic.inv h2{ color: #8a6e2e !important; }
   /* status badge → small pixel pill at the BOTTOM of the card so it never
      fights long titles like "Analyse Maatschappelijk Vraagstuk" */
   .topic{ padding-bottom: 28px !important; }
@@ -2101,6 +2106,110 @@
   }
   .tl-stat-row.tl-stat-mastered .tl-stat-line{ color: var(--sage-deep); }
 
+  /* ── FULL WORD LIST ── */
+  .wl-page{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4px 4px 32px;
+  }
+  .wl-intro{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--sage-deep);
+    padding: 12px 16px;
+    margin: 4px 0 16px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 var(--rule-soft);
+  }
+  .wl-help{
+    margin-top: 4px;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .92rem;
+  }
+  .wl-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .wl-row{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 10px 14px 12px;
+  }
+  .wl-hd{
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .wl-n{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .68rem;
+    letter-spacing: .12em;
+    color: var(--ink-mute);
+    min-width: 26px;
+  }
+  .wl-term{
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--sage-deep);
+    line-height: 1.1;
+  }
+  .wl-dot{
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    flex: 0 0 auto;
+    display: inline-block;
+  }
+  .wl-dot.mid{ background: #d8c89b; border-color: #b39958; }
+  .wl-dot.ok{ background: var(--sage-deep); border-color: var(--sage-deep); }
+  .wl-def{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .wl-mn{
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: .92rem;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--rule-soft);
+    font-style: italic;
+  }
+  .wl-mn-tag{
+    display: inline-block;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-style: normal;
+    font-size: .56rem;
+    letter-spacing: .14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule-soft);
+    border-radius: 2px;
+    padding: 1px 5px;
+    margin-right: 6px;
+    vertical-align: 2px;
+  }
+  /* Print-friendly: drop the page chrome, keep the list */
+  @media print{
+    body{ background: #fff !important; }
+    .top-bar, .currently, .audio-bar, .panel-bar, .stickers, .home-badges{ display: none !important; }
+    .wl-row{ break-inside: avoid; box-shadow: none !important; border-color: #aaa !important; }
+    .wl-page{ padding: 0 !important; max-width: 100% !important; }
+    .wl-term{ color: #000 !important; }
+  }
+
   /* share button on Stats page */
   .share-btn{
     background: var(--sage-soft) !important;
@@ -2877,6 +2986,7 @@
   .tb-cri{ background: linear-gradient(90deg, #c0d4e8, #95b5d2) !important; }
   .tb-med{ background: linear-gradient(90deg, #d4c2e8, #b095c8) !important; }
   .tb-ana{ background: linear-gradient(90deg, #c5dbb4, #8eb285) !important; }
+  .tb-inv{ background: linear-gradient(90deg, #ead0a3, #cca877) !important; }
   .topic-bar-meta{
     font-family: "EB Garamond", Georgia, serif !important;
     font-style: italic !important;
@@ -3271,7 +3381,7 @@ const DATA = {
           ]
         }},
       { t:{nl:"Constitutionele monarchie", en:"Constitutional monarchy"},
-        d:{nl:"Monarchie waarin de bevoegdheden van de koning beperkt zijn door de Grondwet; de koning is staatshoofd, maar heeft geen politieke macht.",
+        d:{nl:"Monarchie waarin de bevoegdheden van de koning beperkt zijn door de Grondwet. De koning is staatshoofd en lid van de regering, maar heeft formeel geen politieke macht; de ministers zijn verantwoordelijk voor wat de koning doet (ministeriële verantwoordelijkheid).",
            en:"Monarchy in which the king's powers are limited by the constitution; the king is head of state but has no political power."},
         dist:{
           nl:[
@@ -3652,8 +3762,8 @@ const DATA = {
           ]
         }},
       { t:{nl:"Populisme", en:"Populism"},
-        d:{nl:"Politieke stijl/stroming die zich afzet tegen de 'elite' en zegt te spreken namens 'het volk'; nadruk op (charismatisch) leiderschap.",
-           en:"Political style/stream that opposes 'the elite' and claims to speak for 'the people'; emphasis on charismatic leadership."},
+        d:{nl:"Politieke stijl/stroming met vier kenmerken (syllabus 4.4.3): afkeer van de gevestigde elite, luisteren naar 'het gewone volk', charismatisch leiderschap, en een beroep op vaderlandsliefde.",
+           en:"Political style/stream with four features (syllabus 4.4.3): rejection of the established elite, listening to 'ordinary people', charismatic leadership, and an appeal to patriotism."},
         dist:{
           nl:[
             "Politieke stijl waarbij partijen zo dicht mogelijk bij de bestaande elite blijven en consensus boven verandering stellen.",
@@ -4061,6 +4171,194 @@ const DATA = {
             "Inspector appointed by parliament who supervises civil servants' implementation of laws.",
             "Official royal representative who acts on citizens' behalf in international disputes."
           ]
+        }},
+      { t:{nl:"Dictatuur", en:"Dictatorship"},
+        d:{nl:"Staatsvorm waarin één persoon, een groep of één partij de hoogste macht heeft; er is geen onafhankelijke rechter, geen vrije volksvertegenwoordiging, grondrechten gelden niet, oppositie wordt verboden en er is censuur. Verkiezingen zijn meestal schijnverkiezingen.",
+           en:"Form of state where one person, group or single party holds supreme power; no independent judiciary, no free elected body, no fundamental rights, opposition is banned and censorship rules. Elections, if held, are usually sham elections."},
+        m:{nl:"Dictatuur = democratie omgedraaid: één macht, geen tegenmacht.",
+           en:"Dictatorship = democracy reversed: one power, no counter-power."},
+        dist:{
+          nl:[
+            "Staatsvorm waarin de burgers via referenda en volksstemmingen direct alle politieke besluiten nemen.",
+            "Staatsvorm waarin de koning en het parlement de macht delen volgens een grondwet.",
+            "Staatsvorm waarin meerdere partijen samen een coalitie vormen en wisselende meerderheden mogelijk zijn."
+          ],
+          en:[
+            "Form of state where citizens make all political decisions directly through referenda.",
+            "Form of state where the king and parliament share power under a constitution.",
+            "Form of state where multiple parties form coalitions and shifting majorities are possible."
+          ]
+        }},
+      { t:{nl:"Staten-Generaal", en:"States General"},
+        d:{nl:"De volksvertegenwoordiging op landelijk niveau, bestaande uit de Eerste en Tweede Kamer samen.",
+           en:"The national parliament, consisting of both the Senate (Eerste Kamer) and the Lower House (Tweede Kamer) together."},
+        m:{nl:"Staten-Generaal = Eerste + Tweede Kamer.",
+           en:"States General = Senate + Lower House."},
+        dist:{
+          nl:[
+            "Een bestuurslaag op provinciaal niveau, vergelijkbaar met de gemeenteraad maar dan voor de provincie.",
+            "De vergadering van alle regeringsleiders van de Europese lidstaten.",
+            "De stafvergadering van het kabinet, waar alleen ministers en staatssecretarissen aan deelnemen."
+          ],
+          en:[
+            "A provincial-level body, comparable to a municipal council but for the province.",
+            "The meeting of all heads of government of the EU member states.",
+            "The cabinet staff meeting attended only by ministers and state secretaries."
+          ]
+        }},
+      { t:{nl:"Fractie / fractievoorzitter", en:"Parliamentary group / group leader"},
+        d:{nl:"Alle Kamerleden van één partij vormen samen een fractie. De fractievoorzitter leidt de fractie en is het politieke gezicht van de partij in het parlement.",
+           en:"All MPs of one party together form a fractie (parliamentary group). The fractievoorzitter leads the group and is the political face of the party in parliament."},
+        dist:{
+          nl:[
+            "Een fractie is een vergadering van burgers; de fractievoorzitter wordt door de gemeente benoemd.",
+            "Een fractie is een commissie van ambtenaren; de fractievoorzitter is de hoogste ambtenaar van een ministerie.",
+            "Een fractie is een coalitie tussen partijen; de fractievoorzitter is automatisch de minister-president."
+          ],
+          en:[
+            "A fractie is an assembly of citizens; the fractievoorzitter is appointed by the municipality.",
+            "A fractie is a committee of civil servants; the fractievoorzitter is the top official of a ministry.",
+            "A fractie is a coalition of parties; the fractievoorzitter is automatically the prime minister."
+          ]
+        }},
+      { t:{nl:"Kabinetsformatie", en:"Cabinet formation"},
+        d:{nl:"Het proces na de Tweede Kamerverkiezingen waarin partijen onderhandelen over coalitievorming en het regeerakkoord, en waarin de nieuwe ministers worden aangewezen (verkenner → informateur → formateur → beëdiging door koning).",
+           en:"The process after Lower House elections where parties negotiate coalitions and the coalition agreement, and new ministers are appointed (scout → informateur → formateur → sworn in by the king)."},
+        m:{nl:"Volgorde: <b>V</b>erkenner → <b>I</b>nformateur → <b>F</b>ormateur (VIF).",
+           en:"Order: <b>S</b>cout → <b>I</b>nformateur → <b>F</b>ormateur."},
+        dist:{
+          nl:[
+            "Het wekelijkse overleg tussen de minister-president en de koning over actuele politieke zaken.",
+            "De vergadering waar de Tweede Kamer een nieuw kabinet wegstemt na een motie van wantrouwen.",
+            "De procedure waarbij ambtenaren nieuwe wetten voorbereiden voor de minister."
+          ],
+          en:[
+            "The weekly meeting between the prime minister and the king about current political affairs.",
+            "The session where the Lower House votes out a cabinet after a motion of no confidence.",
+            "The procedure where civil servants prepare new laws for the minister."
+          ]
+        }},
+      { t:{nl:"Zwevende kiezer", en:"Floating voter"},
+        d:{nl:"Kiezer die niet vast aan een politieke partij gebonden is en pas vlak voor de verkiezingen besluit op wie hij of zij stemt. Maakt verkiezingsuitslagen onvoorspelbaarder.",
+           en:"Voter who isn't tied to a political party and only decides which party to vote for shortly before the election. Makes election outcomes harder to predict."},
+        dist:{
+          nl:[
+            "Kiezer die zijn hele leven trouw blijft aan dezelfde partij.",
+            "Kiezer die door de overheid is aangewezen om in een kiescommissie te zitten.",
+            "Kiezer die in het buitenland woont en daarom per post stemt."
+          ],
+          en:[
+            "Voter who remains loyal to the same party for life.",
+            "Voter appointed by the government to serve on an election committee.",
+            "Voter who lives abroad and therefore votes by post."
+          ]
+        }},
+      { t:{nl:"Peilingen en lijsttrekkers", en:"Polls and party leaders"},
+        d:{nl:"Peilingen meten tussen verkiezingen door welke partij hoeveel stemmen zou krijgen en beïnvloeden zo de campagne. De lijsttrekker staat bovenaan de kandidatenlijst en is het gezicht van de partij tijdens verkiezingen.",
+           en:"Polls measure between elections which party would get how many votes, influencing campaigns. The lijsttrekker tops the candidate list and is the party's face during elections."},
+        dist:{
+          nl:[
+            "Peilingen zijn officiële stemuitslagen; lijsttrekkers zijn de oudste leden van de partij.",
+            "Peilingen zijn buitenlandse verkiezingen; lijsttrekkers zijn ambtenaren die de kandidatenlijst opstellen.",
+            "Peilingen zijn EU-onderzoeken; lijsttrekkers zijn de juridische adviseurs van een partij."
+          ],
+          en:[
+            "Polls are official election results; lijsttrekkers are the oldest members of the party.",
+            "Polls are foreign elections; lijsttrekkers are civil servants who draft the candidate list.",
+            "Polls are EU surveys; lijsttrekkers are a party's legal advisors."
+          ]
+        }},
+      { t:{nl:"Geheim van Noordeinde", en:"Secret of Noordeinde"},
+        d:{nl:"De inhoud van de wekelijkse gesprekken tussen de koning en de minister-president is geheim; de koning kan zo onafhankelijk advies geven zonder politieke gevolgen. Genoemd naar Paleis Noordeinde in Den Haag.",
+           en:"The contents of the weekly meetings between the king and the prime minister are secret; this lets the king give independent advice without political consequences. Named after Noordeinde Palace in The Hague."},
+        dist:{
+          nl:[
+            "Een geheim akkoord tussen de Tweede Kamer en de regering over de begroting.",
+            "Een vertrouwelijke afspraak tussen ministers tijdens een crisis.",
+            "De code waarmee de Nederlandse inlichtingendienst werkt."
+          ],
+          en:[
+            "A secret deal between the Lower House and the government about the budget.",
+            "A confidential agreement between ministers during a crisis.",
+            "The code used by the Dutch intelligence service."
+          ]
+        }},
+      { t:{nl:"Republiek", en:"Republic"},
+        d:{nl:"Staatsvorm waarin het staatshoofd (bv. een president) door de burgers wordt gekozen, in tegenstelling tot een monarchie waar het staatshoofd door erfopvolging aantreedt.",
+           en:"Form of state where the head of state (e.g. a president) is elected by the citizens, in contrast to a monarchy where the head of state inherits the position."},
+        dist:{
+          nl:[
+            "Staatsvorm waarin de koning(in) door het parlement wordt gekozen voor vier jaar.",
+            "Staatsvorm waarin een militair leider tijdelijk de macht heeft tijdens een oorlog.",
+            "Staatsvorm waarin meerdere koninkrijken zijn samengevoegd onder één keizer."
+          ],
+          en:[
+            "Form of state where the king or queen is elected by parliament for four years.",
+            "Form of state where a military leader temporarily holds power during a war.",
+            "Form of state where multiple kingdoms are united under one emperor."
+          ]
+        }},
+      { t:{nl:"Raad van de Europese Unie", en:"Council of the European Union"},
+        d:{nl:"EU-instelling waarin de vakministers van de lidstaten samen met het Europees Parlement stemmen over voorstellen van de Europese Commissie. Niet te verwarren met de Europese Raad.",
+           en:"EU institution where the relevant ministers of the member states vote, together with the European Parliament, on proposals from the European Commission. Not to be confused with the European Council."},
+        dist:{
+          nl:[
+            "EU-instelling die als enige nieuwe wetten mag voorstellen en het beleid uitvoert.",
+            "EU-instelling waarin de door burgers gekozen vertegenwoordigers van alle lidstaten zitten.",
+            "EU-instelling die geschillen tussen lidstaten beslecht en uitspraken doet over EU-recht."
+          ],
+          en:[
+            "EU institution that's the only one allowed to propose new laws and execute policy.",
+            "EU institution containing the directly elected representatives of all member states.",
+            "EU institution that settles disputes between member states and rules on EU law."
+          ]
+        }},
+      { t:{nl:"Europese Raad", en:"European Council"},
+        d:{nl:"EU-instelling waarin de regeringsleiders (premiers/presidenten) van de lidstaten de grote politieke richting van de EU bepalen. Niet te verwarren met de Raad van de EU (vakministers) of de Raad van Europa (mensenrechten, geen EU).",
+           en:"EU institution where the heads of government (prime ministers/presidents) of the member states set the broad political direction of the EU. Not to be confused with the Council of the EU (ministers) or the Council of Europe (human rights, not EU)."},
+        m:{nl:"Drie raden: Europese <b>R</b>aad = regeringsleiders, <b>R</b>aad van EU = ministers, <b>R</b>aad van Europa = mensenrechten (geen EU).",
+           en:"Three councils: Europ. <b>C</b>ouncil = heads of govt; <b>C</b>ouncil of EU = ministers; <b>C</b>ouncil of Europe = human rights (not EU)."},
+        dist:{
+          nl:[
+            "EU-instelling waarin de vakministers van de lidstaten over voorstellen stemmen.",
+            "EU-instelling die als enige het recht heeft om nieuwe Europese wetten in te dienen.",
+            "EU-instelling die uit door burgers gekozen Europarlementariërs bestaat."
+          ],
+          en:[
+            "EU institution where ministers of member states vote on proposals.",
+            "EU institution with the sole right to propose new European laws.",
+            "EU institution composed of directly elected Members of the European Parliament."
+          ]
+        }},
+      { t:{nl:"EU-richtlijn vs. besluit", en:"EU directive vs. regulation"},
+        d:{nl:"Een richtlijn legt een doel op dat elke lidstaat moet bereiken, maar de lidstaat bepaalt zelf hoe (via eigen wetgeving). Een besluit (verordening) is direct geldend in alle lidstaten zonder eigen wet.",
+           en:"A directive sets a goal each member state must achieve, but the state decides how (via its own law). A regulation/decision applies directly in all member states without needing national legislation."},
+        dist:{
+          nl:[
+            "Een richtlijn geldt alleen voor de Europese Commissie; een besluit geldt voor de regeringsleiders.",
+            "Een richtlijn is een advies aan lidstaten; een besluit is een gerechtelijke uitspraak.",
+            "Een richtlijn en een besluit zijn precies hetzelfde — alleen de naam verschilt."
+          ],
+          en:[
+            "A directive applies only to the European Commission; a decision applies to heads of government.",
+            "A directive is advice to member states; a decision is a court ruling.",
+            "A directive and a regulation are exactly the same — only the name differs."
+          ]
+        }},
+      { t:{nl:"Algemeen kiesrecht", en:"Universal suffrage"},
+        d:{nl:"Het recht van alle volwassen burgers om te stemmen, ongeacht inkomen, geslacht, opleiding of afkomst — een kernkenmerk van een parlementaire democratie.",
+           en:"The right of all adult citizens to vote regardless of income, gender, education or background — a core feature of a parliamentary democracy."},
+        dist:{
+          nl:[
+            "Het recht om je verkiesbaar te stellen, alleen voor burgers met een bepaalde opleiding.",
+            "Het recht van burgers om in een gemeente te stemmen, maar niet op landelijk niveau.",
+            "Het recht om uitsluitend via referenda over wetten te stemmen."
+          ],
+          en:[
+            "The right to stand as a candidate, only for citizens with a certain level of education.",
+            "The right of citizens to vote at municipal level only, not nationally.",
+            "The right to vote on laws only through referenda."
+          ]
         }}
     ]
   },
@@ -4371,8 +4669,8 @@ const DATA = {
           ]
         }},
       { t:{nl:"Jeugdstrafrecht", en:"Juvenile criminal law"},
-        d:{nl:"Apart strafrecht voor jongeren van 12–18 jaar (soms 16–23) met lagere maximumstraffen, kinderrechter en besloten zittingen.",
-           en:"Separate criminal law for youths aged 12–18 (sometimes 16–23) with lower maximum sentences, a juvenile judge and closed sessions."},
+        d:{nl:"Apart strafrecht voor jongeren van 12–18 jaar; onder de 12 jaar geen strafrechtelijke vervolging. Lagere maximumstraffen, kinderrechter en besloten zittingen. Mogelijke maatregelen: Halt-straf en de Pij-maatregel. Tussen 16–18 kan volwassenenstrafrecht worden toegepast; tussen 18–23 soms juist jeugdstrafrecht.",
+           en:"Separate criminal law for youths aged 12–18; under 12 no criminal prosecution. Lower maximum sentences, juvenile judge, closed sessions. Possible measures include the Halt sentence and the PIJ measure. Ages 16–18 may be tried as adults; 18–23 may sometimes still be tried as juveniles."},
         dist:{
           nl:[
             "Apart strafrecht voor jongeren van 8–14 jaar met openbare zittingen en speciale gedragstrainingen in plaats van straffen.",
@@ -4446,8 +4744,8 @@ const DATA = {
           ]
         }},
       { t:{nl:"Hoger beroep & cassatie", en:"Appeal & cassation"},
-        d:{nl:"Hoger beroep: opnieuw beoordelen door het gerechtshof. Cassatie: de Hoge Raad toetst of het recht goed is toegepast.",
-           en:"Appeal: reassessment by the court of appeal. Cassation: the Supreme Court checks correct application of law."},
+        d:{nl:"Hoger beroep: het gerechtshof beoordeelt de zaak opnieuw, óók of de verdachte schuldig is. Cassatie: de Hoge Raad toetst alleen of het recht juist is toegepast — NIET of de verdachte schuldig is.",
+           en:"Appeal: the Court of Appeal reviews the case again, including the question of guilt. Cassation: the Supreme Court only checks whether the law was correctly applied — NOT whether the defendant is guilty."},
         dist:{
           nl:[
             "Hoger beroep: oordeel van een hogere ambtenaar in plaats van een rechter. Cassatie: aanpassing van de strafmaat door de minister.",
@@ -5189,6 +5487,87 @@ const DATA = {
             "Citizens form their own party to politically influence crime policy.",
             "Citizens voluntarily move into a guarded house out of safety concerns."
           ]
+        }},
+      { t:{nl:"Pij-maatregel", en:"PIJ measure (juvenile placement)"},
+        d:{nl:"Plaatsing in een Inrichting voor Jeugdigen: maatregel voor jongeren met een gebrekkige ontwikkeling of stoornis, gericht op behandeling en het voorkomen van herhaling. Kan later worden omgezet in tbs.",
+           en:"Placement in a juvenile institution: a measure for young people with developmental or mental issues, focused on treatment and preventing reoffending. Can later be converted to tbs."},
+        m:{nl:"<b>PIJ</b> = <b>P</b>laatsing <b>I</b>n een inrichting voor <b>J</b>eugdigen.",
+           en:"<b>PIJ</b> = <b>P</b>lacement <b>I</b>n a <b>J</b>uvenile facility."},
+        dist:{
+          nl:[
+            "Geldboete voor jongeren tussen 12 en 18 jaar bij lichte overtredingen.",
+            "Verplichte gemeenschapsdienst van maximaal 40 uur voor minderjarige overtreders.",
+            "Een gesprek met de leerplichtambtenaar voor jongeren die spijbelen."
+          ],
+          en:[
+            "Fine for youths aged 12-18 for minor offences.",
+            "Mandatory community service of up to 40 hours for underage offenders.",
+            "A meeting with the truancy officer for young people who skip school."
+          ]
+        }},
+      { t:{nl:"Openbaar Ministerie (OM)", en:"Public Prosecution Service (OM)"},
+        d:{nl:"De organisatie van officieren van justitie die strafbare feiten onderzoekt, vervolgt en aanklaagt namens de overheid. Alleen het OM kan een zaak voor de strafrechter brengen.",
+           en:"The organisation of public prosecutors that investigates, prosecutes and brings charges for criminal offences on behalf of the state. Only the OM can bring a case before the criminal court."},
+        m:{nl:"Alleen het <b>OM</b> mag aanklagen.",
+           en:"Only the <b>OM</b> can prosecute."},
+        dist:{
+          nl:[
+            "De organisatie van rechters die straffen oplegt en uitspraken doet.",
+            "De organisatie van advocaten die verdachten verdedigt in de rechtbank.",
+            "De organisatie van ambtenaren die nieuwe strafwetten voorbereidt voor de Tweede Kamer."
+          ],
+          en:[
+            "The organisation of judges that imposes sentences and delivers verdicts.",
+            "The organisation of lawyers that defends suspects in court.",
+            "The organisation of civil servants that drafts new criminal laws for parliament."
+          ]
+        }},
+      { t:{nl:"Vrijspraak", en:"Acquittal"},
+        d:{nl:"Uitspraak van de rechter waarbij de verdachte wordt vrijgesproken omdat zijn of haar schuld niet wettig en overtuigend is bewezen.",
+           en:"Verdict where the defendant is acquitted because their guilt has not been proven legally and convincingly."},
+        dist:{
+          nl:[
+            "Uitspraak waarbij de rechter de verdachte schuldig verklaart maar geen straf oplegt.",
+            "Een transactie waarbij de verdachte een geldsom betaalt om vervolging te voorkomen.",
+            "De beslissing van de officier van justitie om de zaak niet voor de rechter te brengen."
+          ],
+          en:[
+            "Verdict where the judge finds the defendant guilty but imposes no penalty.",
+            "A settlement where the suspect pays a sum to avoid prosecution.",
+            "The prosecutor's decision not to bring the case to court."
+          ]
+        }},
+      { t:{nl:"Rechtsgelijkheid en rechtszekerheid", en:"Equality before the law and legal certainty"},
+        d:{nl:"Rechtsgelijkheid: alle burgers zijn voor de wet gelijk (artikel 1 Grondwet). Rechtszekerheid: burgers weten waar ze aan toe zijn doordat de overheid alleen mag handelen op basis van een wet (legaliteitsbeginsel).",
+           en:"Equality before the law: all citizens are equal under the law (Article 1 Constitution). Legal certainty: citizens know where they stand because government may only act on the basis of a law (legality principle)."},
+        dist:{
+          nl:[
+            "Het recht om alleen te worden berecht door een rechter uit je eigen woonplaats.",
+            "Het recht om bij elke wet inspraak te hebben via een referendum.",
+            "Het recht om elke straf in beroep te laten herzien door de Hoge Raad."
+          ],
+          en:[
+            "The right to be tried only by a judge from your own town.",
+            "The right to have input on every law via a referendum.",
+            "The right to have every sentence reviewed on appeal by the Supreme Court."
+          ]
+        }},
+      { t:{nl:"Andere strafwetten naast het Wetboek van Strafrecht", en:"Other criminal laws beyond the Penal Code"},
+        d:{nl:"Naast het Wetboek van Strafrecht zijn er aparte strafwetten: de Opiumwet (drugs), de Wet wapens en munitie (wapens), en de Wegenverkeerswet (verkeersmisdrijven en -overtredingen, bv. rijden onder invloed).",
+           en:"Besides the general Penal Code, separate criminal laws exist: the Opium Act (drugs), the Weapons and Ammunition Act, and the Road Traffic Act (traffic offences such as drink-driving)."},
+        m:{nl:"Drie aparte strafwetten — <b>D</b>rugs, <b>W</b>apens, <b>V</b>erkeer (DWV).",
+           en:"Three separate criminal acts — <b>D</b>rugs, <b>W</b>eapons, traffic (<b>V</b>erkeer)."},
+        dist:{
+          nl:[
+            "Drie ondergeschikte regels van de gemeente die alleen ter plaatse gelden.",
+            "Drie internationale verdragen die boven de Nederlandse wet staan.",
+            "Drie civielrechtelijke regelingen voor schadevergoeding bij ongelukken."
+          ],
+          en:[
+            "Three minor municipal rules that apply only locally.",
+            "Three international treaties that override Dutch law.",
+            "Three civil-law rules on compensation for accidents."
+          ]
         }}
     ]
   },
@@ -5563,8 +5942,8 @@ const DATA = {
           ]
         }},
       { t:{nl:"Framingtheorie", en:"Framing theory"},
-        d:{nl:"Media belichten een onderwerp op een bepaalde manier — een 'frame' — en sturen daarmee hoe mensen erover denken en praten.",
-           en:"Media highlight a topic in a particular way — a 'frame' — steering how people think and talk about it."},
+        d:{nl:"Theorie dat media een onderwerp op een bepaalde manier belichten — een 'frame' — en daarmee bewust of onbewust sturen hoe mensen erover denken en praten.",
+           en:"Theory that media highlight a topic from a particular angle — a 'frame' — and so consciously or unconsciously shape how people think and talk about it."},
         dist:{
           nl:[
             "Media bepalen waar mensen over praten door veel aandacht aan een onderwerp te besteden, maar niet hoe ze erover denken.",
@@ -6217,6 +6596,355 @@ const DATA = {
             "Adopting the majority view to avoid confusion or conflict.",
             "Repeating a favoured politician's positions without thinking it through yourself.",
             "Asking others questions without forming an opinion or taking a position yourself."
+          ]
+        }},
+      { t:{nl:"Politiek probleem / politieke agenda", en:"Political problem / political agenda"},
+        d:{nl:"Een maatschappelijk vraagstuk wordt een politiek probleem zodra het op de politieke agenda komt — dat wil zeggen: door politici besproken wordt in de volksvertegenwoordiging of het dagelijks bestuur.",
+           en:"A social issue becomes a political problem once it lands on the political agenda — that is, when politicians discuss it in parliament or the executive."},
+        dist:{
+          nl:[
+            "Elk persoonlijk probleem dat een burger aan een politicus voorlegt.",
+            "Een vraagstuk dat alleen door rechters kan worden opgelost.",
+            "Een onderwerp dat in de media verschijnt zonder dat politici er iets mee doen."
+          ],
+          en:[
+            "Any personal problem a citizen brings to a politician.",
+            "An issue that can only be solved by judges.",
+            "A topic that appears in the media without politicians acting on it."
+          ]
+        }},
+      { t:{nl:"Massacommunicatie", en:"Mass communication"},
+        d:{nl:"Communicatie van één zender naar een groot, onbekend en gevarieerd publiek (via kranten, radio, tv, websites). Het kanaal heet massamedia; het proces zelf heet massacommunicatie.",
+           en:"Communication from one sender to a large, unknown and varied audience (via newspapers, radio, TV, websites). The channel is the mass media; the process itself is mass communication."},
+        dist:{
+          nl:[
+            "Direct gesprek tussen twee mensen via telefoon of chat.",
+            "Communicatie binnen één bedrijf tussen werknemers onderling.",
+            "Een redactionele vergadering waarin journalisten een artikel bespreken."
+          ],
+          en:[
+            "Direct conversation between two people via phone or chat.",
+            "Communication within one company between employees.",
+            "An editorial meeting where journalists discuss an article."
+          ]
+        }},
+      { t:{nl:"Grondwet", en:"Constitution"},
+        d:{nl:"De hoogste Nederlandse wet, waarin de basisregels van de staat en de grondrechten van burgers zijn vastgelegd. Andere wetten mogen er niet mee in strijd zijn.",
+           en:"The highest Dutch law, setting out the basic rules of the state and the fundamental rights of citizens. Other laws may not conflict with it."},
+        m:{nl:"<b>Grond</b> = onder alles. <b>Grondwet</b> = onder alle andere wetten.",
+           en:"<b>Grond</b> = foundation. <b>Grondwet</b> = under all other laws."},
+        dist:{
+          nl:[
+            "De wet die bepaalt welke bestuurslagen Nederland heeft, los van grondrechten.",
+            "Een verzameling adviezen die de regering vrijwillig kan volgen.",
+            "Een Europese wet die boven alle nationale wetten in alle lidstaten staat."
+          ],
+          en:[
+            "The law deciding which levels of government the Netherlands has, separate from rights.",
+            "A set of advisory rules the government can voluntarily follow.",
+            "A European law overriding all national laws in all member states."
+          ]
+        }}
+    ]
+  },
+
+  /* ── 5) POLITIEKE INVALSHOEKEN — political viewpoints / streams ── */
+  invalshoeken: {
+    icon: "🧭",
+    label: { nl: "Politieke Invalshoeken", en: "Political Viewpoints" },
+    blurb: { nl: "Stromingen, links/rechts, confessioneel, extremisme — hoe partijen denken",
+             en: "Streams, left/right, confessional, extremism — how parties think" },
+    terms: [
+      { t:{nl:"Politieke stroming", en:"Political stream"},
+        d:{nl:"Samenhangende verzameling ideeën over hoe de samenleving ingericht moet worden, met eigen waarden, normen en oplossingen voor maatschappelijke vraagstukken.",
+           en:"Coherent set of ideas about how society should be organised, with its own values, norms and solutions to social issues."},
+        m:{nl:"De 5 hoofdstromingen: <b>LSCEN</b> — <b>L</b>iberaal, <b>S</b>ociaaldemocratisch, <b>C</b>hristendemocratisch, <b>E</b>cologisch, <b>N</b>ationalistisch.",
+           en:"The 5 main streams: <b>LSCEN</b> — <b>L</b>iberal, <b>S</b>ocial-democratic, <b>C</b>hristian-democratic, <b>E</b>cological, <b>N</b>ationalist."},
+        dist:{
+          nl:[
+            "Een partij die alleen meedoet aan gemeenteraadsverkiezingen, niet op landelijk niveau.",
+            "Een lijst van politici die op één onderwerp dezelfde mening hebben, los van een partij.",
+            "Een ambtelijk plan dat alleen door de regering wordt uitgevoerd, zonder ideologie erachter."
+          ],
+          en:[
+            "A party that only joins municipal elections, never national ones.",
+            "A list of politicians who share an opinion on one topic, outside any party.",
+            "A government plan executed only by civil servants, with no ideology behind it."
+          ]
+        }},
+      { t:{nl:"Liberalisme", en:"Liberalism"},
+        d:{nl:"Stroming met nadruk op individuele vrijheid, eigen verantwoordelijkheid en de vrije markt; beperkte overheid die zich richt op kerntaken zoals defensie en justitie.",
+           en:"Stream emphasising individual freedom, personal responsibility and the free market; limited government focused on core tasks like defence and justice."},
+        m:{nl:"<b>L</b>iberaal = <b>L</b>os van bemoeienis: vrijheid en markt.",
+           en:"<b>L</b>iberal = <b>L</b>oose from interference: freedom and market."},
+        dist:{
+          nl:[
+            "Stroming die streeft naar inkomensgelijkheid en een sterke verzorgingsstaat via belastingen.",
+            "Stroming gebaseerd op christelijke waarden zoals naastenliefde en gespreide verantwoordelijkheid.",
+            "Stroming die het eigen land en volk centraal zet en globalisering als bedreiging ziet."
+          ],
+          en:[
+            "Stream pursuing income equality and a strong welfare state via taxation.",
+            "Stream based on Christian values like charity and distributed responsibility.",
+            "Stream centring the country and people, viewing globalisation as a threat."
+          ]
+        }},
+      { t:{nl:"Sociaaldemocratie", en:"Social democracy"},
+        d:{nl:"Stroming die streeft naar meer sociaaleconomische gelijkheid via een actieve overheid en verzorgingsstaat; internationale solidariteit speelt een grote rol.",
+           en:"Stream pursuing greater socio-economic equality via active government and welfare state; international solidarity is central."},
+        m:{nl:"<b>S</b>ociaal = <b>S</b>amen sterk: gelijkheid en verzorgingsstaat.",
+           en:"<b>S</b>ocial = <b>S</b>haring is key: equality and welfare state."},
+        dist:{
+          nl:[
+            "Stroming die de vrije markt en individuele vrijheid boven gelijkheid stelt; zo min mogelijk overheidsbemoeienis.",
+            "Stroming die duurzaamheid en milieu boven economische groei plaatst.",
+            "Stroming die zich keert tegen de gevestigde elite en namens 'het volk' wil spreken."
+          ],
+          en:[
+            "Stream that puts the free market and individual freedom above equality; minimal government.",
+            "Stream that prioritises sustainability and the environment over economic growth.",
+            "Stream that opposes the elite and claims to speak for 'the people'."
+          ]
+        }},
+      { t:{nl:"Christendemocratie", en:"Christian democracy"},
+        d:{nl:"Stroming gebaseerd op christelijke waarden zoals naastenliefde, gespreide verantwoordelijkheid, solidariteit en samenwerking tussen verschillende groepen.",
+           en:"Stream based on Christian values like charity, distributed responsibility, solidarity and cooperation between groups."},
+        m:{nl:"<b>C</b>hristen­democratisch = <b>C</b>ombineren van groepen via christelijke waarden.",
+           en:"<b>C</b>hristian democratic = <b>C</b>onnecting groups via Christian values."},
+        dist:{
+          nl:[
+            "Stroming die religie volledig uit de politiek wil houden en kiest voor strikte scheiding van kerk en staat.",
+            "Stroming die alleen voor de belangen van werknemers in de zorg opkomt.",
+            "Stroming die de overheid zo klein mogelijk wil maken en alle voorzieningen aan de markt overlaat."
+          ],
+          en:[
+            "Stream that wants religion entirely out of politics and chooses strict separation of church and state.",
+            "Stream that only represents the interests of healthcare workers.",
+            "Stream that wants the smallest possible government, leaving all services to the market."
+          ]
+        }},
+      { t:{nl:"Ecologische stroming (groen)", en:"Ecological / green stream"},
+        d:{nl:"Stroming die duurzame, groene consumptie boven economische groei plaatst; sterke overheidsmaatregelen voor milieu, natuur en klimaat.",
+           en:"Stream placing sustainable green consumption above economic growth; strong government action for environment, nature and climate."},
+        m:{nl:"<b>E</b>cologisch = <b>E</b>arth eerst: milieu boven groei.",
+           en:"<b>E</b>cological = <b>E</b>arth first: environment over growth."},
+        dist:{
+          nl:[
+            "Stroming die economische groei boven milieu stelt en strenge milieueisen aan bedrijven afwijst.",
+            "Stroming gericht op het versterken van de positie van werknemers en sociale gelijkheid.",
+            "Stroming die religieuze waarden als kompas voor beleid gebruikt."
+          ],
+          en:[
+            "Stream that puts economic growth above the environment and rejects strict rules for companies.",
+            "Stream focused on strengthening workers' position and social equality.",
+            "Stream that uses religious values as a compass for policy."
+          ]
+        }},
+      { t:{nl:"Nationalisme", en:"Nationalism"},
+        d:{nl:"Stroming die de oorspronkelijke bewoners centraal stelt, nationale onafhankelijkheid nastreeft en globalisering en immigratie als bedreiging ziet.",
+           en:"Stream centring original inhabitants, pursuing national independence and viewing globalisation and immigration as threats."},
+        m:{nl:"<b>N</b>ationalisme = <b>N</b>atie eerst.",
+           en:"<b>N</b>ationalism = <b>N</b>ation first."},
+        dist:{
+          nl:[
+            "Stroming die internationale samenwerking centraal stelt en streeft naar maximale integratie binnen de EU.",
+            "Stroming die alle nadruk legt op klimaat en duurzaamheid, los van nationaliteit.",
+            "Stroming die de scheiding van kerk en staat als kernpunt heeft."
+          ],
+          en:[
+            "Stream centring international cooperation and pursuing maximum EU integration.",
+            "Stream that focuses entirely on climate and sustainability, regardless of nationality.",
+            "Stream whose core principle is separation of church and state."
+          ]
+        }},
+      { t:{nl:"Populisme", en:"Populism"},
+        d:{nl:"Politieke stijl/stroming met vier kenmerken: afkeer van de gevestigde elite, luisteren naar 'het gewone volk', charismatisch leiderschap, en een beroep op vaderlandsliefde.",
+           en:"Political style/stream with four features: rejection of the established elite, listening to 'ordinary people', charismatic leadership, and an appeal to patriotism."},
+        m:{nl:"<b>P</b>opulisme = <b>P</b>eople vs. <b>P</b>aleis (elite).",
+           en:"<b>P</b>opulism = <b>P</b>eople vs. <b>P</b>alace (elite)."},
+        dist:{
+          nl:[
+            "Politieke stijl waarbij partijen zo dicht mogelijk bij de bestaande elite blijven en consensus boven verandering stellen.",
+            "Politieke stroming die specifiek opkomt voor de belangen van een religieuze minderheid.",
+            "Politieke stroming die alleen via referenda besluiten neemt en geen leiders heeft."
+          ],
+          en:[
+            "Political style sticking close to the existing elite and preferring consensus over change.",
+            "Political stream that specifically represents the interests of a religious minority.",
+            "Political stream that makes all decisions via referenda and has no leaders."
+          ]
+        }},
+      { t:{nl:"Conservatisme", en:"Conservatism"},
+        d:{nl:"Houding die bestaande tradities, waarden en de huidige orde wil behouden; voorzichtig met snelle veranderingen.",
+           en:"Stance that wants to preserve existing traditions, values and the current order; cautious about rapid change."},
+        dist:{
+          nl:[
+            "Houding die juist snelle, fundamentele veranderingen van de samenleving nastreeft.",
+            "Houding die uitsluitend economische groei centraal stelt en alle traditionele waarden afwijst.",
+            "Houding die alle vormen van overheid afwijst en kiest voor pure anarchie."
+          ],
+          en:[
+            "Stance that pursues rapid, fundamental changes to society.",
+            "Stance that puts only economic growth first and rejects all traditional values.",
+            "Stance that rejects all forms of government and chooses pure anarchy."
+          ]
+        }},
+      { t:{nl:"Progressief", en:"Progressive"},
+        d:{nl:"Houding die verandering en vooruitgang nastreeft, ruimte geeft aan persoonlijke vrijheid en het oude niet als heilig ziet.",
+           en:"Stance pursuing change and progress, granting room for personal freedom and not treating the old as sacred."},
+        dist:{
+          nl:[
+            "Houding die juist vasthoudt aan traditionele waarden en normen.",
+            "Houding die alleen kijkt naar economische cijfers en niet naar maatschappelijke verandering.",
+            "Houding die wil dat de overheid uitsluitend defensie en justitie uitvoert."
+          ],
+          en:[
+            "Stance that holds on to traditional values and norms.",
+            "Stance focused only on economic figures, not on social change.",
+            "Stance that wants the government to do nothing beyond defence and justice."
+          ]
+        }},
+      { t:{nl:"Extremisme", en:"Extremism"},
+        d:{nl:"Houding die buiten de democratische orde valt en geen ruimte laat voor andersdenkenden; soms bereid tot geweld om doelen te bereiken.",
+           en:"Stance that falls outside the democratic order and leaves no space for dissent; sometimes willing to use violence to achieve goals."},
+        dist:{
+          nl:[
+            "Houding die binnen de democratie blijft maar wel fundamentele hervormingen nastreeft.",
+            "Houding die zich aan de gevestigde regels van een politieke partij houdt.",
+            "Houding die in alles compromissen sluit en altijd middenposities kiest."
+          ],
+          en:[
+            "Stance that stays within democracy but pursues fundamental reform.",
+            "Stance that adheres to the established rules of a political party.",
+            "Stance that compromises on everything and always picks middle positions."
+          ]
+        }},
+      { t:{nl:"Radicalisme", en:"Radicalism"},
+        d:{nl:"Streven naar diepe, fundamentele verandering van de samenleving — binnen de democratische orde, in tegenstelling tot extremisme.",
+           en:"Pursuing deep, fundamental change of society — within the democratic order, unlike extremism."},
+        m:{nl:"<b>Radicaal</b> = wortels eruit (radix = wortel), maar nog wél democratisch.",
+           en:"<b>Radical</b> = pulling out the roots (radix = root), but still democratic."},
+        dist:{
+          nl:[
+            "Streven om alles bij het oude te laten en kleine aanpassingen te maken.",
+            "Streven naar verandering door uitsluitend geweld en buiten de democratie om.",
+            "Streven om alleen in één gemeente politiek actief te zijn."
+          ],
+          en:[
+            "Pursuing minor adjustments and leaving everything as is.",
+            "Pursuing change only through violence and outside democracy.",
+            "Pursuing political activity in one municipality only."
+          ]
+        }},
+      { t:{nl:"Confessioneel", en:"Confessional"},
+        d:{nl:"Politieke stroming of partij die gebaseerd is op een geloofsovertuiging (bv. christelijk of islamitisch); waarden van het geloof sturen het programma.",
+           en:"Political stream or party based on a religious belief (e.g. Christian or Islamic); faith values shape the programme."},
+        dist:{
+          nl:[
+            "Politieke stroming die religie volledig buiten het beleid wil houden.",
+            "Politieke stroming die haar standpunten uitsluitend op wetenschappelijk onderzoek baseert.",
+            "Politieke stroming die alleen aan gemeenteraadsverkiezingen meedoet."
+          ],
+          en:[
+            "Political stream that wants religion entirely out of policy.",
+            "Political stream that bases its positions solely on scientific research.",
+            "Political stream that only participates in municipal elections."
+          ]
+        }},
+      { t:{nl:"Niet-confessioneel (seculier)", en:"Non-confessional (secular)"},
+        d:{nl:"Politieke stroming of partij die niet is gebaseerd op een geloof; kiest meestal voor scheiding van kerk en staat.",
+           en:"Political stream or party not based on a religion; usually favours separation of church and state."},
+        dist:{
+          nl:[
+            "Politieke stroming die haar programma volledig op een geloofsovertuiging baseert.",
+            "Politieke stroming die alle politici verplicht een religieuze opleiding te volgen.",
+            "Politieke stroming die uitsluitend over geloof debatteert in het parlement."
+          ],
+          en:[
+            "Political stream that bases its entire programme on a religion.",
+            "Political stream that requires all politicians to have religious training.",
+            "Political stream that debates only religious matters in parliament."
+          ]
+        }},
+      { t:{nl:"Links (politiek)", en:"Left (politics)"},
+        d:{nl:"Politieke positie die meer overheidsbemoeienis, herverdeling van inkomen en sociale gelijkheid nastreeft.",
+           en:"Political position favouring more government action, income redistribution and social equality."},
+        m:{nl:"<b>L</b>inks = <b>L</b>aag inkomen helpen, overheid actief.",
+           en:"<b>L</b>eft = <b>L</b>ifting up lower incomes, active government."},
+        dist:{
+          nl:[
+            "Politieke positie die minder overheid en meer vrije markt nastreeft.",
+            "Politieke positie die zich alleen met religieuze kwesties bezighoudt.",
+            "Politieke positie die uitsluitend over buitenlandse politiek gaat."
+          ],
+          en:[
+            "Political position favouring less government and more free market.",
+            "Political position that deals only with religious matters.",
+            "Political position concerned solely with foreign affairs."
+          ]
+        }},
+      { t:{nl:"Rechts (politiek)", en:"Right (politics)"},
+        d:{nl:"Politieke positie die minder overheid, eigen verantwoordelijkheid en vertrouwen in de vrije markt centraal stelt.",
+           en:"Political position favouring less government, personal responsibility and trust in the free market."},
+        m:{nl:"<b>R</b>echts = <b>R</b>uimte voor de markt, kleinere overheid.",
+           en:"<b>R</b>ight = <b>R</b>oom for the market, smaller government."},
+        dist:{
+          nl:[
+            "Politieke positie die meer overheidsbemoeienis en herverdeling van inkomen nastreeft.",
+            "Politieke positie die alleen lokale kwesties behandelt.",
+            "Politieke positie die alle besluiten via referenda wil nemen."
+          ],
+          en:[
+            "Political position favouring more government and income redistribution.",
+            "Political position that handles only local matters.",
+            "Political position that wants all decisions to be made via referenda."
+          ]
+        }},
+      { t:{nl:"Pragmatisme", en:"Pragmatism"},
+        d:{nl:"Politieke aanpak die kiest voor wat werkt in de praktijk, in plaats van trouw te blijven aan één ideologie of leer.",
+           en:"Political approach that chooses what works in practice instead of sticking to one ideology."},
+        dist:{
+          nl:[
+            "Politieke aanpak die uitsluitend rekent op de zuivere uitvoering van één ideologie.",
+            "Politieke aanpak die elke discussie via referenda beslist.",
+            "Politieke aanpak die alleen op religieuze waarden vertrouwt."
+          ],
+          en:[
+            "Political approach that relies solely on the pure execution of one ideology.",
+            "Political approach that decides every debate via referendum.",
+            "Political approach that trusts only religious values."
+          ]
+        }},
+      { t:{nl:"Single-issue partij", en:"Single-issue party"},
+        d:{nl:"Partij die opkomt voor één hoofdthema (bv. dierenrechten, ouderen, sport), in plaats van een breed programma.",
+           en:"Party that champions one main theme (e.g. animal rights, the elderly, sport) instead of a broad programme."},
+        dist:{
+          nl:[
+            "Partij die over alle maatschappelijke thema's een uitgewerkt standpunt heeft.",
+            "Partij die alleen ministers levert en geen Kamerleden.",
+            "Partij die uitsluitend op Europees niveau actief is."
+          ],
+          en:[
+            "Party that has a fully worked-out position on every social topic.",
+            "Party that only supplies ministers and never MPs.",
+            "Party that's only active at European level."
+          ]
+        }},
+      { t:{nl:"Coalitie- vs. oppositiepartij", en:"Coalition vs. opposition party"},
+        d:{nl:"Coalitiepartij(en) vormen samen het kabinet en steunen het regeerakkoord. Oppositiepartijen zitten niet in het kabinet en controleren de regering.",
+           en:"Coalition parties together form the cabinet and back the coalition agreement. Opposition parties aren't in the cabinet and scrutinise the government."},
+        m:{nl:"Coalitie = <b>regeert</b>. Oppositie = <b>controleert</b>.",
+           en:"Coalition = <b>governs</b>. Opposition = <b>checks</b>."},
+        dist:{
+          nl:[
+            "Coalitiepartijen controleren de regering; oppositiepartijen vormen samen het kabinet.",
+            "Coalitiepartijen zijn lokaal; oppositiepartijen zijn landelijk.",
+            "Coalitie- en oppositiepartijen wisselen elke vergadering van rol."
+          ],
+          en:[
+            "Coalition parties check the government; opposition parties form the cabinet.",
+            "Coalition parties are local; opposition parties are national.",
+            "Coalition and opposition parties swap roles every meeting."
           ]
         }}
     ]
@@ -7120,8 +7848,10 @@ const ACHIEVEMENTS = [
     test:s => topicMasteryPct(s, "media") >= 100 },
   { id:"master_ana", ico:"🔍", ttl:{nl:"Analyse-meester",en:"Analysis master"}, sub:{nl:"Alles beheerst",en:"All mastered"},
     test:s => topicMasteryPct(s, "analyse") >= 100 },
-  { id:"exam_ready", ico:"🎓", ttl:{nl:"Examen-klaar",en:"Exam-ready"}, sub:{nl:"Alle 4 beheerst",en:"All 4 mastered"},
-    test:s => ["politiek","criminaliteit","media","analyse"].every(k => topicMasteryPct(s, k) >= 100) },
+  { id:"master_inv", ico:"🧭", ttl:{nl:"Invalshoeken-meester",en:"Viewpoints master"}, sub:{nl:"Alles beheerst",en:"All mastered"},
+    test:s => topicMasteryPct(s, "invalshoeken") >= 100 },
+  { id:"exam_ready", ico:"🎓", ttl:{nl:"Examen-klaar",en:"Exam-ready"}, sub:{nl:"Alle 5 beheerst",en:"All 5 mastered"},
+    test:s => ["politiek","criminaliteit","media","analyse","invalshoeken"].every(k => topicMasteryPct(s, k) >= 100) },
   // ── Timeline-specific badges ──
   { id:"tl_first", ico:"⏱", ttl:{nl:"Eerste tijdlijn",en:"First timeline"}, sub:{nl:"1 tijdlijn geoefend",en:"1 timeline practiced"},
     test:s => timelinesTouched(s) >= 1 },
@@ -7556,7 +8286,7 @@ function viewHome(){
 }
 
 function shortClass(key){
-  return {politiek:"pol", criminaliteit:"cri", media:"med", analyse:"ana", praktijk:"prk"}[key];
+  return {politiek:"pol", criminaliteit:"cri", media:"med", analyse:"ana", invalshoeken:"inv", praktijk:"prk"}[key];
 }
 
 function homeBadgesStrip(){
@@ -7580,7 +8310,7 @@ function viewStats(){
   const acc = total ? Math.round(SCORE.totals.correct / total * 100) : 0;
   const NL = state.lang === "nl";
 
-  const topics = ["politiek","criminaliteit","media","analyse"];
+  const topics = ["politiek","criminaliteit","media","analyse","invalshoeken"];
   const bars = topics.map(k => {
     const tc = topicCounts(SCORE, k);
     const pct = topicMasteryPct(SCORE, k);
@@ -7830,7 +8560,7 @@ function buildProgressReport(NL){
                 : `Overall accuracy: ${acc}% (${SCORE.totals.correct} right / ${SCORE.totals.wrong} wrong)`);
   lines.push("");
   lines.push(NL ? "— ONDERWERPEN —" : "— TOPICS —");
-  ["politiek","criminaliteit","media","analyse"].forEach(k => {
+  ["politiek","criminaliteit","media","analyse","invalshoeken"].forEach(k => {
     const g = topicGrade(SCORE, k);
     const tc = topicCounts(SCORE, k);
     const label = (DATA[k]||{label:{nl:k,en:k}}).label[NL?"nl":"en"];
@@ -8981,6 +9711,7 @@ function viewMode(){
 
       <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap;">
         <button class="btn btn-ghost" onclick="toggleStarred()">${state.starredOnly? L().starredOnly: L().allCards}</button>
+        <button class="btn btn-ghost" onclick="openWordlist()">📋 ${state.lang==="nl"?"Volledige woordenlijst":"Full word list"}</button>
       </div>
       <div class="mode-help">
         <div><span class="mh-num">I.</span> ${L().flashHelp}</div>
@@ -8998,6 +9729,57 @@ function setSessionLen(v){
   localStorage.setItem("mk_len", String(v));
   AudioEngine.click();
   render();
+}
+
+/* ── Full word list for the current topic ── */
+function openWordlist(){
+  AudioEngine.pop();
+  state.view = "wordlist";
+  render();
+}
+
+function viewWordlist(){
+  const t = DATA[state.topic];
+  if(!t) return "";
+  const NL = state.lang === "nl";
+  const items = t.terms.map((card, i) => {
+    const term = card.t[state.lang] || card.t.nl;
+    const def  = card.d[state.lang] || card.d.nl;
+    const mn   = card.m && (card.m[state.lang] || card.m.nl);
+    const mastered = SCORE.cards[state.topic + ":" + i];
+    const dot = mastered && mastered.mastered ? `<span class="wl-dot ok" title="${NL?'beheerst':'mastered'}"></span>` :
+                mastered && mastered.seen ?     `<span class="wl-dot mid" title="${NL?'gezien':'seen'}"></span>` :
+                                                `<span class="wl-dot" title="${NL?'nog niet':'not yet'}"></span>`;
+    return `
+      <div class="wl-row">
+        <div class="wl-hd">
+          <span class="wl-n">${i+1}.</span>
+          ${dot}
+          <span class="wl-term">${term}</span>
+        </div>
+        <div class="wl-def">${def}</div>
+        ${mn ? `<div class="wl-mn"><span class="wl-mn-tag">${NL?"ezelsbruggetje":"mnemonic"}</span> ${mn}</div>` : ""}
+      </div>
+    `;
+  }).join("");
+
+  const seen     = Object.keys(SCORE.cards).filter(k => k.startsWith(state.topic+":")).length;
+  const mastered = Object.keys(SCORE.cards).filter(k => k.startsWith(state.topic+":") && SCORE.cards[k].mastered).length;
+
+  return `
+    <div class="top-bar">
+      <button class="back" onclick="state.view='mode'; render();">← ${L().back}</button>
+      <div class="topic-title">${t.icon} ${t.label[state.lang]}</div>
+      <button class="back" onclick="window.print()" title="${NL?'Print of bewaar als PDF':'Print or save as PDF'}">🖨</button>
+    </div>
+    <div class="wl-page">
+      <div class="wl-intro">
+        <b>${t.terms.length} ${NL?"begrippen":"terms"}</b> ${NL?"in dit onderwerp":"in this topic"} · ${seen} ${NL?"gezien":"seen"} · ${mastered} ${NL?"beheerst":"mastered"}.
+        <div class="wl-help">${NL?"Een rustig overzicht — handig om door te bladeren of te printen.":"A quiet overview — useful for browsing or printing."}</div>
+      </div>
+      <div class="wl-list">${items}</div>
+    </div>
+  `;
 }
 
 function buildDeck(){
@@ -9868,6 +10650,7 @@ function render(){
   else if(state.view === "tijdlijnen") el.innerHTML = viewTijdlijnen();
   else if(state.view === "tlPractice") el.innerHTML = viewTlPractice();
   else if(state.view === "mode")  el.innerHTML = viewMode();
+  else if(state.view === "wordlist") el.innerHTML = viewWordlist();
   else if(state.view === "study") el.innerHTML = viewStudy();
   else if(state.view === "done")  el.innerHTML = viewDone();
 
@@ -9899,6 +10682,31 @@ document.addEventListener("keydown", e=>{
 setLang(state.lang);
 restoreAudioPrefs();
 render();
+
+/* ════════════════════════════════════════════
+   Silent visit ping — hits a free anonymous counter so
+   mom can peek at activity from the mum-only.html page.
+   Debounced to one ping per 30 min per browser.
+   ════════════════════════════════════════════ */
+(function visitPing(){
+  try{
+    const PING_KEY = "mk_last_ping_v1";
+    const NS = "maisie-study-2026"; // namespace on abacus.jasoncameron.dev
+    const now = Date.now();
+    const last = parseInt(localStorage.getItem(PING_KEY) || "0", 10);
+    if(now - last < 30 * 60 * 1000) return; // already counted recently
+    localStorage.setItem(PING_KEY, String(now));
+    const d = new Date();
+    const ymd = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+    const fire = (key) => {
+      const url = "https://abacus.jasoncameron.dev/hit/" + NS + "/" + encodeURIComponent(key);
+      // Use a sendBeacon-style fetch — fire-and-forget, doesn't block anything.
+      fetch(url, { mode: "cors", cache: "no-store", keepalive: true }).catch(()=>{});
+    };
+    fire("total");
+    fire("d-" + ymd);
+  }catch(e){ /* silent */ }
+})();
 
 /* ════════════════════════════════════════════
    If a stickers.png file exists alongside this
@@ -9963,6 +10771,39 @@ render();
     }
   `;
   document.head.appendChild(style);
+})();
+
+/* tiny hidden corner-dot — opens mum-only.html. shhh. */
+(function momDot(){
+  const a = document.createElement("a");
+  a.href = "mum-only.html";
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.setAttribute("aria-hidden", "true");
+  a.tabIndex = -1;
+  a.style.cssText = [
+    "position:fixed",
+    "right:5px",
+    "bottom:5px",
+    "width:14px",
+    "height:14px",
+    "display:flex",
+    "align-items:center",
+    "justify-content:center",
+    "font-family:'Pixelify Sans',monospace",
+    "font-size:14px",
+    "line-height:1",
+    "color:rgba(58,42,24,0.14)",
+    "text-decoration:none",
+    "z-index:9999",
+    "transition:color .25s",
+    "cursor:default"
+  ].join(";");
+  a.textContent = "·";
+  // a touch more visible on hover so mom can find it once she knows where to look
+  a.addEventListener("mouseenter", () => { a.style.color = "rgba(58,42,24,0.55)"; });
+  a.addEventListener("mouseleave", () => { a.style.color = "rgba(58,42,24,0.14)"; });
+  document.body.appendChild(a);
 })();
 </script>
 </body>
