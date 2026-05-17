@@ -10690,6 +10690,8 @@ render();
    ════════════════════════════════════════════ */
 (function visitPing(){
   try{
+    // This device tagged as mom — never counted.
+    if(localStorage.getItem("mk_is_mom") === "1") return;
     const PING_KEY = "mk_last_ping_v1";
     const NS = "maisie-study-2026"; // namespace on abacus.jasoncameron.dev
     const now = Date.now();
