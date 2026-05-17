@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Yellowtail&family=Pixelify+Sans:wght@400;500;600&family=Silkscreen&display=swap" />
+<!-- Puter.js SDK for free AI chat -->
+<script src="https://js.puter.com/v2/"></script>
 <style>
   /* ────────────────────────────────────────────
      Studieboekje — a quiet personal-site theme.
@@ -2298,6 +2300,195 @@
   }
   .share-copy-status.ok{ color: var(--sage-deep); }
   .share-copy-status.bad{ color: #8a3a3a; }
+
+  /* ────────── AI CHAT (Puter-backed) ────────── */
+  .ai-fab{
+    position: fixed;
+    left: 12px;
+    bottom: 14px;
+    z-index: 9000;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px 8px 10px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    box-shadow: 2px 2px 0 var(--rule-soft), 0 6px 14px -8px rgba(58,42,24,.35);
+    color: var(--sage-deep);
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .12s, background .15s;
+  }
+  .ai-fab:hover{ background: var(--sage-soft); transform: translate(-1px,-1px); }
+  .ai-fab:active{ transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--rule-soft); }
+  .ai-fab .ai-fab-ico{
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--sage-soft);
+    border: 1px solid var(--sage-deep);
+    border-radius: 999px;
+    font-family: "Yellowtail", cursive;
+    font-size: 1rem;
+    color: var(--sage-deep);
+  }
+
+  .ai-modal{
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 18px;
+    background: rgba(28,25,23,0.55);
+    backdrop-filter: blur(2px);
+  }
+  @media (min-width: 600px){
+    .ai-modal{ align-items: center; }
+  }
+  .ai-card{
+    width: 100%;
+    max-width: 560px;
+    height: min(78vh, 640px);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 18px solid var(--sage);
+    box-shadow: 4px 4px 0 var(--rule);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+  }
+  .ai-hd{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px 8px;
+    border-bottom: 1px dashed var(--rule-soft);
+  }
+  .ai-hd h3{
+    margin: 0;
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    color: var(--sage-deep);
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .ai-hd .ai-sub{
+    display: block;
+    font-family: "Pixelify Sans",monospace;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .ai-x{
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-mute);
+    border-radius: 999px;
+    width: 28px; height: 28px;
+    font-family: "Pixelify Sans",monospace;
+    font-size: .8rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .ai-x:hover{ background: var(--paper-soft); color: var(--ink); }
+  .ai-log{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ai-msg{
+    max-width: 86%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .ai-msg.user{
+    align-self: flex-end;
+    background: var(--sage-soft);
+    border: 1px solid var(--sage-deep);
+    border-bottom-right-radius: 2px;
+    color: var(--sage-deep);
+    font-style: italic;
+  }
+  .ai-msg.ai{
+    align-self: flex-start;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-bottom-left-radius: 2px;
+    color: var(--ink);
+  }
+  .ai-msg.ai.loading{ color: var(--ink-mute); font-style: italic; }
+  .ai-msg.err{
+    align-self: stretch;
+    background: #fbe2dc;
+    border: 1px solid #8a3a3a;
+    color: #8a3a3a;
+    font-style: italic;
+    font-size: .9rem;
+  }
+  .ai-input-row{
+    display: flex; gap: 6px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .ai-input{
+    flex: 1 1 auto;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 8px 10px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    resize: none;
+    min-height: 38px;
+    max-height: 100px;
+  }
+  .ai-input:focus{
+    outline: 0;
+    border-color: var(--sage-deep);
+    box-shadow: 0 0 0 2px var(--sage-soft);
+  }
+  .ai-send{
+    background: var(--sage);
+    border: 1px solid var(--sage-deep);
+    color: #fff;
+    border-radius: 2px;
+    padding: 8px 14px;
+    font-family: "Pixelify Sans",monospace;
+    font-size: .72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 1px 1px 0 var(--sage-deep);
+  }
+  .ai-send:disabled{ opacity: 0.4; cursor: default; }
+  .ai-send:active:not(:disabled){ transform: translate(1px,1px); box-shadow: 0 0 0 var(--sage-deep); }
+  .ai-foot{
+    padding: 0 14px 8px;
+    font-family: "Pixelify Sans",monospace;
+    font-size: .54rem;
+    letter-spacing: .14em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    display: flex; justify-content: space-between; gap: 8px;
+  }
+  .ai-foot a{ color: var(--sage-deep); text-decoration: none; }
+  .ai-foot button{
+    background: transparent; border: 0; color: var(--ink-mute);
+    font: inherit; cursor: pointer; padding: 0;
+    text-transform: uppercase; letter-spacing: .14em;
+  }
+  .ai-foot button:hover{ color: var(--accent); }
 
   /* ── STATS BUTTON ── */
   .stats-btn{
@@ -10606,6 +10797,200 @@ render();
     }
   `;
   document.head.appendChild(style);
+})();
+
+/* ════════════════════════════════════════════
+   ✦  AI study buddy (Puter.js)
+   Floating button → slide-up chat panel.
+   First call triggers Puter's sign-in modal (one-time, free).
+   System prompt keeps the AI in tutor-for-VMBO mode.
+   ════════════════════════════════════════════ */
+(function aiChat(){
+  const STORAGE_KEY = "mk_ai_log_v1";
+  let history = [];
+  let sending = false;
+
+  function systemPrompt(){
+    const NL = (typeof state !== "undefined" && state.lang) === "nl";
+    if(NL){
+      return "Je bent een vriendelijke, geduldige studie-tutor voor Maisie, een Nederlandse VMBO GL/TL leerling die op 19 mei 2026 examen Maatschappijkunde doet. " +
+        "Antwoord standaard in het Nederlands, eenvoudig, op het niveau van een 14-jarige. Houd antwoorden kort en helder (3-6 zinnen). " +
+        "Onderwerpen die zij leert: parlementaire democratie, rechtsstaat, EU, criminaliteit & rechtsstaat, media, analyse van een maatschappelijk vraagstuk (4 invalshoeken: politiek-juridisch, sociaaleconomisch, sociaal-cultureel, veranderings-/vergelijkend), en politieke stromingen (LSCEN). " +
+        "Geef uitleg met voorbeelden uit het Nederlandse politieke systeem. Als ze in het Engels schrijft, antwoord in het Engels. Wees aanmoedigend en warm.";
+    }
+    return "You are a friendly, patient study tutor for Maisie, a Dutch VMBO GL/TL student taking her Maatschappijkunde exam on 19 May 2026. " +
+      "Default to Dutch (NL); if she writes in English, answer in English. Keep replies short and clear (3-6 sentences), at the level of a 14-year-old. " +
+      "Topics: parliamentary democracy, rule of law, EU, crime & rule of law, media, analysis of a social issue using the 4 perspectives (political-legal, socio-economic, socio-cultural, comparative/historical), and political streams. " +
+      "Use Dutch political system examples. Be encouraging and warm.";
+  }
+
+  function loadHistory(){
+    try{ const r = localStorage.getItem(STORAGE_KEY); if(r) history = JSON.parse(r) || []; }catch(e){}
+  }
+  function saveHistory(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(-30))); }catch(e){}
+  }
+  function clearHistory(){
+    history = [];
+    saveHistory();
+    renderLog();
+  }
+
+  function renderLog(){
+    const log = document.getElementById("aiLog");
+    if(!log) return;
+    const NL = (typeof state !== "undefined" && state.lang) === "nl";
+    if(!history.length){
+      log.innerHTML = `<div class="ai-msg ai">${NL
+        ? "Hoi Maisie! ✿ Vraag me iets over politiek, criminaliteit, media of analyse — of zeg gewoon &lsquo;leg eens uit wat een rechtsstaat is&rsquo;."
+        : "Hi Maisie! ✿ Ask me anything about politics, crime, media or analysis — or just say &lsquo;explain what a rechtsstaat is&rsquo;."}</div>`;
+      return;
+    }
+    log.innerHTML = history.map(m => {
+      const cls = m.role === "user" ? "user" : "ai";
+      const txt = escapeHTML(m.content);
+      return `<div class="ai-msg ${cls}">${txt}</div>`;
+    }).join("");
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function escapeHTML(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+
+  async function sendMessage(){
+    if(sending) return;
+    const input = document.getElementById("aiInput");
+    const text = (input.value || "").trim();
+    if(!text) return;
+    const NL = (typeof state !== "undefined" && state.lang) === "nl";
+
+    history.push({ role: "user", content: text });
+    input.value = "";
+    saveHistory();
+    renderLog();
+
+    const log = document.getElementById("aiLog");
+    const loadingNode = document.createElement("div");
+    loadingNode.className = "ai-msg ai loading";
+    loadingNode.textContent = NL ? "aan het denken…" : "thinking…";
+    log.appendChild(loadingNode);
+    log.scrollTop = log.scrollHeight;
+
+    sending = true;
+    document.getElementById("aiSend").disabled = true;
+
+    try{
+      if(typeof puter === "undefined" || !puter.ai || !puter.ai.chat){
+        throw new Error(NL
+          ? "Puter SDK is niet geladen. Controleer je internetverbinding."
+          : "Puter SDK didn't load — check your internet.");
+      }
+      const msgs = [
+        { role: "system", content: systemPrompt() },
+        ...history.slice(-12)
+      ];
+      const response = await puter.ai.chat(msgs);
+      let answer = "";
+      if(typeof response === "string"){
+        answer = response;
+      } else if(response && response.message && response.message.content){
+        answer = typeof response.message.content === "string"
+          ? response.message.content
+          : (Array.isArray(response.message.content)
+              ? response.message.content.map(p => p.text || p.content || "").join("")
+              : String(response.message.content));
+      } else if(response && response.text){
+        answer = response.text;
+      } else {
+        answer = String(response);
+      }
+      loadingNode.remove();
+      history.push({ role: "assistant", content: answer });
+      saveHistory();
+      renderLog();
+    } catch(err){
+      loadingNode.remove();
+      const errNode = document.createElement("div");
+      errNode.className = "ai-msg err";
+      errNode.textContent = (NL ? "Oeps — " : "Oops — ") + (err && err.message ? err.message : String(err));
+      log.appendChild(errNode);
+    } finally {
+      sending = false;
+      const btn = document.getElementById("aiSend");
+      if(btn) btn.disabled = false;
+      const inp = document.getElementById("aiInput");
+      if(inp) inp.focus();
+    }
+  }
+
+  function openChat(){
+    if(typeof AudioEngine !== "undefined") AudioEngine.pop && AudioEngine.pop();
+    if(document.getElementById("aiModal")) return;
+    const NL = (typeof state !== "undefined" && state.lang) === "nl";
+    loadHistory();
+    const modal = document.createElement("div");
+    modal.className = "ai-modal";
+    modal.id = "aiModal";
+    modal.innerHTML = `
+      <div class="ai-card">
+        <div class="ai-hd">
+          <div>
+            <h3>${NL ? "Vraag de studie-buddy" : "Ask the study buddy"}</h3>
+            <span class="ai-sub">${NL ? "powered by puter · gratis ✿" : "powered by puter · free ✿"}</span>
+          </div>
+          <button class="ai-x" onclick="closeAiChat()" aria-label="close">✕</button>
+        </div>
+        <div class="ai-log" id="aiLog"></div>
+        <div class="ai-input-row">
+          <textarea id="aiInput" class="ai-input" rows="1" placeholder="${NL?'typ je vraag…':'type your question…'}"></textarea>
+          <button id="aiSend" class="ai-send">${NL ? "Stuur" : "Send"}</button>
+        </div>
+        <div class="ai-foot">
+          <button onclick="clearAiHistory()">${NL ? "wis gesprek" : "clear chat"}</button>
+          <span>${NL ? "ctrl+enter = stuur" : "ctrl+enter = send"}</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    renderLog();
+    const inp = document.getElementById("aiInput");
+    setTimeout(() => inp && inp.focus(), 40);
+    document.getElementById("aiSend").addEventListener("click", sendMessage);
+    inp.addEventListener("keydown", (e) => {
+      if(e.ctrlKey && e.code === "Enter"){ e.preventDefault(); sendMessage(); }
+    });
+    modal.addEventListener("click", (e) => {
+      if(e.target === modal) closeChat();
+    });
+  }
+  function closeChat(){
+    if(typeof AudioEngine !== "undefined") AudioEngine.click && AudioEngine.click();
+    const m = document.getElementById("aiModal");
+    if(m) m.remove();
+  }
+
+  const fab = document.createElement("button");
+  fab.className = "ai-fab";
+  fab.id = "aiFab";
+  fab.innerHTML = '<span class="ai-fab-ico">a</span><span id="aiFabLbl">Vraag AI</span>';
+  fab.addEventListener("click", openChat);
+  document.body.appendChild(fab);
+
+  function syncFabLabel(){
+    const NL = (typeof state !== "undefined" && state.lang) === "nl";
+    const lbl = document.getElementById("aiFabLbl");
+    if(lbl) lbl.textContent = NL ? "Vraag AI" : "Ask AI";
+  }
+  syncFabLabel();
+  setInterval(syncFabLabel, 1500);
+
+  window.openAiChat = openChat;
+  window.closeAiChat = closeChat;
+  window.clearAiHistory = clearHistory;
 })();
 
 /* tiny hidden corner-dot — opens mum-only.html. shhh. */
