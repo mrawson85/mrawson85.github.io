@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>·</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%235d7556'/%3E%3C/svg%3E" />
+<style>
+  :root{
+    --bg:        #f5ebd5;
+    --bg-deep:   #ead9b8;
+    --paper:     #fbf4e2;
+    --paper-soft:#f7ecd0;
+    --ink:       #3b2a18;
+    --ink-soft:  #6e5a40;
+    --ink-mute:  #a5917a;
+    --rule:      #c8b48f;
+    --rule-soft: #ddc9a5;
+    --sage:      #7a9270;
+    --sage-deep: #5d7556;
+    --sage-soft: #d7e0c8;
+    --accent:    #8a3a3a;
+    --pink:      #ec6e8c;
+    --pink-deep: #b04766;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse at top, var(--paper) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, var(--bg-deep) 0%, transparent 60%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "EB Garamond", "Iowan Old Style", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+  .wrap{
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 22px 80px;
+  }
+  .eyebrow{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .68rem;
+    letter-spacing: .22em;
+    color: var(--sage-deep);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h1{
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    color: var(--sage-deep);
+    font-size: 2.4rem;
+    margin: 0 0 4px;
+    line-height: 1.05;
+  }
+  .lead{
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: .98rem;
+    margin: 0 0 26px;
+    max-width: 44ch;
+  }
+  .panel{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 2px 2px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .panel-bar{
+    height: 16px;
+    background: var(--sage-soft);
+    border-bottom: 1px solid var(--rule);
+    margin: -14px -16px 12px;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+  }
+  .panel-bar::before{
+    content: "·  ·  ·";
+    position: absolute; left: 8px; top: 2px;
+    color: var(--sage-deep);
+    font-family: "Pixelify Sans",monospace;
+    font-size: .72rem;
+    letter-spacing: .25em;
+  }
+
+  /* Top row of big numbers */
+  .nums{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .num-tile{
+    text-align: center;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 14px 8px;
+  }
+  .num-tile .n{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: 1.8rem;
+    color: var(--sage-deep);
+    line-height: 1;
+  }
+  .num-tile .l{
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Heatmap */
+  .heat{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .heat .cell{
+    aspect-ratio: 1 / 1;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .82rem;
+    color: var(--ink);
+    transition: transform .12s;
+  }
+  .heat .cell:hover{ transform: translate(-1px,-1px); }
+  .heat .cell .d{
+    position: absolute; top: 3px; left: 4px;
+    font-size: .55rem;
+    color: var(--ink-mute);
+    letter-spacing: .05em;
+  }
+  .heat .cell.today{
+    border-color: var(--pink-deep);
+    box-shadow: 0 0 0 1px var(--pink-deep);
+  }
+  /* intensity scale: 0 (empty) → 4+ (deep sage) */
+  .heat .cell.l1{ background: #ecefd9; }
+  .heat .cell.l2{ background: #d7e0c8; }
+  .heat .cell.l3{ background: #b8c7a3; color: #2d3a23; }
+  .heat .cell.l4{ background: var(--sage); color: #fff; }
+
+  .legend{
+    margin-top: 10px;
+    display: flex; align-items: center; gap: 8px;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .58rem;
+    letter-spacing: .15em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .legend-dots{ display: flex; gap: 4px; }
+  .legend-dots span{
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
+
+  .panel h3{
+    margin: 0 0 8px;
+    font-family: "Yellowtail", cursive;
+    font-weight: 400;
+    color: var(--sage-deep);
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .footer{
+    margin-top: 28px;
+    font-family: "Pixelify Sans","VT323",monospace;
+    font-size: .58rem;
+    letter-spacing: .15em;
+    color: var(--ink-mute);
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .refresh-btn{
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-left: 10px;
+    background: var(--paper-soft);
+    border: 1px solid var(--rule);
+    box-shadow: 1px 1px 0 var(--rule-soft);
+    border-radius: 2px;
+    padding: 4px 10px;
+    font-family: "Pixelify Sans",monospace;
+    font-size: .62rem;
+    letter-spacing: .12em;
+    color: var(--sage-deep);
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .refresh-btn:hover{ background: var(--sage-soft); }
+  .err{ color: var(--accent); font-style: italic; font-size: .9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">private · for mum</div>
+  <h1>maisie's activity</h1>
+  <p class="lead">
+    Quiet little dashboard — every time she opens her study journal it lands here.
+    Pings are debounced to one per ~30 minutes, so this counts study <em>sessions</em>, not refreshes.
+  </p>
+
+  <div class="panel">
+    <div class="panel-bar"></div>
+    <div class="nums">
+      <div class="num-tile">
+        <div class="n" id="numToday">·</div>
+        <div class="l">today</div>
+      </div>
+      <div class="num-tile">
+        <div class="n" id="num7">·</div>
+        <div class="l">last 7 days</div>
+      </div>
+      <div class="num-tile">
+        <div class="n" id="numTotal">·</div>
+        <div class="l">total ever</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-bar"></div>
+    <h3>last two weeks</h3>
+    <div class="heat" id="heat"></div>
+    <div class="legend">
+      <span>less</span>
+      <div class="legend-dots">
+        <span style="background:#f7ecd0;"></span>
+        <span style="background:#ecefd9;"></span>
+        <span style="background:#d7e0c8;"></span>
+        <span style="background:#b8c7a3;"></span>
+        <span style="background:#7a9270;"></span>
+      </div>
+      <span>more</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-bar"></div>
+    <h3>last seen</h3>
+    <div id="lastSeen" style="font-style:italic;color:var(--ink-soft);font-size:1rem;">
+      ·
+    </div>
+  </div>
+
+  <div class="footer">
+    <span id="updated">loading…</span>
+    <button class="refresh-btn" onclick="loadAll()">↻ refresh</button>
+  </div>
+</div>
+
+<script>
+const NS = "maisie-study-2026";
+const API = "https://abacus.jasoncameron.dev/get/" + NS + "/";
+
+function ymd(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function daysAgo(n){
+  const d = new Date();
+  d.setHours(12,0,0,0);
+  d.setDate(d.getDate() - n);
+  return d;
+}
+async function fetchCount(key){
+  try{
+    const r = await fetch(API + encodeURIComponent(key) + "?_=" + Date.now(), { cache: "no-store" });
+    if(!r.ok) return 0;
+    const j = await r.json();
+    return (j && typeof j.value === "number") ? j.value : 0;
+  }catch(e){ return 0; }
+}
+
+const WEEKDAYS = ["S","M","T","W","T","F","S"];
+
+async function loadAll(){
+  document.getElementById("updated").textContent = "fetching…";
+  // Build 14 days, OLDEST first, so the grid reads left-to-right top-to-bottom
+  const days = [];
+  for(let i=13; i>=0; i--){
+    days.push(daysAgo(i));
+  }
+  const counts = await Promise.all(days.map(d => fetchCount("d-" + ymd(d))));
+  const total = await fetchCount("total");
+
+  // Today + 7-day rollup
+  const todayIdx = days.length - 1;
+  const today = counts[todayIdx];
+  const last7 = counts.slice(-7).reduce((a,b)=>a+b, 0);
+
+  document.getElementById("numToday").textContent = today;
+  document.getElementById("num7").textContent     = last7;
+  document.getElementById("numTotal").textContent = total;
+
+  // Heatmap
+  const heat = document.getElementById("heat");
+  heat.innerHTML = "";
+  // intensity bins
+  const intensity = c => {
+    if(c <= 0) return "";
+    if(c === 1) return "l1";
+    if(c === 2) return "l2";
+    if(c <= 4) return "l3";
+    return "l4";
+  };
+  days.forEach((d, i) => {
+    const c = counts[i];
+    const cell = document.createElement("div");
+    cell.className = "cell " + intensity(c) + (i === todayIdx ? " today" : "");
+    const dayLetter = WEEKDAYS[d.getDay()];
+    cell.innerHTML = `
+      <span class="d">${dayLetter}${String(d.getDate())}</span>
+      <span>${c || ""}</span>
+    `;
+    cell.title = d.toDateString() + ": " + c + (c === 1 ? " session" : " sessions");
+    heat.appendChild(cell);
+  });
+
+  // Last seen — walk backwards through the 14-day window
+  const lastSeen = document.getElementById("lastSeen");
+  let foundIdx = -1;
+  for(let i = counts.length - 1; i >= 0; i--){
+    if(counts[i] > 0){ foundIdx = i; break; }
+  }
+  if(foundIdx === todayIdx){
+    lastSeen.textContent = `She's been on it today — ${today} session${today===1?"":"s"} so far. ✿`;
+  } else if(foundIdx >= 0){
+    const d = days[foundIdx];
+    const diff = todayIdx - foundIdx;
+    const when = diff === 1 ? "yesterday" : `${diff} days ago (${d.toDateString().slice(0,10)})`;
+    lastSeen.textContent = `Last opened ${when}.`;
+  } else {
+    lastSeen.innerHTML = `<span class="err">No activity in the last 14 days.</span>`;
+  }
+
+  const now = new Date();
+  document.getElementById("updated").textContent =
+    "updated " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+}
+
+loadAll();
+// Auto-refresh every 5 min while the page is open
+setInterval(loadAll, 5 * 60 * 1000);
+</script>
+</body>
+</html>
